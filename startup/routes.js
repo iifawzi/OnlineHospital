@@ -10,7 +10,7 @@ module.exports = (app) => {
 
   // Routers:
   app.use("/api/", mainRouter);
-  // Handeling errors:
+  // Error handling
   app.use((err, req, res, next) => {
     handleError(err, res);
   });
