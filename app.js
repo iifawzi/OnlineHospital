@@ -3,7 +3,7 @@ const http = require("http");
 const app = express();
 const port = process.env.PORT || 5000;
 
-require("./startup/db")(); // indlude the db connection
+require("./startup/models"); // indlude the db connection and models
 require("./startup/routes")(app); // include routes
 
 const server = http.createServer(app);
