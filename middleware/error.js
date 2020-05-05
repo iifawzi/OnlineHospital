@@ -10,10 +10,9 @@ class ErrorHandler extends Error {
 //   Function to handle the errors and send the response:
 
 const handleError = (err, res) => {
-  const { statusCode, message } = err;
+  const { statusCode = 500, message } = err;
   res.status(statusCode).json({
     status: false,
-    statusCode,
     message,
   });
 };
