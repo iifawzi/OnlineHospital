@@ -45,6 +45,19 @@ role: {
 })
 
 // Methods: 
+//     --- CRUD -- 
+        // Creating new user
+const createUser = async function(body){
+    const user = await users.create({...body});
+    return user;
+    }
+        // DELETE USER BY USERNAME
+        const deletedUser = async function(username){
+            const user = await users.destroy({where:{username}});
+            return user;
+            }
+//     --- END CRUD -- 
+
 
 // Check if user exists: 
 const checkIfUserExist = async function(username){
@@ -57,12 +70,6 @@ const checkIfPhoneExist = async function(phone_number){
 const user = await users.findOne({where:{phone_number}});
 return user;
 };
-
-// Creating new user
-const createUser = async function(body){
-const user = await users.create({...body});
-return user;
-}
 
 // Hashing the password
 const hashPassword = async function(password){
@@ -102,4 +109,5 @@ module.exports = {
     verifyPassword,
     genToken,
     signinCheck,
+    deletedUser,
 };

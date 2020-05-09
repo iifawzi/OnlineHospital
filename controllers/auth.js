@@ -42,10 +42,11 @@ const signin = async (req,res,next)=>{
             throw new ErrorHandler(401,"User with this username is not found");
         }
         const isPassCorrect = await verifyPassword(password,user.password);
-        if (isPassCorrect){
-           const token =  genToken(user.username,user.role);
-           return respond(true,200,{token,username : user.username,userRole: user.role},res);
+        if (!isPassCorrect){
+            throw new ErrorHandler(401,"Password is incorrect");
         }
+        const token =  genToken(user.username,user.role);
+        return respond(true,200,{token,username : user.username,userRole: user.role},res);
     }catch(err){
         handleError(err,res);
     }
