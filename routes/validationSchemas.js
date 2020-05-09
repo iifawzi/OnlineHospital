@@ -5,10 +5,16 @@ const addUser = Joi.object({
     first_name: Joi.string().required(),
     last_name: Joi.string().required(),
     province: Joi.string().required(),
+    phone_number: Joi.number().required(),
   });
+const signin = Joi.object({
+  username: Joi.string().required(),
+  password: Joi.string().required(),
+})
 
 const schemas = {
   addUser,
+  signin,
 }
 
 module.exports = schemas;

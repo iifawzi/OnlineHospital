@@ -1,4 +1,4 @@
-const {checkIfUserExist,checkIfPhoneExist,createUser,hashPassword,genToken} = require("../models/users");
+const {checkIfUserExist,checkIfPhoneExist,createUser,hashPassword,genToken,signinCheck,verifyPassword} = require("../models/users");
 const {handleError,ErrorHandler} = require("../middleware/error");
 const respond = require("../middleware/respond");
 
@@ -34,7 +34,25 @@ const signup = async (req, res, next) => {
     }
 };
 
+const signin = async (req,res,next)=>{
+    try {
+        const { username, password  } = req.body;
+        const user = await signinCheck(username,password);
+        if (!user){
+            throw new ErrorHandler(401,"User with this username is not found");
+        }
+        const isPassCorrect = await verifyPassword(password,user.password);
+        if (isPassCorrect){
+           const token =  genToken(user.username,user.role);
+           return respond(true,200,{token,username : user.username,userRole: user.role},res);
+        }
+    }catch(err){
+        handleError(err,res);
+    }
+
+}
 
 module.exports = {
   signup,
+  signin
 };

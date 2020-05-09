@@ -46,16 +46,19 @@ role: {
 
 // Methods: 
 
+// Check if user exists: 
 const checkIfUserExist = async function(username){
         const user = await users.findOne({where:{username}});
         return user;
 };
 
+// Check if phone number exits:
 const checkIfPhoneExist = async function(phone_number){
 const user = await users.findOne({where:{phone_number}});
 return user;
 };
 
+// Creating new user
 const createUser = async function(body){
 const user = await users.create({...body});
 return user;
@@ -66,20 +69,29 @@ const hashPassword = async function(password){
        const hashed = await bcrypt.hash(password, config.get("bcrypt.saltRounds"));
        return hashed;
 }
+
 // Verify the password 
-const verifyPassword = async function(dbPass,password){
-    return bcrypt.compare(password,dbPass);
+const verifyPassword = async function(password,dbPass){
+    return  bcrypt.compare(password,dbPass);
 }
+
 // Generate token: 
 const genToken = function(username,userRole){
     const encData = {
         username,
         userRole,
-    }; // data to be encrypted in the JSONWEBTOKEN.
+    };
+
+     // data to be encrypted in the JSONWEBTOKEN.
     return jwt.sign(encData,config.get("jwt.secret"),{
     expiresIn: config.get("jwt.expiresIn")
     });
 }
+
+const signinCheck = function(username,password){
+  const user =  users.findOne({where:{username}});
+return user;
+};
 
 module.exports = {
     users,
@@ -89,4 +101,5 @@ module.exports = {
     hashPassword,
     verifyPassword,
     genToken,
+    signinCheck,
 };
