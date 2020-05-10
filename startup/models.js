@@ -1,11 +1,11 @@
 require("../utils/db");
 const { users } = require("../models/users");
-const doctors = require("../models/doctors");
+const slots = require("../models/slots");
 const appointments = require("../models/appointments");
 const prescription = require("../models/prescription");
 
 // Refs:
-doctors.belongsTo(users, {
+slots.belongsTo(users, {
   foreignKey: "doctor_id",
   onDelete: "CASCADE",
   onUpdate: "NO ACTION",

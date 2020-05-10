@@ -3,7 +3,7 @@ const db = require("../utils/db");
 
 
 
-const doctors = db.define("doctors",{
+const slots = db.define("slots",{
     doctor_id:{
         type:Sequelize.INTEGER,
         unique : true,
@@ -17,11 +17,11 @@ const doctors = db.define("doctors",{
         type:Sequelize.STRING,
         allowNull: false,
     },
-    days_of_week:{
+    day:{
         type:Sequelize.STRING,
         allowNull: false,
     },
-    time_slot_per_client:{
+    slot_time:{
         type:Sequelize.STRING,
         allowNull: false,
     },
@@ -29,4 +29,4 @@ const doctors = db.define("doctors",{
     freezeTableName: true,
     timestamps: false
 })
-module.exports = doctors;
+module.exports = slots;
