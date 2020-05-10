@@ -28,6 +28,10 @@ const appointments = db.define(
       type: Sequelize.STRING,
       allowNull: false,
     },
+    status: {
+      type: Sequelize.DataTypes.ENUM("current", "booked", "finished"),
+      allowNull: false,
+    },
   },
   {
     freezeTableName: true,
