@@ -93,5 +93,41 @@ describe("/api/auth",async()=>{
             .expect(200);
             deletedUser("fawzi");
         })
+    });
+    describe("Firebase Functions",async()=>{
+        it("Should respond with 400 if the username is missed or the new token is missed",async()=>{
+            let res = await request(server)
+            .patch("/api/auth/updateFirebaseToken")
+            .send({"new_token":"haka"})
+            .expect(400);
+        });
+        it("should respond with 401 if user not found",async()=>{
+            let res = await request(server)
+            .patch("/api/auth/updateFirebaseToken")
+            .send({"username":"hala","new_token":"djkdjkdjk"})
+            .expect(401);
+        });
+        it("should respond with 200 if we updated the token_id successfully",async()=>{
+            let res = await request(server)
+            .post("/api/auth/signup")
+            .send({
+                "phone_number": "01590243399",
+                "username": "fawzi",
+                "password":"test01090243",
+                "first_name": "fawzi",
+                "last_name":"ahmed",
+                "birth_date": "1999-03-20",
+                "weight": 100,
+                "height": 180,
+                "bmi": 28,
+                "fb_token_id": "test",
+                "gender": "male",
+            }).expect(201);
+            res = await request(server)
+            .patch("/api/auth/updateFirebaseToken")
+            .send({"username":"fawzi","new_token":"123456789elhamdullah"})
+            .expect(200);
+            deletedUser("fawzi");
+        });
     })
 })

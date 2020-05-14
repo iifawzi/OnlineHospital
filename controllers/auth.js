@@ -1,8 +1,8 @@
-const {checkIfUserExist,checkIfPhoneExist,createUser,hashPassword,genToken,signinCheck,verifyPassword} = require("../models/users");
+const {checkIfUserExist,checkIfPhoneExist,createUser,hashPassword,genToken,verifyPassword,updateFirebaseToken} = require("../models/users");
 const {handleError,ErrorHandler} = require("../middleware/error");
 const respond = require("../middleware/respond");
 
-// Middleware for `signup` endpoint
+// Middleware for `users signup` endpoint
 
 const signup = async (req, res, next) => {
     try {
@@ -39,10 +39,12 @@ const signup = async (req, res, next) => {
     }
 };
 
+// Middleware for `users signin` endpoint
+
 const signin = async (req,res,next)=>{
     try {
         const { username, password  } = req.body;
-        const user = await signinCheck(username,password);
+        const user = await checkIfUserExist(username);
         if (!user){
             throw new ErrorHandler(401,"User with this username is not found");
         }
@@ -58,7 +60,31 @@ const signin = async (req,res,next)=>{
 
 }
 
+
+// Middleware for `updating the fb_token_id (firebase token id)` endpoint
+
+const updateFbToken = async (req,res,next)=>{
+    try {
+        const {username,new_token} = req.body;
+        const user = await checkIfUserExist(username);
+        if (!user) {
+            console.log("error");
+            throw new ErrorHandler(401,"User with this username is not found")
+        }
+        const updateUser = await updateFirebaseToken(user,username,new_token);
+        if (updateUser){
+            return respond(true,200,{username,"updated_token":new_token},res);
+        }
+    }catch (err){
+        console.log("im here");
+        console.log(err);
+        handleError(err,res);
+    }
+   
+}
+
 module.exports = {
   signup,
-  signin
+  signin,
+  updateFbToken,
 };

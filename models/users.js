@@ -117,16 +117,20 @@ const genToken = function (username, userRole) {
     userRole,
   };
 
-// data to be encrypted in the JSONWEBTOKEN.
+            // data to be encrypted in the JSONWEBTOKEN.
   return jwt.sign(encData, config.get("jwt.secret"), {
     expiresIn: config.get("jwt.expiresIn"),
   });
 };
 
-const signinCheck = function (username, password) {
-  const user = users.findOne({ where: { username } });
-  return user;
-};
+// FIREBASE RELATED FUNCTIONS 
+  // UPDATE USER'S TOKEN ID
+
+  const updateFirebaseToken = function (userObject,username,new_token){
+    userObject.fb_token_id = new_token;
+    userObject.save();
+    return userObject;
+  }
 
 module.exports = {
   users,
@@ -136,6 +140,6 @@ module.exports = {
   hashPassword,
   verifyPassword,
   genToken,
-  signinCheck,
   deletedUser,
+  updateFirebaseToken,
 };

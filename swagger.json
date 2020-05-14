@@ -46,8 +46,14 @@
               "$ref": "#/definitions/signupRes"
             }
           },
+          "403": {
+            "description": "403 (Username or phonenumber already exist)",
+            "schema": {
+              "$ref": "#/definitions/Error"
+            }
+          },
           "400": {
-            "description": "400 (ERROR), ",
+            "description": "400 (Error with the inputs)",
             "schema": {
               "$ref": "#/definitions/Error"
             }
@@ -73,7 +79,7 @@
             "name": "body",
             "required": true,
             "schema": {
-              "$ref": "#/definitions/signinResponse"
+              "$ref": "#/definitions/signin"
             }
           }
         ],
@@ -87,7 +93,57 @@
           "401": {
             "description": "401 (Username or password is incorrect)",
             "schema": {
-              "$ref": "#/definitions/signinError"
+              "$ref": "#/definitions/Error"
+            }
+          },
+          "400": {
+            "description": "400 (Error with the inputs)",
+            "schema": {
+              "$ref": "#/definitions/Error"
+            }
+          }
+        }
+      }
+    },
+    "/updateFirebaseToken": {
+      "patch": {
+        "tags": [
+          "Auth"
+        ],
+        "summary": "To update the token id for a specific user",
+        "consumes": [
+          "application/json"
+        ],
+        "produces": [
+          "application/json"
+        ],
+        "parameters": [
+          {
+            "in": "body",
+            "name": "body",
+            "required": true,
+            "schema": {
+              "$ref": "#/definitions/updateToken"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "200 (successful)",
+            "schema": {
+              "$ref": "#/definitions/updateTokenResponse"
+            }
+          },
+          "401": {
+            "description": "401 (Username or password is incorrect)",
+            "schema": {
+              "$ref": "#/definitions/Error"
+            }
+          },
+          "400": {
+            "description": "400 (Error with the inputs)",
+            "schema": {
+              "$ref": "#/definitions/Error"
             }
           }
         }
@@ -125,6 +181,36 @@
                 "gender": "male"
       }
     },
+    "signin": {
+      "type": "object",
+      "properties": {
+        "username": {
+          "type": "string"
+        },
+        "password": {
+          "type": "string"
+        }
+      },
+      "example": {
+                "username": "aa3adiiiia12",
+                "password":"hala"
+      }
+    },
+    "updateToken": {
+      "type": "object",
+      "properties": {
+        "username": {
+          "type": "string"
+        },
+        "new_token": {
+          "type": "string"
+        }
+      },
+      "example": {
+                "username": "fawzi",
+                "new_token":"5895787854hjhjdjhdjhd"
+      }
+    },
     "signupRes": {
       "type": "object",
       "properties": {
@@ -149,6 +235,9 @@
     "signinResponse": {
       "type": "object",
       "properties": {
+        "status": {
+          "type": "boolean"
+        },
         "username": {
           "type": "string"
         },
@@ -165,19 +254,25 @@
         }
       }
     },
-    "signinError": {
+    "updateTokenResponse": {
       "type": "object",
       "properties": {
         "status": {
           "type": "boolean"
         },
-        "message": {
+        "username": {
+          "type": "string"
+        },
+        "updated_token": {
           "type": "string"
         }
       },
       "example": {
-        "status": false,
-        "message": "User with this username is not found"
+        "status": true,
+        "data": {
+          "username": "fawzi",
+          "updated_token": "5895787854hjhjdjhdjhd"
+        }
       }
     },
     "Error": {

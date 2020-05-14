@@ -15,11 +15,16 @@ const addUser = Joi.object({
 const signin = Joi.object({
   username: Joi.string().required(),
   password: Joi.string().required(),
+});
+const updateFirebaseToken = Joi.object({
+  username:Joi.string().required(),
+  new_token: Joi.string().required(),
 })
 
 const schemas = {
   addUser,
   signin,
+  updateFirebaseToken,
 }
 
 module.exports = schemas;
