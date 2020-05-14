@@ -10,10 +10,10 @@ const signup = async (req, res, next) => {
         const userCheck = await checkIfUserExist(username);
         const phoneCheck = await checkIfPhoneExist(phone_number);
         if (userCheck){
-            throw new ErrorHandler(400,"Username is already associated with an account");
+            throw new ErrorHandler(403,"Username is already associated with an account");
         }
         if (phoneCheck){
-            throw new ErrorHandler(400,"Phone Number is already associated with an account");
+            throw new ErrorHandler(403,"Phone Number is already associated with an account");
         }
         const hashedPassword = await hashPassword(password);
         const userData = {
