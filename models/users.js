@@ -7,11 +7,20 @@ const config = require("config");
 const users = db.define(
   "users",
   {
+    user_id: {
+      type: Sequelize.INTEGER,
+      autoIncrement: true,
+      primaryKey: true
+    },
     phone_number: {
       type: Sequelize.STRING(255),
       allowNull: false,
     },
     username: {
+      type: Sequelize.STRING(255),
+      allowNull: false,
+    },
+    password: {
       type: Sequelize.STRING(255),
       allowNull: false,
     },
@@ -23,11 +32,23 @@ const users = db.define(
       type: Sequelize.STRING(255),
       allowNull: false,
     },
-    password: {
-      type: Sequelize.STRING(255),
+    birth_date: {
+      type: Sequelize.DATEONLY,
       allowNull: false,
     },
-    province: {
+    weight: {
+      type: Sequelize.INTEGER,
+      allowNull: false,
+    },
+    height: {
+      type: Sequelize.INTEGER,
+      allowNull: false,
+    },
+    bmi: {
+      type: Sequelize.INTEGER,
+      allowNull: false,
+    },
+    gender: {
       type: Sequelize.STRING(255),
       allowNull: false,
     },
@@ -36,8 +57,12 @@ const users = db.define(
       allowNull: false,
       defaultValue: 0,
     },
+    fb_token_id: {
+      type: Sequelize.STRING(255),
+      allowNull: false,
+    },
     role: {
-      type: Sequelize.DataTypes.ENUM("user", "admin", "doctor"),
+      type: Sequelize.DataTypes.ENUM("user", "admin"),
       allowNull: false,
       defaultValue: "user",
     },

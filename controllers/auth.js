@@ -6,7 +6,7 @@ const respond = require("../middleware/respond");
 
 const signup = async (req, res, next) => {
     try {
-        const {phone_number, username, password, province,first_name,last_name} = req.body;
+        const {phone_number, username, password,first_name,last_name,birth_date,weight,height,bmi,gender,fb_token_id} = req.body;
         const userCheck = await checkIfUserExist(username);
         const phoneCheck = await checkIfPhoneExist(phone_number);
         if (userCheck){
@@ -20,9 +20,14 @@ const signup = async (req, res, next) => {
             username,
             phone_number,
             password:hashedPassword,
-            province,
             first_name,
             last_name,
+            birth_date,
+            weight,
+            height,
+            bmi,
+            gender,
+            fb_token_id,
         };
         const user = await createUser(userData);
         const token = genToken(username,"user"); 
@@ -46,7 +51,7 @@ const signin = async (req,res,next)=>{
             throw new ErrorHandler(401,"Password is incorrect");
         }
         const token =  genToken(user.username,user.role);
-        return respond(true,200,{token,username : user.username,userRole: user.role},res);
+        return respond(true,200,{token,username : user.username,is_activited: user.is_activited},res);
     }catch(err){
         handleError(err,res);
     }
