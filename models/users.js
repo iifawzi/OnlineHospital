@@ -16,14 +16,6 @@ const users = db.define(
       type: Sequelize.STRING(255),
       allowNull: false,
     },
-    username: {
-      type: Sequelize.STRING(255),
-      allowNull: false,
-    },
-    password: {
-      type: Sequelize.STRING(255),
-      allowNull: false,
-    },
     first_name: {
       type: Sequelize.STRING(255),
       allowNull: false,
@@ -52,11 +44,6 @@ const users = db.define(
       type: Sequelize.STRING(255),
       allowNull: false,
     },
-    is_activited: {
-      type: Sequelize.BOOLEAN,
-      allowNull: false,
-      defaultValue: 0,
-    },
     fb_token_id: {
       type: Sequelize.STRING(255),
       allowNull: false,
@@ -80,18 +67,12 @@ const createUser = async function (body) {
   const user = await users.create({ ...body });
   return user;
 };
-// DELETE USER BY USERNAME
-const deletedUser = async function (username) {
-  const user = await users.destroy({ where: { username } });
+// DELETE USER BY PHONE_NUMBER
+const deletedUser = async function (phone_number) {
+  const user = await users.destroy({ where: { phone_number } });
   return user;
 };
 //     --- END CRUD --
-
-// Check if user exists:
-const checkIfUserExist = async function (username) {
-  const user = await users.findOne({ where: { username } });
-  return user;
-};
 
 // Check if phone number exits:
 const checkIfPhoneExist = async function (phone_number) {
@@ -99,21 +80,10 @@ const checkIfPhoneExist = async function (phone_number) {
   return user;
 };
 
-// Hashing the password
-const hashPassword = async function (password) {
-  const hashed = await bcrypt.hash(password, config.get("bcrypt.saltRounds"));
-  return hashed;
-};
-
-// Verify the password
-const verifyPassword = async function (password, dbPass) {
-  return bcrypt.compare(password, dbPass);
-};
-
 // Generate token:
-const genToken = function (username, userRole) {
+const genToken = function (phone_number, userRole) {
   const encData = {
-    username,
+    phone_number,
     userRole,
   };
 
@@ -125,8 +95,7 @@ const genToken = function (username, userRole) {
 
 // FIREBASE RELATED FUNCTIONS 
   // UPDATE USER'S TOKEN ID
-
-  const updateFirebaseToken = function (userObject,username,new_token){
+  const updateFirebaseToken = function (userObject,new_token){
     userObject.fb_token_id = new_token;
     userObject.save();
     return userObject;
@@ -134,11 +103,8 @@ const genToken = function (username, userRole) {
 
 module.exports = {
   users,
-  checkIfUserExist,
   checkIfPhoneExist,
   createUser,
-  hashPassword,
-  verifyPassword,
   genToken,
   deletedUser,
   updateFirebaseToken,

@@ -26,8 +26,6 @@ describe("/api/auth",async()=>{
             .post("/api/auth/signup")
             .send({
                 "phone_number": "01590243399",
-                "username": "aa3adiiiia12",
-                "password":"hala",
                 "first_name": "fawzi",
                 "last_name":"ahmed",
                 "birth_date": "1999-03-20",
@@ -39,13 +37,11 @@ describe("/api/auth",async()=>{
             })
             .expect(201);
         });
-        it("should respond with 403 if user or phone_number is already registered",async()=>{
+        it("should respond with 403 if phone_number is already registered",async()=>{
             let res = await request(server)
             .post("/api/auth/signup")
             .send({
                 "phone_number": "01590243399",
-                "username": "aa3adiiiia12",
-                "password":"hala",
                 "first_name": "fawzi",
                 "last_name":"ahmed",
                 "birth_date": "1999-03-20",
@@ -56,28 +52,30 @@ describe("/api/auth",async()=>{
                 "gender": "male",
             })
             .expect(403);
-            deletedUser("aa3adiiiia12");
+            deletedUser("01590243399");
         });
     });
+
+
+
+
     describe("/signin",async()=>{
-        it("should respond with 400 if any inputs are missing",async()=>{
+        it("should respond with 400 if input are missing",async()=>{
             let res = await request(server)
             .post("/api/auth/signin")
             .expect(400);
         });
-        it("should respond with 401 username is incorrect",async()=>{
+        it("should respond with 401 when phone number notfound",async()=>{
            let res = await request(server)
             .post("/api/auth/signin")
-            .send({"username":"fawzi","password":"test"})
+            .send({"phone_number":"01590243311"})
             .expect(401);
         });
         it("should respond with 200 if user loged in successfully",async()=>{
             let res = await request(server)
             .post("/api/auth/signup")
             .send({
-                "phone_number": "01590243399",
-                "username": "fawzi",
-                "password":"test01090243",
+                "phone_number": "01590243311",
                 "first_name": "fawzi",
                 "last_name":"ahmed",
                 "birth_date": "1999-03-20",
@@ -89,22 +87,28 @@ describe("/api/auth",async()=>{
             }).expect(201);
             res = await request(server)
             .post("/api/auth/signin")
-            .send({"username":"fawzi","password":"test01090243"})
+            .send({"phone_number":"01590243311"})
             .expect(200);
-            deletedUser("fawzi");
-        })
+            deletedUser("01590243311");
+
+        });
     });
+
+
+
+
+
     describe("Firebase Functions",async()=>{
-        it("Should respond with 400 if the username is missed or the new token is missed",async()=>{
+        it("Should respond with 400 if one of inpus is missed",async()=>{
             let res = await request(server)
             .patch("/api/auth/updateFirebaseToken")
             .send({"new_token":"haka"})
             .expect(400);
         });
-        it("should respond with 401 if user not found",async()=>{
+        it("should respond with 401 if phone number not found",async()=>{
             let res = await request(server)
             .patch("/api/auth/updateFirebaseToken")
-            .send({"username":"hala","new_token":"djkdjkdjk"})
+            .send({"phone_number":"01090243795","new_token":"djkdjkdjk"})
             .expect(401);
         });
         it("should respond with 200 if we updated the token_id successfully",async()=>{
@@ -112,8 +116,6 @@ describe("/api/auth",async()=>{
             .post("/api/auth/signup")
             .send({
                 "phone_number": "01590243399",
-                "username": "fawzi",
-                "password":"test01090243",
                 "first_name": "fawzi",
                 "last_name":"ahmed",
                 "birth_date": "1999-03-20",
@@ -125,9 +127,32 @@ describe("/api/auth",async()=>{
             }).expect(201);
             res = await request(server)
             .patch("/api/auth/updateFirebaseToken")
-            .send({"username":"fawzi","new_token":"123456789elhamdullah"})
+            .send({"phone_number":"01590243399","new_token":"123456789elhamdullah"})
             .expect(200);
-            deletedUser("fawzi");
         });
-    })
+        it("should respond with 200 if we can get the token_id",async()=>{
+            let res = await request(server)
+            .post("/api/auth/getFirebaseToken")
+            .send({"phone_number":"01590243399"})
+            .expect(200);
+        });
+        it("should respond with 400 if phone_number is missed",async()=>{
+            let res = await request(server)
+            .post("/api/auth/getFirebaseToken")
+            .send({})
+            .expect(400);
+        });
+        it("should respond with 401 if phone_number is not found",async()=>{
+            let res = await request(server)
+            .post("/api/auth/getFirebaseToken")
+            .send({"phone_number":"01590243311"})
+            .expect(401);
+            deletedUser("01590243399");
+        });
+    });
+
+
+
+
+
 })

@@ -1,4 +1,4 @@
-const {checkIfUserExist,checkIfPhoneExist,createUser,hashPassword,genToken,verifyPassword,updateFirebaseToken} = require("../models/users");
+const {checkIfPhoneExist,createUser,genToken,updateFirebaseToken,updateIsActivited} = require("../models/users");
 const {handleError,ErrorHandler} = require("../middleware/error");
 const respond = require("../middleware/respond");
 
@@ -6,20 +6,13 @@ const respond = require("../middleware/respond");
 
 const signup = async (req, res, next) => {
     try {
-        const {phone_number, username, password,first_name,last_name,birth_date,weight,height,bmi,gender,fb_token_id} = req.body;
-        const userCheck = await checkIfUserExist(username);
+        const {phone_number,first_name,last_name,birth_date,weight,height,bmi,gender,fb_token_id} = req.body;
         const phoneCheck = await checkIfPhoneExist(phone_number);
-        if (userCheck){
-            throw new ErrorHandler(403,"Username is already associated with an account");
-        }
         if (phoneCheck){
             throw new ErrorHandler(403,"Phone Number is already associated with an account");
         }
-        const hashedPassword = await hashPassword(password);
         const userData = {
-            username,
             phone_number,
-            password:hashedPassword,
             first_name,
             last_name,
             birth_date,
@@ -30,9 +23,9 @@ const signup = async (req, res, next) => {
             fb_token_id,
         };
         const user = await createUser(userData);
-        const token = genToken(username,"user"); 
+        const token = genToken(phone_number,"user"); 
         if (user){
-           return respond(true,201,{token,username,first_name,last_name},res);
+           return respond(true,201,{user,token},res);
         }
     }catch(err){
         handleError(err,res);
@@ -43,21 +36,16 @@ const signup = async (req, res, next) => {
 
 const signin = async (req,res,next)=>{
     try {
-        const { username, password  } = req.body;
-        const user = await checkIfUserExist(username);
+        const { phone_number  } = req.body;
+        const user = await checkIfPhoneExist(phone_number);
         if (!user){
-            throw new ErrorHandler(401,"User with this username is not found");
+            return respond(false,401,{message:"this phone number is not registered yet"},res);
         }
-        const isPassCorrect = await verifyPassword(password,user.password);
-        if (!isPassCorrect){
-            throw new ErrorHandler(401,"Password is incorrect");
-        }
-        const token =  genToken(user.username,user.role);
-        return respond(true,200,{token,username : user.username,is_activited: user.is_activited},res);
+        const token =  genToken(user.phone_number,user.role);
+        return respond(true,200,{user,token},res);
     }catch(err){
         handleError(err,res);
     }
-
 }
 
 
@@ -65,26 +53,38 @@ const signin = async (req,res,next)=>{
 
 const updateFbToken = async (req,res,next)=>{
     try {
-        const {username,new_token} = req.body;
-        const user = await checkIfUserExist(username);
+        const {phone_number,new_token} = req.body;
+        const user = await checkIfPhoneExist(phone_number);
         if (!user) {
-            console.log("error");
-            throw new ErrorHandler(401,"User with this username is not found")
+            throw new ErrorHandler(401,"User with this phone_number is not found")
         }
-        const updateUser = await updateFirebaseToken(user,username,new_token);
+        const updateUser = await updateFirebaseToken(user,new_token);
         if (updateUser){
-            return respond(true,200,{username,"updated_token":new_token},res);
+            return respond(true,200,{"phone_number":user.phone_number,"updated_token":updateUser.fb_token_id},res);
         }
     }catch (err){
-        console.log("im here");
-        console.log(err);
         handleError(err,res);
     }
    
+}
+
+// Middleware for `getting the fb_token_id (firebase token id)` endpoint
+const getFbToken = async(req,res,next)=>{
+    try{
+        const {phone_number} = req.body;
+        const user = await checkIfPhoneExist(phone_number);
+        if (!user){
+            throw new ErrorHandler(401,"User with this phone_number is not found")
+        }
+        return respond(true,200,{"phone_number":user.phone_number,"fb_token_id":user.fb_token_id},res);
+    }catch(err){
+        handleError(err,res);
+    }
 }
 
 module.exports = {
   signup,
   signin,
   updateFbToken,
+  getFbToken,
 };
