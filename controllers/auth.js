@@ -9,7 +9,7 @@ const respond = require("../middleware/respond");
 // Middleware for `users signup` Endpoint: 
 const signup = async (req, res, next) => {
     try {
-        const {phone_number,first_name,last_name,birth_date,weight,height,bmi,gender,fb_token_id} = req.body;
+        const {phone_number,first_name,last_name,birth_date,weight,height,bmi,fb_token_id,gender} = req.body;
         const phoneCheck = await checkIfPhoneExist(phone_number);
         const docPhoneCheck = await checkDocPhoneExist(phone_number);
         if (phoneCheck || docPhoneCheck){
