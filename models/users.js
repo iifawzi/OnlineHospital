@@ -86,7 +86,7 @@ const checkIfPhoneExist = async function (phone_number) {
 };
 
 // Generate token:
-const genToken = function (phone_number, userRole,blocked) {
+const genToken = function (phone_number, userRole) {
   const encData = {
     phone_number,
     userRole,
