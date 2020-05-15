@@ -8,7 +8,7 @@
       "email": "iifawzie@gmail.com"
     }
   },
-  "host": "https://clinice.herokuapp.com",
+  "host": "clinice.herokuapp.com",
   "basePath": "/api",
   "tags": [
     {
@@ -17,7 +17,7 @@
     }
   ],
   "paths": {
-    "/signup": {
+    "/auth/signup": {
       "post": {
         "tags": [
           "Auth"
@@ -46,14 +46,14 @@
               "$ref": "#/definitions/signupRes"
             }
           },
-          "403": {
-            "description": "403 (phone number already exists)",
+          "400": {
+            "description": "400 (Error with the inputs)",
             "schema": {
               "$ref": "#/definitions/Error"
             }
           },
-          "400": {
-            "description": "400 (Error with the inputs)",
+          "403": {
+            "description": "403 (phone number already exists)",
             "schema": {
               "$ref": "#/definitions/Error"
             }
@@ -61,7 +61,7 @@
         }
       }
     },
-    "/signin": {
+    "/auth/signin": {
       "post": {
         "tags": [
           "Auth"
@@ -111,7 +111,7 @@
         }
       }
     },
-    "/updateFirebaseToken": {
+    "/auth/updateFirebaseToken": {
       "patch": {
         "tags": [
           "Auth"
@@ -140,6 +140,12 @@
               "$ref": "#/definitions/updateTokenResponse"
             }
           },
+          "400": {
+            "description": "400 (Error with the inputs)",
+            "schema": {
+              "$ref": "#/definitions/Error"
+            }
+          },
           "401": {
             "description": "401 (phone number is not found)",
             "schema": {
@@ -148,12 +154,6 @@
           },
           "403": {
             "description": "403 (User with this phone_number is blocked)",
-            "schema": {
-              "$ref": "#/definitions/Error"
-            }
-          },
-          "400": {
-            "description": "400 (Error with the inputs)",
             "schema": {
               "$ref": "#/definitions/Error"
             }
@@ -181,14 +181,14 @@
       },
       "example": {
         "phone_number": "01590243399",
-                "first_name": "fawzi",
-                "last_name":"ahmed",
-                "birth_date": "1999-03-20",
-                "weight": 100,
-                "height": 180,
-                "bmi": 28,
-                "fb_token_id": "djdj84",
-                "gender": "male"
+        "first_name": "fawzi",
+        "last_name": "ahmed",
+        "birth_date": "1999-03-20",
+        "weight": 100,
+        "height": 180,
+        "bmi": 28,
+        "fb_token_id": "djdj84",
+        "gender": "male"
       }
     },
     "signin": {
@@ -199,7 +199,7 @@
         }
       },
       "example": {
-                "phone_number": "01590243399"
+        "phone_number": "01590243399"
       }
     },
     "updateToken": {
@@ -213,8 +213,8 @@
         }
       },
       "example": {
-                "phone_number": "01590243399",
-                "new_token":"5895787854hjhjdjhdjhd"
+        "phone_number": "01590243399",
+        "new_token": "5895787854hjhjdjhdjhd"
       }
     },
     "signupRes": {
@@ -233,7 +233,7 @@
           "token": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VybmFtZSI6ImYzYWR3MXN6ZGlpIiwidXNlclJvbGUiOiJ1c2VyIiwiaWF0IjoxNTg4NjQ3NzkxLCJleHAiOjE1ODk1MTE3OTF9.q16hbHroXLD6own-9Bhh32uErZfh0sYfhUYaaCaRpq4",
           "phone_number": "01590243399",
           "first_name": "fawzi",
-          "last_name": "hala",
+          "last_name": "hala"
         }
       }
     },
