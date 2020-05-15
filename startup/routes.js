@@ -1,6 +1,7 @@
 const express = require("express");
 const { handleError } = require("../middleware/error"); // error middleware.
 const authRouter = require("../routes/auth");
+const panelRouter = require("../routes/controlPanel");
 const bodyParser = require("body-parser");
 module.exports = (app) => {
   // Main Settings
@@ -21,6 +22,7 @@ module.exports = (app) => {
     res.send("I'm Working,");
   })
   app.use("/api/auth", authRouter);
+  app.use("/api/controlPanel", panelRouter);
 
 
 

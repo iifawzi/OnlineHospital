@@ -16,6 +16,5 @@ throw new ErrorHandler(401, "User is not Authorized");
     }catch(err){
         throw new ErrorHandler(500,err.message);
     }
-
 }
 }
