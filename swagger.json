@@ -8,7 +8,7 @@
       "email": "iifawzie@gmail.com"
     }
   },
-  "host": "www.google.com",
+  "host": "https://clinice.herokuapp.com",
   "basePath": "/api",
   "tags": [
     {
