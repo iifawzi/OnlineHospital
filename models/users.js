@@ -48,6 +48,11 @@ const users = db.define(
       type: Sequelize.STRING(255),
       allowNull: false,
     },
+    blocked: {
+      type: Sequelize.BOOLEAN,
+      allowNull: false,
+      defaultValue: false,
+    },
     role: {
       type: Sequelize.DataTypes.ENUM("user", "admin"),
       allowNull: false,
@@ -81,7 +86,7 @@ const checkIfPhoneExist = async function (phone_number) {
 };
 
 // Generate token:
-const genToken = function (phone_number, userRole) {
+const genToken = function (phone_number, userRole,blocked) {
   const encData = {
     phone_number,
     userRole,
@@ -95,10 +100,18 @@ const genToken = function (phone_number, userRole) {
 
 // FIREBASE RELATED FUNCTIONS 
   // UPDATE USER'S TOKEN ID
-  const updateFirebaseToken = function (userObject,new_token){
+  const updateFirebaseToken = async function (userObject,new_token){
     userObject.fb_token_id = new_token;
-    userObject.save();
+    await userObject.save();
     return userObject;
+  }
+
+  // Block user: 
+  const blockUser = async function(phone_number){
+    const user = await users.findOne({where:{phone_number}});
+    user.blocked = true;
+    await user.save()
+    return user;
   }
 
 module.exports = {
@@ -108,4 +121,5 @@ module.exports = {
   genToken,
   deletedUser,
   updateFirebaseToken,
+  blockUser,
 };

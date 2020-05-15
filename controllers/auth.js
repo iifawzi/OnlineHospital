@@ -41,8 +41,10 @@ const signin = async (req,res,next)=>{
         if (!user){
             return respond(false,401,{message:"this phone number is not registered yet"},res);
         }
-        const token =  genToken(user.phone_number,user.role);
-        return respond(true,200,{user,token},res);
+        if (user.blocked === true) {
+            throw new ErrorHandler(403,"User with this phone_number is blocked")
+        }
+        return respond(true,200,{user},res);
     }catch(err){
         handleError(err,res);
     }
@@ -58,6 +60,9 @@ const updateFbToken = async (req,res,next)=>{
         if (!user) {
             throw new ErrorHandler(401,"User with this phone_number is not found")
         }
+        if (user.blocked === true) {
+            throw new ErrorHandler(403,"User with this phone_number is blocked")
+        }
         const updateUser = await updateFirebaseToken(user,new_token);
         if (updateUser){
             return respond(true,200,{"phone_number":user.phone_number,"updated_token":updateUser.fb_token_id},res);
@@ -68,23 +73,9 @@ const updateFbToken = async (req,res,next)=>{
    
 }
 
-// Middleware for `getting the fb_token_id (firebase token id)` endpoint
-const getFbToken = async(req,res,next)=>{
-    try{
-        const {phone_number} = req.body;
-        const user = await checkIfPhoneExist(phone_number);
-        if (!user){
-            throw new ErrorHandler(401,"User with this phone_number is not found")
-        }
-        return respond(true,200,{"phone_number":user.phone_number,"fb_token_id":user.fb_token_id},res);
-    }catch(err){
-        handleError(err,res);
-    }
-}
 
 module.exports = {
   signup,
   signin,
   updateFbToken,
-  getFbToken,
 };

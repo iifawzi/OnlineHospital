@@ -9,12 +9,13 @@ throw new ErrorHandler(401, "User is not Authorized");
 }else {
     try {
         let decoded_token = jwt.verify(encoded_token,config.get("jwt.secret"));
-    }catch(err){
-        throw new ErrorHandler(500,err);
-    }
-    if (!decoded_token){
-        throw new ErrorHandler(401, "User is not Authorized");
-    }
+        req.user = {
+            ...decoded_token
+        };
         next();
+    }catch(err){
+        throw new ErrorHandler(500,err.message);
+    }
+
 }
 }

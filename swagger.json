@@ -90,14 +90,20 @@
               "$ref": "#/definitions/signinResponse"
             }
           },
+          "400": {
+            "description": "400 (Error with the inputs)",
+            "schema": {
+              "$ref": "#/definitions/Error"
+            }
+          },
           "401": {
             "description": "401 (phone number is not found)",
             "schema": {
               "$ref": "#/definitions/Error"
             }
           },
-          "400": {
-            "description": "400 (Error with the inputs)",
+          "403": {
+            "description": "403 (User with this phone_number is blocked)",
             "schema": {
               "$ref": "#/definitions/Error"
             }
@@ -140,46 +146,8 @@
               "$ref": "#/definitions/Error"
             }
           },
-          "400": {
-            "description": "400 (Error with the inputs)",
-            "schema": {
-              "$ref": "#/definitions/Error"
-            }
-          }
-        }
-      }
-    },
-    "/getFirebaseToken": {
-      "get": {
-        "tags": [
-          "Auth"
-        ],
-        "summary": "get the Firebase token id for a specific user",
-        "consumes": [
-          "application/json"
-        ],
-        "produces": [
-          "application/json"
-        ],
-        "parameters": [
-          {
-            "in": "body",
-            "name": "body",
-            "required": true,
-            "schema": {
-              "$ref": "#/definitions/getToken"
-            }
-          }
-        ],
-        "responses": {
-          "200": {
-            "description": "200 (successful)",
-            "schema": {
-              "$ref": "#/definitions/getTokenResponse"
-            }
-          },
-          "401": {
-            "description": "401 (phone number is not found)",
+          "403": {
+            "description": "403 (User with this phone_number is blocked)",
             "schema": {
               "$ref": "#/definitions/Error"
             }
@@ -249,17 +217,6 @@
                 "new_token":"5895787854hjhjdjhdjhd"
       }
     },
-    "getToken": {
-      "type": "object",
-      "properties": {
-        "username": {
-          "type": "string"
-        }
-      },
-      "example": {
-                "phone_number": "01590243399"
-      }
-    },
     "signupRes": {
       "type": "object",
       "properties": {
@@ -277,7 +234,6 @@
           "phone_number": "01590243399",
           "first_name": "fawzi",
           "last_name": "hala",
-          "is_activited": false
         }
       }
     },
@@ -298,8 +254,7 @@
         "status": true,
         "data": {
           "token": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VybmFtZSI6ImYzYWR3MXN6ZGlpIiwidXNlclJvbGUiOiJ1c2VyIiwiaWF0IjoxNTg5MDAzMzMwLCJleHAiOjE1ODk4NjczMzB9.YPwfiTpfqUgtroESoxni417Y1OS_Foy_pVpdJrFjJC4",
-          "phone_number": "01590243399",
-          "is_activited": false
+          "phone_number": "01590243399"
         }
       }
     },
@@ -321,27 +276,6 @@
         "data": {
           "phone_number": "01590243399",
           "updated_token": "5895787854hjhjdjhdjhd"
-        }
-      }
-    },
-    "getTokenResponse": {
-      "type": "object",
-      "properties": {
-        "status": {
-          "type": "boolean"
-        },
-        "username": {
-          "type": "string"
-        },
-        "updated_token": {
-          "type": "string"
-        }
-      },
-      "example": {
-        "status": true,
-        "data": {
-          "phone_number": "01590243399",
-          "fb_token_id": "5895787854hjhjdjhdjhd"
         }
       }
     },

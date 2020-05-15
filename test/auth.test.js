@@ -1,5 +1,5 @@
 const request = require("supertest");
-const {deletedUser} = require("../models/users");
+const {deletedUser,blockUser} = require("../models/users");
 
 let server;
 
@@ -129,24 +129,27 @@ describe("/api/auth",async()=>{
             .patch("/api/auth/updateFirebaseToken")
             .send({"phone_number":"01590243399","new_token":"123456789elhamdullah"})
             .expect(200);
+            deletedUser("01590243399");
         });
-        it("should respond with 200 if we can get the token_id",async()=>{
+        it("should respond with 403 if user is blocked",async()=>{
             let res = await request(server)
-            .post("/api/auth/getFirebaseToken")
-            .send({"phone_number":"01590243399"})
-            .expect(200);
-        });
-        it("should respond with 400 if phone_number is missed",async()=>{
-            let res = await request(server)
-            .post("/api/auth/getFirebaseToken")
-            .send({})
-            .expect(400);
-        });
-        it("should respond with 401 if phone_number is not found",async()=>{
-            let res = await request(server)
-            .post("/api/auth/getFirebaseToken")
-            .send({"phone_number":"01590243311"})
-            .expect(401);
+            .post("/api/auth/signup")
+            .send({
+                "phone_number": "01590243399",
+                "first_name": "fawzi",
+                "last_name":"ahmed",
+                "birth_date": "1999-03-20",
+                "weight": 100,
+                "height": 180,
+                "bmi": 28,
+                "fb_token_id": "test",
+                "gender": "male",
+            }).expect(201);
+            await blockUser("01590243399");
+            res = await request(server)
+            .patch("/api/auth/updateFirebaseToken")
+            .send({"phone_number":"01590243399","new_token":"123456789elhamdullah"})
+            .expect(403);
             deletedUser("01590243399");
         });
     });
