@@ -4,11 +4,9 @@ const validationSchemas = require("./validationSchemas");
 const isAuth = require("../middleware/is-auth");
 const router = express.Router();
 
+// Everything Route related to the Control Panel will be listed here: 
 
 
-router.get("/",(req,res,next)=>{
-    res.send("hala");
-})
 
 
 module.exports = router;

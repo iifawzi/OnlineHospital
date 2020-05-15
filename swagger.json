@@ -131,6 +131,12 @@
             "schema": {
               "$ref": "#/definitions/updateToken"
             }
+          },
+          {
+            "in": "header",
+            "name": "Authorization",
+            "required": true,
+            "type": "string"
           }
         ],
         "responses": {
@@ -181,13 +187,19 @@
             "schema": {
               "$ref": "#/definitions/updateDoctorToken"
             }
+          },
+          {
+            "in": "header",
+            "name": "Authorization",
+            "required": true,
+            "type": "string"
           }
         ],
         "responses": {
           "200": {
             "description": "200 (successful)",
             "schema": {
-              "$ref": "#/definitions/updateTokenResponse"
+              "$ref": "#/definitions/updateDoctorTokenResponse"
             }
           },
           "400": {
@@ -279,8 +291,6 @@
         "gender": "male"
       }
     },
-
-
     "signin": {
       "type": "object",
       "properties": {
@@ -292,8 +302,6 @@
         "phone_number": "01590243399"
       }
     },
-
-
     "updateToken": {
       "type": "object",
       "properties": {
@@ -309,7 +317,6 @@
         "new_token": "5895787854hjhjdjhdjhd"
       }
     },
-
     "updateDoctorToken": {
       "type": "object",
       "properties": {
@@ -325,8 +332,6 @@
         "new_token": "5895787854hjhjdjhdjhd"
       }
     },
-
-
     "signinDoctors": {
       "type": "object",
       "properties": {
@@ -339,12 +344,9 @@
       },
       "example": {
         "phone_number": "01590243399",
-        "password":"halawallah"
+        "password": "halawallah"
       }
     },
-
-
-
     "signupRes": {
       "type": "object",
       "example": {
@@ -353,14 +355,14 @@
           "token": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VybmFtZSI6ImYzYWR3MXN6ZGlpIiwidXNlclJvbGUiOiJ1c2VyIiwiaWF0IjoxNTg4NjQ3NzkxLCJleHAiOjE1ODk1MTE3OTF9.q16hbHroXLD6own-9Bhh32uErZfh0sYfhUYaaCaRpq4",
           "phone_number": "01590243399",
           "first_name": "fawzi",
-          "last_name":"ahmed",
+          "last_name": "ahmed",
           "birth_date": "1999-03-20",
           "weight": 100,
           "height": 180,
           "bmi": 28,
           "fb_token_id": "djdj84",
           "gender": "male",
-          "role":"user"
+          "role": "user"
         }
       }
     },
@@ -372,14 +374,14 @@
           "token": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VybmFtZSI6ImYzYWR3MXN6ZGlpIiwidXNlclJvbGUiOiJ1c2VyIiwiaWF0IjoxNTg5MDAzMzMwLCJleHAiOjE1ODk4NjczMzB9.YPwfiTpfqUgtroESoxni417Y1OS_Foy_pVpdJrFjJC4",
           "phone_number": "01590243399",
           "first_name": "fawzi",
-          "last_name":"ahmed",
+          "last_name": "ahmed",
           "birth_date": "1999-03-20",
           "weight": 100,
           "height": 180,
           "bmi": 28,
           "fb_token_id": "djdj84",
           "gender": "male",
-          "role":"user"
+          "role": "user"
         }
       }
     },
@@ -410,7 +412,7 @@
         "data": {
           "phone_number": "01590243399",
           "first_name": "fawzi",
-          "last_name":"ahmed",
+          "last_name": "ahmed",
           "country": "egypt",
           "category": "3yoon",
           "sub_category": "3yoon helwa",

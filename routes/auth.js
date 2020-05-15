@@ -10,6 +10,6 @@ const router = express.Router();
 router.post('/signup',validate(validationSchemas.addUser,"body"),authController.signup);
 router.post('/signin',validate(validationSchemas.signin,"body"), authController.signin);
 router.post('/signdoctor',validate(validationSchemas.signdoctor,"body"), authController.signDoctors);
-router.patch('/updateFirebaseToken',validate(validationSchemas.updateFirebaseToken,"body"), authController.updateFbToken);
+router.patch('/updateFirebaseToken',isAuth,validate(validationSchemas.updateFirebaseToken,"body"), authController.updateFbToken);
 router.patch('/updateDoctorFirebaseToken',validate(validationSchemas.updateFirebaseToken,"body"), authController.updateDoctorFbToken);
 module.exports = router;

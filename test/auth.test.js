@@ -1,5 +1,5 @@
 const request = require("supertest");
-const {deleteUser,blockUser} = require("../models/users");
+const {deleteUser,blockUser,genToken} = require("../models/users");
 
 let server;
 
@@ -100,15 +100,19 @@ describe("/api/auth",async()=>{
 
     describe("/updateFirebaseToken",async()=>{
         it("Should respond with 400 if one of inpus is missed (SCHEMA VALIDATION)",async()=>{
+            const token = genToken("01590243399","user");
             let res = await request(server)
             .patch("/api/auth/updateFirebaseToken")
             .send({"new_token":"haka"})
+            .set("Authorization", `Bearer ${token}`)
             .expect(400);
         });
         it("should respond with 401 if phone number not found `backend side`",async()=>{
+            const token = genToken("01090243795","user");
             let res = await request(server)
             .patch("/api/auth/updateFirebaseToken")
             .send({"phone_number":"01090243795","new_token":"djkdjkdjk"})
+            .set("Authorization", `Bearer ${token}`)
             .expect(401);
         });
         it("should respond with 200 if we updated the token_id successfully",async()=>{
@@ -125,9 +129,11 @@ describe("/api/auth",async()=>{
                 "fb_token_id": "test",
                 "gender": "male",
             }).expect(201);
+            const token = genToken("01590243399","user");
             res = await request(server)
             .patch("/api/auth/updateFirebaseToken")
             .send({"phone_number":"01590243399","new_token":"123456789elhamdullah"})
+            .set("Authorization", `Bearer ${token}`)
             .expect(200);
             deleteUser("01590243399");
         });
@@ -145,11 +151,33 @@ describe("/api/auth",async()=>{
                 "fb_token_id": "test",
                 "gender": "male",
             }).expect(201);
+            const token = genToken("01590243399","user");
             await blockUser("01590243399");
             res = await request(server)
             .patch("/api/auth/updateFirebaseToken")
             .send({"phone_number":"01590243399","new_token":"123456789elhamdullah"})
+            .set("Authorization", `Bearer ${token}`)
             .expect(403);
+            deleteUser("01590243399");
+        });
+        it("should respond with 401 if user is not authorized ",async()=>{
+            let res = await request(server)
+            .post("/api/auth/signup")
+            .send({
+                "phone_number": "01590243399",
+                "first_name": "fawzi",
+                "last_name":"ahmed",
+                "birth_date": "1999-03-20",
+                "weight": 100,
+                "height": 180,
+                "bmi": 28,
+                "fb_token_id": "test",
+                "gender": "male",
+            }).expect(201);
+            res = await request(server)
+            .patch("/api/auth/updateFirebaseToken")
+            .send({"phone_number":"01590243399","new_token":"123456789elhamdullah"})
+            .expect(401);
             deleteUser("01590243399");
         });
     });
