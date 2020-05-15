@@ -1,0 +1,15 @@
+{
+    "database": {
+        "host": "localhost",
+        "name": "hospital",
+        "username": "root",
+        "password": "rootroot"
+      },
+      "bcrypt":{
+        "saltRounds":12
+      },
+      "jwt":{
+        "secret": "fawzihalawallahtest01090243795fawziapihospitalsocomplicatedwhyyouaretryingtotestthiswownotallowedhahafawzi",
+        "expiresIn":"9999 years"
+      }
+}
