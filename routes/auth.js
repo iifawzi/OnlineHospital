@@ -10,5 +10,4 @@ const router = express.Router();
 router.post('/signup',validate(validationSchemas.addUser,"body"),authController.signup);
 router.post('/signin',validate(validationSchemas.signin,"body"), authController.signin);
 router.patch('/updateFirebaseToken',validate(validationSchemas.updateFirebaseToken,"body"), authController.updateFbToken);
-// 
 module.exports = router;
