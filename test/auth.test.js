@@ -12,7 +12,7 @@ describe("/api/auth",async()=>{
 
     describe("/signup",async ()=>{
         it(
-        "should respond with 400 if one of inputs is incorrect or missing",
+        "should respond with 400 if one of inputs is incorrect or missing (SCHEMA VALIDATION)",
         async ()=>{
             let res = await request(server)
             .post("/api/auth/signup").expect(400);  
@@ -60,12 +60,12 @@ describe("/api/auth",async()=>{
 
 
     describe("/signin",async()=>{
-        it("should respond with 400 if input are missing",async()=>{
+        it("should respond with 400 if input are missing (SCHEMA VALIDATION)",async()=>{
             let res = await request(server)
             .post("/api/auth/signin")
             .expect(400);
         });
-        it("should respond with 401 when phone number notfound",async()=>{
+        it("should respond with 401 when phone number notfound `backend side`",async()=>{
            let res = await request(server)
             .post("/api/auth/signin")
             .send({"phone_number":"01590243311"})
@@ -98,14 +98,14 @@ describe("/api/auth",async()=>{
 
 
 
-    describe("Firebase Functions",async()=>{
-        it("Should respond with 400 if one of inpus is missed",async()=>{
+    describe("/updateFirebaseToken",async()=>{
+        it("Should respond with 400 if one of inpus is missed (SCHEMA VALIDATION)",async()=>{
             let res = await request(server)
             .patch("/api/auth/updateFirebaseToken")
             .send({"new_token":"haka"})
             .expect(400);
         });
-        it("should respond with 401 if phone number not found",async()=>{
+        it("should respond with 401 if phone number not found `backend side`",async()=>{
             let res = await request(server)
             .patch("/api/auth/updateFirebaseToken")
             .send({"phone_number":"01090243795","new_token":"djkdjkdjk"})
@@ -154,6 +154,24 @@ describe("/api/auth",async()=>{
         });
     });
 
+
+
+
+
+    describe("/signDoctors",async()=>{
+        it("should respond with 400 if any inputs are incorrect or missed (SCHEMA VALIDATION)",async()=>{
+            let res = request(server)
+            .post("/api/auth/signDoctors")
+            .send({phone_number:"02903"})
+            .expect(400);
+        });
+        it("should respond with 401 if phone number or password are incorrect `backend side`",async()=>{
+            let res = request(server)
+            .post("/api/auth/signDoctors")
+            .send({phone_number:"01090243795",password:"01288"})
+            .expect(401);
+        })
+    })
 
 
 

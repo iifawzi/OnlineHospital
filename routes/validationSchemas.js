@@ -14,7 +14,7 @@ const signin = Joi.object({
   phone_number: Joi.string().required(),
 });
 const signdoctor = Joi.object({
-  username: Joi.string().required(),
+  phone_number: Joi.string().required(),
   password: Joi.string().required(),
 });
 const updateFirebaseToken = Joi.object({

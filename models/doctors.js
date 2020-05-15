@@ -2,7 +2,6 @@ const Sequelize = require("sequelize");
 const db = require("../utils/db");
 const bcrypt = require("bcrypt");
 const config = require("config");
-const jwt = require("jwt");
 
 const doctors = db.define("doctors",{
     doctor_id: {
@@ -14,11 +13,6 @@ const doctors = db.define("doctors",{
         type:Sequelize.STRING,
         allowNull: false,
         unique: true
-    },
-    username: {
-        type:Sequelize.STRING,
-        allowNull: false,
-        unique:true,
     },
     password: {
         type:Sequelize.STRING,
@@ -44,6 +38,10 @@ const doctors = db.define("doctors",{
         type:Sequelize.STRING,
         allowNull:true,
     },
+    fb_token_id:{
+        type:Sequelize.STRING,
+        allowNull:true,
+    },
     avaliable:{
         type:Sequelize.BOOLEAN,
         allowNull:false,
@@ -54,10 +52,6 @@ const doctors = db.define("doctors",{
 })
 
 
-const checkUsernameExist = async function (username){
-const doctor = await doctors.findOne({where: {username}})
-return doctor;
-};
 const checkDocPhoneExist = async function (phone_number){
 const doctor = await doctors.findOne({where:{phone_number}});
 return doctor;
@@ -76,15 +70,21 @@ const compareHashed = async function(password,hashedPassword){
     const compareResult = await bcrypt.compare(password,hashedPassword);
     return compareResult;
 }
-
+// UPDATE DOCTOR'S FIREBASE TOKEN ID
+const updateDoctorFirebaseToken = async function (doctorObject, new_token) {
+    doctorObject.fb_token_id = new_token;
+    await doctorObject.save();
+    return doctorObject;
+  };
+  
 
 
 
 module.exports = {
     doctors,
-    checkUsernameExist,
     checkDocPhoneExist,
     createNewDoctor,
     hashPassword,
     compareHashed,
+    updateDoctorFirebaseToken,
 }
