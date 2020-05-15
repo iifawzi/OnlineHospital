@@ -74,7 +74,7 @@ return hashedPassword;
 // Compare Hashed Password:
 const compareHashed = async function(password,hashedPassword){
     const compareResult = await bcrypt.compare(password,hashedPassword);
-    return compareHashed;
+    return compareResult;
 }
 
 
