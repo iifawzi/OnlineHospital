@@ -1,5 +1,8 @@
 const Sequelize = require("sequelize");
 const db = require("../utils/db");
+const bcrypt = require("bcrypt");
+const config = require("config");
+const jwt = require("jwt");
 
 const doctors = db.define("doctors",{
     doctor_id: {
@@ -51,6 +54,37 @@ const doctors = db.define("doctors",{
 })
 
 
+const checkUsernameExist = async function (username){
+const doctor = await doctors.findOne({where: {username}})
+return doctor;
+};
+const checkDocPhoneExist = async function (phone_number){
+const doctor = await doctors.findOne({where:{phone_number}});
+return doctor;
+}
+const createNewDoctor = async function (body){
+    const doctor =  await doctors.create({...body});
+    return doctor;
+}
+// Hash the Password
+const hashPassword = async function (password){
+const hashedPassword = await bcrypt.hash(password,config.get("bcrypt.saltRounds"));
+return hashedPassword;
+};
+// Compare Hashed Password:
+const compareHashed = async function(password,hashedPassword){
+    const compareResult = await bcrypt.compare(password,hashedPassword);
+    return compareHashed;
+}
+
+
+
+
 module.exports = {
     doctors,
+    checkUsernameExist,
+    checkDocPhoneExist,
+    createNewDoctor,
+    hashPassword,
+    compareHashed,
 }

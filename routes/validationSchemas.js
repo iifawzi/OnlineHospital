@@ -13,6 +13,10 @@ const addUser = Joi.object({
 const signin = Joi.object({
   phone_number: Joi.string().required(),
 });
+const signdoctor = Joi.object({
+  username: Joi.string().required(),
+  password: Joi.string().required(),
+});
 const updateFirebaseToken = Joi.object({
   phone_number:Joi.string().required(),
   new_token: Joi.string().required(),

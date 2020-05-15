@@ -9,12 +9,12 @@ const users = db.define(
     user_id: {
       type: Sequelize.INTEGER,
       autoIncrement: true,
-      primaryKey: true
+      primaryKey: true,
     },
     phone_number: {
       type: Sequelize.STRING(255),
       allowNull: false,
-      unique: true
+      unique: true,
     },
     first_name: {
       type: Sequelize.STRING(255),
@@ -65,54 +65,44 @@ const users = db.define(
   }
 );
 
-// Methods:
-//     --- CRUD --
-// Creating new user
+// Functions:
 const createUser = async function (body) {
   const user = await users.create({ ...body });
   return user;
 };
-// DELETE USER BY PHONE_NUMBER
 const deleteUser = async function (phone_number) {
   const user = await users.destroy({ where: { phone_number } });
   return user;
 };
-//     --- END CRUD --
-
-// Check if phone number exits:
 const checkIfPhoneExist = async function (phone_number) {
   const user = await users.findOne({ where: { phone_number } });
   return user;
 };
-
 // Generate token:
 const genToken = function (phone_number, userRole) {
   const encData = {
     phone_number,
     userRole,
   };
-
-            // data to be encrypted in the JSONWEBTOKEN.
+  // data to be encrypted in the JSONWEBTOKEN.
   return jwt.sign(encData, config.get("jwt.secret"), {
     expiresIn: config.get("jwt.expiresIn"),
   });
 };
+// UPDATE USER'S FIREBASE TOKEN ID
+const updateFirebaseToken = async function (userObject, new_token) {
+  userObject.fb_token_id = new_token;
+  await userObject.save();
+  return userObject;
+};
 
-// FIREBASE RELATED FUNCTIONS 
-  // UPDATE USER'S TOKEN ID
-  const updateFirebaseToken = async function (userObject,new_token){
-    userObject.fb_token_id = new_token;
-    await userObject.save();
-    return userObject;
-  }
-
-  // Block user: 
-  const blockUser = async function(phone_number){
-    const user = await users.findOne({where:{phone_number}});
-    user.blocked = true;
-    await user.save()
-    return user;
-  }
+// Block user:
+const blockUser = async function (phone_number) {
+  const user = await users.findOne({ where: { phone_number } });
+  user.blocked = true;
+  await user.save();
+  return user;
+};
 
 module.exports = {
   users,
