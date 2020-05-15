@@ -1,9 +1,9 @@
 {
     "database": {
-        "host": "localhost",
-        "name": "hospital",
-        "username": "root",
-        "password": "rootroot"
+        "host": "eu-cdbr-west-03.cleardb.net",
+        "name": "heroku_deb17214dfc7e3c",
+        "username": "b396260820deb4",
+        "password": "7e9222cd"
       },
       "bcrypt":{
         "saltRounds":12
