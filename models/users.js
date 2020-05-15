@@ -1,6 +1,5 @@
 const Sequelize = require("sequelize");
 const db = require("../utils/db");
-const bcrypt = require("bcrypt");
 const jwt = require("jsonwebtoken");
 const config = require("config");
 
@@ -15,6 +14,7 @@ const users = db.define(
     phone_number: {
       type: Sequelize.STRING(255),
       allowNull: false,
+      unique: true
     },
     first_name: {
       type: Sequelize.STRING(255),
@@ -73,7 +73,7 @@ const createUser = async function (body) {
   return user;
 };
 // DELETE USER BY PHONE_NUMBER
-const deletedUser = async function (phone_number) {
+const deleteUser = async function (phone_number) {
   const user = await users.destroy({ where: { phone_number } });
   return user;
 };
@@ -119,7 +119,7 @@ module.exports = {
   checkIfPhoneExist,
   createUser,
   genToken,
-  deletedUser,
+  deleteUser,
   updateFirebaseToken,
   blockUser,
 };

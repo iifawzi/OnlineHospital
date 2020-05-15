@@ -1,41 +1,34 @@
 const Sequelize = require("sequelize");
 const db = require("../utils/db");
 
-const appointments = db.define(
-  "appointments",
-  {
-    doctor_id: {
-      type: Sequelize.INTEGER,
-      allowNull: false,
-    },
-    user_id: {
-      type: Sequelize.INTEGER,
-      allowNull: false,
-    },
-    start_time: {
-      type: Sequelize.STRING,
-      allowNull: false,
-    },
-    end_time: {
-      type: Sequelize.STRING,
-      allowNull: false,
-    },
-    date: {
-      type: Sequelize.STRING,
-      allowNull: false,
-    },
-    period: {
-      type: Sequelize.STRING,
-      allowNull: false,
-    },
-    status: {
-      type: Sequelize.DataTypes.ENUM("current", "booked", "finished"),
-      allowNull: false,
-    },
-  },
-  {
-    freezeTableName: true,
-    timestamps: false,
-  }
-);
-module.exports = appointments;
+
+
+const appointments = db.define("appointments",{
+
+appointment_id : {
+    type:Sequelize.INTEGER,
+    autoIncrement: true,
+    primaryKey: true,
+},
+slot_id: {
+    type: Sequelize.INTEGER,
+    allowNull: false,
+},
+user_id:{
+    type:Sequelize.INTEGER,
+    allowNull: false,
+},
+date: {
+    type:Sequelize.DATE,
+    allowNull:false,
+},
+appointment_status: {
+    type: Sequelize.ENUM("upcoming","running","finished","canceled"),
+    allowNull: false,
+}
+})
+
+
+module.exports = { 
+    appointments,
+}

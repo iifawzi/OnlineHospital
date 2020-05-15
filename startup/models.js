@@ -1,9 +1,12 @@
 require("../utils/db");
 const { users } = require("../models/users");
-const slots = require("../models/slots");
-const appointments = require("../models/appointments");
-const prescription = require("../models/prescription");
-
+const {doctors} = require("../models/doctors");
+const {slots} = require("../models/slots");
+const {appoitnemnts} = require("../models/appointments");
+const {prescriptions} = require("../models/prescriptions");
+const {diagnosis} = require("../models/diagnosis");
+const {messages} = require("../models/messages");
+const {rates} = require("../models/rates");
 // // Refs:
 // slots.belongsTo(users, {
 //   foreignKey: "doctor_id",

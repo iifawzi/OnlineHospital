@@ -1,5 +1,5 @@
 const request = require("supertest");
-const {deletedUser,blockUser} = require("../models/users");
+const {deleteUser,blockUser} = require("../models/users");
 
 let server;
 
@@ -52,7 +52,7 @@ describe("/api/auth",async()=>{
                 "gender": "male",
             })
             .expect(403);
-            deletedUser("01590243399");
+            deleteUser("01590243399");
         });
     });
 
@@ -89,7 +89,7 @@ describe("/api/auth",async()=>{
             .post("/api/auth/signin")
             .send({"phone_number":"01590243311"})
             .expect(200);
-            deletedUser("01590243311");
+            deleteUser("01590243311");
 
         });
     });
@@ -129,7 +129,7 @@ describe("/api/auth",async()=>{
             .patch("/api/auth/updateFirebaseToken")
             .send({"phone_number":"01590243399","new_token":"123456789elhamdullah"})
             .expect(200);
-            deletedUser("01590243399");
+            deleteUser("01590243399");
         });
         it("should respond with 403 if user is blocked",async()=>{
             let res = await request(server)
@@ -150,7 +150,7 @@ describe("/api/auth",async()=>{
             .patch("/api/auth/updateFirebaseToken")
             .send({"phone_number":"01590243399","new_token":"123456789elhamdullah"})
             .expect(403);
-            deletedUser("01590243399");
+            deleteUser("01590243399");
         });
     });
 
