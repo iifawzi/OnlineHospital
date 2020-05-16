@@ -1,7 +1,7 @@
 const request = require("supertest");
 const {deleteUser,blockUser,genToken} = require("../models/users");
 const {deleteDoctor} = require("../models/doctors");
-
+var expect = require('chai').expect;
 
 let server;
 
@@ -38,6 +38,8 @@ describe("/api/auth",async()=>{
                 "gender": "male",
             })
             .expect(201);
+            expect(res.body.data.phone_number).to.equal("01590243399");
+
         });
         it("should respond with 403 if phone_number is already registered",async()=>{
             let res = await request(server)
@@ -87,6 +89,8 @@ describe("/api/auth",async()=>{
                 "fb_token_id": "djdj84",
                 "gender": "male",
             }).expect(201);
+            expect(res.body.data.phone_number).to.equal("01590243311");
+
             res = await request(server)
             .post("/api/auth/signin")
             .send({"phone_number":"01590243311"})
@@ -137,6 +141,7 @@ describe("/api/auth",async()=>{
             .send({"new_token":"123456789elhamdullah"})
             .set("Authorization", `Bearer ${token}`)
             .expect(200);
+            expect(res.body.data.updated_token).to.equal("123456789elhamdullah");
             deleteUser("01590243388");
         });
         it("should respond with 403 if user is blocked",async()=>{
@@ -253,12 +258,14 @@ describe("/api/auth",async()=>{
                 "sub_category":"hala"
             })
             .expect(201);
+            expect(res.body.data.phone_number).to.equal("01090243795");
             const token = genToken("01090243795","doctor");
             res = await request(server)
             .patch("/api/auth/updateDoctorFirebaseToken")
             .send({"new_token":"123456789elhamdullah"})
             .set("Authorization", `Bearer ${token}`)
             .expect(200);
+            expect(res.body.data.updated_token).to.equal("123456789elhamdullah");
             deleteDoctor("01090243795");
         });
         it("should respond with 401 if Doctor is not authorized ",async()=>{

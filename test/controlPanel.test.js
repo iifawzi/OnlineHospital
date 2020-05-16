@@ -1,5 +1,7 @@
 const request = require("supertest");
+var expect = require('chai').expect;
 const {deleteDoctor} = require("../models/doctors");
+
 
 let server;
 
@@ -32,6 +34,7 @@ describe("/api/controlPanel",async()=>{
                 "sub_category":"hala"
             })
             .expect(201);
+            expect(res.body.data.phone_number).to.equal("01090243795");
             deleteDoctor("01090243795");
         });
         it("Should respond with 403 if the phone number is already registered",async()=>{
@@ -47,6 +50,7 @@ describe("/api/controlPanel",async()=>{
                 "sub_category":"hala"
             })
             .expect(201);
+            expect(res.body.data.phone_number).to.equal("01090243795");
             res = request(server)
             .post("/api/controlPanel/addDoctor")
             .send({
@@ -60,6 +64,6 @@ describe("/api/controlPanel",async()=>{
             })
             .expect(403);
             deleteDoctor("01090243795");
-        })
+        });
     })
 })
