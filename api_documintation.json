@@ -221,7 +221,7 @@
         }
       }
     },
-    "/auth/signDoctors": {
+    "/auth/signDoctor": {
       "post": {
         "tags": [
           "Auth"
@@ -247,7 +247,7 @@
           "200": {
             "description": "200 (successful)",
             "schema": {
-              "$ref": "#/definitions/signinDoctorsResponse"
+              "$ref": "#/definitions/signinDoctorResponse"
             }
           },
           "400": {
@@ -498,7 +498,42 @@
           "type": "string"
         },
         "sub_category": {
-          "type": "string" // not required
+          "type": "string" 
+        }
+      },
+      "example": {
+        "phone_number": "01090243795",
+        "password":"halawallah",
+                  "first_name": "fawzi",
+                  "last_name": "ahmed",
+                  "country": "egypt",
+                  "category": "3yon",
+                  "sub_category": "hala"
+          }
+      },
+    "addingDoctorResponse": {
+      "type": "object",
+      "properties": {
+        "phone_number": {
+          "type": "string"
+        },
+        "password":{
+          "type": "string"
+        },
+        "first_name": {
+          "type": "string"
+        },
+        "last_name": {
+          "type": "string"
+        },
+        "country": {
+          "type": "string"
+        },
+        "category": {
+          "type": "string"
+        },
+        "sub_category": {
+          "type": "string" 
         }
       },
       "example": {
