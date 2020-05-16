@@ -45,6 +45,7 @@ const doctors = db.define("doctors",{
     avaliable:{
         type:Sequelize.BOOLEAN,
         allowNull:false,
+        defaultValue:false,
     }
 },{
     freezeTableName: true,
@@ -60,6 +61,10 @@ const createNewDoctor = async function (body){
     const doctor =  await doctors.create({...body});
     return doctor;
 }
+const deleteDoctor = async function (phone_number) {
+    const doctor = await doctors.destroy({ where: { phone_number } });
+    return doctor;
+  };
 // Hash the Password
 const hashPassword = async function (password){
 const hashedPassword = await bcrypt.hash(password,config.get("bcrypt.saltRounds"));
@@ -87,4 +92,5 @@ module.exports = {
     hashPassword,
     compareHashed,
     updateDoctorFirebaseToken,
+    deleteDoctor,
 }

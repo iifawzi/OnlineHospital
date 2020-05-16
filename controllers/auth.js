@@ -29,7 +29,7 @@ const signup = async (req, res, next) => {
         const user = await createUser(userData);
         const token = genToken(phone_number,"user"); 
         if (user){
-           return respond(true,201,{user,token},res);
+           return respond(true,201,{...user.dataValues,token},res);
         }
     }catch(err){
         handleError(err,res);
@@ -54,7 +54,7 @@ const signin = async (req,res,next)=>{
             throw new ErrorHandler(403,"User with this phone_number is blocked");
         }
         const token = genToken(phone_number,"user"); 
-        return respond(true,200,{user,token},res);
+        return respond(true,200,{...user.dataValues,token},res);
     }catch(err){
         handleError(err,res);
     }
@@ -99,9 +99,9 @@ const signDoctors = async (req,res,next)=>{
             throw new ErrorHandler(401,"Username or password is incorrect");
         }
         const token = genToken(phone_number,"doctor");
-        const returnedDoctor = {...doctor};
+        const returnedDoctor = {...doctor.dataValues};
         delete returnedDoctor.password;
-        return respond(true,200,{returnedDoctor,token},res);
+        return respond(true,200,{...returnedDoctor,token},res);
     }catch(err){
         handleError(err,res);
     }
@@ -109,10 +109,10 @@ const signDoctors = async (req,res,next)=>{
 
 
 // Middleware for `updating the ------------------"DOCTORS"---------------- fb_token_id (firebase token id)` Endpoint: 
-// TODO:: TEST THIS FUNCTION
 const updateDoctorFbToken = async (req,res,next)=>{
     try {
-        const {phone_number,new_token} = req.body;
+        const {phone_number} = req.user;
+        const {new_token} = req.body;
         const doctor = await checkDocPhoneExist(phone_number);
         if (!doctor) {
             throw new ErrorHandler(401,"Doctor with this phone_number is not found");

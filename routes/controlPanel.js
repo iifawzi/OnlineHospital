@@ -8,6 +8,6 @@ const router = express.Router();
 // Everything Route related to the Control Panel will be listed here: 
 
 
-router.post("/addDoctor",panelController.addDoctor)
+router.post("/addDoctor",validate(validationSchemas.addDoctor,"body"),panelController.addDoctor)
 
 module.exports = router;

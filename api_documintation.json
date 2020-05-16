@@ -13,7 +13,11 @@
   "tags": [
     {
       "name": "Auth",
-      "description": "Everything related to Authentication"
+      "description": "Everything related to Authentication Endpoints: "
+    },
+    {
+      "name": "ControlPanel",
+      "description": "Everything related to The ControlPanel Endpoints: "
     }
   ],
   "paths": {
@@ -260,22 +264,81 @@
           }
         }
       }
+    },
+    "/controlPanel/addDoctor": {
+      "post": {
+        "tags": [
+          "ControlPanel"
+        ],
+        "summary": "Adding Doctor endpoint",
+        "consumes": [
+          "application/json"
+        ],
+        "produces": [
+          "application/json"
+        ],
+        "parameters": [
+          {
+            "in": "body",
+            "name": "body",
+            "required": true,
+            "schema": {
+              "$ref": "#/definitions/addingDoctor"
+            }
+          }
+        ],
+        "responses": {
+          "201": {
+            "description": "201 (created)",
+            "schema": {
+              "$ref": "#/definitions/addingDoctorsResponse"
+            }
+          },
+          "400": {
+            "description": "400 (Error with the inputs)",
+            "schema": {
+              "$ref": "#/definitions/Error"
+            }
+          },
+          "403": {
+            "description": "401 (Phone Number is already registered)",
+            "schema": {
+              "$ref": "#/definitions/Error"
+            }
+          }
+        }
+      }
     }
   },
   "definitions": {
     "signup": {
       "type": "object",
       "properties": {
-        "username": {
-          "type": "string"
-        },
         "phone_number": {
           "type": "string"
         },
-        "password": {
+        "first_name": {
           "type": "string"
         },
-        "province": {
+        "last_name": {
+          "type": "string"
+        },
+        "birth_date": {
+          "type": "string"
+        },
+        "weight": {
+          "type": "string"
+        },
+        "height": {
+          "type": "string"
+        },
+        "bmi": {
+          "type": "string"
+        },
+        "fb_token_id": {
+          "type": "string"
+        },
+        "gender": {
           "type": "string"
         }
       },
@@ -411,6 +474,45 @@
           "avaliable": true,
           "fb_token_id": "djdj84"
         }
+      }
+    },
+    "addingDoctor": {
+      "type": "object",
+      "properties": {
+        "phone_number": {
+          "type": "string"
+        },
+        "password":{
+          "type": "string"
+        },
+        "first_name": {
+          "type": "string"
+        },
+        "last_name": {
+          "type": "string"
+        },
+        "country": {
+          "type": "string"
+        },
+        "category": {
+          "type": "string"
+        },
+        "sub_category": {
+          "type": "string" // not required
+        }
+      },
+      "example": {
+          "status": true,
+          "data": {
+                  "avaliable": false,
+                  "doctor_id": 38,
+                  "first_name": "fawzi",
+                  "last_name": "ahmed",
+                  "phone_number": "01090243795",
+                  "country": "egypt",
+                  "category": "3yon",
+                  "sub_category": "hala"
+          }
       }
     },
     "Error": {

@@ -1,5 +1,7 @@
 const request = require("supertest");
 const {deleteUser,blockUser,genToken} = require("../models/users");
+const {deleteDoctor} = require("../models/doctors");
+
 
 let server;
 
@@ -197,13 +199,89 @@ describe("/api/auth",async()=>{
         });
         it("should respond with 401 if phone number or password are incorrect `backend side`",async()=>{
             let res = request(server)
+            .post("/api/controlPanel/addDoctor")
+            .send({
+                "phone_number":"01090243795",
+                "password":"testtest",
+                "first_name":"fawzi",
+                "last_name": "ahmed",
+                "country":"egypt",
+                "category":"3yon",
+                "sub_category":"hala"
+            })
+            .expect(201);
+            res = request(server)
             .post("/api/auth/signDoctors")
-            .send({phone_number:"01090243795",password:"01288"})
+            .send({phone_number:"01090243794",password:"01288"})
             .expect(401);
+            deleteDoctor("01090243795");
         })
     })
 
 
 
+
+
+
+    describe("/updateDoctorFirebaseToken",async()=>{
+        it("Should respond with 400 if one of inpus is missed (SCHEMA VALIDATION)",async()=>{
+            const token = genToken("01590243399","doctor");
+            let res = await request(server)
+            .patch("/api/auth/updateDoctorFirebaseToken")
+            .send({"notInTheSchema":"haka"})
+            .set("Authorization", `Bearer ${token}`)
+            .expect(400);
+        });
+        it("should respond with 401 if phone number not found `backend side`",async()=>{
+            const token = genToken("01090243788","doctor");
+            let res = await request(server)
+            .patch("/api/auth/updateDoctorFirebaseToken")
+            .send({"new_token":"djkdjkdjk"})
+            .set("Authorization", `Bearer ${token}`)
+            .expect(401);
+        });
+        it("should respond with 200 if we updated the Doctor token_id successfully",async()=>{
+            let res = await request(server)
+            .post("/api/controlPanel/addDoctor")
+            .send({
+                "phone_number":"01090243795",
+                "password":"testtest",
+                "first_name":"fawzi",
+                "last_name": "ahmed",
+                "country":"egypt",
+                "category":"3yon",
+                "sub_category":"hala"
+            })
+            .expect(201);
+            const token = genToken("01090243795","doctor");
+            res = await request(server)
+            .patch("/api/auth/updateDoctorFirebaseToken")
+            .send({"new_token":"123456789elhamdullah"})
+            .set("Authorization", `Bearer ${token}`)
+            .expect(200);
+            deleteDoctor("01090243795");
+        });
+        it("should respond with 401 if Doctor is not authorized ",async()=>{
+            let res = await request(server)
+            .post("/api/controlPanel/addDoctor")
+            .send({
+                "phone_number":"01090243795",
+                "password":"testtest",
+                "first_name":"fawzi",
+                "last_name": "ahmed",
+                "country":"egypt",
+                "category":"3yon",
+                "sub_category":"hala"
+            })
+            .expect(201);
+            // const token = genToken("01590243399","doctor");
+            res = await request(server)
+            .patch("/api/auth/updateFirebaseToken")
+            .send({"new_token":"123456789elhamdullah"})
+            // .set("Authorization", `Bearer ${token}`)
+            .expect(401);
+            deleteDoctor("01090243795");
+        });
+    });
 
 })

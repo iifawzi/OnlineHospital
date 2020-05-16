@@ -20,12 +20,22 @@ const signdoctor = Joi.object({
 const updateFirebaseToken = Joi.object({
   new_token: Joi.string().required(),
 });
+const addDoctor = Joi.object({
+  phone_number: Joi.string(),
+  password: Joi.string().pattern(/^[a-zA-Z0-9]{3,30}$/).required(),
+  first_name: Joi.string().required(),
+  last_name: Joi.string().required(),
+  country: Joi.string().required(),
+  category: Joi.string().required(),
+  sub_category: Joi.string(),
+});
 
 const schemas = {
   addUser,
   signin,
   updateFirebaseToken,
   signdoctor,
+  addDoctor,
 }
 
 module.exports = schemas;
