@@ -94,8 +94,11 @@ const signDoctors = async (req,res,next)=>{
     try{
         const {phone_number,password} = req.body;
         const doctor = await checkDocPhoneExist(phone_number);
+        if (!doctor){
+            throw new ErrorHandler(401,"Username or password is incorrect");
+        }
         const checkPassword = await compareHashed(password,doctor.password);
-        if (!doctor || !checkPassword){
+        if (!checkPassword){
             throw new ErrorHandler(401,"Username or password is incorrect");
         }
         const token = genToken(phone_number,"doctor");
