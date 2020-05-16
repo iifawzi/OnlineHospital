@@ -398,7 +398,7 @@
         }
       },
       "example": {
-        "phone_number": "01590243399",
+        "phone_number": "01090243795",
         "password": "halawallah"
       }
     },
@@ -465,14 +465,16 @@
       "example": {
         "status": true,
         "data": {
-          "phone_number": "01590243399",
+          "doctor_id": 11,
+          "phone_number": "01090243795",
           "first_name": "fawzi",
           "last_name": "ahmed",
           "country": "egypt",
-          "category": "3yoon",
-          "sub_category": "3yoon helwa",
-          "avaliable": true,
-          "fb_token_id": "djdj84"
+          "category": "3yon",
+          "sub_category": "hala",
+          "fb_token_id": null,
+          "avaliable": false,
+          "token": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJwaG9uZV9udW1iZXIiOiIwMTA5MDI0Mzc5NSIsInVzZXJSb2xlIjoiZG9jdG9yIiwiaWF0IjoxNTg5NjYwNTg3LCJleHAiOjMxNzEzNDEwMjk4N30.g4HBs2FInrgpBeIxP-q0t0nbDeHz98nF5rr8eKKnIlc"
         }
       }
     },
