@@ -3,7 +3,7 @@
   "info": {
     "description": "This is a simple api documintation, build with love by Fawzi E. Abdulfattah",
     "version": "1.0.0",
-    "title": "Online Hospital",
+    "title": "E-clinic",
     "contact": {
       "email": "iifawzie@gmail.com"
     }
@@ -305,30 +305,22 @@
     "updateToken": {
       "type": "object",
       "properties": {
-        "phone_number": {
-          "type": "string"
-        },
         "new_token": {
           "type": "string"
         }
       },
       "example": {
-        "phone_number": "01590243399",
         "new_token": "5895787854hjhjdjhdjhd"
       }
     },
     "updateDoctorToken": {
       "type": "object",
       "properties": {
-        "phone_number": {
-          "type": "string"
-        },
         "new_token": {
           "type": "string"
         }
       },
       "example": {
-        "phone_number": "01590243399",
         "new_token": "5895787854hjhjdjhdjhd"
       }
     },

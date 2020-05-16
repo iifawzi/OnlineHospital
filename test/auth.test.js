@@ -103,15 +103,15 @@ describe("/api/auth",async()=>{
             const token = genToken("01590243399","user");
             let res = await request(server)
             .patch("/api/auth/updateFirebaseToken")
-            .send({"new_token":"haka"})
+            .send({"notInTheSchema":"haka"})
             .set("Authorization", `Bearer ${token}`)
             .expect(400);
         });
         it("should respond with 401 if phone number not found `backend side`",async()=>{
-            const token = genToken("01090243795","user");
+            const token = genToken("01090243788","user");
             let res = await request(server)
             .patch("/api/auth/updateFirebaseToken")
-            .send({"phone_number":"01090243795","new_token":"djkdjkdjk"})
+            .send({"new_token":"djkdjkdjk"})
             .set("Authorization", `Bearer ${token}`)
             .expect(401);
         });
@@ -119,7 +119,7 @@ describe("/api/auth",async()=>{
             let res = await request(server)
             .post("/api/auth/signup")
             .send({
-                "phone_number": "01590243399",
+                "phone_number": "01590243388",
                 "first_name": "fawzi",
                 "last_name":"ahmed",
                 "birth_date": "1999-03-20",
@@ -127,15 +127,15 @@ describe("/api/auth",async()=>{
                 "height": 180,
                 "bmi": 28,
                 "fb_token_id": "test",
-                "gender": "male",
+                "gender": "male"
             }).expect(201);
-            const token = genToken("01590243399","user");
+            const token = genToken("01590243388","user");
             res = await request(server)
             .patch("/api/auth/updateFirebaseToken")
-            .send({"phone_number":"01590243399","new_token":"123456789elhamdullah"})
+            .send({"new_token":"123456789elhamdullah"})
             .set("Authorization", `Bearer ${token}`)
             .expect(200);
-            deleteUser("01590243399");
+            deleteUser("01590243388");
         });
         it("should respond with 403 if user is blocked",async()=>{
             let res = await request(server)
@@ -155,7 +155,7 @@ describe("/api/auth",async()=>{
             await blockUser("01590243399");
             res = await request(server)
             .patch("/api/auth/updateFirebaseToken")
-            .send({"phone_number":"01590243399","new_token":"123456789elhamdullah"})
+            .send({"new_token":"123456789elhamdullah"})
             .set("Authorization", `Bearer ${token}`)
             .expect(403);
             deleteUser("01590243399");
@@ -174,9 +174,11 @@ describe("/api/auth",async()=>{
                 "fb_token_id": "test",
                 "gender": "male",
             }).expect(201);
+            // const token = genToken("01590243399","user");
             res = await request(server)
             .patch("/api/auth/updateFirebaseToken")
-            .send({"phone_number":"01590243399","new_token":"123456789elhamdullah"})
+            .send({"new_token":"123456789elhamdullah"})
+            // .set("Authorization", `Bearer ${token}`)
             .expect(401);
             deleteUser("01590243399");
         });

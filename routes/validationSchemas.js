@@ -18,18 +18,14 @@ const signdoctor = Joi.object({
   password: Joi.string().required(),
 });
 const updateFirebaseToken = Joi.object({
-  phone_number:Joi.string().required(),
   new_token: Joi.string().required(),
-});
-const getFirebaseToken = Joi.object({
-  phone_number:Joi.string().required(),
 });
 
 const schemas = {
   addUser,
   signin,
   updateFirebaseToken,
-  getFirebaseToken,
+  signdoctor,
 }
 
 module.exports = schemas;

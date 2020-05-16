@@ -69,7 +69,8 @@ const signin = async (req,res,next)=>{
 // Middleware for `updating the fb_token_id (firebase token id)` Endpoint: 
 const updateFbToken = async (req,res,next)=>{
     try {
-        const {phone_number,new_token} = req.body;
+        const {phone_number} = req.user;
+        const {new_token} = req.body;
         const user = await checkIfPhoneExist(phone_number);
         if (!user) {
             throw new ErrorHandler(401,"User with this phone_number is not found");
