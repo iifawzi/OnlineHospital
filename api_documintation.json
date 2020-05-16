@@ -291,7 +291,7 @@
           "201": {
             "description": "201 (created)",
             "schema": {
-              "$ref": "#/definitions/addingDoctorsResponse"
+              "$ref": "#/definitions/addingDoctorResponse"
             }
           },
           "400": {
@@ -460,7 +460,7 @@
         }
       }
     },
-    "signinDoctorsResponse": {
+    "signinDoctorResponse": {
       "type": "object",
       "example": {
         "status": true,
