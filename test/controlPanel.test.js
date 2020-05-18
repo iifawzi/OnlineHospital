@@ -16,6 +16,9 @@ describe("/api/controlPanel",async()=>{
 
 
 
+
+
+
     describe("/addingDoctor",async()=>{
         it("Should respond with 400 if one of inpus is missed or incorrect (SCHEMA VALIDATION)",async()=>{
             const res = await request(server)
@@ -67,6 +70,13 @@ describe("/api/controlPanel",async()=>{
             deleteDoctor("01090243795");
         });
     });
+
+
+
+
+
+
+
     describe('/addingAdmin',async()=>{
         it("Should respond with 400 if one of inpus is missed or incorrect (SCHEMA VALIDATION",async()=>{
             let res = await request(server)
@@ -88,5 +98,41 @@ describe("/api/controlPanel",async()=>{
             .expect(403);
             deleteAdmin('fawzi');
         })
-    })
+    });
+   
+
+
+
+
+
+
+
+
+    describe("/signAdmin",async()=>{
+        it("should respond with 400 if input are missing (SCHEMA VALIDATION)",async()=>{
+            let res = await request(server)
+            .post("/api/controlPanel/signAdmin")
+            .expect(400);
+        });
+        it("should respond with 401 when username is not found `backend side`",async()=>{
+           let res = await request(server)
+           .post("/api/controlPanel/signAdmin")
+            .send({username:"fawzi",password:"testest"})
+            .expect(401);
+        });
+        it("should respond with 200 if admin loged in successfully",async()=>{
+            let res = await request(server)
+            .post("/api/controlPanel/addAdmin")
+           .send({username:"fawzi",password:"testtest",name:"Fawzi E. Abdulfattah",role:"admin"})
+           .expect(201);
+            expect(res.body.data.username).to.equal("fawzi");
+            res = await request(server)
+            .post("/api/controlPanel/signAdmin")
+            .send({"username":"fawzi","password":"testtest"})
+            .expect(200);
+            expect(res.body.data.username).to.equal('fawzi');
+            deleteAdmin("fawzi");
+
+        });
+    });
 })

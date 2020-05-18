@@ -1,6 +1,6 @@
 const {checkIfPhoneExist,createUser,genToken,updateFirebaseToken} = require("../models/users");
 const {checkDocPhoneExist,createNewDoctor,updateDoctorFirebaseToken} = require("../models/doctors");
-const {hashPassword,compareHashed} = require("../utils/shared/bcrypt");
+const {compareHashed} = require("../utils/shared/bcrypt");
 const {handleError,ErrorHandler} = require("../middleware/error");
 const respond = require("../middleware/respond");
 
@@ -27,7 +27,7 @@ const signup = async (req, res, next) => {
             fb_token_id,
         };
         const user = await createUser(userData);
-        const token = genToken(phone_number,"user"); 
+        const token = genToken(phone_number,user.role); 
         if (user){
            return respond(true,201,{...user.dataValues,token},res);
         }
@@ -53,7 +53,7 @@ const signin = async (req,res,next)=>{
         if (user.blocked === true) {
             throw new ErrorHandler(403,"User with this phone_number is blocked");
         }
-        const token = genToken(phone_number,"user"); 
+        const token = genToken(phone_number,user.role); 
         return respond(true,200,{...user.dataValues,token},res);
     }catch(err){
         handleError(err,res);

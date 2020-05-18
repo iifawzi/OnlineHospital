@@ -35,6 +35,10 @@ username: Joi.string().required(),
 name: Joi.string().required(),
 role: Joi.string(),
 });
+const signAdmin = Joi.object({
+    username: Joi.string().required(),
+    password: Joi.string().required(),
+});
 
 const schemas = {
   addUser,
@@ -43,6 +47,7 @@ const schemas = {
   signdoctor,
   addDoctor,
   addAdmin,
+  signAdmin
 }
 
 module.exports = schemas;

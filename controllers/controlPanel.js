@@ -1,8 +1,7 @@
 const {handleError,ErrorHandler} = require("../middleware/error");
 const {checkDocPhoneExist,createNewDoctor} = require("../models/doctors");
-const {checkAdminExist,createAdmin} = require("../models/admins");
-const {hashPassword} = require("../utils/shared/bcrypt");
-const {checkIfPhoneExist} = require("../models/users");
+const {checkAdminExist,createAdmin,genToken} = require("../models/admins");
+const {hashPassword,compareHashed} = require("../utils/shared/bcrypt");
 
 const respond = require("../middleware/respond");
 
@@ -58,13 +57,30 @@ const addAdmin = async (req,res,next)=>{
     }catch(err){
         handleError(err,res);
     }
-
-
-
 };
 
+const signAdmin = async (req,res,next)=>{
+    try{
+        const {username, password} = req.body;
+        const admin = await checkAdminExist(username);
+        if (!admin){
+            throw new ErrorHandler(401,"Admin with this username is not found");
+        }
+        const compared = await compareHashed(password,admin.password);
+        if(!compared){
+            throw new ErrorHandler(401,"Password is Incorrect");
+        }
+        const token = genToken(username,admin.role); 
+        const respondedAdmin = {...admin.dataValues};
+        delete respondedAdmin.password;
+        return respond(true,200,{...respondedAdmin,token},res);
+    }catch(err){
+        handleError(err,res);
+    }
+}
 
 module.exports = {
     addDoctor,
     addAdmin,
+    signAdmin
 }

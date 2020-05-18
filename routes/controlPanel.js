@@ -10,5 +10,6 @@ const router = express.Router();
 
 router.post("/addDoctor",validate(validationSchemas.addDoctor,"body"),panelController.addDoctor);
 router.post("/addAdmin",validate(validationSchemas.addAdmin,"body"),panelController.addAdmin);
+router.post("/signAdmin",validate(validationSchemas.signAdmin,"body"),panelController.signAdmin);
 
 module.exports = router;

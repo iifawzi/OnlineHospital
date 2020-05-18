@@ -1,6 +1,7 @@
 const Sequelize = require('sequelize');
 const db = require('../utils/db');
-
+const jwt = require("jsonwebtoken");
+const config = require("config");
 
 const admins = db.define('admins',{
     admin_id:{
@@ -44,11 +45,23 @@ const deleteAdmin = async function (username) {
     const admin = await admins.destroy({ where: { username } });
     return admin;
   };
+
+  const genToken = function (username, userRole) {
+    const encData = {
+      username,
+      userRole,
+    };
+    // data to be encrypted in the JSONWEBTOKEN.
+    return jwt.sign(encData, config.get("jwt.secret"), {
+      expiresIn: config.get("jwt.expiresIn"),
+    });
+  };
 module.exports = {
     admins,
     checkAdminExist,
     createAdmin,
     deleteAdmin,
+    genToken,
 };
 
 
