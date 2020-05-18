@@ -21,13 +21,17 @@ const updateFirebaseToken = Joi.object({
   new_token: Joi.string().required(),
 });
 const addDoctor = Joi.object({
-  phone_number: Joi.string(),
+  phone_number: Joi.string().required(),
   password: Joi.string().pattern(/^[a-zA-Z0-9]{3,30}$/).required(),
   first_name: Joi.string().required(),
   last_name: Joi.string().required(),
   country: Joi.string().required(),
   category: Joi.string().required(),
   sub_category: Joi.string(),
+});
+const addAdmin = Joi.object({
+password: Joi.string().pattern(/^[a-zA-Z0-9]{3,30}$/).required(),
+username: Joi.string().required(),
 });
 
 const schemas = {
@@ -36,6 +40,7 @@ const schemas = {
   updateFirebaseToken,
   signdoctor,
   addDoctor,
+  addAdmin,
 }
 
 module.exports = schemas;
