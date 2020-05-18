@@ -11,8 +11,7 @@ const signup = async (req, res, next) => {
     try {
         const {phone_number,first_name,last_name,birth_date,weight,height,bmi,gender,fb_token_id} = req.body;
         const phoneCheck = await checkIfPhoneExist(phone_number);
-        const docPhoneCheck = await checkDocPhoneExist(phone_number);
-        if (phoneCheck || docPhoneCheck){
+        if (phoneCheck){
             throw new ErrorHandler(403,"Phone Number is already associated with an account");
         }
         const userData = {
