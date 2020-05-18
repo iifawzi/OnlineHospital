@@ -40,10 +40,15 @@ const createAdmin = async function (body){
     const admin =  await admins.create({...body});
     return admin;
 }
+const deleteAdmin = async function (username) {
+    const admin = await admins.destroy({ where: { username } });
+    return admin;
+  };
 module.exports = {
     admins,
     checkAdminExist,
     createAdmin,
+    deleteAdmin,
 };
 
 

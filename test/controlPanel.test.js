@@ -1,6 +1,7 @@
 const request = require("supertest");
 var expect = require('chai').expect;
 const {deleteDoctor} = require("../models/doctors");
+const {deleteAdmin} = require("../models/admins");
 
 
 let server;
@@ -65,5 +66,27 @@ describe("/api/controlPanel",async()=>{
             .expect(403);
             deleteDoctor("01090243795");
         });
+    });
+    describe('/addingAdmin',async()=>{
+        it("Should respond with 400 if one of inpus is missed or incorrect (SCHEMA VALIDATION",async()=>{
+            let res = await request(server)
+            .post('/api/controlPanel/addAdmin')
+            .send({name:"fawzi"})
+            .expect(400);
+        });
+        it("Should respond with 201 if created successfully",async()=>{
+            let res = await request(server)
+            .post('/api/controlPanel/addAdmin')
+            .send({username:"fawzi",password:"testtest",name:"Fawzi E. Abdulfattah",role:"admin"})
+            .expect(201);
+            expect(res.body.data.username).to.equal("fawzi");
+        });
+        it("Should Respond with 403 if username is already Registered",async()=>{
+            let res = await request(server)
+            .post('/api/controlPanel/addAdmin')
+            .send({username:"fawzi",password:"testtest",name:"Fawzi E. Abdulfattah",role:"admin"})
+            .expect(403);
+            deleteAdmin('fawzi');
+        })
     })
 })

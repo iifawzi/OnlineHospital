@@ -32,6 +32,8 @@ const addDoctor = Joi.object({
 const addAdmin = Joi.object({
 password: Joi.string().pattern(/^[a-zA-Z0-9]{3,30}$/).required(),
 username: Joi.string().required(),
+name: Joi.string().required(),
+role: Joi.string(),
 });
 
 const schemas = {
