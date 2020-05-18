@@ -8,6 +8,10 @@ const admins = db.define('admins',{
         autoIncrement: true,
         primaryKey:true,
     },
+    name:{
+        type:Sequelize.STRING,
+        allowNull: false,
+    },
     username: {
         type:Sequelize.STRING,
         allowNull: false,
@@ -26,5 +30,20 @@ const admins = db.define('admins',{
     timestamps: false,
 })
 
+// Methods: 
 
-module.exports = admins;
+const checkAdminExist = async function (username){
+    const admin = await admins.findOne({where:{username}});
+    return admin;
+}
+const createAdmin = async function (body){
+    const admin =  await admins.create({...body});
+    return admin;
+}
+module.exports = {
+    admins,
+    checkAdminExist,
+    createAdmin,
+};
+
+

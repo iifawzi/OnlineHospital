@@ -1,5 +1,6 @@
 const {handleError,ErrorHandler} = require("../middleware/error");
-const {checkDocPhoneExist,hashPassword,createNewDoctor} = require("../models/doctors");
+const {checkDocPhoneExist,createNewDoctor} = require("../models/doctors");
+const {hashPassword} = require("../utils/shared/bcrypt");
 const {checkIfPhoneExist} = require("../models/users");
 
 const respond = require("../middleware/respond");
@@ -33,9 +34,14 @@ const addDoctor = async (req,res,next)=>{
     }catch(err){
         handleError(err,res);
     }
-}
+};
+
+const addAdmin = (req,res,next)=>{
+const {username, password, name, role} = req.body;
+};
 
 
 module.exports = {
     addDoctor,
+    addAdmin,
 }

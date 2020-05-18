@@ -1,7 +1,5 @@
 const Sequelize = require("sequelize");
 const db = require("../utils/db");
-const bcrypt = require("bcrypt");
-const config = require("config");
 
 const doctors = db.define("doctors",{
     doctor_id: {
@@ -65,16 +63,6 @@ const deleteDoctor = async function (phone_number) {
     const doctor = await doctors.destroy({ where: { phone_number } });
     return doctor;
   };
-// Hash the Password
-const hashPassword = async function (password){
-const hashedPassword = await bcrypt.hash(password,config.get("bcrypt.saltRounds"));
-return hashedPassword;
-};
-// Compare Hashed Password:
-const compareHashed = async function(password,hashedPassword){
-    const compareResult = await bcrypt.compare(password,hashedPassword);
-    return compareResult;
-}
 // UPDATE DOCTOR'S FIREBASE TOKEN ID
 const updateDoctorFirebaseToken = async function (doctorObject, new_token) {
     doctorObject.fb_token_id = new_token;
@@ -89,8 +77,6 @@ module.exports = {
     doctors,
     checkDocPhoneExist,
     createNewDoctor,
-    hashPassword,
-    compareHashed,
     updateDoctorFirebaseToken,
     deleteDoctor,
 }

@@ -1,5 +1,6 @@
 const {checkIfPhoneExist,createUser,genToken,updateFirebaseToken} = require("../models/users");
-const {checkDocPhoneExist,createNewDoctor,hashPassword,compareHashed,updateDoctorFirebaseToken} = require("../models/doctors");
+const {checkDocPhoneExist,createNewDoctor,updateDoctorFirebaseToken} = require("../models/doctors");
+const {hashPassword,compareHashed} = require("../utils/shared/bcrypt");
 const {handleError,ErrorHandler} = require("../middleware/error");
 const respond = require("../middleware/respond");
 
