@@ -86,7 +86,7 @@ const checkToken = async (req,res,next)=>{
         if (!admin){
          throw new ErrorHandler(401,"You're Unauthorized");
      };
-     const respondedAdmin = {...admin};
+     const respondedAdmin = {...admin.dataValues};
      delete respondedAdmin.password;
      return respond(true,200,{...respondedAdmin},res);
     }catch(err){
