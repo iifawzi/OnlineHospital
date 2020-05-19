@@ -135,4 +135,25 @@ describe("/api/controlPanel",async()=>{
 
         });
     });
+
+    describe("/checkAdminByToken",async()=>{
+        it("Should responed with 400 if token is missed",async()=>{
+            let res = request(server)
+            .post("/api/controlPanel/checkAdminByToken")
+            .send({})
+            .expect(400);
+        });
+        it("Should respond with 401 if admin is not authorized",async()=>{
+            let res = request(server)
+            .post("/api/controlPanel/checkAdminByToken")
+            .send({token:"hddhdhhd"})
+            .expect(401);
+        });
+        it("Should respond with 200 if token is valid and referanced to admin",async()=>{
+            let res = request(server)
+            .post("/api/controlPanel/checkAdminByToken")
+            .send({token:"eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VybmFtZSI6ImlpZmF3emlfIiwidXNlclJvbGUiOiJhZG1pbiIsImlhdCI6MTU4OTg1OTk0MiwiZXhwIjozMTcxMzQzMDIzNDJ9.m6i_8aAIxupAq7G2WebXDtS3ihecvWoFSC-Cq6LI2Qc"})
+            .expect(200);
+        })
+    })
 })

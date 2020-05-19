@@ -56,12 +56,20 @@ const deleteAdmin = async function (username) {
       expiresIn: config.get("jwt.expiresIn"),
     });
   };
+
+  const checkAdminByToken = function (token){
+    let decoded_token = jwt.verify(token,config.get("jwt.secret"));
+        let admin = {...decoded_token};
+       const isAdminExist = checkAdminExist(admin.username);
+       return isAdminExist;
+}
 module.exports = {
     admins,
     checkAdminExist,
     createAdmin,
     deleteAdmin,
     genToken,
+    checkAdminByToken,
 };
 
 

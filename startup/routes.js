@@ -3,8 +3,10 @@ const { handleError } = require("../middleware/error"); // error middleware.
 const authRouter = require("../routes/auth");
 const panelRouter = require("../routes/controlPanel");
 const bodyParser = require("body-parser");
+const cors = require("cors");
 module.exports = (app) => {
   // Main Settings
+  app.use(cors());
   app.use(bodyParser.json());
   app.use((req, res, next) => {
     res.setHeader('Access-Control-Allow-Origin', '*');

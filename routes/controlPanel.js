@@ -11,5 +11,6 @@ const router = express.Router();
 router.post("/addDoctor",validate(validationSchemas.addDoctor,"body"),panelController.addDoctor);
 router.post("/addAdmin",validate(validationSchemas.addAdmin,"body"),panelController.addAdmin);
 router.post("/signAdmin",validate(validationSchemas.signAdmin,"body"),panelController.signAdmin);
+router.post("/checkAdminByToken",validate(validationSchemas.checkToken,"body"),panelController.checkToken);
 
 module.exports = router;

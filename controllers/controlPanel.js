@@ -1,6 +1,6 @@
 const {handleError,ErrorHandler} = require("../middleware/error");
 const {checkDocPhoneExist,createNewDoctor} = require("../models/doctors");
-const {checkAdminExist,createAdmin,genToken} = require("../models/admins");
+const {checkAdminExist,createAdmin,genToken,checkAdminByToken} = require("../models/admins");
 const {hashPassword,compareHashed} = require("../utils/shared/bcrypt");
 
 const respond = require("../middleware/respond");
@@ -77,10 +77,27 @@ const signAdmin = async (req,res,next)=>{
     }catch(err){
         handleError(err,res);
     }
+};
+
+const checkToken = async (req,res,next)=>{
+    try {
+        const {token} = req.body
+        const admin = await checkAdminByToken(token);
+        if (!admin){
+         throw new ErrorHandler(401,"You're Unauthorized");
+     };
+     const respondedAdmin = {...admin};
+     delete respondedAdmin.password;
+     return respond(true,200,{...respondedAdmin},res);
+    }catch(err){
+        handleError(err,res);
+    }
+
 }
 
 module.exports = {
     addDoctor,
     addAdmin,
-    signAdmin
+    signAdmin,
+    checkToken,
 }
