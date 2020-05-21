@@ -9,6 +9,6 @@ const router = express.Router();
 
 
 router.post("/getDoctor",isAuth,validate(validationSchemas.getDoctor,"body"),doctorsController.getDoctor);
-// router.post("/getDoctors",isAuth,doctorsController.getDoctors);
+router.post("/getDoctors",isAuth,doctorsController.getDoctors);
 
 module.exports = router;

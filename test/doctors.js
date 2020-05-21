@@ -42,5 +42,20 @@ describe("/api/doctors",async()=>{
             .send({phone_number: "01090243799"})
             .expect(200);
         });
+    });
+
+    describe("/getDoctors",async()=>{
+        it("Should respond with 401 if not authorized",async()=>{
+            let res = await request(server)
+            .post("/api/doctors/getDoctors")
+            .expect(401)
+        });
+        it("Should respond with 200 if got doctors successfully",async()=>{
+            const token = "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VybmFtZSI6ImlpZmF3emlfIiwidXNlclJvbGUiOiJhZG1pbiIsImlhdCI6MTU5MDA5MDQ5MywiZXhwIjozMTcxMzQ1MzI4OTN9.y4kGQzcaxTVTkV4F41d1RcJnu3XOkKxpMbHnQZvQBow"
+            let res = await request(server)
+            .post("/api/doctors/getDoctors")
+            .set("Authorization", `Bearer ${token}`)
+            .expect(200);
+        });
     })
 })

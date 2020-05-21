@@ -1,4 +1,4 @@
-const {checkDocPhoneExist} = require("../models/doctors");
+const {checkDocPhoneExist, getDoctorsData} = require("../models/doctors");
 const {handleError,ErrorHandler} = require("../middleware/error");
 const respond = require("../middleware/respond");
 
@@ -27,6 +27,16 @@ const getDoctor = async (req,res,next)=>{
     }
 }
 
+
+const getDoctors = async (req,res,next)=>{
+    try {
+const doctors = await getDoctorsData();
+return respond(true,200,{...doctors},res);
+    }catch(err){
+        handleError(err,res);
+    }
+}
 module.exports = {
 getDoctor,
+getDoctors
 }

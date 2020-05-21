@@ -523,7 +523,43 @@
             }
           },
           "403": {
-            "description": "401 (Doctor not found || User is nout authorized)",
+            "description": "401 (Doctor not found || User is not authorized)",
+            "schema": {
+              "$ref": "#/definitions/Error"
+            }
+          }
+        }
+      }
+    },
+    "/doctors/getDoctors": {
+      "post": {
+        "tags": [
+          "doctors"
+        ],
+        "summary": "Get Doctors data",
+        "consumes": [
+          "application/json"
+        ],
+        "produces": [
+          "application/json"
+        ],
+        "parameters": [
+          {
+            "in": "header",
+            "name": "Authorization",
+            "required": true,
+            "type": "string"
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "200 (success)",
+            "schema": {
+              "$ref": "#/definitions/getDoctorsResponse"
+            }
+          },
+          "403": {
+            "description": "401 (User is not authorized)",
             "schema": {
               "$ref": "#/definitions/Error"
             }
@@ -899,6 +935,36 @@
           "sub_category": "hala",
           "picture":"3874878487478.png"
         }
+      }
+    },
+    "getDoctorsResponse": {
+      "type": "object",
+      "example": {
+        "status": true,
+    "data": {
+        "0": {
+            "doctor_id": 65,
+            "phone_number": "01090243799",
+            "first_name": "FAWZIIII",
+            "last_name": "ESSA",
+            "country": "Saudiarabia",
+            "category": "3yon",
+            "sub_category": "asnan",
+            "picture": "ce1278100ba31590092360903.png",
+            "avaliable": false
+        },
+        "1": {
+          "doctor_id": 66,
+          "phone_number": "010902437987779",
+          "first_name": "FAWZIIIiiiiI",
+          "last_name": "ESSA",
+          "country": "Saudiarabia",
+          "category": "3yon",
+          "sub_category": "asnan",
+          "picture": "ce1278100ba31590092360903.png",
+          "avaliable": false
+      }
+    }
       }
     },
     "Error": {

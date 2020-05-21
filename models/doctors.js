@@ -73,10 +73,15 @@ const updateDoctorFirebaseToken = async function (doctorObject, new_token) {
     await doctorObject.save();
     return doctorObject;
   };
+const  getDoctorsData = async  (req,res,next)=>{
+   const doctorsData = await doctors.findAll({attributes:{exclude: ['password','fb_token_id']},}); // later just show the avaliable = true doctors
+   return doctorsData;
+}
 module.exports = {
     doctors,
     checkDocPhoneExist,
     createNewDoctor,
     updateDoctorFirebaseToken,
     deleteDoctor,
+    getDoctorsData,
 }
