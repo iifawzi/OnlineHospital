@@ -43,7 +43,9 @@ const signAdmin = Joi.object({
 const checkToken = Joi.object({
   token: Joi.string().required(),
 });
-
+const getDoctor = Joi.object({
+  phone_number: Joi.string().required(),
+})
 const schemas = {
   addUser,
   signin,
@@ -53,6 +55,7 @@ const schemas = {
   addAdmin,
   signAdmin,
   checkToken,
+  getDoctor,
 }
 
 module.exports = schemas;

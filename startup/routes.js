@@ -2,6 +2,7 @@ const express = require("express");
 const { handleError } = require("../middleware/error"); // error middleware.
 const authRouter = require("../routes/auth");
 const panelRouter = require("../routes/controlPanel");
+const doctorsRouter = require("../routes/doctors");
 const bodyParser = require("body-parser");
 const cors = require("cors");
 module.exports = (app) => {
@@ -28,6 +29,7 @@ app.use( // for images uploading:
   })
   app.use("/api/auth", authRouter);
   app.use("/api/controlPanel", panelRouter);
+  app.use("/api/doctors", doctorsRouter);
 
 
 

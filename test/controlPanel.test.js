@@ -36,7 +36,8 @@ describe("/api/controlPanel",async()=>{
                 "last_name": "ahmed",
                 "country":"egypt",
                 "category":"3yon",
-                "sub_category":"hala"
+                "sub_category":"hala",
+                "picture":"fkfjkfj",
             })
             .expect(201);
             expect(res.body.data.phone_number).to.equal("01090243795");
@@ -52,7 +53,8 @@ describe("/api/controlPanel",async()=>{
                 "last_name": "ahmed",
                 "country":"egypt",
                 "category":"3yon",
-                "sub_category":"hala"
+                "sub_category":"hala",
+                "picture":"fkfjkfj",
             })
             .expect(201);
             expect(res.body.data.phone_number).to.equal("01090243795");
@@ -65,7 +67,8 @@ describe("/api/controlPanel",async()=>{
                 "last_name": "ahmed",
                 "country":"egypt",
                 "category":"3yon",
-                "sub_category":"hala"
+                "sub_category":"hala",
+                "picture":"fkfjkfj",
             })
             .expect(403);
             deleteDoctor("01090243795");
@@ -153,7 +156,7 @@ describe("/api/controlPanel",async()=>{
         it("Should respond with 200 if token is valid and referanced to admin",async()=>{
             let res = await request(server)
             .post("/api/controlPanel/checkAdminByToken")
-            .send({token:"eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VybmFtZSI6ImlpZmF3emlfIiwidXNlclJvbGUiOiJhZG1pbiIsImlhdCI6MTU4OTg1OTk0MiwiZXhwIjozMTcxMzQzMDIzNDJ9.m6i_8aAIxupAq7G2WebXDtS3ihecvWoFSC-Cq6LI2Qc"})
+            .send({token:"eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VybmFtZSI6ImlpZmF3emlfIiwidXNlclJvbGUiOiJhZG1pbiIsImlhdCI6MTU5MDA5MDQ5MywiZXhwIjozMTcxMzQ1MzI4OTN9.y4kGQzcaxTVTkV4F41d1RcJnu3XOkKxpMbHnQZvQBow"})
             .expect(200);
         })
     });

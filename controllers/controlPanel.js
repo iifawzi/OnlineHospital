@@ -13,7 +13,7 @@ const addImage = async (req,res,next)=>{
                 handleError(error,res);
             }else {
                 if (req.file){
-                    return respond(true,200,{filename: req.file.filename},res)
+                    return respond(true,201,{filename: req.file.filename},res)
                 }else {
                     return respond(true,400,{filename: req.file.filename},res)
                 }
@@ -104,7 +104,7 @@ const checkToken = async (req,res,next)=>{
      };
      const respondedAdmin = {...admin.dataValues};
      delete respondedAdmin.password;
-     return respond(true,201,{...respondedAdmin},res);
+     return respond(true,200,{...respondedAdmin},res);
     }catch(err){
         handleError(err,res);
     }

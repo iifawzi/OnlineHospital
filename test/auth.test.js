@@ -212,7 +212,8 @@ describe("/api/auth",async()=>{
                 "last_name": "ahmed",
                 "country":"egypt",
                 "category":"3yon",
-                "sub_category":"hala"
+                "sub_category":"hala",
+                "picture":"fkfjkfj",
             })
             .expect(201);
             res = request(server)
@@ -255,7 +256,8 @@ describe("/api/auth",async()=>{
                 "last_name": "ahmed",
                 "country":"egypt",
                 "category":"3yon",
-                "sub_category":"hala"
+                "sub_category":"hala",
+                "picture":"fkfjkfj",
             })
             .expect(201);
             expect(res.body.data.phone_number).to.equal("01090243795");
@@ -278,7 +280,8 @@ describe("/api/auth",async()=>{
                 "last_name": "ahmed",
                 "country":"egypt",
                 "category":"3yon",
-                "sub_category":"hala"
+                "sub_category":"hala",
+                "picture":"fkfjkfj",
             })
             .expect(201);
             // const token = genToken("01590243399","doctor");

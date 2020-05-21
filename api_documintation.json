@@ -18,6 +18,10 @@
     {
       "name": "ControlPanel",
       "description": "Everything related to The ControlPanel Endpoints: "
+    },
+    {
+      "name": "doctors",
+      "description":"Everything related to doctors will be listed here"
     }
   ],
   "paths": {
@@ -476,6 +480,56 @@
           }
         }
       }
+    },
+    "/doctors/getDoctor": {
+      "post": {
+        "tags": [
+          "doctors"
+        ],
+        "summary": "Get Doctor Details",
+        "consumes": [
+          "application/json"
+        ],
+        "produces": [
+          "application/json"
+        ],
+        "parameters": [
+          {
+            "in": "body",
+            "name": "body",
+            "required": true,
+            "schema": {
+              "$ref": "#/definitions/getDoctor"
+            }
+          },
+          {
+            "in": "header",
+            "name": "Authorization",
+            "required": true,
+            "type": "string"
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "200 (success)",
+            "schema": {
+              "$ref": "#/definitions/getDoctorResponse"
+            }
+          },
+          "400": {
+            "description": "400 (phone number is missing)",
+            "schema": {
+              "$ref": "#/definitions/Error"
+            }
+          },
+          "403": {
+            "description": "401 (Doctor not found || User is nout authorized)",
+            "schema": {
+              "$ref": "#/definitions/Error"
+            }
+          }
+        }
+      }
     }
   },
   "definitions": {
@@ -640,6 +694,7 @@
           "country": "egypt",
           "category": "3yon",
           "sub_category": "hala",
+          "picture":"3874878487478.png",
           "fb_token_id": null,
           "avaliable": false,
           "token": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJwaG9uZV9udW1iZXIiOiIwMTA5MDI0Mzc5NSIsInVzZXJSb2xlIjoiZG9jdG9yIiwiaWF0IjoxNTg5NjYwNTg3LCJleHAiOjMxNzEzNDEwMjk4N30.g4HBs2FInrgpBeIxP-q0t0nbDeHz98nF5rr8eKKnIlc"
@@ -720,7 +775,8 @@
           "phone_number": "01090243795",
           "country": "egypt",
           "category": "3yon",
-          "sub_category": "hala"
+          "sub_category": "hala",
+          "picture":"3874878487478.png"
         }
       }
     },
@@ -816,6 +872,32 @@
         "status": true,
         "data": {
           "filename": "6d75d1540c411590056094785.jpeg"
+        }
+      }
+    },
+    "getDoctor": {
+      "type": "object",
+      "example": {
+        "status": true,
+        "data": {
+          "phone_number": "01090243795"
+        }
+      }
+    },
+    "getDoctorResponse": {
+      "type": "object",
+      "example": {
+        "status": true,
+        "data": {
+          "avaliable": false,
+          "doctor_id": 38,
+          "first_name": "fawzi",
+          "last_name": "ahmed",
+          "phone_number": "01090243795",
+          "country": "egypt",
+          "category": "3yon",
+          "sub_category": "hala",
+          "picture":"3874878487478.png"
         }
       }
     },
