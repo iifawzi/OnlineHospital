@@ -73,10 +73,6 @@ const updateDoctorFirebaseToken = async function (doctorObject, new_token) {
     await doctorObject.save();
     return doctorObject;
   };
-  
-
-
-
 module.exports = {
     doctors,
     checkDocPhoneExist,

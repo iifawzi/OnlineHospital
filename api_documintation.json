@@ -669,6 +669,9 @@
         },
         "sub_category": {
           "type": "string"
+        },
+        "picture": {
+          "type": "string"
         }
       },
       "example": {
@@ -678,7 +681,8 @@
         "last_name": "ahmed",
         "country": "egypt",
         "category": "3yon",
-        "sub_category": "hala"
+        "sub_category": "hala",
+        "picture":"498489849984.png"
       }
     },
     "addingDoctorResponse": {
