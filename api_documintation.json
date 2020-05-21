@@ -942,28 +942,42 @@
       "example": {
         "status": true,
     "data": {
-        "0": {
-            "doctor_id": 65,
-            "phone_number": "01090243799",
-            "first_name": "FAWZIIII",
-            "last_name": "ESSA",
-            "country": "Saudiarabia",
-            "category": "3yon",
-            "sub_category": "asnan",
-            "picture": "ce1278100ba31590092360903.png",
-            "avaliable": false
-        },
-        "1": {
-          "doctor_id": 66,
-          "phone_number": "010902437987779",
-          "first_name": "FAWZIIIiiiiI",
-          "last_name": "ESSA",
-          "country": "Saudiarabia",
-          "category": "3yon",
-          "sub_category": "asnan",
-          "picture": "ce1278100ba31590092360903.png",
-          "avaliable": false
-      }
+      "status": true,
+      "data": [
+          {
+              "doctor_id": 1,
+              "phone_number": "01090243795",
+              "first_name": "fawzi",
+              "last_name": "ahmed",
+              "country": "egypt",
+              "category": "3yon",
+              "sub_category": "hala",
+              "picture": "498489849984.png",
+              "avaliable": false
+          },
+          {
+              "doctor_id": 11,
+              "phone_number": "01090243785",
+              "first_name": "bsbosa",
+              "last_name": "ahmed",
+              "country": "egypt",
+              "category": "3yon",
+              "sub_category": "hala",
+              "picture": "498489849984.png",
+              "avaliable": false
+          },
+          {
+              "doctor_id": 21,
+              "phone_number": "01090243715",
+              "first_name": "mostfa",
+              "last_name": "ahmed",
+              "country": "egypt",
+              "category": "3yon",
+              "sub_category": "hala",
+              "picture": "498489849984.png",
+              "avaliable": false
+          }
+      ]
     }
       }
     },
