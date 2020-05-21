@@ -60,8 +60,13 @@ const deleteAdmin = async function (username) {
   const checkAdminByToken = function (token){
     let decoded_token = jwt.verify(token,config.get("jwt.secret"));
         let admin = {...decoded_token};
-       const isAdminExist = checkAdminExist(admin.username);
-       return isAdminExist;
+       if (admin.username){
+        const isAdminExist = checkAdminExist(admin.username);
+        return isAdminExist;
+       }else {
+           return;
+       }
+  
 }
 module.exports = {
     admins,

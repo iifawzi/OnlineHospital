@@ -17,7 +17,10 @@ module.exports = (app) => {
     res.setHeader('Access-Control-Allow-Headers', 'Content-Type, Authorization');
     next();
   });
-
+// 
+app.use( // for images uploading: 
+  bodyParser.urlencoded({extended: false})
+);
   
   // Routers:
   app.get("/api/test",(req,res,next)=>{

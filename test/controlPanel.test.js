@@ -2,6 +2,7 @@ const request = require("supertest");
 var expect = require('chai').expect;
 const {deleteDoctor} = require("../models/doctors");
 const {deleteAdmin} = require("../models/admins");
+const path = require("path");
 
 
 let server;
@@ -138,22 +139,46 @@ describe("/api/controlPanel",async()=>{
 
     describe("/checkAdminByToken",async()=>{
         it("Should responed with 400 if token is missed",async()=>{
-            let res = request(server)
+            let res = await request(server)
             .post("/api/controlPanel/checkAdminByToken")
             .send({})
             .expect(400);
         });
         it("Should respond with 401 if admin is not authorized",async()=>{
-            let res = request(server)
+            let res = await request(server)
             .post("/api/controlPanel/checkAdminByToken")
-            .send({token:"hddhdhhd"})
+            .send({token:"eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJwaG9uZV9udW1iZXIiOiIwMTU5MDI0MzMxMSIsInVzZXJSb2xlIjoidXNlciIsImlhdCI6MTU5MDA1NDI2NCwiZXhwIjozMTcxMzQ0OTY2NjR9.2bbKs35YGe28I1MRp99LnycpoIf3xLY0fFIlMnsxdsY"})
             .expect(401);
         });
         it("Should respond with 200 if token is valid and referanced to admin",async()=>{
-            let res = request(server)
+            let res = await request(server)
             .post("/api/controlPanel/checkAdminByToken")
             .send({token:"eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VybmFtZSI6ImlpZmF3emlfIiwidXNlclJvbGUiOiJhZG1pbiIsImlhdCI6MTU4OTg1OTk0MiwiZXhwIjozMTcxMzQzMDIzNDJ9.m6i_8aAIxupAq7G2WebXDtS3ihecvWoFSC-Cq6LI2Qc"})
             .expect(200);
         })
+    });
+
+    describe("/addImage",async()=>{
+        it("Should responed with 201 if uploaded",async()=>{
+            let res = await request(server)
+            .post("/api/controlPanel/addImage")
+            .set('Content-Type', 'application/x-www-form-urlencoded')
+            .attach('file',path.resolve(__dirname, "../logo.png"))
+            .expect(201);
+        });
+        it("Should responed with 403 if type not allowed",async()=>{
+            let res = await request(server)
+            .post("/api/controlPanel/addImage")
+            .set('Content-Type', 'application/x-www-form-urlencoded')
+            .attach('file',path.resolve(__dirname, "../udemy-accs.txt"))
+            .expect(403);
+        });
+        // it("Should responed with 500 if file size is big than the allowed",async()=>{
+        //     let res = await request(server)
+        //     .post("/api/controlPanel/addImage")
+        //     .set('Content-Type', 'application/x-www-form-urlencoded')
+        //     .attach('file',path.resolve(__dirname, "../IMG_8755.JPG"))
+        //     .expect(500);
+        // }); // i don't have a big file, but it's working beleive me :D, 
     })
 })

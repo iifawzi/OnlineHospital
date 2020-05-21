@@ -2,12 +2,27 @@ const {handleError,ErrorHandler} = require("../middleware/error");
 const {checkDocPhoneExist,createNewDoctor} = require("../models/doctors");
 const {checkAdminExist,createAdmin,genToken,checkAdminByToken} = require("../models/admins");
 const {hashPassword,compareHashed} = require("../utils/shared/bcrypt");
-
 const respond = require("../middleware/respond");
+const upload = require("../middleware/upload");
 
 
-
-
+const addImage = async (req,res,next)=>{
+    try {
+        upload().single('file')(req,{},async error=>{
+            if (error){
+                handleError(error,res);
+            }else {
+                if (req.file){
+                    return respond(true,200,{filename: req.file.filename},res)
+                }else {
+                    return respond(true,400,{filename: req.file.filename},res)
+                }
+            }
+        }); 
+    }catch(err){
+        handleError(err,res);
+    }
+};
 const addDoctor = async (req,res,next)=>{
     try{
         const {first_name,last_name,phone_number,password,country,category,sub_category} = req.body;
@@ -88,7 +103,7 @@ const checkToken = async (req,res,next)=>{
      };
      const respondedAdmin = {...admin.dataValues};
      delete respondedAdmin.password;
-     return respond(true,200,{...respondedAdmin},res);
+     return respond(true,201,{...respondedAdmin},res);
     }catch(err){
         handleError(err,res);
     }
@@ -100,4 +115,5 @@ module.exports = {
     addAdmin,
     signAdmin,
     checkToken,
+    addImage
 }

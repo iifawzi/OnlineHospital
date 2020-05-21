@@ -440,6 +440,42 @@
           }
         }
       }
+    },
+    "/controlPanel/addImage": {
+      "post": {
+        "summary": "Uploads a file.",
+        "consumes": [
+          "multipart/form-data"
+        ],
+        "parameters": [
+          {
+            "in": "formData",
+            "name": "upfile",
+            "type": "file",
+            "description": "The file to upload."
+          }
+        ],
+        "responses": {
+          "201": {
+            "description": "201 (uploaded)",
+            "schema": {
+              "$ref": "#/definitions/uploadImageResponse"
+            }
+          },
+          "403": {
+            "description": "403 (Type not allowed)",
+            "schema": {
+              "$ref": "#/definitions/Error"
+            }
+          },
+          "500": {
+            "description": "500 (File is so big)",
+            "schema": {
+              "$ref": "#/definitions/Error"
+            }
+          }
+        }
+      }
     }
   },
   "definitions": {
@@ -616,7 +652,7 @@
         "phone_number": {
           "type": "string"
         },
-        "password":{
+        "password": {
           "type": "string"
         },
         "first_name": {
@@ -632,26 +668,26 @@
           "type": "string"
         },
         "sub_category": {
-          "type": "string" 
+          "type": "string"
         }
       },
       "example": {
         "phone_number": "01090243795",
-        "password":"halawallah",
-                  "first_name": "fawzi",
-                  "last_name": "ahmed",
-                  "country": "egypt",
-                  "category": "3yon",
-                  "sub_category": "hala"
-          }
-      },
+        "password": "halawallah",
+        "first_name": "fawzi",
+        "last_name": "ahmed",
+        "country": "egypt",
+        "category": "3yon",
+        "sub_category": "hala"
+      }
+    },
     "addingDoctorResponse": {
       "type": "object",
       "properties": {
         "phone_number": {
           "type": "string"
         },
-        "password":{
+        "password": {
           "type": "string"
         },
         "first_name": {
@@ -667,21 +703,21 @@
           "type": "string"
         },
         "sub_category": {
-          "type": "string" 
+          "type": "string"
         }
       },
       "example": {
-          "status": true,
-          "data": {
-                  "avaliable": false,
-                  "doctor_id": 38,
-                  "first_name": "fawzi",
-                  "last_name": "ahmed",
-                  "phone_number": "01090243795",
-                  "country": "egypt",
-                  "category": "3yon",
-                  "sub_category": "hala"
-          }
+        "status": true,
+        "data": {
+          "avaliable": false,
+          "doctor_id": 38,
+          "first_name": "fawzi",
+          "last_name": "ahmed",
+          "phone_number": "01090243795",
+          "country": "egypt",
+          "category": "3yon",
+          "sub_category": "hala"
+        }
       }
     },
     "loginAdmin": {
@@ -690,25 +726,25 @@
         "username": {
           "type": "string"
         },
-        "password":{
+        "password": {
           "type": "string"
         }
       },
       "example": {
         "username": "fawzi",
-        "password":"testtest"
-          }
-      },
+        "password": "testtest"
+      }
+    },
     "loginAdminResponse": {
       "type": "object",
       "example": {
         "status": true,
         "data": {
-            "admin_id": 21,
-            "name": "Fawzi E. Abdulfattah",
-            "username": "fawzi",
-            "role": "admin",
-            "token": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VybmFtZSI6ImZhd3ppIiwidXNlclJvbGUiOiJhZG1pbiIsImlhdCI6MTU4OTc5MDIzNywiZXhwIjozMTcxMzQyMzI2Mzd9.kmnppK8ek5d_Yr2sA86HJY3GsAtShVhohQvXrXrZRMk"
+          "admin_id": 21,
+          "name": "Fawzi E. Abdulfattah",
+          "username": "fawzi",
+          "role": "admin",
+          "token": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VybmFtZSI6ImZhd3ppIiwidXNlclJvbGUiOiJhZG1pbiIsImlhdCI6MTU4OTc5MDIzNywiZXhwIjozMTcxMzQyMzI2Mzd9.kmnppK8ek5d_Yr2sA86HJY3GsAtShVhohQvXrXrZRMk"
         }
       }
     },
@@ -718,7 +754,7 @@
         "username": {
           "type": "string"
         },
-        "password":{
+        "password": {
           "type": "string"
         },
         "name": {
@@ -730,20 +766,20 @@
       },
       "example": {
         "username": "fawzi",
-        "password":"testtest",
+        "password": "testtest",
         "name": "Fawzi E. Abdulfattah",
         "role": "admin"
-          }
-      },
+      }
+    },
     "addingAdminResponse": {
       "type": "object",
       "example": {
         "status": true,
         "data": {
-            "admin_id": 21,
-            "username": "fawzi",
-            "name": "Fawzi E. Abdulfattah",
-            "role": "admin"
+          "admin_id": 21,
+          "username": "fawzi",
+          "name": "Fawzi E. Abdulfattah",
+          "role": "admin"
         }
       }
     },
@@ -756,17 +792,26 @@
       },
       "example": {
         "token": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VybmFtZSI6ImlpZmF3emlfIiwidXNlclJvbGUiOiJhZG1pbiIsImlhdCI6MTU4OTg1OTk3MywiZXhwIjozMTcxMzQzMDIzNzN9.1W3gvwYqVQeXgagRScWoYdyrX-5DhrTQWdh_J0b1DOs"
-          }
-      },
+      }
+    },
     "checkAdminResponse": {
       "type": "object",
       "example": {
         "status": true,
         "data": {
-            "admin_id": 21,
-            "name": "Fawzi E. Abdulfattah",
-            "username": "fawzi",
-            "role": "admin"
+          "admin_id": 21,
+          "name": "Fawzi E. Abdulfattah",
+          "username": "fawzi",
+          "role": "admin"
+        }
+      }
+    },
+    "uploadImageResponse": {
+      "type": "object",
+      "example": {
+        "status": true,
+        "data": {
+          "filename": "6d75d1540c411590056094785.jpeg"
         }
       }
     },
