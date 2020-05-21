@@ -31,7 +31,11 @@ const getDoctor = async (req,res,next)=>{
 const getDoctors = async (req,res,next)=>{
     try {
 const doctors = await getDoctorsData();
-return respond(true,200,{...doctors},res);
+const doctorArray = [];
+for (doc of doctors){
+    doctorArray.push(doc);
+}
+return respond(true,200,doctorArray,res);
     }catch(err){
         handleError(err,res);
     }
