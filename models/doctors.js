@@ -40,6 +40,10 @@ const doctors = db.define("doctors",{
         type:Sequelize.STRING,
         allowNull:true,
     },
+    picture:{
+        type:Sequelize.STRING,
+        allowNull:false,
+    },
     avaliable:{
         type:Sequelize.BOOLEAN,
         allowNull:false,
