@@ -13,7 +13,7 @@ const admins = db.define('admins',{
         type:Sequelize.STRING,
         allowNull: false,
     },
-    username: {
+    phone_number: {
         type:Sequelize.STRING,
         allowNull: false,
     },
@@ -33,48 +33,24 @@ const admins = db.define('admins',{
 
 // Methods: 
 
-const checkAdminExist = async function (username){
-    const admin = await admins.findOne({where:{username}});
+const checkAdminExist = async function (phone_number){
+    const admin = await admins.findOne({where:{phone_number}});
     return admin;
 }
 const createAdmin = async function (body){
     const admin =  await admins.create({...body});
     return admin;
 }
-const deleteAdmin = async function (username) {
-    const admin = await admins.destroy({ where: { username } });
+const deleteAdmin = async function (phone_number) {
+    const admin = await admins.destroy({ where: { phone_number } });
     return admin;
   };
 
-  const genToken = function (username, role) {
-    const encData = {
-      username,
-      role,
-    };
-    // data to be encrypted in the JSONWEBTOKEN.
-    return jwt.sign(encData, config.get("jwt.secret"), {
-      expiresIn: config.get("jwt.expiresInAdmins"),
-    });
-  };
-
-  const checkAdminByToken = function (token){
-    let decoded_token = jwt.verify(token,config.get("jwt.secret"));
-        let admin = {...decoded_token};
-       if (admin.username){
-        const isAdminExist = checkAdminExist(admin.username);
-        return isAdminExist;
-       }else {
-           return;
-       }
-  
-}
 module.exports = {
     admins,
     checkAdminExist,
     createAdmin,
     deleteAdmin,
-    genToken,
-    checkAdminByToken,
 };
 
 

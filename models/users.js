@@ -1,7 +1,5 @@
 const Sequelize = require("sequelize");
 const db = require("../utils/db");
-const jwt = require("jsonwebtoken");
-const config = require("config");
 
 const users = db.define(
   "users",
@@ -84,17 +82,6 @@ const checkIfPhoneExist = async function (phone_number) {
   const user = await users.findOne({ where: { phone_number } });
   return user;
 };
-// Generate token:
-const genToken = function (phone_number, role) {
-  const encData = {
-    phone_number,
-    role,
-  };
-  // data to be encrypted in the JSONWEBTOKEN.
-  return jwt.sign(encData, config.get("jwt.secret"), {
-    expiresIn: config.get("jwt.expiresIn"),
-  });
-};
 // UPDATE USER'S FIREBASE TOKEN ID
 const updateFirebaseToken = async function (userObject, new_token) {
   userObject.fb_token_id = new_token;
@@ -114,7 +101,6 @@ module.exports = {
   users,
   checkIfPhoneExist,
   createUser,
-  genToken,
   deleteUser,
   updateFirebaseToken,
   blockUser,

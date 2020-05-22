@@ -33,16 +33,13 @@ const addDoctor = Joi.object({
 });
 const addAdmin = Joi.object({
 password: Joi.string().pattern(/^[a-zA-Z0-9]{3,30}$/).required(),
-username: Joi.string().required(),
+phone_number: Joi.string().required(),
 name: Joi.string().required(),
 role: Joi.string(),
 });
 const signAdmin = Joi.object({
-    username: Joi.string().required(),
+  phone_number: Joi.string().required(),
     password: Joi.string().required(),
-});
-const checkToken = Joi.object({
-  token: Joi.string().required(),
 });
 const getDoctor = Joi.object({
   phone_number: Joi.string().required(),
@@ -55,7 +52,6 @@ const schemas = {
   addDoctor,
   addAdmin,
   signAdmin,
-  checkToken,
   getDoctor,
 }
 

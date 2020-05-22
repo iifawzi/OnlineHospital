@@ -8,7 +8,7 @@ const router = express.Router();
 // Everything Route related to the doctors will be listed here: 
 
 
-router.post("/getDoctor",isAuth,validate(validationSchemas.getDoctor,"body"),doctorsController.getDoctor);
-router.post("/getDoctors",isAuth,doctorsController.getDoctors);
+router.post("/getDoctor",isAuth(['admin','user']),validate(validationSchemas.getDoctor,"body"),doctorsController.getDoctor);
+router.post("/getDoctors",isAuth(['admin','user']),doctorsController.getDoctors);
 
 module.exports = router;

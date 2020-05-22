@@ -1,33 +1,35 @@
 const jwt = require("jsonwebtoken");
-const {ErrorHandler,handleError} = require("./error");
+const { ErrorHandler, handleError } = require("./error");
 const config = require("config");
-
-module.exports = (req,res,next)=>{
-const encoded_token = req.get("Authorization");
-if (!encoded_token){
-throw new ErrorHandler(401, "User is not Authorized");
-}else {
-    if (encoded_token.startsWith('Bearer ')) {
+const isAuth = (role)=>{
+  return (req, res, next) => {
+    const encoded_token = req.get("Authorization");
+    if (!encoded_token) {
+      throw new ErrorHandler(401, "User is not Authorized");
+    } else {
+      if (encoded_token.startsWith("Bearer ")) {
         // Remove Bearer from string
-        var splicedToken = encoded_token.slice(7,encoded_token.length);
+        var splicedToken = encoded_token.slice(7, encoded_token.length);
       }
-    try {
-        let decoded_token = jwt.verify(splicedToken,config.get("jwt.secret"));
-        if (decoded_token.role === "admin" || decoded_token.role === "superadmin"){
-            req.admin = {
-                ...decoded_token
-            };
-        }else if (decoded_token.role === "user"){
-            req.user = {
-                ...decoded_token
-            };
-        }else {
-throw new ErrorHandler(401, "User is not Authorized");
+      try {
+        let decoded_token = jwt.verify(splicedToken, config.get("jwt.secret"));
+        if (!decoded_token) {
+          throw new ErrorHandler(401, "Not authorized");
         }
-      
-        next();
-    }catch(err){
-        handleError(err,res)
+        console.log(role.includes(decoded_token.role));
+        if (role.includes(decoded_token.role)){
+          req.user = {
+            ...decoded_token,
+          };
+          return next();
+        }else {
+          throw new ErrorHandler(401, "Not authorized");
+        }
+      } catch (err) {
+        handleError(err, res);
+      }
     }
+  };
 }
-}
+ 
+module.exports = isAuth;

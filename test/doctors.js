@@ -1,6 +1,6 @@
 const request = require("supertest");
 const {deleteDoctor} = require("../models/doctors");
-const {genToken} = require("../models/admins");
+const {genToken} = require("../utils/shared/genToken");
 var expect = require('chai').expect;
 
 let server;
@@ -30,7 +30,7 @@ describe("/api/doctors",async()=>{
             .expect(401)
         });
         it("Should respond with 401 if doctor not found",async()=>{
-            const token = "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VybmFtZSI6ImlpZmF3emlfIiwidXNlclJvbGUiOiJhZG1pbiIsImlhdCI6MTU5MDA5MDQ5MywiZXhwIjozMTcxMzQ1MzI4OTN9.y4kGQzcaxTVTkV4F41d1RcJnu3XOkKxpMbHnQZvQBow"
+            const token = genToken("fawzii","user");
             let res = await request(server)
             .post("/api/doctors/getDoctor")
             .set("Authorization", `Bearer ${token}`)
@@ -38,8 +38,10 @@ describe("/api/doctors",async()=>{
             .expect(401);
         });
         it("Should respond with 200 if got doctor successfully",async()=>{
+            const token = genToken("fawzii","admin");
             let res = await request(server)
             .post("/api/controlPanel/addDoctor")
+            .set("Authorization", `Bearer ${token}`)
             .send({
                 "phone_number":"01090113795",
                 "password":"testtest",
@@ -52,7 +54,6 @@ describe("/api/doctors",async()=>{
                 "price": "100",
             })
             .expect(201);
-            const token = genToken("fawzii","user");
             res = await request(server)
             .post("/api/doctors/getDoctor")
             .set("Authorization", `Bearer ${token}`)

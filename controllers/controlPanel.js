@@ -1,6 +1,7 @@
 const {handleError,ErrorHandler} = require("../middleware/error");
 const {checkDocPhoneExist,createNewDoctor} = require("../models/doctors");
-const {checkAdminExist,createAdmin,genToken,checkAdminByToken} = require("../models/admins");
+const {checkAdminExist,createAdmin} = require("../models/admins");
+const {genToken} = require("../utils/shared/genToken");
 const {hashPassword,compareHashed} = require("../utils/shared/bcrypt");
 const respond = require("../middleware/respond");
 const upload = require("../middleware/upload");
@@ -54,14 +55,14 @@ const addDoctor = async (req,res,next)=>{
 
 const addAdmin = async (req,res,next)=>{
     try{
-        const {username, password, name, role} = req.body;
-        const checkAdmin = await checkAdminExist(username);
+        const {phone_number, password, name, role} = req.body;
+        const checkAdmin = await checkAdminExist(phone_number);
         if(checkAdmin){
-            throw new ErrorHandler(403,"Username is already associated with an Admin account");
+            throw new ErrorHandler(403,"Phone Number is already associated with an Admin account");
         }
         const hashedPassword= await hashPassword(password);
         const createAdminAcc = await createAdmin({
-            username,
+            phone_number,
             password: hashedPassword,
             name,
             role
@@ -78,16 +79,16 @@ const addAdmin = async (req,res,next)=>{
 
 const signAdmin = async (req,res,next)=>{
     try{
-        const {username, password} = req.body;
-        const admin = await checkAdminExist(username);
+        const {phone_number, password} = req.body;
+        const admin = await checkAdminExist(phone_number);
         if (!admin){
-            throw new ErrorHandler(401,"Admin with this username is not found");
+            throw new ErrorHandler(401,"Admin  is not found");
         }
         const compared = await compareHashed(password,admin.password);
         if(!compared){
             throw new ErrorHandler(401,"Password is Incorrect");
         }
-        const token = genToken(username,admin.role); 
+        const token = genToken(phone_number,admin.role); 
         const respondedAdmin = {...admin.dataValues};
         delete respondedAdmin.password;
         return respond(true,200,{...respondedAdmin,token},res);
@@ -98,8 +99,8 @@ const signAdmin = async (req,res,next)=>{
 
 const checkToken = async (req,res,next)=>{
     try {
-        const {token} = req.body
-        const admin = await checkAdminByToken(token);
+        const {phone_number} = req.user
+        const admin = await checkAdminExist(phone_number);
         if (!admin){
          throw new ErrorHandler(401,"You're Unauthorized");
      };
@@ -109,7 +110,6 @@ const checkToken = async (req,res,next)=>{
     }catch(err){
         handleError(err,res);
     }
-
 }
 
 module.exports = {

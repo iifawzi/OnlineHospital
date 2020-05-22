@@ -1,5 +1,6 @@
-const {checkIfPhoneExist,createUser,genToken,updateFirebaseToken} = require("../models/users");
-const {checkDocPhoneExist,createNewDoctor,updateDoctorFirebaseToken} = require("../models/doctors");
+const {checkIfPhoneExist,createUser,updateFirebaseToken} = require("../models/users");
+const {genToken} = require("../utils/shared/genToken");
+const {checkDocPhoneExist,updateDoctorFirebaseToken} = require("../models/doctors");
 const {compareHashed} = require("../utils/shared/bcrypt");
 const {handleError,ErrorHandler} = require("../middleware/error");
 const respond = require("../middleware/respond");
@@ -95,11 +96,11 @@ const signDoctors = async (req,res,next)=>{
         const {phone_number,password} = req.body;
         const doctor = await checkDocPhoneExist(phone_number);
         if (!doctor){
-            throw new ErrorHandler(401,"Username or password is incorrect");
+            throw new ErrorHandler(401,"Phone number or password is incorrect");
         }
         const checkPassword = await compareHashed(password,doctor.password);
         if (!checkPassword){
-            throw new ErrorHandler(401,"Username or password is incorrect");
+            throw new ErrorHandler(401,"Phone number or password is incorrect");
         }
         const token = genToken(phone_number,"doctor");
         const returnedDoctor = {...doctor.dataValues};

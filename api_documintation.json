@@ -21,7 +21,7 @@
     },
     {
       "name": "doctors",
-      "description":"Everything related to doctors will be listed here"
+      "description": "Everything related to doctors will be listed here"
     }
   ],
   "paths": {
@@ -289,6 +289,12 @@
             "schema": {
               "$ref": "#/definitions/addingDoctor"
             }
+          },
+          {
+            "in": "header",
+            "name": "Authorization",
+            "required": true,
+            "type": "string"
           }
         ],
         "responses": {
@@ -300,6 +306,12 @@
           },
           "400": {
             "description": "400 (Error with the inputs)",
+            "schema": {
+              "$ref": "#/definitions/Error"
+            }
+          },
+          "401": {
+            "description": "400 (Not Authorized)",
             "schema": {
               "$ref": "#/definitions/Error"
             }
@@ -377,6 +389,12 @@
             "schema": {
               "$ref": "#/definitions/addingAdmin"
             }
+          },
+          {
+            "in": "header",
+            "name": "Authorization",
+            "required": true,
+            "type": "string"
           }
         ],
         "responses": {
@@ -388,6 +406,12 @@
           },
           "400": {
             "description": "400 (Error with the inputs)",
+            "schema": {
+              "$ref": "#/definitions/Error"
+            }
+          },
+          "401": {
+            "description": "400 (Not Authorized)",
             "schema": {
               "$ref": "#/definitions/Error"
             }
@@ -415,12 +439,10 @@
         ],
         "parameters": [
           {
-            "in": "body",
-            "name": "body",
+            "in": "header",
+            "name": "Authorization",
             "required": true,
-            "schema": {
-              "$ref": "#/definitions/checkAdmin"
-            }
+            "type": "string"
           }
         ],
         "responses": {
@@ -457,6 +479,12 @@
             "name": "upfile",
             "type": "file",
             "description": "The file to upload."
+          },
+          {
+            "in": "header",
+            "name": "Authorization",
+            "required": true,
+            "type": "string"
           }
         ],
         "responses": {
@@ -464,6 +492,12 @@
             "description": "201 (uploaded)",
             "schema": {
               "$ref": "#/definitions/uploadImageResponse"
+            }
+          },
+          "401": {
+            "description": "401 (Not Authorized)",
+            "schema": {
+              "$ref": "#/definitions/Error"
             }
           },
           "403": {
@@ -522,8 +556,14 @@
               "$ref": "#/definitions/Error"
             }
           },
+          "401": {
+            "description": "400 (Not Authorized)",
+            "schema": {
+              "$ref": "#/definitions/Error"
+            }
+          },
           "403": {
-            "description": "401 (Doctor not found || User is not authorized)",
+            "description": "401 (Doctor not found",
             "schema": {
               "$ref": "#/definitions/Error"
             }
@@ -558,8 +598,8 @@
               "$ref": "#/definitions/getDoctorsResponse"
             }
           },
-          "403": {
-            "description": "401 (User is not authorized)",
+          "401": {
+            "description": "401 (Not Authorized)",
             "schema": {
               "$ref": "#/definitions/Error"
             }
@@ -664,6 +704,7 @@
       "type": "object",
       "example": {
         "status": true,
+        "message": "success",
         "data": {
           "token": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VybmFtZSI6ImYzYWR3MXN6ZGlpIiwidXNlclJvbGUiOiJ1c2VyIiwiaWF0IjoxNTg4NjQ3NzkxLCJleHAiOjE1ODk1MTE3OTF9.q16hbHroXLD6own-9Bhh32uErZfh0sYfhUYaaCaRpq4",
           "phone_number": "01590243399",
@@ -683,6 +724,7 @@
       "type": "object",
       "example": {
         "status": true,
+        "message": "success",
         "data": {
           "token": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VybmFtZSI6ImYzYWR3MXN6ZGlpIiwidXNlclJvbGUiOiJ1c2VyIiwiaWF0IjoxNTg5MDAzMzMwLCJleHAiOjE1ODk4NjczMzB9.YPwfiTpfqUgtroESoxni417Y1OS_Foy_pVpdJrFjJC4",
           "phone_number": "01590243399",
@@ -702,6 +744,7 @@
       "type": "object",
       "example": {
         "status": true,
+        "message": "success",
         "data": {
           "phone_number": "01590243399",
           "updated_token": "5895787854hjhjdjhdjhd"
@@ -712,6 +755,7 @@
       "type": "object",
       "example": {
         "status": true,
+        "message": "success",
         "data": {
           "phone_number": "01590243399",
           "updated_token": "5895787854hjhjdjhdjhd"
@@ -722,6 +766,7 @@
       "type": "object",
       "example": {
         "status": true,
+        "message": "success",
         "data": {
           "doctor_id": 11,
           "phone_number": "01090243795",
@@ -730,7 +775,7 @@
           "country": "egypt",
           "category": "3yon",
           "sub_category": "hala",
-          "picture":"3874878487478.png",
+          "picture": "3874878487478.png",
           "fb_token_id": null,
           "avaliable": false,
           "token": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJwaG9uZV9udW1iZXIiOiIwMTA5MDI0Mzc5NSIsInVzZXJSb2xlIjoiZG9jdG9yIiwiaWF0IjoxNTg5NjYwNTg3LCJleHAiOjMxNzEzNDEwMjk4N30.g4HBs2FInrgpBeIxP-q0t0nbDeHz98nF5rr8eKKnIlc"
@@ -773,7 +818,7 @@
         "country": "egypt",
         "category": "3yon",
         "sub_category": "hala",
-        "picture":"498489849984.png"
+        "picture": "498489849984.png"
       }
     },
     "addingDoctorResponse": {
@@ -803,6 +848,7 @@
       },
       "example": {
         "status": true,
+        "message": "success",
         "data": {
           "avaliable": false,
           "doctor_id": 38,
@@ -812,7 +858,7 @@
           "country": "egypt",
           "category": "3yon",
           "sub_category": "hala",
-          "picture":"3874878487478.png"
+          "picture": "3874878487478.png"
         }
       }
     },
@@ -835,6 +881,7 @@
       "type": "object",
       "example": {
         "status": true,
+        "message": "success",
         "data": {
           "admin_id": 21,
           "name": "Fawzi E. Abdulfattah",
@@ -871,6 +918,7 @@
       "type": "object",
       "example": {
         "status": true,
+        "message": "success",
         "data": {
           "admin_id": 21,
           "username": "fawzi",
@@ -879,21 +927,11 @@
         }
       }
     },
-    "checkAdmin": {
-      "type": "object",
-      "properties": {
-        "token": {
-          "type": "string"
-        }
-      },
-      "example": {
-        "token": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VybmFtZSI6ImlpZmF3emlfIiwidXNlclJvbGUiOiJhZG1pbiIsImlhdCI6MTU4OTg1OTk3MywiZXhwIjozMTcxMzQzMDIzNzN9.1W3gvwYqVQeXgagRScWoYdyrX-5DhrTQWdh_J0b1DOs"
-      }
-    },
     "checkAdminResponse": {
       "type": "object",
       "example": {
         "status": true,
+        "message": "success",
         "data": {
           "admin_id": 21,
           "name": "Fawzi E. Abdulfattah",
@@ -906,6 +944,7 @@
       "type": "object",
       "example": {
         "status": true,
+        "message": "success",
         "data": {
           "filename": "6d75d1540c411590056094785.jpeg"
         }
@@ -914,13 +953,14 @@
     "getDoctor": {
       "type": "object",
       "example": {
-          "phone_number": "01090243795"
+        "phone_number": "01090243795"
       }
     },
     "getDoctorResponse": {
       "type": "object",
       "example": {
         "status": true,
+        "message": "success",
         "data": {
           "avaliable": false,
           "doctor_id": 38,
@@ -930,7 +970,7 @@
           "country": "egypt",
           "category": "3yon",
           "sub_category": "hala",
-          "picture":"3874878487478.png"
+          "picture": "3874878487478.png"
         }
       }
     },
@@ -938,40 +978,41 @@
       "type": "object",
       "example": {
         "status": true,
+        "message": "success",
         "data": [
-            {
-                "doctor_id": 1,
-                "phone_number": "01090243795",
-                "first_name": "fawzi",
-                "last_name": "ahmed",
-                "country": "egypt",
-                "category": "3yon",
-                "sub_category": "hala",
-                "picture": "3a1c3b41259e1590085993534.png",
-                "avaliable": false
-            },
-            {
-                "doctor_id": 11,
-                "phone_number": "01090243785",
-                "first_name": "bsbosa",
-                "last_name": "ahmed",
-                "country": "egypt",
-                "category": "3yon",
-                "sub_category": "hala",
-                "picture": "4ae44da439e91590091288985.png",
-                "avaliable": false
-            },
-            {
-                "doctor_id": 21,
-                "phone_number": "01090243715",
-                "first_name": "mostfa",
-                "last_name": "ahmed",
-                "country": "egypt",
-                "category": "3yon",
-                "sub_category": "hala",
-                "picture": "6d75d1540c411590056094785.jpeg",
-                "avaliable": false
-            }
+          {
+            "doctor_id": 1,
+            "phone_number": "01090243795",
+            "first_name": "fawzi",
+            "last_name": "ahmed",
+            "country": "egypt",
+            "category": "3yon",
+            "sub_category": "hala",
+            "picture": "3a1c3b41259e1590085993534.png",
+            "avaliable": false
+          },
+          {
+            "doctor_id": 11,
+            "phone_number": "01090243785",
+            "first_name": "bsbosa",
+            "last_name": "ahmed",
+            "country": "egypt",
+            "category": "3yon",
+            "sub_category": "hala",
+            "picture": "4ae44da439e91590091288985.png",
+            "avaliable": false
+          },
+          {
+            "doctor_id": 21,
+            "phone_number": "01090243715",
+            "first_name": "mostfa",
+            "last_name": "ahmed",
+            "country": "egypt",
+            "category": "3yon",
+            "sub_category": "hala",
+            "picture": "6d75d1540c411590056094785.jpeg",
+            "avaliable": false
+          }
         ]
       }
     },
@@ -987,7 +1028,8 @@
       },
       "example": {
         "status": false,
-        "message": "Error message will appear here, it will be an array if there're multiple error"
+        "message": "Error message will appear here, it will be an array if there're multiple error",
+        "data": {}
       }
     }
   }
