@@ -46,14 +46,14 @@ const deleteAdmin = async function (username) {
     return admin;
   };
 
-  const genToken = function (username, userRole) {
+  const genToken = function (username, role) {
     const encData = {
       username,
-      userRole,
+      role,
     };
     // data to be encrypted in the JSONWEBTOKEN.
     return jwt.sign(encData, config.get("jwt.secret"), {
-      expiresIn: config.get("jwt.expiresIn"),
+      expiresIn: config.get("jwt.expiresInAdmins"),
     });
   };
 

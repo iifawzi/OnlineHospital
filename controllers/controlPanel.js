@@ -25,7 +25,7 @@ const addImage = async (req,res,next)=>{
 };
 const addDoctor = async (req,res,next)=>{
     try{
-        const {first_name,last_name,phone_number,password,country,category,sub_category,picture} = req.body;
+        const {first_name,last_name,phone_number,password,country,category,sub_category,picture,price} = req.body;
         const Checkdoctors = await checkDocPhoneExist(phone_number);
         if (Checkdoctors){
             throw new ErrorHandler(403,"Phone Number is already associated with an account");
@@ -40,6 +40,7 @@ const addDoctor = async (req,res,next)=>{
             category,
             sub_category,
             picture,
+            price
         });
         if (createDoctor){
             const doctor = {...createDoctor.dataValues};

@@ -10,7 +10,6 @@ const doctors = db.define("doctors",{
     phone_number: {
         type:Sequelize.STRING,
         allowNull: false,
-        unique: true
     },
     password: {
         type:Sequelize.STRING,
@@ -48,8 +47,27 @@ const doctors = db.define("doctors",{
         type:Sequelize.BOOLEAN,
         allowNull:false,
         defaultValue:false,
+    }, 
+    price: {
+        type:Sequelize.STRING,
+        allowNull: false,
     }
 },{
+    indexes: [
+        {
+            fields: ["country"],
+          },
+        {
+            fields: ["avaliable"],
+          },
+        {
+          unique: true,
+          fields: ["phone_number"],
+        },
+        {
+            fields: ["category","sub_category"],
+          },
+      ],
     freezeTableName: true,
     timestamps: false,
 })

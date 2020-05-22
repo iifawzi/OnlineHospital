@@ -1,5 +1,5 @@
 const jwt = require("jsonwebtoken");
-const {ErrorHandler} = require("./error");
+const {ErrorHandler,handleError} = require("./error");
 const config = require("config");
 
 module.exports = (req,res,next)=>{
@@ -13,12 +13,21 @@ throw new ErrorHandler(401, "User is not Authorized");
       }
     try {
         let decoded_token = jwt.verify(splicedToken,config.get("jwt.secret"));
-        req.user = {
-            ...decoded_token
-        };
+        if (decoded_token.role === "admin" || decoded_token.role === "superadmin"){
+            req.admin = {
+                ...decoded_token
+            };
+        }else if (decoded_token.role === "user"){
+            req.user = {
+                ...decoded_token
+            };
+        }else {
+throw new ErrorHandler(401, "User is not Authorized");
+        }
+      
         next();
     }catch(err){
-        throw new ErrorHandler(500,err.message);
+        handleError(err,res)
     }
 }
 }

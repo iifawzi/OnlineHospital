@@ -10,6 +10,7 @@
       },
       "jwt":{
         "secret": "fawzihalawallahtest01090243795fawziapihospitalsocomplicatedwhyyouaretryingtotestthiswownotallowedhahafawzi",
-        "expiresIn":"9999 years"
+        "expiresIn":"9999 years",
+        "expiresInAdmins":"1d"
       }
 }

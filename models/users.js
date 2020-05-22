@@ -60,6 +60,12 @@ const users = db.define(
     },
   },
   {
+    indexes: [
+      {
+        unique: true,
+        fields: ["phone_number"],
+      },
+    ],
     freezeTableName: true,
     timestamps: false,
   }
@@ -79,10 +85,10 @@ const checkIfPhoneExist = async function (phone_number) {
   return user;
 };
 // Generate token:
-const genToken = function (phone_number, userRole) {
+const genToken = function (phone_number, role) {
   const encData = {
     phone_number,
-    userRole,
+    role,
   };
   // data to be encrypted in the JSONWEBTOKEN.
   return jwt.sign(encData, config.get("jwt.secret"), {

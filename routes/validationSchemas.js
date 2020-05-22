@@ -29,6 +29,7 @@ const addDoctor = Joi.object({
   category: Joi.string().required(),
   picture: Joi.string().required(),
   sub_category: Joi.string(),
+  price: Joi.string().required(),
 });
 const addAdmin = Joi.object({
 password: Joi.string().pattern(/^[a-zA-Z0-9]{3,30}$/).required(),

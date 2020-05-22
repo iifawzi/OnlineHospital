@@ -12,7 +12,7 @@ const getDoctor = async (req,res,next)=>{
             throw new ErrorHandler(401,"Doctor not found");
         }
         // For later, if we wanna be able to update the password from the control pabel for admins: 
-        // if (req.user.userRole === 'admin' || req.user.role === 'superadmin' ){
+        // if (req.admin.role === 'admin' || req.user.role === 'superadmin' ){
         //     return respond(true,200,{...doctor.dataValues},res);
         // }else {
         //     const doctorData = {...doctor.dataValues};
