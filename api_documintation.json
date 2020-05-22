@@ -989,7 +989,8 @@
             "category": "3yon",
             "sub_category": "hala",
             "picture": "3a1c3b41259e1590085993534.png",
-            "avaliable": false
+            "avaliable": false,
+            "price":"190"
           },
           {
             "doctor_id": 11,
@@ -1000,7 +1001,8 @@
             "category": "3yon",
             "sub_category": "hala",
             "picture": "4ae44da439e91590091288985.png",
-            "avaliable": false
+            "avaliable": false,
+            "price":"90"
           },
           {
             "doctor_id": 21,
@@ -1011,7 +1013,9 @@
             "category": "3yon",
             "sub_category": "hala",
             "picture": "6d75d1540c411590056094785.jpeg",
-            "avaliable": false
+            "avaliable": false,
+            "price":"300"
+
           }
         ]
       }
