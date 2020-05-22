@@ -7,6 +7,8 @@ const {prescriptions} = require("../models/prescriptions");
 const {diagnosis} = require("../models/diagnosis");
 const {messages} = require("../models/messages");
 const {rates} = require("../models/rates");
+const systemUser = require("../utils/systemUser");
+systemUser();
 // // Refs:
 // slots.belongsTo(users, {
 //   foreignKey: "doctor_id",

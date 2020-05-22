@@ -1,7 +1,5 @@
 const Sequelize = require('sequelize');
 const db = require('../utils/db');
-const jwt = require("jsonwebtoken");
-const config = require("config");
 
 const admins = db.define('admins',{
     admin_id:{
