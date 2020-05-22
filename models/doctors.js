@@ -97,7 +97,7 @@ const updateDoctorFirebaseToken = async function (doctorObject, new_token) {
     return doctorObject;
   };
 const  getDoctorsData = async  (req,res,next)=>{
-   const doctorsData = await doctors.findAll({attributes:{exclude: ['password','fb_token_id']},
+   const doctorsData = await doctors.findAll({attributes:{exclude: ['password','fb_token_id','priority']},
    order: [
     ['priority', 'DESC'],
 ],}); // later just show the avaliable = true doctors

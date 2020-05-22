@@ -16,7 +16,6 @@ const isAuth = (role)=>{
         if (!decoded_token) {
           throw new ErrorHandler(401, "Not authorized");
         }
-        console.log(role.includes(decoded_token.role));
         if (role.includes(decoded_token.role)){
           req.user = {
             ...decoded_token,

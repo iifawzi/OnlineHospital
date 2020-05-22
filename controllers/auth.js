@@ -105,6 +105,7 @@ const signDoctors = async (req,res,next)=>{
         const token = genToken(phone_number,"doctor");
         const returnedDoctor = {...doctor.dataValues};
         delete returnedDoctor.password;
+        delete returnedDoctor.priority;
         return respond(true,200,{...returnedDoctor,token},res);
     }catch(err){
         handleError(err,res);
