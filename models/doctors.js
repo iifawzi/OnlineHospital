@@ -51,6 +51,11 @@ const doctors = db.define("doctors",{
     price: {
         type:Sequelize.STRING,
         allowNull: false,
+    },
+    priority: {
+        type: Sequelize.INTEGER,
+        allowNull: false,
+        defaultValue:1,
     }
 },{
     indexes: [
@@ -92,7 +97,10 @@ const updateDoctorFirebaseToken = async function (doctorObject, new_token) {
     return doctorObject;
   };
 const  getDoctorsData = async  (req,res,next)=>{
-   const doctorsData = await doctors.findAll({attributes:{exclude: ['password','fb_token_id']},}); // later just show the avaliable = true doctors
+   const doctorsData = await doctors.findAll({attributes:{exclude: ['password','fb_token_id']},
+   order: [
+    ['priority', 'DESC'],
+],}); // later just show the avaliable = true doctors
    return doctorsData;
 }
 module.exports = {

@@ -56,6 +56,10 @@ const users = db.define(
       allowNull: false,
       defaultValue: "user",
     },
+    money: {
+      allowNull: true,
+     type: Sequelize.STRING,
+    },
   },
   {
     indexes: [
