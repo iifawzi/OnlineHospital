@@ -361,7 +361,7 @@
             }
           },
           "403": {
-            "description": "401 (username is already registered)",
+            "description": "401 (Phone number is already registered)",
             "schema": {
               "$ref": "#/definitions/Error"
             }
@@ -417,7 +417,7 @@
             }
           },
           "403": {
-            "description": "401 (username is already registered)",
+            "description": "401 (Phone number is already registered)",
             "schema": {
               "$ref": "#/definitions/Error"
             }
@@ -865,7 +865,7 @@
     "loginAdmin": {
       "type": "object",
       "properties": {
-        "username": {
+        "phone_number": {
           "type": "string"
         },
         "password": {
@@ -873,7 +873,7 @@
         }
       },
       "example": {
-        "username": "fawzi",
+        "phone_number": "01090243795",
         "password": "testtest"
       }
     },
@@ -885,7 +885,7 @@
         "data": {
           "admin_id": 21,
           "name": "Fawzi E. Abdulfattah",
-          "username": "fawzi",
+          "phone_number": "01090243795",
           "role": "admin",
           "token": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VybmFtZSI6ImZhd3ppIiwidXNlclJvbGUiOiJhZG1pbiIsImlhdCI6MTU4OTc5MDIzNywiZXhwIjozMTcxMzQyMzI2Mzd9.kmnppK8ek5d_Yr2sA86HJY3GsAtShVhohQvXrXrZRMk"
         }
@@ -894,7 +894,7 @@
     "addingAdmin": {
       "type": "object",
       "properties": {
-        "username": {
+        "phne_number": {
           "type": "string"
         },
         "password": {
@@ -908,7 +908,7 @@
         }
       },
       "example": {
-        "username": "fawzi",
+        "phone_number": "01090243795",
         "password": "testtest",
         "name": "Fawzi E. Abdulfattah",
         "role": "admin"
@@ -921,7 +921,7 @@
         "message": "success",
         "data": {
           "admin_id": 21,
-          "username": "fawzi",
+          "phone_number": "01090243795",
           "name": "Fawzi E. Abdulfattah",
           "role": "admin"
         }
@@ -935,7 +935,7 @@
         "data": {
           "admin_id": 21,
           "name": "Fawzi E. Abdulfattah",
-          "username": "fawzi",
+          "phone_number": "01090243795",
           "role": "admin"
         }
       }
