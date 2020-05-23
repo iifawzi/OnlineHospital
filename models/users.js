@@ -12,7 +12,6 @@ const users = db.define(
     phone_number: {
       type: Sequelize.STRING(255),
       allowNull: false,
-      unique: true,
     },
     first_name: {
       type: Sequelize.STRING(255),

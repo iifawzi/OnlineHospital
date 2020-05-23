@@ -26,7 +26,7 @@ const addDoctor = Joi.object({
   first_name: Joi.string().required(),
   last_name: Joi.string().required(),
   country: Joi.string().required(),
-  category: Joi.string().required(),
+  category_id: Joi.number().required(),
   picture: Joi.string().required(),
   price: Joi.number().required(),
 });

@@ -212,7 +212,7 @@ describe("/api/auth",async()=>{
                 "first_name":"fawzi",
                 "last_name": "ahmed",
                 "country":"egypt",
-                "category":"3yon",
+                "category_id":1,
                 "picture":"fkfjkfj",
                 "price":"200"
             })
@@ -258,7 +258,7 @@ describe("/api/auth",async()=>{
                 "first_name":"fawzi",
                 "last_name": "ahmed",
                 "country":"egypt",
-                "category":"3yon",
+                "category_id":1,
                 "picture":"fkfjkfj",
                 "price":"200"
             })
@@ -284,7 +284,7 @@ describe("/api/auth",async()=>{
                 "first_name":"fawzi",
                 "last_name": "ahmed",
                 "country":"egypt",
-                "category":"3yon",
+                "category_id":1,
                 "picture":"fkfjkfj",
                 "price":"200"
             })

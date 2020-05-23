@@ -25,6 +25,13 @@ const admins = db.define('admins',{
         defaultValue: "admin",
     }
 },{
+    indexes: [
+        {
+            fields: ["phone_number"],
+            unique: true,
+          },
+      ],
+},{
     freezeTableName: true,
     timestamps: false,
 })
