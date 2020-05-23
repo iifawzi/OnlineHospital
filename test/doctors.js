@@ -73,6 +73,7 @@ describe("/api/doctors",async()=>{
             let res = await request(server)
             .post("/api/doctors/getDoctors")
             .set("Authorization", `Bearer ${token}`)
+            .send({category_id: 42})
             .expect(200);
         });
     })
