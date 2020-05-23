@@ -49,7 +49,6 @@ describe("/api/doctors",async()=>{
                 "last_name": "ahmed",
                 "country":"egypt",
                 "category":"3yon",
-                "sub_category":"hala",
                 "picture":"fkfjkfj",
                 "price": "100",
             })

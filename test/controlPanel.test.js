@@ -27,59 +27,56 @@ describe("/api/controlPanel",async()=>{
             .expect(400);
         });
         it("Should respond with 201 if doctor created successfully",async()=>{
-            const token = genToken("01090243795","admin");
+            const token = genToken("11090243799","admin");
             let res = await request(server)
             .post("/api/controlPanel/addDoctor")
             .set("Authorization", `Bearer ${token}`)
             .send({
-                "phone_number":"01090243795",
+                "phone_number":"11090243799",
                 "password":"testtest",
                 "first_name":"fawzi",
                 "last_name": "ahmed",
                 "country":"egypt",
                 "category":"3yon",
-                "sub_category":"hala",
                 "picture":"fkfjkfj",
                 "price": "100",
             })
             .expect(201);
-            expect(res.body.data.phone_number).to.equal("01090243795");
-            deleteDoctor("01090243795");
+            expect(res.body.data.phone_number).to.equal("11090243799");
+            deleteDoctor("11090243799");
         });
         it("Should respond with 403 if the phone number is already registered",async()=>{
-            const token = genToken("01090243795","admin");
+            const token = genToken("01090243798","admin");
             let res = await request(server)
             .post("/api/controlPanel/addDoctor")
             .set("Authorization", `Bearer ${token}`)
             .send({
-                "phone_number":"01090243795",
+                "phone_number":"01090243798",
                 "password":"testtest",
                 "first_name":"fawzi",
                 "last_name": "ahmed",
                 "country":"egypt",
                 "category":"3yon",
-                "sub_category":"hala",
                 "picture":"fkfjkfj",
                 "price": "100",
             })
             .expect(201);
-            expect(res.body.data.phone_number).to.equal("01090243795");
+            expect(res.body.data.phone_number).to.equal("01090243798");
             res = await request(server)
             .post("/api/controlPanel/addDoctor")
             .set("Authorization", `Bearer ${token}`)
             .send({
-                "phone_number":"01090243795",
+                "phone_number":"01090243798",
                 "password":"testtest",
                 "first_name":"fawzi",
                 "last_name": "ahmed",
                 "country":"egypt",
                 "category":"3yon",
-                "sub_category":"hala",
                 "picture":"fkfjkfj",
                 "price": "100",
             })
             .expect(403);
-            deleteDoctor("01090243795");
+            deleteDoctor("01090243798");
         });
     });
 
@@ -99,13 +96,13 @@ describe("/api/controlPanel",async()=>{
             .expect(400);
         });
         it("Should respond with 201 if created successfully",async()=>{
-            const token = genToken("01090243795","admin");
+            const token = genToken("11090243799","admin");
             let res = await request(server)
             .post('/api/controlPanel/addAdmin')
             .set("Authorization", `Bearer ${token}`)
-            .send({phone_number:"01090243795",password:"testtest",name:"Fawzi E. Abdulfattah",role:"admin"})
+            .send({phone_number:"11090243799",password:"testtest",name:"Fawzi E. Abdulfattah",role:"admin"})
             .expect(201);
-            expect(res.body.data.phone_number).to.equal("01090243795");
+            expect(res.body.data.phone_number).to.equal("11090243799");
         });
         it("Should Respond with 403 if phone number is already Registered",async()=>{
             const token = genToken("01090243795","admin");

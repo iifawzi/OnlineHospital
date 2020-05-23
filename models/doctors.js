@@ -31,10 +31,6 @@ const doctors = db.define("doctors",{
         type:Sequelize.STRING,
         allowNull:false,
     },
-    sub_category:{
-        type:Sequelize.STRING,
-        allowNull:true,
-    },
     fb_token_id:{
         type:Sequelize.STRING,
         allowNull:true,
@@ -63,15 +59,12 @@ const doctors = db.define("doctors",{
             fields: ["country"],
           },
         {
-            fields: ["avaliable"],
+            fields: ["category","avaliable"],
           },
         {
           unique: true,
           fields: ["phone_number"],
         },
-        {
-            fields: ["category","sub_category"],
-          },
       ],
     freezeTableName: true,
     timestamps: false,

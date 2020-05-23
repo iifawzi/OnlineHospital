@@ -774,8 +774,8 @@
           "last_name": "ahmed",
           "country": "egypt",
           "category": "3yon",
-          "sub_category": "hala",
           "picture": "3874878487478.png",
+          "price":"494",
           "fb_token_id": null,
           "avaliable": false,
           "token": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJwaG9uZV9udW1iZXIiOiIwMTA5MDI0Mzc5NSIsInVzZXJSb2xlIjoiZG9jdG9yIiwiaWF0IjoxNTg5NjYwNTg3LCJleHAiOjMxNzEzNDEwMjk4N30.g4HBs2FInrgpBeIxP-q0t0nbDeHz98nF5rr8eKKnIlc"
@@ -803,11 +803,11 @@
         "category": {
           "type": "string"
         },
-        "sub_category": {
-          "type": "string"
-        },
         "picture": {
           "type": "string"
+        },
+        "price": {
+          "type": "integer"
         }
       },
       "example": {
@@ -817,8 +817,8 @@
         "last_name": "ahmed",
         "country": "egypt",
         "category": "3yon",
-        "sub_category": "hala",
-        "picture": "498489849984.png"
+        "picture": "498489849984.png",
+        "price":"190"
       }
     },
     "addingDoctorResponse": {
@@ -842,8 +842,11 @@
         "category": {
           "type": "string"
         },
-        "sub_category": {
+        "picture": {
           "type": "string"
+        },
+        "price": {
+          "type": "integer"
         }
       },
       "example": {
@@ -857,8 +860,8 @@
           "phone_number": "01090243795",
           "country": "egypt",
           "category": "3yon",
-          "sub_category": "hala",
-          "picture": "3874878487478.png"
+          "picture": "3874878487478.png",
+          "price":"190"
         }
       }
     },
@@ -969,8 +972,8 @@
           "phone_number": "01090243795",
           "country": "egypt",
           "category": "3yon",
-          "sub_category": "hala",
-          "picture": "3874878487478.png"
+          "picture": "3874878487478.png",
+          "price":"138"
         }
       }
     },
@@ -987,7 +990,6 @@
             "last_name": "ahmed",
             "country": "egypt",
             "category": "3yon",
-            "sub_category": "hala",
             "picture": "3a1c3b41259e1590085993534.png",
             "avaliable": false,
             "price":"190"
@@ -999,7 +1001,6 @@
             "last_name": "ahmed",
             "country": "egypt",
             "category": "3yon",
-            "sub_category": "hala",
             "picture": "4ae44da439e91590091288985.png",
             "avaliable": false,
             "price":"90"
@@ -1011,7 +1012,6 @@
             "last_name": "ahmed",
             "country": "egypt",
             "category": "3yon",
-            "sub_category": "hala",
             "picture": "6d75d1540c411590056094785.jpeg",
             "avaliable": false,
             "price":"300"
