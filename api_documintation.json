@@ -22,6 +22,10 @@
     {
       "name": "doctors",
       "description": "Everything related to doctors will be listed here"
+    },
+    {
+      "name": "categories",
+      "description": "Everything related to categories will be listed here"
     }
   ],
   "paths": {
@@ -577,6 +581,42 @@
           "doctors"
         ],
         "summary": "Get Doctors data",
+        "consumes": [
+          "application/json"
+        ],
+        "produces": [
+          "application/json"
+        ],
+        "parameters": [
+          {
+            "in": "header",
+            "name": "Authorization",
+            "required": true,
+            "type": "string"
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "200 (success)",
+            "schema": {
+              "$ref": "#/definitions/getDoctorsResponse"
+            }
+          },
+          "401": {
+            "description": "401 (Not Authorized)",
+            "schema": {
+              "$ref": "#/definitions/Error"
+            }
+          }
+        }
+      }
+    },
+    "/doctors/getCategories": {
+      "post": {
+        "tags": [
+          "categories"
+        ],
+        "summary": "Get Categories",
         "consumes": [
           "application/json"
         ],

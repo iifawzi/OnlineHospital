@@ -22,8 +22,17 @@ ar:{
 })
 
 
+const getCats = async ()=>{
+    const categories =  await db.query("SELECT * FROM `categories` cats where cats.category_id IN (SELECT docs.category_id FROM `doctors` docs GROUP BY cats.category_id ) ",{
+        type: Sequelize.QueryTypes.SELECT,
+    });
+    return categories;
+}
+
+
 module.exports = {
-    categories
+    categories,
+    getCats
 };
 
 

@@ -30,6 +30,10 @@ const doctors = db.define("doctors",{
     category_id:{
         type:Sequelize.INTEGER,
         allowNull:false,
+        references: {    
+            model: 'categories',
+            key: 'category_id'
+          }
     },
     fb_token_id:{
         type:Sequelize.STRING,
