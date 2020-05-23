@@ -45,6 +45,16 @@ const getDoctor = Joi.object({
 });
 const getDoctors = Joi.object({
   category_id: Joi.number().required(),
+});
+const updateUser = Joi.object({
+  phone_number: Joi.string(),
+    first_name: Joi.string(),
+    last_name: Joi.string(),
+    birth_date: Joi.date(),
+    height: Joi.number(),
+    weight: Joi.number(),
+    bmi: Joi.number(),
+    gender: Joi.string(),
 })
 const schemas = {
   addUser,
@@ -55,7 +65,8 @@ const schemas = {
   addAdmin,
   signAdmin,
   getDoctor,
-  getDoctors
+  getDoctors,
+  updateUser
 }
 
 module.exports = schemas;

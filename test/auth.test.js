@@ -196,16 +196,18 @@ describe("/api/auth",async()=>{
 
 
 
-    describe("/signDoctors",async()=>{
+    describe("/signDoctor",async()=>{
         it("should respond with 400 if any inputs are incorrect or missed (SCHEMA VALIDATION)",async()=>{
-            let res = request(server)
-            .post("/api/auth/signDoctors")
+            let res = await request(server)
+            .post("/api/auth/signDoctor")
             .send({phone_number:"02903"})
             .expect(400);
         });
         it("should respond with 401 if phone number or password are incorrect `backend side`",async()=>{
-            let res = request(server)
+            const token = genToken("01590243399","admin");
+            let res = await request(server)
             .post("/api/controlPanel/addDoctor")
+            .set("Authorization", `Bearer ${token}`)
             .send({
                 "phone_number":"01090243795",
                 "password":"testtest",

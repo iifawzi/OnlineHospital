@@ -103,6 +103,8 @@ describe("/api/controlPanel",async()=>{
             .send({phone_number:"11090243799",password:"testtest",name:"Fawzi E. Abdulfattah",role:"admin"})
             .expect(201);
             expect(res.body.data.phone_number).to.equal("11090243799");
+            deleteAdmin('11090243799');
+
         });
         it("Should Respond with 403 if phone number is already Registered",async()=>{
             const token = genToken("01090243795","admin");

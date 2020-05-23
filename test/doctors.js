@@ -29,13 +29,13 @@ describe("/api/doctors",async()=>{
             .send({phone_number: "01090243795"})
             .expect(401)
         });
-        it("Should respond with 401 if doctor not found",async()=>{
+        it("Should respond with 404 if doctor not found",async()=>{
             const token = genToken("fawzii","user");
             let res = await request(server)
             .post("/api/doctors/getDoctor")
             .set("Authorization", `Bearer ${token}`)
             .send({phone_number: "01090243797"})
-            .expect(401);
+            .expect(404);
         });
         it("Should respond with 200 if got doctor successfully",async()=>{
             const token = genToken("fawzii","admin");

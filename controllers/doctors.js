@@ -9,7 +9,7 @@ const getDoctor = async (req,res,next)=>{
         const {phone_number} = req.body;
         const doctor = await checkDocPhoneExist(phone_number);
         if (!doctor){
-            throw new ErrorHandler(401,"Doctor not found");
+            throw new ErrorHandler(404,"Doctor not found");
         }
             const doctorData = {...doctor.dataValues};
             delete doctorData.password;

@@ -100,6 +100,15 @@ const blockUser = async function (phone_number) {
   return user;
 };
 
+// update user specific inputs: 
+const updateUser = async function (userObject,data){
+  for (let key in data){
+    userObject[key] = data[key];
+  }
+  await userObject.save();
+  return userObject;
+}
+
 module.exports = {
   users,
   checkIfPhoneExist,
@@ -107,4 +116,5 @@ module.exports = {
   deleteUser,
   updateFirebaseToken,
   blockUser,
+  updateUser,
 };
