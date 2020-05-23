@@ -172,7 +172,7 @@ describe("/api/auth",async()=>{
             let res = await request(server)
             .post("/api/auth/signup")
             .send({
-                "phone_number": "01590243399",
+                "phone_number": "01590243391",
                 "first_name": "fawzi",
                 "last_name":"ahmed",
                 "birth_date": "1999-03-20",
@@ -188,7 +188,7 @@ describe("/api/auth",async()=>{
             .send({"new_token":"123456789elhamdullah"})
             // .set("Authorization", `Bearer ${token}`)
             .expect(401);
-            deleteUser("01590243399");
+            deleteUser("01590243391");
         });
     });
 

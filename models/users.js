@@ -59,6 +59,10 @@ const users = db.define(
       allowNull: true,
      type: Sequelize.STRING,
     },
+    picture: {
+      allowNull: true,
+     type: Sequelize.STRING,
+    },
   },
   {
     indexes: [

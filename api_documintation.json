@@ -665,7 +665,6 @@
           "user"
         ],
         "summary": "to update specific user info.",
-        
         "consumes": [
           "application/json"
         ],
@@ -675,7 +674,7 @@
         "parameters": [
           {
             "in": "body",
-            "description":"You can send whatever you want, made wuth love by fawzii for el belasy <3",
+            "description": "You can send whatever you want, made wuth love by fawzii for el belasy <3",
             "name": "body",
             "required": true,
             "schema": {
@@ -702,14 +701,105 @@
               "$ref": "#/definitions/Error"
             }
           },
+          "401": {
+            "description": "401 (Not Authorized)",
+            "schema": {
+              "$ref": "#/definitions/Error"
+            }
+          },
           "403": {
             "description": "The entered phone number already associated with an account",
+            "schema": {
+              "$ref": "#/definitions/Error"
+            }
+          }
+        }
+      }
+    },
+    "/user/notBlocked": {
+      "post": {
+        "tags": [
+          "user"
+        ],
+        "summary": "to know which user is blocked or not",
+        
+        "consumes": [
+          "application/json"
+        ],
+        "produces": [
+          "application/json"
+        ],
+        "parameters": [
+          {
+            "in": "header",
+            "name": "Authorization",
+            "required": true,
+            "type": "string"
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "200 (success)",
+            "schema": {
+              "$ref": "#/definitions/notBlockedResponse"
+            }
+          },
+          "403": {
+            "description": "403 User is blocked",
             "schema": {
               "$ref": "#/definitions/Error"
             }
           },
           "401": {
             "description": "401 (Not Authorized)",
+            "schema": {
+              "$ref": "#/definitions/Error"
+            }
+          }
+        }
+      }
+    },
+    "/user/updateImage": {
+      "post": {
+        "summary": "Update User's image.",
+        "consumes": [
+          "multipart/form-data"
+        ],
+        "parameters": [
+          {
+            "in": "formData",
+            "name": "upfile",
+            "type": "file",
+            "description": "The file to upload."
+          },
+          {
+            "in": "header",
+            "name": "Authorization",
+            "required": true,
+            "type": "string"
+          }
+        ],
+        "responses": {
+          "201": {
+            "description": "200 (updated)",
+            "schema": {
+              "$ref": "#/definitions/updateImageResponse"
+            }
+          },
+          "401": {
+            "description": "401 (Not Authorized)",
+            "schema": {
+              "$ref": "#/definitions/Error"
+            }
+          },
+          "403": {
+            "description": "403 (Type not allowed)",
+            "schema": {
+              "$ref": "#/definitions/Error"
+            }
+          },
+          "500": {
+            "description": "500 (File is so big || Server error)",
             "schema": {
               "$ref": "#/definitions/Error"
             }
@@ -735,18 +825,21 @@
           "type": "string"
         },
         "weight": {
-          "type": "string"
+          "type": "integer"
         },
         "height": {
-          "type": "string"
+          "type": "integer"
         },
         "bmi": {
-          "type": "string"
+          "type": "integer"
         },
         "fb_token_id": {
           "type": "string"
         },
         "gender": {
+          "type": "string"
+        },
+        "picture":{
           "type": "string"
         }
       },
@@ -759,7 +852,8 @@
         "height": 180,
         "bmi": 28,
         "fb_token_id": "djdj84",
-        "gender": "male"
+        "gender": "male",
+        "picture":"3874878487478.png"
       }
     },
     "signin": {
@@ -826,7 +920,8 @@
           "bmi": 28,
           "fb_token_id": "djdj84",
           "gender": "male",
-          "role": "user"
+          "role": "user",
+          "picture":"3874878487478.png"
         }
       }
     },
@@ -846,7 +941,8 @@
           "bmi": 28,
           "fb_token_id": "djdj84",
           "gender": "male",
-          "role": "user"
+          "role": "user",
+          "picture":"3874878487478.png"
         }
       }
     },
@@ -885,7 +981,7 @@
           "country": "egypt",
           "category_id": 1,
           "picture": "3874878487478.png",
-          "price":"494",
+          "price": "494",
           "fb_token_id": null,
           "avaliable": false,
           "token": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJwaG9uZV9udW1iZXIiOiIwMTA5MDI0Mzc5NSIsInVzZXJSb2xlIjoiZG9jdG9yIiwiaWF0IjoxNTg5NjYwNTg3LCJleHAiOjMxNzEzNDEwMjk4N30.g4HBs2FInrgpBeIxP-q0t0nbDeHz98nF5rr8eKKnIlc"
@@ -928,7 +1024,7 @@
         "country": "egypt",
         "category_id": 1,
         "picture": "498489849984.png",
-        "price":"190"
+        "price": "190"
       }
     },
     "addingDoctorResponse": {
@@ -969,9 +1065,9 @@
           "last_name": "ahmed",
           "phone_number": "01090243795",
           "country": "egypt",
-          "category_id":1,
+          "category_id": 1,
           "picture": "3874878487478.png",
-          "price":"190"
+          "price": "190"
         }
       }
     },
@@ -1007,7 +1103,7 @@
     "addingAdmin": {
       "type": "object",
       "properties": {
-        "phne_number": {
+        "phone_number": {
           "type": "string"
         },
         "password": {
@@ -1065,6 +1161,11 @@
     },
     "getDoctor": {
       "type": "object",
+      "properties": {
+        "phone_number": {
+          "type": "string"
+        }
+      },
       "example": {
         "phone_number": "01090243795"
       }
@@ -1081,14 +1182,19 @@
           "last_name": "ahmed",
           "phone_number": "01090243795",
           "country": "egypt",
-          "category_id":1,
+          "category_id": 1,
           "picture": "3874878487478.png",
-          "price":"138"
+          "price": "138"
         }
       }
     },
     "getDoctors": {
       "type": "object",
+      "properties": {
+        "category_id": {
+          "type": "integer"
+        }
+      },
       "example": {
         "category_id": 41
       }
@@ -1105,10 +1211,10 @@
             "first_name": "fawzi",
             "last_name": "ahmed",
             "country": "egypt",
-            "category_id":41,
+            "category_id": 41,
             "picture": "3a1c3b41259e1590085993534.png",
             "avaliable": false,
-            "price":"190"
+            "price": "190"
           },
           {
             "doctor_id": 11,
@@ -1116,10 +1222,10 @@
             "first_name": "bsbosa",
             "last_name": "ahmed",
             "country": "egypt",
-            "category_id":41,
+            "category_id": 41,
             "picture": "4ae44da439e91590091288985.png",
             "avaliable": false,
-            "price":"90"
+            "price": "90"
           },
           {
             "doctor_id": 21,
@@ -1127,11 +1233,10 @@
             "first_name": "mostfa",
             "last_name": "ahmed",
             "country": "egypt",
-            "category_id":41,
+            "category_id": 41,
             "picture": "6d75d1540c411590056094785.jpeg",
             "avaliable": false,
-            "price":"300"
-
+            "price": "300"
           }
         ]
       }
@@ -1146,17 +1251,46 @@
             "category_id": 34,
             "en": "Space  Medicine",
             "ar": "طب الفضاء"
-        },
-        {
+          },
+          {
             "category_id": 42,
             "en": "Vascular surgery",
             "ar": "جراحة الاوعية الدموية"
-        }
+          }
         ]
       }
     },
     "updateInfo": {
       "type": "object",
+      "properties": {
+        "phone_number": {
+          "type": "string"
+        },
+        "first_name": {
+          "type": "string"
+        },
+        "last_name": {
+          "type": "string"
+        },
+        "birth_date": {
+          "type": "string"
+        },
+        "weight": {
+          "type": "integer"
+        },
+        "height": {
+          "type": "integer"
+        },
+        "bmi": {
+          "type": "integer"
+        },
+        "gender": {
+          "type": "string"
+        },
+        "picture":{
+          "type":"string"
+        }
+      },
       "example": {
         "phone_number": "01090243795",
         "height": "494"
@@ -1167,7 +1301,7 @@
       "example": {
         "status": true,
         "message": "success",
-        "data":{
+        "data": {
           "token": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VybmFtZSI6ImYzYWR3MXN6ZGlpIiwidXNlclJvbGUiOiJ1c2VyIiwiaWF0IjoxNTg5MDAzMzMwLCJleHAiOjE1ODk4NjczMzB9.YPwfiTpfqUgtroESoxni417Y1OS_Foy_pVpdJrFjJC4",
           "phone_number": "01590243399",
           "first_name": "fawzi",
@@ -1178,7 +1312,28 @@
           "bmi": 28,
           "fb_token_id": "djdj84",
           "gender": "male",
-          "role": "user"
+          "role": "user",
+          "picture":"3874878487478.png"
+        }
+      }
+    },
+    "notBlockedResponse": {
+      "type": "object",
+      "example": {
+        "status": true,
+        "message": "success",
+        "data":{
+         "blocked":false
+        }
+      }
+    },
+    "updaeImageResponse": {
+      "type": "object",
+      "example": {
+        "status": true,
+        "message": "success",
+        "data":{
+         "picture":"4i489448.png"
         }
       }
     },
