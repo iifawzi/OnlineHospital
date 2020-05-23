@@ -11,14 +11,6 @@ const getDoctor = async (req,res,next)=>{
         if (!doctor){
             throw new ErrorHandler(401,"Doctor not found");
         }
-        // For later, if we wanna be able to update the password from the control pabel for admins: 
-        // if (req.admin.role === 'admin' || req.user.role === 'superadmin' ){
-        //     return respond(true,200,{...doctor.dataValues},res);
-        // }else {
-        //     const doctorData = {...doctor.dataValues};
-        //     delete doctorData.password;
-        //     return respond(true,200,{...doctorData},res);
-        // }
             const doctorData = {...doctor.dataValues};
             delete doctorData.password;
             return respond(true,200,{...doctorData},res);
@@ -30,7 +22,8 @@ const getDoctor = async (req,res,next)=>{
 
 const getDoctors = async (req,res,next)=>{
     try {
-const doctors = await getDoctorsData();
+        const {category_id} = req.body;
+const doctors = await getDoctorsData(category_id);
 return respond(true,200,doctors,res);
     }catch(err){
         handleError(err,res);

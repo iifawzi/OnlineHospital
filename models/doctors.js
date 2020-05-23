@@ -93,11 +93,11 @@ const updateDoctorFirebaseToken = async function (doctorObject, new_token) {
     await doctorObject.save();
     return doctorObject;
   };
-const  getDoctorsData = async  (req,res,next)=>{
+const  getDoctorsData = async  (category_id)=>{
    const doctorsData = await doctors.findAll({attributes:{exclude: ['password','fb_token_id','priority']},
    order: [
     ['priority', 'DESC'],
-],}); // later just show the avaliable = true doctors
+],where:{category_id}}); // later just show the avaliable = true doctors
    return doctorsData;
 }
 module.exports = {

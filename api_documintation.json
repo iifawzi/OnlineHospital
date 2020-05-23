@@ -580,7 +580,7 @@
         "tags": [
           "doctors"
         ],
-        "summary": "Get Doctors data",
+        "summary": "Get Doctors data within specific category",
         "consumes": [
           "application/json"
         ],
@@ -588,6 +588,14 @@
           "application/json"
         ],
         "parameters": [
+          {
+            "in": "body",
+            "name": "body",
+            "required": true,
+            "schema": {
+              "$ref": "#/definitions/getDoctors"
+            }
+          },
           {
             "in": "header",
             "name": "Authorization",
@@ -1017,6 +1025,12 @@
         }
       }
     },
+    "getDoctors": {
+      "type": "object",
+      "example": {
+        "category_id": 41
+      }
+    },
     "getDoctorsResponse": {
       "type": "object",
       "example": {
@@ -1029,7 +1043,7 @@
             "first_name": "fawzi",
             "last_name": "ahmed",
             "country": "egypt",
-            "category_id":1,
+            "category_id":41,
             "picture": "3a1c3b41259e1590085993534.png",
             "avaliable": false,
             "price":"190"
@@ -1040,7 +1054,7 @@
             "first_name": "bsbosa",
             "last_name": "ahmed",
             "country": "egypt",
-            "category_id":1,
+            "category_id":41,
             "picture": "4ae44da439e91590091288985.png",
             "avaliable": false,
             "price":"90"
@@ -1051,7 +1065,7 @@
             "first_name": "mostfa",
             "last_name": "ahmed",
             "country": "egypt",
-            "category_id":1,
+            "category_id":41,
             "picture": "6d75d1540c411590056094785.jpeg",
             "avaliable": false,
             "price":"300"
