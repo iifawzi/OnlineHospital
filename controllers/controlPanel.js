@@ -6,7 +6,7 @@ const {genToken} = require("../utils/shared/genToken");
 const {hashPassword,compareHashed} = require("../utils/shared/bcrypt");
 const respond = require("../middleware/respond");
 const upload = require("../middleware/upload");
-
+const fs = require('fs')
 
 const addImage = async (req,res,next)=>{
     try {
@@ -34,6 +34,10 @@ const addDoctor = async (req,res,next)=>{
         const {first_name,last_name,phone_number,password,country,category_id,picture,price} = req.body;
         const Checkdoctors = await checkDocPhoneExist(phone_number);
         if (Checkdoctors){
+            const filePath = "./uploadedImages/"+picture;
+            if (fs.existsSync(filePath)) {
+                fs.unlinkSync(filePath);
+              }
             throw new ErrorHandler(403,"Phone Number is already associated with an account");
         }
         const hashedPassword = await hashPassword(password);
@@ -119,6 +123,7 @@ const checkToken = async (req,res,next)=>{
      };
      const respondedAdmin = {...admin.dataValues};
      delete respondedAdmin.password;
+     delete respondedAdmin.admin_id;
      return respond(true,200,{...respondedAdmin},res);
     }catch(err){
         handleError(err,res);

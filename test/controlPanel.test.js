@@ -22,6 +22,8 @@ describe("/api/controlPanel", async () => {
         .set("Authorization", `Bearer ${token}`)
         .expect(400);
     });
+ 
+ 
     it("Should respond with 201 if doctor created successfully", async () => {
       const token = genToken("11090243799", "admin");
       let res = await request(server)
@@ -41,6 +43,8 @@ describe("/api/controlPanel", async () => {
       expect(res.body.data.phone_number).to.equal("11090243799");
       deleteDoctor("11090243799");
     });
+
+
     it("Should respond with 403 if the phone number is already registered", async () => {
       const token = genToken("01090243798", "admin");
       let res = await request(server)

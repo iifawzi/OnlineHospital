@@ -11,6 +11,9 @@ const getDoctor = async (req,res,next)=>{
         if (!doctor){
             throw new ErrorHandler(404,"Doctor not found");
         }
+        if (req.user.role === 'admin'){
+            return respond(true,200,doctor.dataValues,res);
+        }
             const doctorData = {...doctor.dataValues};
             delete doctorData.password;
             return respond(true,200,{...doctorData},res);
