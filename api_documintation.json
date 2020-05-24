@@ -843,6 +843,63 @@
           }
         }
       }
+    },
+    "/doctors/updateDoctor": {
+      "post": {
+        "tags": [
+          "user"
+        ],
+        "summary": "to update specific doctor info.",
+        "consumes": [
+          "application/json"
+        ],
+        "produces": [
+          "application/json"
+        ],
+        "parameters": [
+          {
+            "in": "body",
+            "description": "You can send whatever you want, made wuth love by fawzii <3",
+            "name": "body",
+            "required": true,
+            "schema": {
+              "$ref": "#/definitions/updateDoctor"
+            }
+          },
+          {
+            "in": "header",
+            "name": "Authorization",
+            "required": true,
+            "type": "string"
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "200 (success)",
+            "schema": {
+              "$ref": "#/definitions/updateDoctorResponse"
+            }
+          },
+          "400": {
+            "description": "There's input not allowed to be updated. (schema validation)",
+            "schema": {
+              "$ref": "#/definitions/Error"
+            }
+          },
+          "401": {
+            "description": "401 (Not Authorized)",
+            "schema": {
+              "$ref": "#/definitions/Error"
+            }
+          },
+          "403": {
+            "description": "The entered phone number already associated with an account",
+            "schema": {
+              "$ref": "#/definitions/Error"
+            }
+          }
+        }
+      }
     }
   },
   "definitions": {
@@ -1353,6 +1410,67 @@
           "picture":"3874878487478.png"
         }
       }
+    },
+    "updateDoctor": {
+      "type": "object",
+      "properties": {
+        "doctor_id":{
+"type":"string"
+        },
+        "phone_number": {
+          "type": "string"
+        },
+        "password": {
+          "type": "string"
+        },
+        "last_name": {
+          "type": "string"
+        },
+        "first_name": {
+          "type": "string"
+        },
+        "country": {
+          "type": "string"
+        },
+        "category_id": {
+          "type": "integer"
+        },
+        "picture": {
+          "type": "string"
+        },
+        "avaliable": {
+          "type": "string"
+        },
+        "price":{
+          "type":"integer"
+        }
+      },
+      "example": {
+        "doctor_id":1,
+        "phone_number": "01090243795",
+        "height": "494"
+      }
+    },
+    "updateDoctorResponse": {
+      "type": "object",
+      "example": {
+        "status": true,
+        "message": "success",
+        "data": {
+            "doctor_id": 11,
+            "phone_number": "01090243818",
+            "password": "12qwasz1",
+            "first_name": "fawzi",
+            "last_name": "ahmed",
+            "country": "egypt",
+            "category_id": 1,
+            "fb_token_id": null,
+            "picture": "fawzi.png",
+            "avaliable": true,
+            "price": "180",
+            "priority": 2
+        }
+    }
     },
     "notBlockedResponse": {
       "type": "object",

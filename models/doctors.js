@@ -79,6 +79,10 @@ const checkDocPhoneExist = async function (phone_number){
 const doctor = await doctors.findOne({where:{phone_number}});
 return doctor;
 }
+const checkDocIdExist = async function (doctor_id){
+    const doctor = await doctors.findOne({where:{doctor_id}});
+    return doctor;
+    }
 const createNewDoctor = async function (body){
     const doctor =  await doctors.create({...body});
     return doctor;
@@ -100,6 +104,15 @@ const  getDoctorsData = async  (category_id)=>{
 ],where:{category_id}}); // later just show the avaliable = true doctors
    return doctorsData;
 }
+
+// update doctor specific inputs: 
+const updateDoctor = async function (doctorObject,data){
+  for (let key in data){
+    doctorObject[key] = data[key];
+  }
+  await doctorObject.save();
+  return doctorObject;
+}
 module.exports = {
     doctors,
     checkDocPhoneExist,
@@ -107,4 +120,6 @@ module.exports = {
     updateDoctorFirebaseToken,
     deleteDoctor,
     getDoctorsData,
+    updateDoctor,
+    checkDocIdExist
 }

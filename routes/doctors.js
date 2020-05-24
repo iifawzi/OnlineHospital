@@ -10,5 +10,6 @@ const router = express.Router();
 
 router.post("/getDoctor",isAuth(['admin','user']),validate(validationSchemas.getDoctor,"body"),doctorsController.getDoctor);
 router.post("/getDoctors",isAuth(['admin','user']),validate(validationSchemas.getDoctors,"body"),doctorsController.getDoctors);
+router.patch("/updateDoctor",isAuth(['admin']),validate(validationSchemas.updateDoctor,"body"),doctorsController.updateTheDoctor);
 
 module.exports = router;

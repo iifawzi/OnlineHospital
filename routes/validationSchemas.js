@@ -55,7 +55,19 @@ const updateUser = Joi.object({
     weight: Joi.number(),
     bmi: Joi.number(),
     gender: Joi.string(),
-})
+});
+const updateDoctor = Joi.object({
+  doctor_id: Joi.number().required(),
+  phone_number: Joi.string(),
+  password: Joi.string().pattern(/^[a-zA-Z0-9]{3,30}$/),
+  first_name: Joi.string(),
+  last_name: Joi.string(),
+  country: Joi.string(),
+  category_id: Joi.number(),
+  picture: Joi.string(),
+  price: Joi.number(),
+  avaliable: Joi.boolean(),
+});
 const schemas = {
   addUser,
   signin,
@@ -66,7 +78,8 @@ const schemas = {
   signAdmin,
   getDoctor,
   getDoctors,
-  updateUser
+  updateUser,
+  updateDoctor,
 }
 
 module.exports = schemas;
