@@ -40,11 +40,11 @@ const addDoctor = async (req,res,next)=>{
               }
             throw new ErrorHandler(403,"Phone Number is already associated with an account");
         }
-        const hashedPassword = await hashPassword(password);
+        // const hashedPassword = await hashPassword(password);
         const createDoctor = await createNewDoctor({
             first_name,
             last_name,
-            password:hashedPassword,
+            password,
             phone_number,
             country,
             category_id,

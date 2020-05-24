@@ -319,7 +319,7 @@
             }
           },
           "401": {
-            "description": "400 (Not Authorized)",
+            "description": "401 (Not Authorized)",
             "schema": {
               "$ref": "#/definitions/Error"
             }
@@ -419,7 +419,7 @@
             }
           },
           "401": {
-            "description": "400 (Not Authorized)",
+            "description": "401 (Not Authorized)",
             "schema": {
               "$ref": "#/definitions/Error"
             }
@@ -565,7 +565,7 @@
             }
           },
           "401": {
-            "description": "400 (Not Authorized)",
+            "description": "401 (Not Authorized)",
             "schema": {
               "$ref": "#/definitions/Error"
             }

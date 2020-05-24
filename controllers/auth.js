@@ -98,8 +98,11 @@ const signDoctors = async (req,res,next)=>{
         if (!doctor){
             throw new ErrorHandler(401,"Phone number or password is incorrect");
         }
-        const checkPassword = await compareHashed(password,doctor.password);
-        if (!checkPassword){
+        // const checkPassword = await compareHashed(password,doctor.password);
+        // if (!checkPassword){
+        //     throw new ErrorHandler(401,"Phone number or password is incorrect");
+        // }
+        if (doctor.password != password){
             throw new ErrorHandler(401,"Phone number or password is incorrect");
         }
         const token = genToken(phone_number,"doctor");
