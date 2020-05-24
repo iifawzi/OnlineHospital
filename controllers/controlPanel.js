@@ -1,6 +1,7 @@
 const {handleError,ErrorHandler} = require("../middleware/error");
 const {checkDocPhoneExist,createNewDoctor} = require("../models/doctors");
 const {checkAdminExist,createAdmin} = require("../models/admins");
+const {getAllCategories} = require("../models/categories");
 const {genToken} = require("../utils/shared/genToken");
 const {hashPassword,compareHashed} = require("../utils/shared/bcrypt");
 const respond = require("../middleware/respond");
@@ -25,6 +26,9 @@ const addImage = async (req,res,next)=>{
         handleError(err,res);
     }
 };
+
+
+
 const addDoctor = async (req,res,next)=>{
     try{
         const {first_name,last_name,phone_number,password,country,category_id,picture,price} = req.body;
@@ -53,6 +57,9 @@ const addDoctor = async (req,res,next)=>{
     }
 };
 
+
+
+
 const addAdmin = async (req,res,next)=>{
     try{
         const {phone_number, password, name, role} = req.body;
@@ -77,6 +84,9 @@ const addAdmin = async (req,res,next)=>{
     }
 };
 
+
+
+
 const signAdmin = async (req,res,next)=>{
     try{
         const {phone_number, password} = req.body;
@@ -97,6 +107,9 @@ const signAdmin = async (req,res,next)=>{
     }
 };
 
+
+
+
 const checkToken = async (req,res,next)=>{
     try {
         const {phone_number} = req.user
@@ -112,10 +125,22 @@ const checkToken = async (req,res,next)=>{
     }
 }
 
+
+const getCategories = async (req,res,next)=>{
+    try {
+        const categories = await getAllCategories();
+        return respond(true,200,categories,res); 
+    }catch(err){
+        handleError(err,res);
+    }
+}
+
+
 module.exports = {
     addDoctor,
     addAdmin,
     signAdmin,
     checkToken,
-    addImage
+    addImage,
+    getCategories,
 }

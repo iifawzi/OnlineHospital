@@ -13,5 +13,6 @@ router.post("/addImage",isAuth(['admin','user']),panelController.addImage);
 router.post("/addAdmin",isAuth(['admin']),validate(validationSchemas.addAdmin,"body"),panelController.addAdmin);
 router.post("/signAdmin",validate(validationSchemas.signAdmin,"body"),panelController.signAdmin);
 router.post("/checkAdminByToken",isAuth(['admin']),panelController.checkToken);
+router.get("/getCategories",isAuth(['admin']),panelController.getCategories);
 
 module.exports = router;

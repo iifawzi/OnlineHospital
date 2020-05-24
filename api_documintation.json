@@ -806,6 +806,43 @@
           }
         }
       }
+    },
+    "/controlPanel/getCategories": {
+      "post": {
+        "tags": [
+          "ControlPanel"
+        ],
+        "summary": "to get all categories",
+        
+        "consumes": [
+          "application/json"
+        ],
+        "produces": [
+          "application/json"
+        ],
+        "parameters": [
+          {
+            "in": "header",
+            "name": "Authorization",
+            "required": true,
+            "type": "string"
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "200 (success)",
+            "schema": {
+              "$ref": "#/definitions/getCategoriesAdminResponse"
+            }
+          },
+          "401": {
+            "description": "401 (Not Authorized)",
+            "schema": {
+              "$ref": "#/definitions/Error"
+            }
+          }
+        }
+      }
     }
   },
   "definitions": {
@@ -1327,7 +1364,7 @@
         }
       }
     },
-    "updaeImageResponse": {
+    "updateImageResponse": {
       "type": "object",
       "example": {
         "status": true,
@@ -1336,6 +1373,80 @@
          "picture":"4i489448.png"
         }
       }
+    },
+    "getCategoriesAdminResponse": {
+      "type": "object",
+      "example": {
+        "status": true,
+        "message": "success",
+        "data": [
+            {
+                "category_id": 1,
+                "en": "Internal Medicine",
+                "ar": "طب الباطنة"
+            },
+            {
+                "category_id": 2,
+                "en": "Endocrinology",
+                "ar": "باطنة غدد صماء وسكر"
+            },
+            {
+                "category_id": 3,
+                "en": "Cardiology",
+                "ar": "القلب والاوعية الدموية"
+            },
+            {
+                "category_id": 4,
+                "en": "Gastroenterology",
+                "ar": "باطنة جهاز هضمي ومناظير"
+            },
+            {
+                "category_id": 5,
+                "en": "Obstetrics and Gynecology",
+                "ar": "نساء وتوليد"
+            },
+            {
+                "category_id": 6,
+                "en": "Pediatrics",
+                "ar": "طب اطفال"
+            },
+            {
+                "category_id": 7,
+                "en": "(Ear, nose and throat (ENT",
+                "ar": "طب الانف والاذن والحنجرة"
+            },
+            {
+                "category_id": 8,
+                "en": "Ophthalmology",
+                "ar": "طب امراض العيون"
+            },
+            {
+                "category_id": 9,
+                "en": "Neurology",
+                "ar": "طب الاعصاب"
+            },
+            {
+                "category_id": 10,
+                "en": "nephrology",
+                "ar": "طب امراض الكلى"
+            },
+            {
+                "category_id": 11,
+                "en": "Oncology",
+                "ar": "طب الاورام"
+            },
+            {
+                "category_id": 12,
+                "en": "Urology",
+                "ar": "المسالك البولية"
+            },
+            {
+                "category_id": 13,
+                "en": "Dermatology",
+                "ar": "جلدية"
+            }
+        ]
+    }
     },
     "Error": {
       "type": "object",

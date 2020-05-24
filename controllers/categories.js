@@ -1,11 +1,11 @@
 const {ErrorHandler,handleError} = require("../middleware/error");
-const {getCats} = require("../models/categories");
+const {getCatsSpecific} = require("../models/categories");
 const respond = require("../middleware/respond");
 
 
 const getCategories = async  (req,res,next)=>{
     try {
-        const categories = await getCats();
+        const categories = await getCatsSpecific();
         if (!categories) {
             throw new ErrorHandler(500,"error happened while getting the cateogires");
         }
