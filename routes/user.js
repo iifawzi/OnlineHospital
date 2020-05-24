@@ -4,6 +4,7 @@ const isAuth = require("../middleware/is-auth");
 const validate = require("../middleware/validation");
 const validationSchemas = require("./validationSchemas");
 const userController = require("../controllers/user");
+const bodyParser = require("body-parser");
 
 router.use(
     bodyParser.urlencoded({
