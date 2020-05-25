@@ -25,6 +25,10 @@ const storage = multer.diskStorage({
 });
 
 const fileFilter = (req, file, cb) => {
+  console.log("----");
+  console.log(req);
+  console.log(file,"testt");
+  console.log("----");
   const ext = path.extname(file.originalname);
   if (
     mimeTypes.includes(
