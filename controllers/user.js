@@ -3,7 +3,6 @@ const respond = require("../middleware/respond");
 const { genToken } = require("../utils/shared/genToken");
 const { updateUser, checkIfPhoneExist } = require("../models/users");
 const upload = require("../middleware/upload");
-
 const updateInfo = async (req, res, next) => {
   try {
     const { phone_number } = req.user;
@@ -26,13 +25,11 @@ const updateInfo = async (req, res, next) => {
         }
       }
     }
-
     const updatedData = await updateUser(user, data);
 
     if (!updatedData) {
       throw new ErrorHandler(500, "Sorry, something wrong happened");
     }
-
     const token = genToken(updatedData.phone_number, updatedData.role);
     return respond(true, 200, { ...updatedData.dataValues, token }, res);
   } catch (err) {
@@ -65,15 +62,11 @@ const updateImage = async (req,res,next)=>{
     if (!user) {
       throw new ErrorHandler(401, "You're Unauthorized");
     }
-
       upload().single('file')(req,{},async error=>{
           if (error){
               handleError(error,res);
-            console.log(error);
           }else {
-            console.log("BEFORE INSERT");
               if (req.file){
-                console.log(req.file,"BEFORE INSERT");
                 const data = {
                   picture: req.file.filename
                 }
