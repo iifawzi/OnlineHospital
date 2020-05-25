@@ -15,9 +15,6 @@ const storage = multer.diskStorage({
     cb(null, "./uploadedImages/");
   },
   filename: function (req, file, cb) {
-    console.log(file.mimetype);
-    console.log(typeof(file.mimetype));
-    console.log(mime.getExtension(file.mimetype));
     crypto.pseudoRandomBytes(6, function (err, raw) {
       cb(
         null,
@@ -28,13 +25,14 @@ const storage = multer.diskStorage({
 });
 
 const fileFilter = (req, file, cb) => {
-  console.log("--FILEFILTER--");
-  console.log(file);
   const ext = path.extname(file.originalname);
-  console.log(ext);
-  console.log(file.originalname);
-  console.log("--FILEFILTER--");
+  if (
+    mimeTypes.includes(
+      file.mimetype || ext == ".png" || ext == ".jpeg" || ext == ".jpg"
+    )
+  ) {
     return cb(null,true);
+  }
   cb(new ErrorHandler(403, "Only (JPEG, PNG, JPG) are allowed"));
 };
 
