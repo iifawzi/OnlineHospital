@@ -768,7 +768,7 @@
         "parameters": [
           {
             "in": "formData",
-            "name": "upfile",
+            "name": "file",
             "type": "file",
             "description": "The file to upload."
           },
@@ -901,7 +901,7 @@
         }
       }
     },
-    "/categories/getDoctors": {
+    "/controlPanel/getDoctors": {
       "post": {
         "tags": [
           "ControlPanel"
@@ -930,6 +930,56 @@
           },
           "401": {
             "description": "401 (Not Authorized)",
+            "schema": {
+              "$ref": "#/definitions/Error"
+            }
+          }
+        }
+      }
+    },
+    "/controlPanel/deleteDoctor": {
+      "post": {
+        "tags": [
+          "ControlPanel"
+        ],
+        "summary": "Delete doctor using with phone number",
+        "consumes": [
+          "application/json"
+        ],
+        "produces": [
+          "application/json"
+        ],
+        "parameters": [
+          {
+            "in": "body",
+            "name": "body",
+            "required": true,
+            "schema": {
+              "$ref": "#/definitions/deleteDoctor"
+            }
+          },
+          {
+            "in": "header",
+            "name": "Authorization",
+            "required": true,
+            "type": "string"
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "200 (success)",
+            "schema": {
+              "$ref": "#/definitions/deleteDoctorResponse"
+            }
+          },
+          "401": {
+            "description": "401 (Not Authorized)",
+            "schema": {
+              "$ref": "#/definitions/Error"
+            }
+          },
+          "404": {
+            "description": "404 (Doctor not found)",
             "schema": {
               "$ref": "#/definitions/Error"
             }
@@ -1669,6 +1719,25 @@
                 "ar": "جلدية"
             }
         ]
+    }
+    },
+    "deleteDoctor": {
+      "type": "object",
+      "properties": {
+        "phone_number": {
+          "type": "string"
+        }
+      },
+      "example": {
+        "phone_number": "01590243399"
+      }
+    },
+    "deleteDoctorResponse": {
+      "type": "object",
+      "example": {
+        "status": true,
+        "message": "success",
+        "data": 1
     }
     },
     "Error": {

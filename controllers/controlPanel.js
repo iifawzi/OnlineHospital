@@ -1,5 +1,5 @@
 const {handleError,ErrorHandler} = require("../middleware/error");
-const {checkDocPhoneExist,createNewDoctor,getDoctorsPanel} = require("../models/doctors");
+const {checkDocPhoneExist,createNewDoctor,getDoctorsPanel,deleteDoctor} = require("../models/doctors");
 const {checkAdminExist,createAdmin} = require("../models/admins");
 const {getAllCategories} = require("../models/categories");
 const {genToken} = require("../utils/shared/genToken");
@@ -152,6 +152,22 @@ return respond(true,200,doctors,res);
     }
 }
 
+const deleteTheDoctor = async(req,res,next)=>{
+    try {
+        const {phone_number} = req.body;
+const deletedDoctor = await deleteDoctor(phone_number);
+if (deletedDoctor){
+    return respond(true,200,deletedDoctor,res); 
+
+}else {
+    throw new ErrorHandler(404,"Doctor not found");
+}
+    }catch(err){
+        handleError(err,res);
+    }
+}
+
+
 
 
 module.exports = {
@@ -161,5 +177,6 @@ module.exports = {
     checkToken,
     addImage,
     getCategories,
-    getDoctors
+    getDoctors,
+    deleteTheDoctor
 }

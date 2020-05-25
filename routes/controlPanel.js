@@ -16,6 +16,7 @@ router.post("/addImage",isAuth(['admin','user']),panelController.addImage);
 // Doctors:
 router.post("/addDoctor",isAuth(['admin']),validate(validationSchemas.addDoctor,"body"),panelController.addDoctor);
 router.get("/getDoctors",isAuth(['admin']),panelController.getDoctors);
+router.get("/deleteDoctor",isAuth(['admin']),validate(validationSchemas.deleteDoctor,"body"),panelController.deleteTheDoctor);
 
 
 // Categories

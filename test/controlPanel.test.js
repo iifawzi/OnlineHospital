@@ -80,7 +80,6 @@ describe("/api/controlPanel", async () => {
           price: "100",
         })
         .expect(403);
-      deleteDoctor("01090243798");
     });
   });
 
@@ -270,6 +269,30 @@ describe("/api/controlPanel", async () => {
       let res = await request(server)
         .get("/api/controlPanel/getDoctors")
         .set("Authorization", `Bearer ${token}`)
+        .expect(200);
+    });
+  });
+
+  describe("/deleteDoctor", async () => {
+    it("Should respond with 401 if not authorized", async () => {
+      let res = await request(server)
+        .get("/api/controlPanel/getCategories")
+        .expect(401);
+    });
+    it("Should respond with 404 if doctor not found", async () => {
+      const token = genToken("ahmed", "admin");
+      let res = await request(server)
+        .get("/api/controlPanel/deleteDoctor")
+        .set("Authorization", `Bearer ${token}`)
+        .send({ phone_number: "0109024371111212129511113"})
+        .expect(404);
+    });
+    it("Should respond with 200 if doctor deleted successfully", async () => {
+      const token = genToken("ahmed", "admin");
+      let res = await request(server)
+        .get("/api/controlPanel/deleteDoctor")
+        .set("Authorization", `Bearer ${token}`)
+        .send({ phone_number: "01090243798"}) // this tee number which registered above
         .expect(200);
     });
   });

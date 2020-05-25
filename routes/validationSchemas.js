@@ -68,6 +68,9 @@ const updateDoctor = Joi.object({
   price: Joi.number(),
   avaliable: Joi.boolean(),
 });
+const deleteDoctor = Joi.object({
+  phone_number: Joi.string().required(),
+});
 const schemas = {
   addUser,
   signin,
@@ -80,6 +83,7 @@ const schemas = {
   getDoctors,
   updateUser,
   updateDoctor,
+  deleteDoctor
 }
 
 module.exports = schemas;
