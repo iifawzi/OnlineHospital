@@ -15,9 +15,9 @@ const storage = multer.diskStorage({
     cb(null, "./uploadedImages/");
   },
   filename: function (req, file, cb) {
-    console.log("--BEFORRRRREEEEEEEEEEEEEEEEEEEEEEEEE--");
+    console.log("--STORAGE--");
     console.log(file);
-    console.log("--ENDBEFOREEEEEEEEEEEEEEEEEEEEEEEEEE--");
+    console.log("--STORAGE--");
     crypto.pseudoRandomBytes(6, function (err, raw) {
       cb(
         null,
@@ -28,10 +28,12 @@ const storage = multer.diskStorage({
 });
 
 const fileFilter = (req, file, cb) => {
-  console.log("--AFTERRRRRRRRRRRRRRRRRRRRRRRRR--");
+  console.log("--FILEFILTER--");
   console.log(file);
-  console.log("--ENDAFTETETRERERERETRETERTETERERTE--");
   const ext = path.extname(file.originalname);
+  console.log(ext);
+  console.log(file.originalname);
+  console.log("--FILEFILTER--");
   if (
     mimeTypes.includes(
       file.mimetype || ext == ".png" || ext == ".jpeg" || ext == ".jpg"

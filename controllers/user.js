@@ -71,6 +71,7 @@ const updateImage = async (req,res,next)=>{
               handleError(error,res);
           }else {
               if (req.file){
+                console.log(req.file,"BEFORE INSERT");
                 const data = {
                   picture: req.file.filename
                 }
