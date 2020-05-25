@@ -35,13 +35,7 @@ const fileFilter = (req, file, cb) => {
   console.log(ext);
   console.log(file.originalname);
   console.log("--FILEFILTER--");
-  if (
-    mimeTypes.includes(
-      file.mimetype || ext == ".png" || ext == ".jpeg" || ext == ".jpg"
-    )
-  ) {
     return cb(null,true);
-  }
   cb(new ErrorHandler(403, "Only (JPEG, PNG, JPG) are allowed"));
 };
 
