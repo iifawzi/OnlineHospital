@@ -6,8 +6,8 @@ const respond = require("../middleware/respond");
 
 const getDoctor = async (req,res,next)=>{
     try {
-        const {phone_number} = req.body;
-        const doctor = await checkDocPhoneExist(phone_number);
+        const {doctor_id} = req.body;
+        const doctor = await checkDocIdExist(doctor_id);
         if (!doctor){
             throw new ErrorHandler(404,"Doctor not found");
         }

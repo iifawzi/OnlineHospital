@@ -13,8 +13,12 @@ describe("/api/doctors",async()=>{
     afterEach(async()=>{
     })
 
+
+
+
+
     describe("/getDoctor",async()=>{
-        it("Should respond with 400 if phone number is missing (validation schema)",async()=>{
+        it("Should respond with 400 if phone doctor_id is missing (validation schema)",async()=>{
             const token = genToken("fawzii","admin");
             let res = await request(server)
             .post("/api/doctors/getDoctor")
@@ -26,7 +30,7 @@ describe("/api/doctors",async()=>{
         it("Should respond with 401 if not authorized",async()=>{
             let res = await request(server)
             .post("/api/doctors/getDoctor")
-            .send({phone_number: "01090243795"})
+            .send({doctor_id: "1233"})
             .expect(401)
         });
         it("Should respond with 404 if doctor not found",async()=>{
@@ -34,7 +38,7 @@ describe("/api/doctors",async()=>{
             let res = await request(server)
             .post("/api/doctors/getDoctor")
             .set("Authorization", `Bearer ${token}`)
-            .send({phone_number: "01090243797"})
+            .send({doctor_id: 54878785})
             .expect(404);
         });
         it("Should respond with 200 if got doctor successfully",async()=>{
@@ -53,14 +57,19 @@ describe("/api/doctors",async()=>{
                 "price": "100",
             })
             .expect(201);
+            const doctor_id = res.body.data.doctor_id;
             res = await request(server)
             .post("/api/doctors/getDoctor")
             .set("Authorization", `Bearer ${token}`)
-            .send({phone_number: "01090113795"})
+            .send({doctor_id: doctor_id})
             .expect(200);
             deleteDoctor("01090113795");
         });
     });
+
+
+
+
 
     describe("/getDoctors",async()=>{
         it("Should respond with 401 if not authorized",async()=>{
@@ -77,6 +86,8 @@ describe("/api/doctors",async()=>{
             .expect(200);
         });
     })
+
+
 
 
 

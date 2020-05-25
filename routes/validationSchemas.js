@@ -41,7 +41,7 @@ const signAdmin = Joi.object({
     password: Joi.string().required(),
 });
 const getDoctor = Joi.object({
-  phone_number: Joi.string().required(),
+  doctor_id: Joi.number().required(),
 });
 const getDoctors = Joi.object({
   category_id: Joi.number().required(),

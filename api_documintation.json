@@ -847,7 +847,7 @@
     "/doctors/updateDoctor": {
       "post": {
         "tags": [
-          "user"
+          "doctors"
         ],
         "summary": "to update specific doctor info.",
         "consumes": [
@@ -1256,12 +1256,12 @@
     "getDoctor": {
       "type": "object",
       "properties": {
-        "phone_number": {
-          "type": "string"
+        "doctor_id": {
+          "type": "integer"
         }
       },
       "example": {
-        "phone_number": "01090243795"
+        "doctor_id": 1
       }
     },
     "getDoctorResponse": {
