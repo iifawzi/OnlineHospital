@@ -1,5 +1,5 @@
 const {handleError,ErrorHandler} = require("../middleware/error");
-const {checkDocPhoneExist,createNewDoctor} = require("../models/doctors");
+const {checkDocPhoneExist,createNewDoctor,getDoctorsPanel} = require("../models/doctors");
 const {checkAdminExist,createAdmin} = require("../models/admins");
 const {getAllCategories} = require("../models/categories");
 const {genToken} = require("../utils/shared/genToken");
@@ -131,6 +131,7 @@ const checkToken = async (req,res,next)=>{
 }
 
 
+
 const getCategories = async (req,res,next)=>{
     try {
         const categories = await getAllCategories();
@@ -141,6 +142,18 @@ const getCategories = async (req,res,next)=>{
 }
 
 
+
+const getDoctors = async(req,res,next)=>{
+    try {
+const doctors = await getDoctorsPanel();
+return respond(true,200,doctors,res); 
+    }catch(err){
+        handleError(err,res);
+    }
+}
+
+
+
 module.exports = {
     addDoctor,
     addAdmin,
@@ -148,4 +161,5 @@ module.exports = {
     checkToken,
     addImage,
     getCategories,
+    getDoctors
 }

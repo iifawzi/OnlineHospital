@@ -17,7 +17,7 @@
     },
     {
       "name": "ControlPanel",
-      "description": "Everything related to The ControlPanel Endpoints: "
+      "description": "Specificly For The Control Panel - Endpoints: "
     },
     {
       "name": "doctors",
@@ -900,6 +900,42 @@
           }
         }
       }
+    },
+    "/categories/getDoctors": {
+      "post": {
+        "tags": [
+          "ControlPanel"
+        ],
+        "summary": "Get Doctors Data",
+        "consumes": [
+          "application/json"
+        ],
+        "produces": [
+          "application/json"
+        ],
+        "parameters": [
+          {
+            "in": "header",
+            "name": "Authorization",
+            "required": true,
+            "type": "string"
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "200 (success)",
+            "schema": {
+              "$ref": "#/definitions/getDoctorsPanel"
+            }
+          },
+          "401": {
+            "description": "401 (Not Authorized)",
+            "schema": {
+              "$ref": "#/definitions/Error"
+            }
+          }
+        }
+      }
     }
   },
   "definitions": {
@@ -1491,6 +1527,75 @@
          "picture":"4i489448.png"
         }
       }
+    },
+    "getDoctorsPanel": {
+      "type": "object",
+      "example": {
+        "status": true,
+        "message": "success",
+        "data": [
+            {
+                "doctor_id": 1,
+                "phone_number": "11111111",
+                "first_name": "fawzi",
+                "last_name": "ahmed",
+                "country": "egypt",
+                "avaliable": 0,
+                "price": "180",
+                "category_id": 1,
+                "en": "Internal Medicine",
+                "ar": "طب الباطنة"
+            },
+            {
+                "doctor_id": 21,
+                "phone_number": "01090246711",
+                "first_name": "Belassy",
+                "last_name": "ahmed",
+                "country": "egypt",
+                "avaliable": 0,
+                "price": "280",
+                "category_id": 3,
+                "en": "Cardiology",
+                "ar": "القلب والاوعية الدموية"
+            },
+            {
+                "doctor_id": 292,
+                "phone_number": "87348",
+                "first_name": "fawziii",
+                "last_name": "dffddf",
+                "country": "Egypt",
+                "avaliable": 0,
+                "price": "43434",
+                "category_id": 31,
+                "en": "Tropical  Medicine",
+                "ar": "طب المناطق الحارة"
+            },
+            {
+                "doctor_id": 293,
+                "phone_number": "1122334444",
+                "first_name": "editted",
+                "last_name": "edited",
+                "country": "saudiarabia",
+                "avaliable": 0,
+                "price": "123456",
+                "category_id": 14,
+                "en": "Allergy and immunology",
+                "ar": "الحساسية والمناعة"
+            },
+            {
+                "doctor_id": 294,
+                "phone_number": "544545",
+                "first_name": "fgfg",
+                "last_name": "fgfg",
+                "country": "Egypt",
+                "avaliable": 0,
+                "price": "4545",
+                "category_id": 3,
+                "en": "Cardiology",
+                "ar": "القلب والاوعية الدموية"
+            }
+        ]
+    }
     },
     "getCategoriesAdminResponse": {
       "type": "object",

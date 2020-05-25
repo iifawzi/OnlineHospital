@@ -14,6 +14,10 @@ describe("/api/controlPanel", async () => {
   });
   afterEach(async () => {});
 
+
+
+
+
   describe("/addingDoctor", async () => {
     it("Should respond with 400 if one of inpus is missed or incorrect (SCHEMA VALIDATION)", async () => {
       const token = genToken("01090243795", "admin");
@@ -80,6 +84,11 @@ describe("/api/controlPanel", async () => {
     });
   });
 
+
+
+
+
+
   describe("/addingAdmin", async () => {
     it("Should respond with 400 if one of inpus is missed or incorrect (SCHEMA VALIDATION", async () => {
       const token = genToken("01090243795", "admin");
@@ -120,6 +129,11 @@ describe("/api/controlPanel", async () => {
     });
   });
 
+
+
+
+
+
   describe("/signAdmin", async () => {
     it("should respond with 400 if input are missing (SCHEMA VALIDATION)", async () => {
       let res = await request(server)
@@ -154,6 +168,11 @@ describe("/api/controlPanel", async () => {
     });
   });
 
+
+
+
+
+
   describe("/checkAdminByToken", async () => {
     it("Should respond with 401 if admin is not authorized", async () => {
       const token = genToken("01090243795", "admin");
@@ -183,6 +202,10 @@ describe("/api/controlPanel", async () => {
     });
   });
 
+
+
+
+
   describe("/addImage", async () => {
     it("Should responed with 201 if uploaded", async () => {
       const token = genToken("ahmed", "admin");
@@ -210,6 +233,12 @@ describe("/api/controlPanel", async () => {
     //     .expect(500);
     // }); // i don't have a big file, but it's working beleive me :D,
   });
+
+
+
+
+
+
   describe("/getCategories", async () => {
     it("Should respond with 401 if not authorized", async () => {
       let res = await request(server)
@@ -221,6 +250,25 @@ describe("/api/controlPanel", async () => {
 
       let res = await request(server)
         .get("/api/controlPanel/getCategories")
+        .set("Authorization", `Bearer ${token}`)
+        .expect(200);
+    });
+  });
+
+
+
+
+  describe("/getDoctors", async () => {
+    it("Should respond with 401 if not authorized", async () => {
+      let res = await request(server)
+        .get("/api/controlPanel/getCategories")
+        .expect(401);
+    });
+    it("Should respond with 200 if got categories successfully", async () => {
+      const token = genToken("ahmed", "admin");
+
+      let res = await request(server)
+        .get("/api/controlPanel/getDoctors")
         .set("Authorization", `Bearer ${token}`)
         .expect(200);
     });

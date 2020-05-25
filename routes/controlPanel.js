@@ -7,12 +7,18 @@ const router = express.Router();
 
 // Everything Route related to the Control Panel will be listed here: 
 
-
-router.post("/addDoctor",isAuth(['admin']),validate(validationSchemas.addDoctor,"body"),panelController.addDoctor);
-router.post("/addImage",isAuth(['admin','user']),panelController.addImage);
+// Admin Auth
 router.post("/addAdmin",isAuth(['admin']),validate(validationSchemas.addAdmin,"body"),panelController.addAdmin);
 router.post("/signAdmin",validate(validationSchemas.signAdmin,"body"),panelController.signAdmin);
 router.post("/checkAdminByToken",isAuth(['admin']),panelController.checkToken);
+// Image
+router.post("/addImage",isAuth(['admin','user']),panelController.addImage);
+// Doctors:
+router.post("/addDoctor",isAuth(['admin']),validate(validationSchemas.addDoctor,"body"),panelController.addDoctor);
+router.get("/getDoctors",isAuth(['admin']),panelController.getDoctors);
+
+
+// Categories
 router.get("/getCategories",isAuth(['admin']),panelController.getCategories);
 
 module.exports = router;

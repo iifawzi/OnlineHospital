@@ -79,33 +79,44 @@ const checkDocPhoneExist = async function (phone_number){
 const doctor = await doctors.findOne({where:{phone_number}});
 return doctor;
 }
+
+
 const checkDocIdExist = async function (doctor_id){
     const doctor = await doctors.findOne({where:{doctor_id}});
     return doctor;
     }
+
+
 const createNewDoctor = async function (body){
     const doctor =  await doctors.create({...body});
     return doctor;
 }
+
+
 const deleteDoctor = async function (phone_number) {
     const doctor = await doctors.destroy({ where: { phone_number } });
     return doctor;
   };
+
+
 // UPDATE DOCTOR'S FIREBASE TOKEN ID
 const updateDoctorFirebaseToken = async function (doctorObject, new_token) {
     doctorObject.fb_token_id = new_token;
     await doctorObject.save();
     return doctorObject;
   };
+
+
 const  getDoctorsData = async  (category_id)=>{
    const doctorsData = await doctors.findAll({attributes:{exclude: ['password','fb_token_id','priority']},
    order: [
     ['priority', 'DESC'],
-],where:{category_id}}); // later just show the avaliable = true doctors
+],where:{category_id}}); // TODO::later just show the avaliable = true doctors
    return doctorsData;
 }
 
-// update doctor specific inputs: 
+
+// Update Specific Doctor's info : 
 const updateDoctor = async function (doctorObject,data){
   for (let key in data){
     doctorObject[key] = data[key];
@@ -113,6 +124,16 @@ const updateDoctor = async function (doctorObject,data){
   await doctorObject.save();
   return doctorObject;
 }
+
+
+// Get Doctors With the categories data for show in control Panel: 
+const getDoctorsPanel = async ()=>{
+    const doctors =  await db.query("SELECT  docs.doctor_id,docs.phone_number,docs.first_name,docs.last_name,docs.country,docs.avaliable,docs.price ,cats.* FROM `doctors` docs LEFT JOIN `categories` cats ON docs.category_id = cats.category_id ORDER BY docs.doctor_id DESC",{
+        type: Sequelize.QueryTypes.SELECT,
+    });
+    return doctors;
+}
+
 module.exports = {
     doctors,
     checkDocPhoneExist,
@@ -121,5 +142,6 @@ module.exports = {
     deleteDoctor,
     getDoctorsData,
     updateDoctor,
-    checkDocIdExist
+    checkDocIdExist,
+    getDoctorsPanel
 }
