@@ -282,7 +282,7 @@ describe("/api/controlPanel", async () => {
     it("Should respond with 404 if doctor not found", async () => {
       const token = genToken("ahmed", "admin");
       let res = await request(server)
-        .get("/api/controlPanel/deleteDoctor")
+        .delete("/api/controlPanel/deleteDoctor")
         .set("Authorization", `Bearer ${token}`)
         .send({ phone_number: "0109024371111212129511113"})
         .expect(404);
@@ -290,7 +290,7 @@ describe("/api/controlPanel", async () => {
     it("Should respond with 200 if doctor deleted successfully", async () => {
       const token = genToken("ahmed", "admin");
       let res = await request(server)
-        .get("/api/controlPanel/deleteDoctor")
+        .delete("/api/controlPanel/deleteDoctor")
         .set("Authorization", `Bearer ${token}`)
         .send({ phone_number: "01090243798"}) // this tee number which registered above
         .expect(200);

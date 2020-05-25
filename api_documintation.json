@@ -660,7 +660,7 @@
       }
     },
     "/user/updateInfo": {
-      "post": {
+      "patch": {
         "tags": [
           "user"
         ],
@@ -760,7 +760,7 @@
       }
     },
     "/user/updateImage": {
-      "post": {
+      "patch": {
         "summary": "Update User's image.",
         "consumes": [
           "multipart/form-data"
@@ -845,7 +845,7 @@
       }
     },
     "/doctors/updateDoctor": {
-      "post": {
+      "patch": {
         "tags": [
           "doctors"
         ],
@@ -938,7 +938,7 @@
       }
     },
     "/controlPanel/deleteDoctor": {
-      "post": {
+      "delete": {
         "tags": [
           "ControlPanel"
         ],
