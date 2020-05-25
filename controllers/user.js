@@ -69,7 +69,9 @@ const updateImage = async (req,res,next)=>{
       upload().single('file')(req,{},async error=>{
           if (error){
               handleError(error,res);
+            console.log(error);
           }else {
+            console.log("BEFORE INSERT");
               if (req.file){
                 console.log(req.file,"BEFORE INSERT");
                 const data = {
