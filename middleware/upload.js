@@ -23,7 +23,7 @@ const storage = multer.diskStorage({
     crypto.pseudoRandomBytes(6, function (err, raw) {
       cb(
         null,
-        raw.toString("hex") + Date.now() + "." + mime.getExtension(file.mimetype)
+        raw.toString("hex") + Date.now() + "." + mime.extension(file.mimetype)
       );
     });
   },
