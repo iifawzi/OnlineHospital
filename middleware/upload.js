@@ -18,6 +18,7 @@ const storage = multer.diskStorage({
     console.log("--STORAGE--");
     console.log(file);
     console.log("--STORAGE--");
+    console.log(mime.getExtension(file.mimetype));
     crypto.pseudoRandomBytes(6, function (err, raw) {
       cb(
         null,
