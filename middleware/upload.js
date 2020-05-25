@@ -15,6 +15,12 @@ const storage = multer.diskStorage({
     cb(null, "./uploadedImages/");
   },
   filename: function (req, file, cb) {
+    console.log("--STORAGE--");
+    console.log(file);
+    console.log("--STORAGE--");
+    console.log(file.mimetype);
+    console.log(typeof(file.mimetype));
+    console.log(mime.getExtension(file.mimetype));
     crypto.pseudoRandomBytes(6, function (err, raw) {
       cb(
         null,
