@@ -78,7 +78,7 @@ const users = db.define(
 
 // Functions:
 const createUser = async function (body) {
-  const user = await users.create({ ...body });
+  const user = await users.create(body);
   return user;
 };
 const deleteUser = async function (phone_number) {

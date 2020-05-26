@@ -5,6 +5,7 @@ const panelRouter = require("../routes/controlPanel");
 const doctorsRouter = require("../routes/doctors");
 const categoriesRouter = require("../routes/categories");
 const userRouter = require("../routes/user");
+const slotsRouter = require("../routes/slots");
 const bodyParser = require("body-parser");
 const cors = require("cors");
 module.exports = (app) => {
@@ -34,6 +35,7 @@ app.use( // for images uploading:
   app.use("/api/doctors", doctorsRouter);
   app.use("/api/categories",categoriesRouter);
   app.use("/api/user",userRouter);
+  app.use("/api/slots",slotsRouter);
 
 
 

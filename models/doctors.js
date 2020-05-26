@@ -33,7 +33,7 @@ const doctors = db.define("doctors",{
         references: {    
             model: 'categories',
             key: 'category_id'
-          }
+          },
     },
     fb_token_id:{
         type:Sequelize.STRING,
@@ -88,7 +88,7 @@ const checkDocIdExist = async function (doctor_id){
 
 
 const createNewDoctor = async function (body){
-    const doctor =  await doctors.create({...body});
+    const doctor =  await doctors.create(body);
     return doctor;
 }
 

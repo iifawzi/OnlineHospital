@@ -43,7 +43,7 @@ const checkAdminExist = async function (phone_number){
     return admin;
 }
 const createAdmin = async function (body){
-    const admin =  await admins.create({...body});
+    const admin =  await admins.create(body);
     return admin;
 }
 const deleteAdmin = async function (phone_number) {
