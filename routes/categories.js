@@ -4,7 +4,7 @@ const isAuth = require("../middleware/is-auth");
 const categoiresController = require("../controllers/categories");
 
 
-router.post("/getCategories",isAuth(['admin','user']),categoiresController.getCategories);
+router.get("/getCategories",isAuth(['admin','user']),categoiresController.getCategories);
 
 
 module.exports = router;

@@ -624,7 +624,7 @@
       }
     },
     "/categories/getCategories": {
-      "post": {
+      "get": {
         "tags": [
           "categories"
         ],
