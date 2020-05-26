@@ -760,7 +760,7 @@
       }
     },
     "/user/getUser": {
-      "get": {
+      "post": {
         "tags": [
           "user"
         ],

@@ -15,6 +15,6 @@ router.use(
   );
 router.patch("/updateInfo",isAuth(['user']),validate(validationSchemas.updateUser,"body"),userController.updateInfo);
 router.get("/notBlocked",isAuth(['user']),userController.notBlocked);
-router.get("/getUser",isAuth(['user','admin','doctor']),userController.getUser);
+router.post("/getUser",isAuth(['user','admin','doctor']),userController.getUser);
 router.patch("/updateImage",isAuth(['user']),userController.updateImage);
 module.exports = router;

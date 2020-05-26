@@ -204,13 +204,13 @@ describe("/api/user/updateImage",async()=>{
 describe("/getUser",async()=>{
     it("Should respond with 401 if not authorized",async()=>{
         let res = await request(server)
-        .get("/api/user/getUser")
+        .post("/api/user/getUser")
         .expect(401);
     });
     it("should respond with 404 if user not found",async()=>{
         const token = genToken("01590243399","user");
         let res = await request(server)
-        .get("/api/user/getUser")
+        .post("/api/user/getUser")
         .set("Authorization", `Bearer ${token}`)
         .send({ "phone_number": "9868956981256", })
         .expect(404);
@@ -231,7 +231,7 @@ describe("/getUser",async()=>{
         }).expect(201);
         const token = genToken("015902433399","user");
         res = await request(server)
-        .get("/api/user/getUser")
+        .post("/api/user/getUser")
         .set("Authorization", `Bearer ${token}`)
         .send({ "phone_number": "01590243399", })
         .expect(200);
