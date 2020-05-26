@@ -39,7 +39,7 @@ const slots = db.define("slots",{
 },{
     indexes: [
         {
-            fields: ["doctor_id","day","available"],
+            fields: ["doctor_id","available","day"],
           },
       ],
 },{
@@ -53,7 +53,19 @@ const addSlot = async (data)=>{
   return slot;
 }
 
+const deleteSlot = async (data)=>{
+    const slot = await slots.destroy({where:{doctor_id}});
+    return slot;
+  }
+  
+
+const doctorDays = async(doctor_id)=>{ // this will return the days which doctor working in:
+    const days = await slots.findAll({where:{doctor_id,available: true},attributes: ['day'], group: ['day']});
+    return days;
+}
 module.exports = {
     slots,
-    addSlot
+    addSlot,
+    doctorDays,
+    deleteSlot
 }

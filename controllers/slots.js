@@ -1,4 +1,4 @@
-const {addSlot} = require("../models/slots");
+const {addSlot,doctorDays} = require("../models/slots");
 const {handleError,ErrorHandler} = require("../middleware/error");
 const respond = require("../middleware/respond");
 
@@ -16,7 +16,24 @@ const addDocSlot = async (req,res,next)=>{
     }
 }
 
+const getDoctorDays = async (req,res,nect)=>{
+    try {
+        const {doctor_id} = req.body;
+const slots = await doctorDays(doctor_id);
+if (!slots){
+    throw new ErrorHandler(500,"error happened while getting the Slots");
+}
+const days = [];
+for (day of slots){
+    days.push(day.dataValues.day);
+}
+return respond(true,200,days,res);
 
+    }catch(err){
+        handleError(err,res);
+    }
+}
 module.exports = {
     addDocSlot,
+    getDoctorDays
 }

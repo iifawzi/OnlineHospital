@@ -7,6 +7,7 @@ const slotsController = require("../controllers/slots");
 
 
 router.post("/addSlot",isAuth(["admin"]),validate(validationSchemas.addSlot,"body"),slotsController.addDocSlot);
+router.post("/getDoctorDays",isAuth(["user","doctor",'admin']),validate(validationSchemas.getDoctorDays,"body"),slotsController.getDoctorDays);
 
 
 
