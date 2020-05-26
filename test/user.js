@@ -113,6 +113,8 @@ describe("/api/user",async()=>{
         })    
 })
 
+
+
 describe("/notBlocked",async()=>{
     it("Should respond with 401 if not authorized",async()=>{
         let res = await request(server)
@@ -197,5 +199,45 @@ describe("/api/user/updateImage",async()=>{
     //     .expect(500);
     // }); // i don't have a big file, but it's working beleive me :D, 
 })
+
+
+describe("/getUser",async()=>{
+    it("Should respond with 401 if not authorized",async()=>{
+        let res = await request(server)
+        .get("/api/user/getUser")
+        .expect(401);
+    });
+    it("should respond with 404 if user not found",async()=>{
+        const token = genToken("01590243399","user");
+        let res = await request(server)
+        .get("/api/user/getUser")
+        .set("Authorization", `Bearer ${token}`)
+        .send({ "phone_number": "9868956981256", })
+        .expect(404);
+    });
+    it("should respond with 200 if got user successfully",async()=>{
+        let res = await request(server)
+        .post("/api/auth/signup")
+        .send({
+            "phone_number": "01590243399",
+            "first_name": "fawzi",
+            "last_name":"ahmed",
+            "birth_date": "1999-03-20",
+            "weight": 100,
+            "height": 180,
+            "bmi": 28,
+            "fb_token_id": "test",
+            "gender": "male",
+        }).expect(201);
+        const token = genToken("015902433399","user");
+        res = await request(server)
+        .get("/api/user/getUser")
+        .set("Authorization", `Bearer ${token}`)
+        .send({ "phone_number": "01590243399", })
+        .expect(200);
+        deleteUser("01590243399");
+    });
+});
+
 
 });

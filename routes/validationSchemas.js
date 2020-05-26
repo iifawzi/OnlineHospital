@@ -71,6 +71,9 @@ const updateDoctor = Joi.object({
 const deleteDoctor = Joi.object({
   phone_number: Joi.string().required(),
 });
+const getUser = Joi.object({
+  phone_number: Joi.string().required(),
+});
 const schemas = {
   addUser,
   signin,
@@ -83,7 +86,8 @@ const schemas = {
   getDoctors,
   updateUser,
   updateDoctor,
-  deleteDoctor
+  deleteDoctor,
+  getUser
 }
 
 module.exports = schemas;

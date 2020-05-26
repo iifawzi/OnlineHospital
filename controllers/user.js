@@ -87,8 +87,23 @@ const updateImage = async (req,res,next)=>{
 };
 
 
+
+const getUser = async (req, res, next) => {
+  try {
+    const { phone_number } = req.body;
+    const user = await checkIfPhoneExist(phone_number);
+    if (!user) {
+      throw new ErrorHandler(404, "User not found");
+    }
+    return respond(true, 200,user,res);
+  } catch (err) {
+    handleError(err, res);
+  }
+};
+
 module.exports = {
   updateInfo,
   notBlocked,
-  updateImage
+  updateImage,
+  getUser
 };
