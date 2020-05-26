@@ -34,6 +34,10 @@ const slots = db.define("slots",{
 })
 
 
+const addSlot = async ()=>{
+    
+}
+
 module.exports = {
     slots,
 }

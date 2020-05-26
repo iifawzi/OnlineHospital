@@ -107,7 +107,7 @@ const updateDoctorFirebaseToken = async function (doctorObject, new_token) {
   };
 
 
-const  getDoctorsData = async  (category_id)=>{
+const  getDoctorsData = async function  (category_id){
    const doctorsData = await doctors.findAll({attributes:{exclude: ['password','fb_token_id','priority']},
    order: [
     ['priority', 'DESC'],
@@ -127,7 +127,7 @@ const updateDoctor = async function (doctorObject,data){
 
 
 // Get Doctors With the categories data for show in control Panel: 
-const getDoctorsPanel = async ()=>{
+const getDoctorsPanel = async function (){
     const doctors =  await db.query("SELECT  docs.doctor_id,docs.phone_number,docs.first_name,docs.last_name,docs.country,docs.avaliable,docs.price ,cats.* FROM `doctors` docs LEFT JOIN `categories` cats ON docs.category_id = cats.category_id ORDER BY docs.doctor_id DESC",{
         type: Sequelize.QueryTypes.SELECT,
     });
