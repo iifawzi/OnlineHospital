@@ -87,7 +87,6 @@ const updateImage = async (req,res,next)=>{
 };
 
 
-
 const getUser = async (req, res, next) => {
   try {
     const { phone_number } = req.body;

@@ -3,6 +3,7 @@ var expect = require("chai").expect;
 const { deleteDoctor } = require("../models/doctors");
 const { deleteAdmin } = require("../models/admins");
 const { genToken } = require("../utils/shared/genToken");
+const {deleteUser} = require("../models/users");
 
 const path = require("path");
 
@@ -296,4 +297,46 @@ describe("/api/controlPanel", async () => {
         .expect(200);
     });
   });
+
+  describe("/toggleBlock", async () => {
+    it("Should respond with 401 if not authorized", async () => {
+      let res = await request(server)
+        .patch("/api/controlPanel/toggleBlock")
+        .expect(401);
+    });
+    it("Should respond with 404 if user not found", async () => {
+      const token = genToken("ahmed", "admin");
+      let res = await request(server)
+        .patch("/api/controlPanel/toggleBlock")
+        .set("Authorization", `Bearer ${token}`)
+        .send({ phone_number: "0109024371111212129511113"})
+        .expect(404);
+    });
+    it("Should respond with 200 if toggle user's block successfully", async () => {
+      let res = await request(server)
+      .post("/api/auth/signup")
+      .send({
+          "phone_number": "015902433199",
+          "first_name": "fawzi",
+          "last_name":"ahmed",
+          "birth_date": "1999-03-20",
+          "weight": 100,
+          "height": 180,
+          "bmi": 28,
+          "fb_token_id": "djdj84",
+          "gender": "male",
+      })
+      .expect(201);
+      const token = genToken("ahmed", "admin");
+      res = await request(server)
+        .patch("/api/controlPanel/toggleBlock")
+        .set("Authorization", `Bearer ${token}`)
+        .send({ phone_number: "015902433199"})
+        .expect(200);
+        deleteUser("015902433199");
+        
+    });
+  });
+
+
 });

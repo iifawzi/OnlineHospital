@@ -2,6 +2,7 @@ const {handleError,ErrorHandler} = require("../middleware/error");
 const {checkDocPhoneExist,createNewDoctor,getDoctorsPanel,deleteDoctor} = require("../models/doctors");
 const {checkAdminExist,createAdmin} = require("../models/admins");
 const {getAllCategories} = require("../models/categories");
+const {checkIfPhoneExist } = require("../models/users");
 const {genToken} = require("../utils/shared/genToken");
 const {hashPassword,compareHashed} = require("../utils/shared/bcrypt");
 const respond = require("../middleware/respond");
@@ -168,7 +169,21 @@ if (deletedDoctor){
 }
 
 
-
+const toggleBlock = async (req, res, next) => {
+    try {
+      const { phone_number } = req.body;
+      const user = await checkIfPhoneExist(phone_number);
+      if (!user) {
+        throw new ErrorHandler(404, "User not found");
+      }
+      user.blocked = !user.blocked;
+      await user.save();
+      return respond(true, 200,user.blocked,res);
+    } catch (err) {
+      handleError(err, res);
+    }
+  };
+  
 
 module.exports = {
     addDoctor,
@@ -178,5 +193,6 @@ module.exports = {
     addImage,
     getCategories,
     getDoctors,
-    deleteTheDoctor
+    deleteTheDoctor,
+    toggleBlock
 }

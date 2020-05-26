@@ -810,6 +810,57 @@
         }
       }
     },
+    "/controlPanel/toggleBlock": {
+      "patch": {
+        "tags": [
+          "ControlPanel"
+        ],
+        "summary": "To toggle block coulmn of user (BLOCK / UNBLOCK)",
+        
+        "consumes": [
+          "application/json"
+        ],
+        "produces": [
+          "application/json"
+        ],
+        "parameters": [
+          {
+            "in": "body",
+            "name": "body",
+            "required": true,
+            "schema": {
+              "$ref": "#/definitions/toggleBlock"
+            }
+          },
+          {
+            "in": "header",
+            "name": "Authorization",
+            "required": true,
+            "type": "string"
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "200 (success)",
+            "schema": {
+              "$ref": "#/definitions/toggleBlockResponse"
+            }
+          },
+          "403": {
+            "description": "404 User not found",
+            "schema": {
+              "$ref": "#/definitions/Error"
+            }
+          },
+          "401": {
+            "description": "401 (Not Authorized)",
+            "schema": {
+              "$ref": "#/definitions/Error"
+            }
+          }
+        }
+      }
+    },
     "/user/updateImage": {
       "patch": {
         "summary": "Update User's image.",
@@ -1149,6 +1200,7 @@
           "birth_date": "1999-03-20",
           "weight": 100,
           "height": 180,
+          "blocked": false,
           "bmi": 28,
           "fb_token_id": "djdj84",
           "gender": "male",
@@ -1174,7 +1226,9 @@
           "fb_token_id": "djdj84",
           "gender": "male",
           "role": "user",
-          "picture":"3874878487478.png"
+          "picture":"3874878487478.png",
+          "blocked": false
+
         }
       }
     },
@@ -1541,6 +1595,7 @@
           "birth_date": "1999-03-20",
           "weight": 100,
           "height": 180,
+          "blocked": false,
           "bmi": 28,
           "fb_token_id": "djdj84",
           "gender": "male",
@@ -1803,6 +1858,17 @@
         "phone_number": "01590243399"
       }
     },
+    "toggleBlock": {
+      "type": "object",
+      "properties": {
+        "phone_number": {
+          "type": "string"
+        }
+      },
+      "example": {
+        "phone_number": "01590243399"
+      }
+    },
     "getUserResponse": {
       "type": "object",
       "example": {
@@ -1815,11 +1881,22 @@
           "birth_date": "1999-03-20",
           "weight": 100,
           "height": 180,
+          "blocked": false,
           "bmi": 28,
           "fb_token_id": "djdj84",
           "gender": "male",
           "role": "user",
           "picture":"3874878487478.png"
+        }
+      }
+    },
+    "toggleBlockResponse": {
+      "type": "object",
+      "example": {
+        "status": true,
+        "message": "success",
+        "data": {
+"blocked": true
         }
       }
     },
