@@ -628,7 +628,7 @@
         "tags": [
           "categories"
         ],
-        "summary": "Get Categories",
+        "summary": "This will return the categories where there're doctors registered in",
         "consumes": [
           "application/json"
         ],
