@@ -1896,7 +1896,18 @@
         "status": true,
         "message": "success",
         "data": {
-"blocked": true
+          "phone_number": "01590243399",
+          "first_name": "fawzi",
+          "last_name": "ahmed",
+          "birth_date": "1999-03-20",
+          "weight": 100,
+          "height": 180,
+          "blocked": false,
+          "bmi": 28,
+          "fb_token_id": "djdj84",
+          "gender": "male",
+          "role": "user",
+          "picture":"3874878487478.png"
         }
       }
     },

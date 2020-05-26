@@ -178,7 +178,7 @@ const toggleBlock = async (req, res, next) => {
       }
       user.blocked = !user.blocked;
       await user.save();
-      return respond(true, 200,user.blocked,res);
+      return respond(true, 200,user,res);
     } catch (err) {
       handleError(err, res);
     }
