@@ -34,9 +34,63 @@
     {
       "name": "slots",
       "description": "Everything related to slots will be listed here"
+    },
+    {
+      "name": "appointments",
+      "description": "Everything related to appointments will be listed here"
     }
   ],
   "paths": {
+    "/appointments/addAppointment": {
+      "post": {
+        "tags": [
+          "appointments"
+        ],
+        "summary": "add new appointment: ",
+        "consumes": [
+          "application/json"
+        ],
+        "produces": [
+          "application/json"
+        ],
+        "parameters": [
+          {
+            "in": "body",
+            "name": "body",
+            "required": true,
+            "schema": {
+              "$ref": "#/definitions/newAppointment"
+            }
+          },
+          {
+            "in": "header",
+            "name": "Authorization",
+            "required": true,
+            "type": "string"
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "201 (created)",
+            "schema": {
+              "$ref": "#/definitions/newAppointmentResponse"
+            }
+          },
+          "400": {
+            "description": "400 (inputs or missing or incorrect)",
+            "schema": {
+              "$ref": "#/definitions/Error"
+            }
+          },
+          "401": {
+            "description": "401 (Not Authorized)",
+            "schema": {
+              "$ref": "#/definitions/Error"
+            }
+          }
+        }
+      }
+    },
     "/slots/getDoctorDays": {
       "post": {
         "tags": [
@@ -57,6 +111,12 @@
             "schema": {
               "$ref": "#/definitions/getDays"
             }
+          },
+          {
+            "in": "header",
+            "name": "Authorization",
+            "required": true,
+            "type": "string"
           }
         ],
         "responses": {
@@ -101,6 +161,12 @@
             "schema": {
               "$ref": "#/definitions/addSlot"
             }
+          },
+          {
+            "in": "header",
+            "name": "Authorization",
+            "required": true,
+            "type": "string"
           }
         ],
         "responses": {
@@ -1184,6 +1250,50 @@
     }
   },
   "definitions": {
+    "newAppointment": {
+      "type": "object",
+      "properties": {
+        "slot_id": {
+          "type": "integer"
+        },
+        "user_id": {
+          "type": "integer"
+        },
+        "date": {
+          "type": "string"
+        }
+      },
+      "example": {
+        "slot_id": 1,
+        "user_id":34,
+        "date":"1999-03-20"
+      }
+    },
+    "newAppointmentResponse": {
+      "type": "object",
+      "properties": {
+        "slot_id": {
+          "type": "integer"
+        },
+        "user_id": {
+          "type": "integer"
+        },
+        "date": {
+          "type": "string"
+        }
+      },
+      "example": {
+        "status": true,
+        "message": "success",
+        "data": {
+            "appointment_status": "pending",
+            "appointment_id": 7,
+            "slot_id": 1,
+            "user_id": 34,
+            "date": "1999-03-20"
+        }
+      }
+    },
     "getDays": {
       "type": "object",
       "properties": {
