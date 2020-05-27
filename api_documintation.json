@@ -41,6 +41,56 @@
     }
   ],
   "paths": {
+    "/appointments/getAppointments": {
+      "post": {
+        "tags": [
+          "appointments"
+        ],
+        "summary": "Get the appointments for specific day, doctor which are available ",
+        "consumes": [
+          "application/json"
+        ],
+        "produces": [
+          "application/json"
+        ],
+        "parameters": [
+          {
+            "in": "body",
+            "name": "body",
+            "required": true,
+            "schema": {
+              "$ref": "#/definitions/getAppointments"
+            }
+          },
+          {
+            "in": "header",
+            "name": "Authorization",
+            "required": true,
+            "type": "string"
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "200 (success)",
+            "schema": {
+              "$ref": "#/definitions/getAppointmentsResponse"
+            }
+          },
+          "400": {
+            "description": "400 (inputs or missing or incorrect)",
+            "schema": {
+              "$ref": "#/definitions/Error"
+            }
+          },
+          "401": {
+            "description": "401 (Not Authorized)",
+            "schema": {
+              "$ref": "#/definitions/Error"
+            }
+          }
+        }
+      }
+    },
     "/appointments/addAppointment": {
       "post": {
         "tags": [
@@ -1250,6 +1300,61 @@
     }
   },
   "definitions": {
+    "getAppointments": {
+      "type": "object",
+      "properties": {
+        "doctor_id": {
+          "type": "integer"
+        },
+        "day": {
+          "type": "integer"
+        },
+        "date": {
+          "type": "string"
+        }
+      },
+      "example": {
+        "doctor_id": 11,
+        "day":"wed",
+        "date":"2020-03-27"
+      }
+    },
+    "getAppointmentsResponse": {
+      "type": "object",
+      "example": {
+        "status": true,
+        "message": "success",
+        "data": [
+            {
+                "slot_id": 1,
+                "doctor_id": 11,
+                "day": "wed",
+                "start_time": "23:00",
+                "end_time": "24:00",
+                "slot_time": "60",
+                "available": 1
+            },
+            {
+                "slot_id": 2,
+                "doctor_id": 11,
+                "day": "wed",
+                "start_time": "22:00",
+                "end_time": "24:00",
+                "slot_time": "60",
+                "available": 1
+            },
+            {
+                "slot_id": 5,
+                "doctor_id": 11,
+                "day": "wed",
+                "start_time": "23:00",
+                "end_time": "24:00",
+                "slot_time": "60",
+                "available": 1
+            }
+        ]
+      }
+    },
     "newAppointment": {
       "type": "object",
       "properties": {
@@ -1271,17 +1376,6 @@
     },
     "newAppointmentResponse": {
       "type": "object",
-      "properties": {
-        "slot_id": {
-          "type": "integer"
-        },
-        "user_id": {
-          "type": "integer"
-        },
-        "date": {
-          "type": "string"
-        }
-      },
       "example": {
         "status": true,
         "message": "success",

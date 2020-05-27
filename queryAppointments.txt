@@ -1,0 +1,1 @@
+SELECT * FROM hospital.slots slots LEFT JOIN hospital.appointments apps ON slots.slot_id = apps.slot_id && apps.date = `20-05-28` && apps.appointment_status != 'canceled' WHERE slots.doctor_id = 11 && slots.day = `wed` && slots.available = 1 && apps.slot_id is null 

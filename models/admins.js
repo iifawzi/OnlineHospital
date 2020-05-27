@@ -31,6 +31,8 @@ const admins = db.define('admins',{
             unique: true,
           },
       ],
+      freezeTableName: true,
+      timestamps: false,
 },{
     freezeTableName: true,
     timestamps: false,

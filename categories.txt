@@ -1,3 +1,8 @@
+for test (after destroying the db) -  put this data in the db : 
+
+
+
+
 INSERT INTO `hospital`.`categories` (`category_id`, `en`, `ar`) VALUES ('1', 'Internal Medicine', 'طب الباطنة');
 INSERT INTO `hospital`.`categories` (`category_id`, `en`, `ar`) VALUES ('2', 'Endocrinology', 'باطنة غدد صماء وسكر');
 INSERT INTO `hospital`.`categories` (`category_id`, `en`, `ar`) VALUES ('3', 'Cardiology', 'القلب والاوعية الدموية');

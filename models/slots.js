@@ -39,13 +39,13 @@ const slots = db.define("slots",{
 },{
     indexes: [
         {
-            fields: ["doctor_id","available","day"],
+            fields: ["available","day","doctor_id"],
           },
       ],
-},{
-    freezeTableName: true,
-    timestamps: false,
-})
+      freezeTableName: true,
+      timestamps: false,
+}
+)
 
 
 const addSlot = async (data)=>{
