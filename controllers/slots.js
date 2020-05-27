@@ -37,7 +37,7 @@ return respond(true,200,days,res);
 
 const getOpenSlots = async (req,res,next)=>{
     const info = {...req.body};
-    const slots = await getDocOpenSlots(info);
+    const slots = await getDocOpenSlots(info,res);
     if (slots){
       return respond(true,200,slots,res);
     }

@@ -71,15 +71,20 @@ const doctorDays = async(doctor_id)=>{ // this will return the days which doctor
 // apps.appointment_status != 'canceled` => will help us to return all the records in slots model, with null for the records which canceled in the appointments model. 
 // WHERE => filtering the returned data, get specific doctor id, for specific day, where the right table `appointments` slot_id equals null (to match the above conditions )
 
-const getDocOpenSlots = async function(info){ // this api will return the slots which are allowed to be preserved: 
-    const day = info.day;
-    const doctor_id = info.doctor_id;
-    const date = info.date;
-    const slots =  await db.query("SELECT slots.* FROM slots LEFT JOIN appointments apps ON slots.slot_id = apps.slot_id && apps.date = ? && apps.appointment_status != 'canceled' WHERE slots.doctor_id = ? && slots.day = ? && slots.available = 1 && apps.slot_id is null ",{
-        replacements: [date,doctor_id,day],
-        type: Sequelize.QueryTypes.SELECT,
-    });
-    return slots;
+const getDocOpenSlots = async function(info,res){ // this api will return the slots which are allowed to be preserved: 
+    try {
+        const day = info.day;
+        const doctor_id = info.doctor_id;
+        const date = info.date;
+        const slots =  await db.query("SELECT slots.* FROM slots LEFT JOIN appointments apps ON slots.slot_id = apps.slot_id && apps.date = ? && apps.appointment_status != 'canceled' WHERE slots.doctor_id = ? && slots.day = ? && slots.available = 1 && apps.slot_id is null ",{
+            replacements: [date,doctor_id,day],
+            type: Sequelize.QueryTypes.SELECT,
+        });
+        return slots;
+    }catch(err){
+        handleError(err,res);
+    }
+ 
 }
 
 const getDocSlots = async(doctor_id)=>{ // this end point for admins: ( will return all slots of specific doctor):
