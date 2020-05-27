@@ -146,7 +146,7 @@
         "tags": [
           "slots"
         ],
-        "summary": "add slot for doctor",
+        "summary": "get the days which doctor working in just `days`",
         "consumes": [
           "application/json"
         ],
