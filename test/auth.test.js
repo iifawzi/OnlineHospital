@@ -219,8 +219,8 @@ describe("/api/auth",async()=>{
                 "price":"200"
             })
             .expect(201);
-            res = request(server)
-            .post("/api/auth/signDoctors")
+            res = await request(server)
+            .post("/api/auth/signDoctor")
             .send({phone_number:"01090243794",password:"01288"})
             .expect(401);
             deleteDoctor("01090243795");

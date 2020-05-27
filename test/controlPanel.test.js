@@ -298,6 +298,9 @@ describe("/api/controlPanel", async () => {
     });
   });
 
+
+
+
   describe("/toggleBlock", async () => {
     it("Should respond with 401 if not authorized", async () => {
       let res = await request(server)
@@ -337,6 +340,36 @@ describe("/api/controlPanel", async () => {
         
     });
   });
+
+
+
+  
+  describe("/getDoctorSlots", async () => {
+    it("Should respond with 401 if not authorized", async () => {
+      let res = await request(server)
+        .post("/api/controlPanel/getDoctorSlots")
+        .expect(401);
+    });
+    it("Should respond with 400 doctor_id is missing or incorrect", async () => {
+      const token = genToken("ahmed", "admin");
+      let res = await request(server)
+      .post("/api/controlPanel/getDoctorSlots")
+        .set("Authorization", `Bearer ${token}`)
+        .send({ doctor_id: "ahmed"})
+        .expect(400);
+    });
+    it("Should respond with 200 if got doctor's slots successfully", async () => {
+      const token = genToken("ahmed", "admin");
+      let res = await request(server)
+        .post("/api/controlPanel/getDoctorSlots")
+        .set("Authorization", `Bearer ${token}`)
+        .send({ doctor_id: 11})
+        .expect(200);
+    });
+  });
+
+
+
 
 
 });

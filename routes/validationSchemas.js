@@ -93,11 +93,14 @@ const getDoctorDays = Joi.object({
   user_id: Joi.number().required(),
   date: Joi.string().required(),
  });
- const getAppointments = Joi.object({
+ const getOpenSlots = Joi.object({
   doctor_id: Joi.number().required(),
   day: Joi.string().required(),
   date: Joi.string().required(),
  });
+ const getDoctorSlots = Joi.object({
+   doctor_id : Joi.number().required(),
+ })
 const schemas = {
   addUser,
   signin,
@@ -116,7 +119,8 @@ const schemas = {
   addSlot,
   getDoctorDays,
   addAppointment,
-  getAppointments
+  getOpenSlots,
+  getDoctorSlots
 }
 
 module.exports = schemas;

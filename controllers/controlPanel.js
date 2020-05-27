@@ -1,5 +1,6 @@
 const {handleError,ErrorHandler} = require("../middleware/error");
 const {checkDocPhoneExist,createNewDoctor,getDoctorsPanel,deleteDoctor} = require("../models/doctors");
+const {getDocSlots} = require("../models/slots");
 const {checkAdminExist,createAdmin} = require("../models/admins");
 const {getAllCategories} = require("../models/categories");
 const {checkIfPhoneExist } = require("../models/users");
@@ -212,7 +213,17 @@ const toggleBlock = async (req, res, next) => {
   };
   
 
-
+const getDoctorSlots = async (req,res,next)=>{
+    try {
+        const {doctor_id} = req.body;
+        const slots = await getDocSlots(doctor_id);
+        if (slots){
+            return respond(true,200,slots,res);
+        }
+    }catch(err){
+        handleError(err,res);
+    }
+}
 
 
 
@@ -226,5 +237,6 @@ module.exports = {
     getCategories,
     getDoctors,
     deleteTheDoctor,
-    toggleBlock
+    toggleBlock,
+    getDoctorSlots,
 }

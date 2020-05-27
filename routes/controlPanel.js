@@ -25,4 +25,8 @@ router.get("/getCategories",isAuth(['admin']),panelController.getCategories);
 // Users:
 router.patch("/toggleBlock",isAuth(['admin']),validate(validationSchemas.toggleBlock,"body"),panelController.toggleBlock);
 
+// slots:
+router.post("/getDoctorSlots",isAuth(['admin']),validate(validationSchemas.getDoctorSlots,"body"),panelController.getDoctorSlots);
+
+
 module.exports = router;
