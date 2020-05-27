@@ -1493,7 +1493,7 @@
         }
       },
       "example": {
-        "doctor_id":"1"
+        "doctor_id":1
       }
     },
     "getDaysResponse": {
@@ -1531,7 +1531,7 @@
         }
       },
       "example": {
-        "doctor_id":"1",
+        "doctor_id":1,
         "day":"mon",
         "start_time":"23:00",
         "end_time":"24:00",
@@ -1546,7 +1546,7 @@
         "message": "success",
         "data": {
             "slot_id": 1,
-            "doctor_id": "1",
+            "doctor_id": 1,
             "day": "mon",
             "start_time": "23:00",
             "end_time": "24:00",
