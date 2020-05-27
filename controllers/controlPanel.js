@@ -9,6 +9,9 @@ const respond = require("../middleware/respond");
 const upload = require("../middleware/upload");
 const fs = require('fs')
 
+
+
+
 const addImage = async (req,res,next)=>{
     try {
         upload().single('file')(req,{},async error=>{
@@ -27,6 +30,9 @@ const addImage = async (req,res,next)=>{
         handleError(err,res);
     }
 };
+
+
+
 
 
 
@@ -65,6 +71,8 @@ const addDoctor = async (req,res,next)=>{
 
 
 
+
+
 const addAdmin = async (req,res,next)=>{
     try{
         const {phone_number, password, name, role} = req.body;
@@ -92,6 +100,9 @@ const addAdmin = async (req,res,next)=>{
 
 
 
+
+
+
 const signAdmin = async (req,res,next)=>{
     try{
         const {phone_number, password} = req.body;
@@ -115,6 +126,9 @@ const signAdmin = async (req,res,next)=>{
 
 
 
+
+
+
 const checkToken = async (req,res,next)=>{
     try {
         const {phone_number} = req.user
@@ -133,6 +147,9 @@ const checkToken = async (req,res,next)=>{
 
 
 
+
+
+
 const getCategories = async (req,res,next)=>{
     try {
         const categories = await getAllCategories();
@@ -144,6 +161,9 @@ const getCategories = async (req,res,next)=>{
 
 
 
+
+
+
 const getDoctors = async(req,res,next)=>{
     try {
 const doctors = await getDoctorsPanel();
@@ -152,6 +172,10 @@ return respond(true,200,doctors,res);
         handleError(err,res);
     }
 }
+
+
+
+
 
 const deleteTheDoctor = async(req,res,next)=>{
     try {
@@ -169,6 +193,9 @@ if (deletedDoctor){
 }
 
 
+
+
+// toggle user's blocked coulmn (block / unblock user):
 const toggleBlock = async (req, res, next) => {
     try {
       const { phone_number } = req.body;
@@ -184,6 +211,11 @@ const toggleBlock = async (req, res, next) => {
     }
   };
   
+
+
+
+
+
 
 module.exports = {
     addDoctor,
