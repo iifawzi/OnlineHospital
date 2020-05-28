@@ -1,11 +1,11 @@
-const {addNewAppointment} = require("../models/appointments");
+const {addNewAppointment,userApps} = require("../models/appointments");
 const { handleError, ErrorHandler } = require("../middleware/error");
 const respond = require("../middleware/respond");
 
 const addAppointment = async (req, res, next) => {
   try {
     const data = { ...req.body };
-    const newAppointment = await addNewAppointment(data);
+    const newAppointment = await addNewAppointment(data,res);
     if (newAppointment){
         return respond(true,201,newAppointment,res);
      }
@@ -14,6 +14,19 @@ const addAppointment = async (req, res, next) => {
   }
 };
 
+const getUserApps = async (req,res,next)=>{
+  try {
+    const {user_id} = req.body;
+    const appointments = await userApps(user_id,res);
+    if (appointments){
+      return respond(true,200,appointments,res);
+    }
+  }catch(err){
+    handleError(err,res);
+  }
+} 
+
 module.exports = {
     addAppointment,
+    getUserApps
 }

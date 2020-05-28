@@ -175,7 +175,7 @@ describe("/api/controlPanel", async () => {
 
   describe("/checkAdminByToken", async () => {
     it("Should respond with 401 if admin is not authorized", async () => {
-      const token = genToken("01090243795", "admin");
+      const token = genToken("0109024379785", "admin");
       let res = await request(server)
         .post("/api/controlPanel/checkAdminByToken")
         .set("Authorization", `Bearer ${token}`)
