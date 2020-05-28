@@ -42,7 +42,7 @@
   ],
   "paths": {
     "/appointments/cancelAppointment": {
-      "post": {
+      "patch": {
         "tags": ["appointments"],
         "summary": "to cancel specific appointment for control panel use  ",
         "consumes": ["application/json"],
