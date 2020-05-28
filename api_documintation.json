@@ -41,18 +41,56 @@
     }
   ],
   "paths": {
+    "/appointments/getUserApps": {
+      "post": {
+        "tags": ["appointments"],
+        "summary": "Get all user's appointments for control panel use  ",
+        "consumes": ["application/json"],
+        "produces": ["application/json"],
+        "parameters": [
+          {
+            "in": "body",
+            "name": "body",
+            "required": true,
+            "schema": {
+              "$ref": "#/definitions/getUserApps"
+            }
+          },
+          {
+            "in": "header",
+            "name": "Authorization",
+            "required": true,
+            "type": "string"
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "200 (success)",
+            "schema": {
+              "$ref": "#/definitions/getUserAppsResponse"
+            }
+          },
+          "400": {
+            "description": "400 (inputs or missing or incorrect)",
+            "schema": {
+              "$ref": "#/definitions/Error"
+            }
+          },
+          "401": {
+            "description": "401 (Not Authorized)",
+            "schema": {
+              "$ref": "#/definitions/Error"
+            }
+          }
+        }
+      }
+    },
     "/controlPanel/getDoctorSlots": {
       "post": {
-        "tags": [
-          "ControlPanel"
-        ],
+        "tags": ["ControlPanel"],
         "summary": "Get all slots for specific doctor  ",
-        "consumes": [
-          "application/json"
-        ],
-        "produces": [
-          "application/json"
-        ],
+        "consumes": ["application/json"],
+        "produces": ["application/json"],
         "parameters": [
           {
             "in": "body",
@@ -93,16 +131,10 @@
     },
     "/slots/getOpenSlots": {
       "post": {
-        "tags": [
-          "slots"
-        ],
+        "tags": ["slots"],
         "summary": "Get the slots for specific day, doctor which are available ",
-        "consumes": [
-          "application/json"
-        ],
-        "produces": [
-          "application/json"
-        ],
+        "consumes": ["application/json"],
+        "produces": ["application/json"],
         "parameters": [
           {
             "in": "body",
@@ -143,16 +175,10 @@
     },
     "/appointments/addAppointment": {
       "post": {
-        "tags": [
-          "appointments"
-        ],
+        "tags": ["appointments"],
         "summary": "add new appointment: ",
-        "consumes": [
-          "application/json"
-        ],
-        "produces": [
-          "application/json"
-        ],
+        "consumes": ["application/json"],
+        "produces": ["application/json"],
         "parameters": [
           {
             "in": "body",
@@ -193,16 +219,10 @@
     },
     "/slots/getDoctorDays": {
       "post": {
-        "tags": [
-          "slots"
-        ],
+        "tags": ["slots"],
         "summary": "get the days which doctor working in just `days`",
-        "consumes": [
-          "application/json"
-        ],
-        "produces": [
-          "application/json"
-        ],
+        "consumes": ["application/json"],
+        "produces": ["application/json"],
         "parameters": [
           {
             "in": "body",
@@ -243,16 +263,10 @@
     },
     "/slots/addSlot": {
       "post": {
-        "tags": [
-          "slots"
-        ],
+        "tags": ["slots"],
         "summary": "add slot for doctor",
-        "consumes": [
-          "application/json"
-        ],
-        "produces": [
-          "application/json"
-        ],
+        "consumes": ["application/json"],
+        "produces": ["application/json"],
         "parameters": [
           {
             "in": "body",
@@ -293,16 +307,10 @@
     },
     "/auth/signup": {
       "post": {
-        "tags": [
-          "Auth"
-        ],
+        "tags": ["Auth"],
         "summary": "The signup end point for users",
-        "consumes": [
-          "application/json"
-        ],
-        "produces": [
-          "application/json"
-        ],
+        "consumes": ["application/json"],
+        "produces": ["application/json"],
         "parameters": [
           {
             "in": "body",
@@ -337,16 +345,10 @@
     },
     "/auth/signin": {
       "post": {
-        "tags": [
-          "Auth"
-        ],
+        "tags": ["Auth"],
         "summary": "The signin end point for users",
-        "consumes": [
-          "application/json"
-        ],
-        "produces": [
-          "application/json"
-        ],
+        "consumes": ["application/json"],
+        "produces": ["application/json"],
         "parameters": [
           {
             "in": "body",
@@ -387,16 +389,10 @@
     },
     "/auth/updateFirebaseToken": {
       "patch": {
-        "tags": [
-          "Auth"
-        ],
+        "tags": ["Auth"],
         "summary": "update the firebase token id for a specific user",
-        "consumes": [
-          "application/json"
-        ],
-        "produces": [
-          "application/json"
-        ],
+        "consumes": ["application/json"],
+        "produces": ["application/json"],
         "parameters": [
           {
             "in": "body",
@@ -443,16 +439,10 @@
     },
     "/auth/updateDoctorFirebaseToken": {
       "patch": {
-        "tags": [
-          "Auth"
-        ],
+        "tags": ["Auth"],
         "summary": "update the firebase token id for a specific DOCTOR",
-        "consumes": [
-          "application/json"
-        ],
-        "produces": [
-          "application/json"
-        ],
+        "consumes": ["application/json"],
+        "produces": ["application/json"],
         "parameters": [
           {
             "in": "body",
@@ -493,16 +483,10 @@
     },
     "/auth/signDoctor": {
       "post": {
-        "tags": [
-          "Auth"
-        ],
+        "tags": ["Auth"],
         "summary": "Doctors Signin Endpoint",
-        "consumes": [
-          "application/json"
-        ],
-        "produces": [
-          "application/json"
-        ],
+        "consumes": ["application/json"],
+        "produces": ["application/json"],
         "parameters": [
           {
             "in": "body",
@@ -537,16 +521,10 @@
     },
     "/controlPanel/addDoctor": {
       "post": {
-        "tags": [
-          "ControlPanel"
-        ],
+        "tags": ["ControlPanel"],
         "summary": "Adding Doctor endpoint",
-        "consumes": [
-          "application/json"
-        ],
-        "produces": [
-          "application/json"
-        ],
+        "consumes": ["application/json"],
+        "produces": ["application/json"],
         "parameters": [
           {
             "in": "body",
@@ -593,16 +571,10 @@
     },
     "/controlPanel/signAdmin": {
       "post": {
-        "tags": [
-          "ControlPanel"
-        ],
+        "tags": ["ControlPanel"],
         "summary": "Login admin endpoint",
-        "consumes": [
-          "application/json"
-        ],
-        "produces": [
-          "application/json"
-        ],
+        "consumes": ["application/json"],
+        "produces": ["application/json"],
         "parameters": [
           {
             "in": "body",
@@ -637,16 +609,10 @@
     },
     "/controlPanel/addAdmin": {
       "post": {
-        "tags": [
-          "ControlPanel"
-        ],
+        "tags": ["ControlPanel"],
         "summary": "Adding admin endpoint",
-        "consumes": [
-          "application/json"
-        ],
-        "produces": [
-          "application/json"
-        ],
+        "consumes": ["application/json"],
+        "produces": ["application/json"],
         "parameters": [
           {
             "in": "body",
@@ -693,16 +659,10 @@
     },
     "/controlPanel/checkAdminByToken": {
       "post": {
-        "tags": [
-          "ControlPanel"
-        ],
+        "tags": ["ControlPanel"],
         "summary": "Check if `admin` using the token",
-        "consumes": [
-          "application/json"
-        ],
-        "produces": [
-          "application/json"
-        ],
+        "consumes": ["application/json"],
+        "produces": ["application/json"],
         "parameters": [
           {
             "in": "header",
@@ -736,9 +696,7 @@
     "/controlPanel/addImage": {
       "post": {
         "summary": "Uploads a file.",
-        "consumes": [
-          "multipart/form-data"
-        ],
+        "consumes": ["multipart/form-data"],
         "parameters": [
           {
             "in": "formData",
@@ -783,16 +741,10 @@
     },
     "/doctors/getDoctor": {
       "post": {
-        "tags": [
-          "doctors"
-        ],
+        "tags": ["doctors"],
         "summary": "Get Doctor Details",
-        "consumes": [
-          "application/json"
-        ],
-        "produces": [
-          "application/json"
-        ],
+        "consumes": ["application/json"],
+        "produces": ["application/json"],
         "parameters": [
           {
             "in": "body",
@@ -839,16 +791,10 @@
     },
     "/doctors/getDoctors": {
       "post": {
-        "tags": [
-          "doctors"
-        ],
+        "tags": ["doctors"],
         "summary": "Get Doctors data within specific category",
-        "consumes": [
-          "application/json"
-        ],
-        "produces": [
-          "application/json"
-        ],
+        "consumes": ["application/json"],
+        "produces": ["application/json"],
         "parameters": [
           {
             "in": "body",
@@ -883,16 +829,10 @@
     },
     "/categories/getCategories": {
       "get": {
-        "tags": [
-          "categories"
-        ],
+        "tags": ["categories"],
         "summary": "This will return the categories where there're doctors registered in",
-        "consumes": [
-          "application/json"
-        ],
-        "produces": [
-          "application/json"
-        ],
+        "consumes": ["application/json"],
+        "produces": ["application/json"],
         "parameters": [
           {
             "in": "header",
@@ -919,16 +859,10 @@
     },
     "/user/updateInfo": {
       "patch": {
-        "tags": [
-          "user"
-        ],
+        "tags": ["user"],
         "summary": "to update specific user info.",
-        "consumes": [
-          "application/json"
-        ],
-        "produces": [
-          "application/json"
-        ],
+        "consumes": ["application/json"],
+        "produces": ["application/json"],
         "parameters": [
           {
             "in": "body",
@@ -976,17 +910,11 @@
     },
     "/user/notBlocked": {
       "get": {
-        "tags": [
-          "user"
-        ],
+        "tags": ["user"],
         "summary": "to know which user is blocked or not",
-        
-        "consumes": [
-          "application/json"
-        ],
-        "produces": [
-          "application/json"
-        ],
+
+        "consumes": ["application/json"],
+        "produces": ["application/json"],
         "parameters": [
           {
             "in": "header",
@@ -1019,17 +947,11 @@
     },
     "/user/getUser": {
       "post": {
-        "tags": [
-          "user"
-        ],
+        "tags": ["user"],
         "summary": "to get user's data",
-        
-        "consumes": [
-          "application/json"
-        ],
-        "produces": [
-          "application/json"
-        ],
+
+        "consumes": ["application/json"],
+        "produces": ["application/json"],
         "parameters": [
           {
             "in": "body",
@@ -1070,17 +992,11 @@
     },
     "/controlPanel/toggleBlock": {
       "patch": {
-        "tags": [
-          "ControlPanel"
-        ],
+        "tags": ["ControlPanel"],
         "summary": "To toggle block coulmn of user (BLOCK / UNBLOCK)",
-        
-        "consumes": [
-          "application/json"
-        ],
-        "produces": [
-          "application/json"
-        ],
+
+        "consumes": ["application/json"],
+        "produces": ["application/json"],
         "parameters": [
           {
             "in": "body",
@@ -1122,9 +1038,7 @@
     "/user/updateImage": {
       "patch": {
         "summary": "Update User's image.",
-        "consumes": [
-          "multipart/form-data"
-        ],
+        "consumes": ["multipart/form-data"],
         "parameters": [
           {
             "in": "formData",
@@ -1167,20 +1081,14 @@
         }
       }
     },
-    
+
     "/controlPanel/getCategories": {
       "get": {
-        "tags": [
-          "ControlPanel"
-        ],
+        "tags": ["ControlPanel"],
         "summary": "to get all categories",
-        
-        "consumes": [
-          "application/json"
-        ],
-        "produces": [
-          "application/json"
-        ],
+
+        "consumes": ["application/json"],
+        "produces": ["application/json"],
         "parameters": [
           {
             "in": "header",
@@ -1207,16 +1115,10 @@
     },
     "/doctors/updateDoctor": {
       "patch": {
-        "tags": [
-          "doctors"
-        ],
+        "tags": ["doctors"],
         "summary": "to update specific doctor info.",
-        "consumes": [
-          "application/json"
-        ],
-        "produces": [
-          "application/json"
-        ],
+        "consumes": ["application/json"],
+        "produces": ["application/json"],
         "parameters": [
           {
             "in": "body",
@@ -1264,16 +1166,10 @@
     },
     "/controlPanel/getDoctors": {
       "get": {
-        "tags": [
-          "ControlPanel"
-        ],
+        "tags": ["ControlPanel"],
         "summary": "Get Doctors Data",
-        "consumes": [
-          "application/json"
-        ],
-        "produces": [
-          "application/json"
-        ],
+        "consumes": ["application/json"],
+        "produces": ["application/json"],
         "parameters": [
           {
             "in": "header",
@@ -1300,16 +1196,10 @@
     },
     "/controlPanel/deleteDoctor": {
       "delete": {
-        "tags": [
-          "ControlPanel"
-        ],
+        "tags": ["ControlPanel"],
         "summary": "Delete doctor using with phone number",
-        "consumes": [
-          "application/json"
-        ],
-        "produces": [
-          "application/json"
-        ],
+        "consumes": ["application/json"],
+        "produces": ["application/json"],
         "parameters": [
           {
             "in": "body",
@@ -1350,6 +1240,36 @@
     }
   },
   "definitions": {
+    "getUserApps": {
+      "type": "object",
+      "properties": {
+        "user_id": {
+          "type": "integer"
+        }
+      },
+      "example": {
+        "doctor_id": 11
+      }
+    },
+    "getUserAppsResponse": {
+      "type": "object",
+      "example": {
+        "status": true,
+        "message": "success",
+        "data": [
+          {
+            "appointment_id": 1,
+            "first_name": "fawzi",
+            "last_name": "ahmed",
+            "ar": "طب الباطنة",
+            "en": "Internal Medicine",
+            "appointment_status": "pending",
+            "start_time": "23:00",
+            "end_time": "23:30"
+          }
+        ]
+      }
+    },
     "getDoctorSlots": {
       "type": "object",
       "properties": {
@@ -1367,33 +1287,33 @@
         "status": true,
         "message": "success",
         "data": [
-            {
-                "slot_id": 1,
-                "doctor_id": 11,
-                "day": "wed",
-                "start_time": "23:00",
-                "end_time": "24:00",
-                "slot_time": "60",
-                "available": 1
-            },
-            {
-                "slot_id": 2,
-                "doctor_id": 11,
-                "day": "wed",
-                "start_time": "22:00",
-                "end_time": "24:00",
-                "slot_time": "60",
-                "available": 1
-            },
-            {
-                "slot_id": 5,
-                "doctor_id": 11,
-                "day": "wed",
-                "start_time": "23:00",
-                "end_time": "24:00",
-                "slot_time": "60",
-                "available": 1
-            }
+          {
+            "slot_id": 1,
+            "doctor_id": 11,
+            "day": "wed",
+            "start_time": "23:00",
+            "end_time": "24:00",
+            "slot_time": "60",
+            "available": 1
+          },
+          {
+            "slot_id": 2,
+            "doctor_id": 11,
+            "day": "wed",
+            "start_time": "22:00",
+            "end_time": "24:00",
+            "slot_time": "60",
+            "available": 1
+          },
+          {
+            "slot_id": 5,
+            "doctor_id": 11,
+            "day": "wed",
+            "start_time": "23:00",
+            "end_time": "24:00",
+            "slot_time": "60",
+            "available": 1
+          }
         ]
       }
     },
@@ -1412,8 +1332,8 @@
       },
       "example": {
         "doctor_id": 11,
-        "day":"wed",
-        "date":"2020-03-27"
+        "day": "wed",
+        "date": "2020-03-27"
       }
     },
     "getOpenSlotsResponse": {
@@ -1422,33 +1342,33 @@
         "status": true,
         "message": "success",
         "data": [
-            {
-                "slot_id": 1,
-                "doctor_id": 11,
-                "day": "wed",
-                "start_time": "23:00",
-                "end_time": "24:00",
-                "slot_time": "60",
-                "available": 1
-            },
-            {
-                "slot_id": 2,
-                "doctor_id": 11,
-                "day": "wed",
-                "start_time": "22:00",
-                "end_time": "24:00",
-                "slot_time": "60",
-                "available": 1
-            },
-            {
-                "slot_id": 5,
-                "doctor_id": 11,
-                "day": "wed",
-                "start_time": "23:00",
-                "end_time": "24:00",
-                "slot_time": "60",
-                "available": 1
-            }
+          {
+            "slot_id": 1,
+            "doctor_id": 11,
+            "day": "wed",
+            "start_time": "23:00",
+            "end_time": "24:00",
+            "slot_time": "60",
+            "available": 1
+          },
+          {
+            "slot_id": 2,
+            "doctor_id": 11,
+            "day": "wed",
+            "start_time": "22:00",
+            "end_time": "24:00",
+            "slot_time": "60",
+            "available": 1
+          },
+          {
+            "slot_id": 5,
+            "doctor_id": 11,
+            "day": "wed",
+            "start_time": "23:00",
+            "end_time": "24:00",
+            "slot_time": "60",
+            "available": 1
+          }
         ]
       }
     },
@@ -1467,8 +1387,8 @@
       },
       "example": {
         "slot_id": 1,
-        "user_id":34,
-        "date":"1999-03-20"
+        "user_id": 34,
+        "date": "1999-03-20"
       }
     },
     "newAppointmentResponse": {
@@ -1477,11 +1397,11 @@
         "status": true,
         "message": "success",
         "data": {
-            "appointment_status": "pending",
-            "appointment_id": 7,
-            "slot_id": 1,
-            "user_id": 34,
-            "date": "1999-03-20"
+          "appointment_status": "pending",
+          "appointment_id": 7,
+          "slot_id": 1,
+          "user_id": 34,
+          "date": "1999-03-20"
         }
       }
     },
@@ -1493,19 +1413,15 @@
         }
       },
       "example": {
-        "doctor_id":1
+        "doctor_id": 1
       }
     },
     "getDaysResponse": {
       "type": "object",
       "example": {
         "status": true,
-    "message": "success",
-    "data": [
-        "fri",
-        "mon",
-        "wed"
-    ]
+        "message": "success",
+        "data": ["fri", "mon", "wed"]
       }
     },
     "addSlot": {
@@ -1531,12 +1447,12 @@
         }
       },
       "example": {
-        "doctor_id":1,
-        "day":"mon",
-        "start_time":"23:00",
-        "end_time":"24:00",
-        "slot_time":"60:00",
-        "available":false
+        "doctor_id": 1,
+        "day": "mon",
+        "start_time": "23:00",
+        "end_time": "24:00",
+        "slot_time": "60:00",
+        "available": false
       }
     },
     "addSlotResponse": {
@@ -1545,13 +1461,13 @@
         "status": true,
         "message": "success",
         "data": {
-            "slot_id": 1,
-            "doctor_id": 1,
-            "day": "mon",
-            "start_time": "23:00",
-            "end_time": "24:00",
-            "slot_time": "60:00",
-            "available": false
+          "slot_id": 1,
+          "doctor_id": 1,
+          "day": "mon",
+          "start_time": "23:00",
+          "end_time": "24:00",
+          "slot_time": "60:00",
+          "available": false
         }
       }
     },
@@ -1585,7 +1501,7 @@
         "gender": {
           "type": "string"
         },
-        "picture":{
+        "picture": {
           "type": "string"
         }
       },
@@ -1599,7 +1515,7 @@
         "bmi": 28,
         "fb_token_id": "djdj84",
         "gender": "male",
-        "picture":"3874878487478.png"
+        "picture": "3874878487478.png"
       }
     },
     "signin": {
@@ -1668,7 +1584,7 @@
           "fb_token_id": "djdj84",
           "gender": "male",
           "role": "user",
-          "picture":"3874878487478.png"
+          "picture": "3874878487478.png"
         }
       }
     },
@@ -1689,9 +1605,8 @@
           "fb_token_id": "djdj84",
           "gender": "male",
           "role": "user",
-          "picture":"3874878487478.png",
+          "picture": "3874878487478.png",
           "blocked": false
-
         }
       }
     },
@@ -2036,8 +1951,8 @@
         "gender": {
           "type": "string"
         },
-        "picture":{
-          "type":"string"
+        "picture": {
+          "type": "string"
         }
       },
       "example": {
@@ -2063,15 +1978,15 @@
           "fb_token_id": "djdj84",
           "gender": "male",
           "role": "user",
-          "picture":"3874878487478.png"
+          "picture": "3874878487478.png"
         }
       }
     },
     "updateDoctor": {
       "type": "object",
       "properties": {
-        "doctor_id":{
-"type":"string"
+        "doctor_id": {
+          "type": "string"
         },
         "phone_number": {
           "type": "string"
@@ -2097,12 +2012,12 @@
         "avaliable": {
           "type": "string"
         },
-        "price":{
-          "type":"integer"
+        "price": {
+          "type": "integer"
         }
       },
       "example": {
-        "doctor_id":1,
+        "doctor_id": 1,
         "phone_number": "01090243795",
         "height": "494"
       }
@@ -2113,28 +2028,28 @@
         "status": true,
         "message": "success",
         "data": {
-            "doctor_id": 11,
-            "phone_number": "01090243818",
-            "password": "12qwasz1",
-            "first_name": "fawzi",
-            "last_name": "ahmed",
-            "country": "egypt",
-            "category_id": 1,
-            "fb_token_id": null,
-            "picture": "fawzi.png",
-            "avaliable": true,
-            "price": "180",
-            "priority": 2
+          "doctor_id": 11,
+          "phone_number": "01090243818",
+          "password": "12qwasz1",
+          "first_name": "fawzi",
+          "last_name": "ahmed",
+          "country": "egypt",
+          "category_id": 1,
+          "fb_token_id": null,
+          "picture": "fawzi.png",
+          "avaliable": true,
+          "price": "180",
+          "priority": 2
         }
-    }
+      }
     },
     "notBlockedResponse": {
       "type": "object",
       "example": {
         "status": true,
         "message": "success",
-        "data":{
-         "blocked":false
+        "data": {
+          "blocked": false
         }
       }
     },
@@ -2143,8 +2058,8 @@
       "example": {
         "status": true,
         "message": "success",
-        "data":{
-         "picture":"4i489448.png"
+        "data": {
+          "picture": "4i489448.png"
         }
       }
     },
@@ -2154,68 +2069,68 @@
         "status": true,
         "message": "success",
         "data": [
-            {
-                "doctor_id": 1,
-                "phone_number": "11111111",
-                "first_name": "fawzi",
-                "last_name": "ahmed",
-                "country": "egypt",
-                "avaliable": 0,
-                "price": "180",
-                "category_id": 1,
-                "en": "Internal Medicine",
-                "ar": "طب الباطنة"
-            },
-            {
-                "doctor_id": 21,
-                "phone_number": "01090246711",
-                "first_name": "Belassy",
-                "last_name": "ahmed",
-                "country": "egypt",
-                "avaliable": 0,
-                "price": "280",
-                "category_id": 3,
-                "en": "Cardiology",
-                "ar": "القلب والاوعية الدموية"
-            },
-            {
-                "doctor_id": 292,
-                "phone_number": "87348",
-                "first_name": "fawziii",
-                "last_name": "dffddf",
-                "country": "Egypt",
-                "avaliable": 0,
-                "price": "43434",
-                "category_id": 31,
-                "en": "Tropical  Medicine",
-                "ar": "طب المناطق الحارة"
-            },
-            {
-                "doctor_id": 293,
-                "phone_number": "1122334444",
-                "first_name": "editted",
-                "last_name": "edited",
-                "country": "saudiarabia",
-                "avaliable": 0,
-                "price": "123456",
-                "category_id": 14,
-                "en": "Allergy and immunology",
-                "ar": "الحساسية والمناعة"
-            },
-            {
-                "doctor_id": 294,
-                "phone_number": "544545",
-                "first_name": "fgfg",
-                "last_name": "fgfg",
-                "country": "Egypt",
-                "avaliable": 0,
-                "price": "4545",
-                "category_id": 3,
-                "en": "Cardiology",
-                "ar": "القلب والاوعية الدموية"
-            }
+          {
+            "doctor_id": 1,
+            "phone_number": "11111111",
+            "first_name": "fawzi",
+            "last_name": "ahmed",
+            "country": "egypt",
+            "avaliable": 0,
+            "price": "180",
+            "category_id": 1,
+            "en": "Internal Medicine",
+            "ar": "طب الباطنة"
+          },
+          {
+            "doctor_id": 21,
+            "phone_number": "01090246711",
+            "first_name": "Belassy",
+            "last_name": "ahmed",
+            "country": "egypt",
+            "avaliable": 0,
+            "price": "280",
+            "category_id": 3,
+            "en": "Cardiology",
+            "ar": "القلب والاوعية الدموية"
+          },
+          {
+            "doctor_id": 292,
+            "phone_number": "87348",
+            "first_name": "fawziii",
+            "last_name": "dffddf",
+            "country": "Egypt",
+            "avaliable": 0,
+            "price": "43434",
+            "category_id": 31,
+            "en": "Tropical  Medicine",
+            "ar": "طب المناطق الحارة"
+          },
+          {
+            "doctor_id": 293,
+            "phone_number": "1122334444",
+            "first_name": "editted",
+            "last_name": "edited",
+            "country": "saudiarabia",
+            "avaliable": 0,
+            "price": "123456",
+            "category_id": 14,
+            "en": "Allergy and immunology",
+            "ar": "الحساسية والمناعة"
+          },
+          {
+            "doctor_id": 294,
+            "phone_number": "544545",
+            "first_name": "fgfg",
+            "last_name": "fgfg",
+            "country": "Egypt",
+            "avaliable": 0,
+            "price": "4545",
+            "category_id": 3,
+            "en": "Cardiology",
+            "ar": "القلب والاوعية الدموية"
+          }
         ]
-    }
+      }
     },
     "getCategoriesAdminResponse": {
       "type": "object",
@@ -2223,73 +2138,73 @@
         "status": true,
         "message": "success",
         "data": [
-            {
-                "category_id": 1,
-                "en": "Internal Medicine",
-                "ar": "طب الباطنة"
-            },
-            {
-                "category_id": 2,
-                "en": "Endocrinology",
-                "ar": "باطنة غدد صماء وسكر"
-            },
-            {
-                "category_id": 3,
-                "en": "Cardiology",
-                "ar": "القلب والاوعية الدموية"
-            },
-            {
-                "category_id": 4,
-                "en": "Gastroenterology",
-                "ar": "باطنة جهاز هضمي ومناظير"
-            },
-            {
-                "category_id": 5,
-                "en": "Obstetrics and Gynecology",
-                "ar": "نساء وتوليد"
-            },
-            {
-                "category_id": 6,
-                "en": "Pediatrics",
-                "ar": "طب اطفال"
-            },
-            {
-                "category_id": 7,
-                "en": "(Ear, nose and throat (ENT",
-                "ar": "طب الانف والاذن والحنجرة"
-            },
-            {
-                "category_id": 8,
-                "en": "Ophthalmology",
-                "ar": "طب امراض العيون"
-            },
-            {
-                "category_id": 9,
-                "en": "Neurology",
-                "ar": "طب الاعصاب"
-            },
-            {
-                "category_id": 10,
-                "en": "nephrology",
-                "ar": "طب امراض الكلى"
-            },
-            {
-                "category_id": 11,
-                "en": "Oncology",
-                "ar": "طب الاورام"
-            },
-            {
-                "category_id": 12,
-                "en": "Urology",
-                "ar": "المسالك البولية"
-            },
-            {
-                "category_id": 13,
-                "en": "Dermatology",
-                "ar": "جلدية"
-            }
+          {
+            "category_id": 1,
+            "en": "Internal Medicine",
+            "ar": "طب الباطنة"
+          },
+          {
+            "category_id": 2,
+            "en": "Endocrinology",
+            "ar": "باطنة غدد صماء وسكر"
+          },
+          {
+            "category_id": 3,
+            "en": "Cardiology",
+            "ar": "القلب والاوعية الدموية"
+          },
+          {
+            "category_id": 4,
+            "en": "Gastroenterology",
+            "ar": "باطنة جهاز هضمي ومناظير"
+          },
+          {
+            "category_id": 5,
+            "en": "Obstetrics and Gynecology",
+            "ar": "نساء وتوليد"
+          },
+          {
+            "category_id": 6,
+            "en": "Pediatrics",
+            "ar": "طب اطفال"
+          },
+          {
+            "category_id": 7,
+            "en": "(Ear, nose and throat (ENT",
+            "ar": "طب الانف والاذن والحنجرة"
+          },
+          {
+            "category_id": 8,
+            "en": "Ophthalmology",
+            "ar": "طب امراض العيون"
+          },
+          {
+            "category_id": 9,
+            "en": "Neurology",
+            "ar": "طب الاعصاب"
+          },
+          {
+            "category_id": 10,
+            "en": "nephrology",
+            "ar": "طب امراض الكلى"
+          },
+          {
+            "category_id": 11,
+            "en": "Oncology",
+            "ar": "طب الاورام"
+          },
+          {
+            "category_id": 12,
+            "en": "Urology",
+            "ar": "المسالك البولية"
+          },
+          {
+            "category_id": 13,
+            "en": "Dermatology",
+            "ar": "جلدية"
+          }
         ]
-    }
+      }
     },
     "deleteDoctor": {
       "type": "object",
@@ -2308,7 +2223,7 @@
         "status": true,
         "message": "success",
         "data": 1
-    }
+      }
     },
     "getUser": {
       "type": "object",
@@ -2349,7 +2264,7 @@
           "fb_token_id": "djdj84",
           "gender": "male",
           "role": "user",
-          "picture":"3874878487478.png"
+          "picture": "3874878487478.png"
         }
       }
     },
@@ -2370,7 +2285,7 @@
           "fb_token_id": "djdj84",
           "gender": "male",
           "role": "user",
-          "picture":"3874878487478.png"
+          "picture": "3874878487478.png"
         }
       }
     },
