@@ -9,4 +9,5 @@ const appointmentsController = require("../controllers/appointments");
 router.post("/addAppointment",isAuth(["admin"]),validate(validationSchemas.addAppointment,"body"),appointmentsController.addAppointment);
 router.post("/getUserApps",isAuth(["admin"]),validate(validationSchemas.getUserApps,"body"),appointmentsController.getUserApps);
 router.post("/getDocApps",isAuth(["admin"]),validate(validationSchemas.getDocApps,"body"),appointmentsController.getDocApps);
+router.patch("/cancelAppointment",isAuth(["admin"]),validate(validationSchemas.cancelApp,"body"),appointmentsController.cancelAppointment);
 module.exports = router;

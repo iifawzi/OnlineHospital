@@ -1,4 +1,4 @@
-const {addNewAppointment,userApps,docApps} = require("../models/appointments");
+const {addNewAppointment,userApps,docApps,cancelApp} = require("../models/appointments");
 const { handleError, ErrorHandler } = require("../middleware/error");
 const respond = require("../middleware/respond");
 
@@ -38,8 +38,21 @@ const getDocApps = async (req,res,next)=>{
   }
 } 
 
+const cancelAppointment = async (req,res,next)=>{
+  try {
+    const {appointment_id} = req.body;
+    const canceled = await cancelApp(appointment_id,res);
+    if (canceled){
+      return respond(true,200,canceled,res);
+    }
+  }catch(err){
+    handleError(err,res);
+  }
+} 
+
 module.exports = {
     addAppointment,
     getUserApps,
-    getDocApps
+    getDocApps,
+    cancelAppointment
 }

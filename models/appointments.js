@@ -96,10 +96,22 @@ const docApps = async function(doctor_id,res){
     }
 }
 
+
+const cancelApp = async function(appointment_id,res){
+    try {
+        const getApp = await appointments.findOne({where:{appointment_id}});
+        getApp.appointment_status = 'canceled';
+        const updated = await getApp.save();
+        return updated;
+    }catch(err){
+handleError(err,res)
+    }
+}
 module.exports = { 
     appointments,
     addNewAppointment,
     deleteAppointment,
     userApps,
-    docApps
+    docApps,
+    cancelApp
 }
