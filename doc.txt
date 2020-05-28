@@ -3,6 +3,6 @@ for test (after destroying the db) -  put this data in the db :
 
 
 
-INSERT INTO `hospital`.`doctors` (`doctor_id`, `phone_number`, `password`, `first_name`, `last_name`, `country`, `category_id`, `picture`, `avaliable`, `price`, `priority`) VALUES ('1', '0109024388', '12qwaszx', 'Mostfa', 'ahmed', 'egypt', '42', 'sasa.JPG', '0', '100', '1');
-INSERT INTO `hospital`.`doctors` (`doctor_id`, `phone_number`, `password`, `first_name`, `last_name`, `country`, `category_id`, `picture`, `avaliable`, `price`, `priority`) VALUES ('11', '0109024679', 'qwaszx', 'fawzi', 'ahmed', 'egypt', '1', 'fawzi.png', '0', '180', '2');
-INSERT INTO `hospital`.`doctors` (`doctor_id`, `phone_number`, `password`, `first_name`, `last_name`, `country`, `category_id`, `picture`, `avaliable`, `price`, `priority`) VALUES ('21', '01090246711', '12qwaz', 'Belassy', 'ahmed', 'egypt', '3', 'bsbs.JPG', '0', '280', '3');
+INSERT INTO `heroku_deb17214dfc7e3c`.`doctors` (`doctor_id`, `phone_number`, `password`, `first_name`, `last_name`, `country`, `category_id`, `picture`, `avaliable`, `price`, `priority`) VALUES ('1', '0109024388', '12qwaszx', 'Mostfa', 'ahmed', 'egypt', '42', 'sasa.JPG', '0', '100', '1');
+INSERT INTO `heroku_deb17214dfc7e3c`.`doctors` (`doctor_id`, `phone_number`, `password`, `first_name`, `last_name`, `country`, `category_id`, `picture`, `avaliable`, `price`, `priority`) VALUES ('11', '0109024679', 'qwaszx', 'fawzi', 'ahmed', 'egypt', '1', 'fawzi.png', '0', '180', '2');
+INSERT INTO `heroku_deb17214dfc7e3c`.`doctors` (`doctor_id`, `phone_number`, `password`, `first_name`, `last_name`, `country`, `category_id`, `picture`, `avaliable`, `price`, `priority`) VALUES ('21', '01090246711', '12qwaz', 'Belassy', 'ahmed', 'egypt', '3', 'bsbs.JPG', '0', '280', '3');
