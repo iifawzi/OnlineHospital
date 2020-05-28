@@ -74,7 +74,7 @@ const deleteAppointment = async function(appointment_id){
 
 const userApps = async function(user_id,res){
     try {
-        const appointments =  await db.query("SELECT apps.appointment_id,docs.first_name,docs.last_name,cats.ar,cats.en,apps.appointment_status,slots.start_time,slots.end_time FROM appointments apps INNER JOIN slots ON apps.slot_id = slots.slot_id INNER JOIN doctors docs ON slots.doctor_id = docs.doctor_id INNER JOIN categories cats ON cats.category_id = docs.category_id WHERE apps.user_id = ?",{
+        const appointments =  await db.query("SELECT apps.date, apps.appointment_id,docs.first_name,docs.last_name,cats.ar,cats.en,apps.appointment_status,slots.start_time,slots.end_time, slots.day FROM appointments apps INNER JOIN slots ON apps.slot_id = slots.slot_id INNER JOIN doctors docs ON slots.doctor_id = docs.doctor_id INNER JOIN categories cats ON cats.category_id = docs.category_id WHERE apps.user_id = ?",{
             replacements: [user_id],
             type: Sequelize.QueryTypes.SELECT,
         });
