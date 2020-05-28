@@ -1,15 +1,15 @@
 const Joi = require("@hapi/joi");
 const addUser = Joi.object({
-    phone_number: Joi.string(),
-    first_name: Joi.string().required(),
-    last_name: Joi.string().required(),
-    birth_date: Joi.date().required(),
-    height: Joi.number().required(),
-    weight: Joi.number().required(),
-    bmi: Joi.number().required(),
-    gender: Joi.string().required(),
-    fb_token_id: Joi.string().required(),
-  });
+  phone_number: Joi.string(),
+  first_name: Joi.string().required(),
+  last_name: Joi.string().required(),
+  birth_date: Joi.date().required(),
+  height: Joi.number().required(),
+  weight: Joi.number().required(),
+  bmi: Joi.number().required(),
+  gender: Joi.string().required(),
+  fb_token_id: Joi.string().required(),
+});
 const signin = Joi.object({
   phone_number: Joi.string().required(),
 });
@@ -22,7 +22,9 @@ const updateFirebaseToken = Joi.object({
 });
 const addDoctor = Joi.object({
   phone_number: Joi.string().required(),
-  password: Joi.string().pattern(/^[a-zA-Z0-9]{3,30}$/).required(),
+  password: Joi.string()
+    .pattern(/^[a-zA-Z0-9]{3,30}$/)
+    .required(),
   first_name: Joi.string().required(),
   last_name: Joi.string().required(),
   country: Joi.string().required(),
@@ -31,14 +33,16 @@ const addDoctor = Joi.object({
   price: Joi.number().required(),
 });
 const addAdmin = Joi.object({
-password: Joi.string().pattern(/^[a-zA-Z0-9]{3,30}$/).required(),
-phone_number: Joi.string().required(),
-name: Joi.string().required(),
-role: Joi.string(),
+  password: Joi.string()
+    .pattern(/^[a-zA-Z0-9]{3,30}$/)
+    .required(),
+  phone_number: Joi.string().required(),
+  name: Joi.string().required(),
+  role: Joi.string(),
 });
 const signAdmin = Joi.object({
   phone_number: Joi.string().required(),
-    password: Joi.string().required(),
+  password: Joi.string().required(),
 });
 const getDoctor = Joi.object({
   doctor_id: Joi.number().required(),
@@ -48,13 +52,13 @@ const getDoctors = Joi.object({
 });
 const updateUser = Joi.object({
   phone_number: Joi.string(),
-    first_name: Joi.string(),
-    last_name: Joi.string(),
-    birth_date: Joi.date(),
-    height: Joi.number(),
-    weight: Joi.number(),
-    bmi: Joi.number(),
-    gender: Joi.string(),
+  first_name: Joi.string(),
+  last_name: Joi.string(),
+  birth_date: Joi.date(),
+  height: Joi.number(),
+  weight: Joi.number(),
+  bmi: Joi.number(),
+  gender: Joi.string(),
 });
 const updateDoctor = Joi.object({
   doctor_id: Joi.number().required(),
@@ -78,29 +82,29 @@ const toggleBlock = Joi.object({
   phone_number: Joi.string().required(),
 });
 const addSlot = Joi.object({
- doctor_id: Joi.number().required(),
- day: Joi.string().required(),
- start_time: Joi.string().required(),
- end_time: Joi.string().required(),
- slot_time: Joi.string().required(),
- available: Joi.boolean().required(),
+  doctor_id: Joi.number().required(),
+  day: Joi.string().required(),
+  start_time: Joi.string().required(),
+  end_time: Joi.string().required(),
+  slot_time: Joi.string().required(),
+  available: Joi.boolean().required(),
 });
 const getDoctorDays = Joi.object({
   doctor_id: Joi.number().required(),
- });
- const addAppointment = Joi.object({
+});
+const addAppointment = Joi.object({
   slot_id: Joi.number().required(),
   user_id: Joi.number().required(),
   date: Joi.string().required(),
- });
- const getOpenSlots = Joi.object({
+});
+const getOpenSlots = Joi.object({
   doctor_id: Joi.number().required(),
   day: Joi.string().required(),
   date: Joi.string().required(),
- });
- const getDoctorSlots = Joi.object({
-   doctor_id : Joi.number().required(),
- })
+});
+const getDoctorSlots = Joi.object({
+  doctor_id: Joi.number().required(),
+});
 const schemas = {
   addUser,
   signin,
@@ -120,7 +124,7 @@ const schemas = {
   getDoctorDays,
   addAppointment,
   getOpenSlots,
-  getDoctorSlots
-}
+  getDoctorSlots,
+};
 
 module.exports = schemas;
