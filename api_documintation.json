@@ -1380,7 +1380,8 @@
             "date": "2020-05-28",
             "appointment_status": "pending",
             "start_time": "23:00",
-            "end_time": "23:30"
+            "end_time": "23:30",
+            "updatedAt": "2020-05-28T19:49:13.000Z"
           }
         ]
       }
@@ -1412,7 +1413,9 @@
             "en": "Internal Medicine",
             "appointment_status": "pending",
             "start_time": "23:00",
-            "end_time": "23:30"
+            "end_time": "23:30",
+            "updatedAt": "2020-05-28T19:49:13.000Z"
+
           }
         ]
       }
