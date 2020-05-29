@@ -91,11 +91,32 @@ const getDocSlots = async(doctor_id)=>{ // this end point for admins: ( will ret
     const docSlots = await slots.findAll({where: {doctor_id}, order: [ ['slot_id', 'ASC']],});
     return docSlots;
 }
+
+
+const slotUpdate = async(data,res)=>{ // this end point for admins: 
+    try {
+        const slot_id = data.slot_id;
+        const slot = await slots.findOne({where:{slot_id}});
+        delete data.slot_id;
+        for (let key in data){
+            slot[key] = data[key];
+          }
+          await slot.save();
+          return slot;
+    }catch(err){
+        handleError(err,res);
+    }
+
+    
+    return docSlots;
+}
+
 module.exports = {
     slots,
     addSlot,
     doctorDays,
     deleteSlot,
     getDocOpenSlots,
-    getDocSlots
+    getDocSlots,
+    slotUpdate
 }

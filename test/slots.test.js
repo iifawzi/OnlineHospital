@@ -72,7 +72,41 @@ describe("/api/slots",async()=>{
     });
 
 
-
+    describe("/updateSlot",async()=>{
+        it("Should respond 401 if not Authorized",async()=>{
+            let res = await request(server)
+            .patch("/api/slots/updateSlot")
+            .expect(401);
+        });
+        it("Should respond 400 if one of inputs is incorrect",async()=>{
+            const token = genToken("0109034748","admin");
+            let res = await request(server)
+            .patch("/api/slots/updateSlot")
+            .set("Authorization", `Bearer ${token}`)
+            .send({
+                "ahmed":"mon",
+                })
+            .expect(400);
+        });
+        it("Should respond 200 updated Successfully",async()=>{
+            const token = genToken("0109034748","admin");
+            let res = await request(server)
+            .patch("/api/slots/updateSlot")
+            .set("Authorization", `Bearer ${token}`)
+            .send({
+                "slot_id":1,
+                "day":"wed",
+                "start_time":"21:00",
+                "end_time":"22:30",
+                "slot_time":"30:00",
+                "available":true
+                })
+            .expect(200);
+            expect(res.body.data.day).to.equal("wed");
+            const slotId = res.body.data.slot_id;
+            deleteSlot(slotId);
+        });
+    });
 
 
     describe("/getOpenSlots",async()=>{

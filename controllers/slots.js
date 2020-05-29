@@ -1,4 +1,4 @@
-const {addSlot,doctorDays,getDocOpenSlots} = require("../models/slots");
+const {addSlot,doctorDays,getDocOpenSlots,slotUpdate} = require("../models/slots");
 const {handleError,ErrorHandler} = require("../middleware/error");
 const respond = require("../middleware/respond");
 
@@ -36,14 +36,32 @@ return respond(true,200,days,res);
 
 
 const getOpenSlots = async (req,res,next)=>{
-    const info = {...req.body};
-    const slots = await getDocOpenSlots(info,res);
-    if (slots){
-      return respond(true,200,slots,res);
+    try {
+        const info = {...req.body};
+        const slots = await getDocOpenSlots(info,res);
+        if (slots){
+          return respond(true,200,slots,res);
+        }
+    }catch(err){
+        handleError(err,res);
     }
+
+  }
+
+  const updateSlot = async (req,res,next)=>{
+      try {
+        const data = req.body;
+        const updated = await slotUpdate(data,res);
+        if (updated){
+            return respond(true,200,updated,res)
+        }
+      }catch(err){
+          handleError(err,res);
+      }
   }
 module.exports = {
     addDocSlot,
     getDoctorDays,
-    getOpenSlots
+    getOpenSlots,
+    updateSlot
 }

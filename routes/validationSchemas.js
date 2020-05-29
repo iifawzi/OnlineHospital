@@ -114,6 +114,14 @@ const getDocApps = Joi.object({
 const cancelApp = Joi.object({
   appointment_id: Joi.number().required(),
 });
+const updateSlot = Joi.object({
+  slot_id: Joi.number(),
+  day: Joi.string(),
+  start_time: Joi.string(),
+  end_time: Joi.string(),
+  slot_time: Joi.string(),
+  available: Joi.boolean(),
+});
 const schemas = {
   addUser,
   signin,
@@ -136,7 +144,8 @@ const schemas = {
   getDoctorSlots,
   getUserApps,
   getDocApps,
-  cancelApp
+  cancelApp,
+  updateSlot
 };
 
 module.exports = schemas;
