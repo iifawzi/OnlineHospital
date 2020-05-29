@@ -67,6 +67,19 @@ const addNewAppointment = async function(data,res){
 
 }
 
+
+const addConfirmNewAppointment = async function(data,res){
+    try {
+        data.appointment_status = "upcoming"
+        const newAppointment = await appointments.create(data);
+        return newAppointment;
+    }catch(err){
+        handleError(err,res);
+    }
+
+}
+
+
 const deleteAppointment = async function(appointment_id){
     const deleted = await appointments.destroy(appointment_id);
     return deleted;
@@ -113,5 +126,6 @@ module.exports = {
     deleteAppointment,
     userApps,
     docApps,
-    cancelApp
+    cancelApp,
+    addConfirmNewAppointment
 }

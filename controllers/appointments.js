@@ -1,4 +1,4 @@
-const {addNewAppointment,userApps,docApps,cancelApp} = require("../models/appointments");
+const {addNewAppointment,addConfirmNewAppointment,userApps,docApps,cancelApp} = require("../models/appointments");
 const { handleError, ErrorHandler } = require("../middleware/error");
 const respond = require("../middleware/respond");
 
@@ -6,6 +6,18 @@ const addAppointment = async (req, res, next) => {
   try {
     const data = { ...req.body };
     const newAppointment = await addNewAppointment(data,res);
+    if (newAppointment){
+        return respond(true,201,newAppointment,res);
+     }
+  } catch (err) {
+    handleError(err, res);
+  }
+};
+
+const addConfirmedAppointment = async (req, res, next) => { // will be confirmed immediately (for control panel use)
+  try {
+    const data = { ...req.body };
+    const newAppointment = await addConfirmNewAppointment(data,res);
     if (newAppointment){
         return respond(true,201,newAppointment,res);
      }
@@ -54,5 +66,6 @@ module.exports = {
     addAppointment,
     getUserApps,
     getDocApps,
-    cancelAppointment
+    cancelAppointment,
+    addConfirmedAppointment
 }
