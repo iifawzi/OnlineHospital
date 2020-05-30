@@ -1,5 +1,6 @@
 const Sequelize = require('sequelize');
 const db = require('../utils/db');
+const {handleError} = require("../middleware/error");
 
 const admins = db.define('admins',{
     admin_id:{
@@ -40,13 +41,21 @@ const admins = db.define('admins',{
 
 // Methods: 
 
-const checkAdminExist = async function (phone_number){
-    const admin = await admins.findOne({where:{phone_number}});
-    return admin;
+const checkAdminExist = async function (phone_number,res){
+    try {
+        const admin = await admins.findOne({where:{phone_number}});
+        return admin;
+    }catch(err){
+        handleError(err,res);
+    }
 }
-const createAdmin = async function (body){
-    const admin =  await admins.create(body);
-    return admin;
+const createAdmin = async function (body,res){
+    try {
+        const admin =  await admins.create(body);
+        return admin;
+    }catch(err){
+        handleError(err,res);
+    }
 }
 const deleteAdmin = async function (phone_number) {
     const admin = await admins.destroy({ where: { phone_number } });

@@ -91,9 +91,13 @@ const getDocOpenSlots = async function(info,res){ // this api will return the sl
  
 }
 
-const getDocSlots = async(doctor_id)=>{ // this end point for admins: ( will return all slots of specific doctor):
-    const docSlots = await slots.findAll({where: {doctor_id}, order: [ ['slot_id', 'ASC']],});
-    return docSlots;
+const getDocSlots = async(doctor_id,res)=>{ // this end point for admins: ( will return all slots of specific doctor):
+    try {
+        const docSlots = await slots.findAll({where: {doctor_id}, order: [ ['slot_id', 'ASC']],});
+        return docSlots;
+    }catch(err){
+        handleError(err,res);
+    }
 }
 
 

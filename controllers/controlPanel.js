@@ -58,7 +58,7 @@ const addDoctor = async (req,res,next)=>{
             category_id,
             picture,
             price
-        });
+        },res);
         if (createDoctor){
             const doctor = {...createDoctor.dataValues};
             delete doctor.password;
@@ -87,7 +87,7 @@ const addAdmin = async (req,res,next)=>{
             password: hashedPassword,
             name,
             role
-        });
+        },res);
         if(createAdminAcc) {
             const admin = {...createAdminAcc.dataValues};
             delete admin.password;
@@ -133,7 +133,7 @@ const signAdmin = async (req,res,next)=>{
 const checkToken = async (req,res,next)=>{
     try {
         const {phone_number} = req.user
-        const admin = await checkAdminExist(phone_number);
+        const admin = await checkAdminExist(phone_number,res);
         if (!admin){
          throw new ErrorHandler(401,"You're Unauthorized");
      };
@@ -153,7 +153,7 @@ const checkToken = async (req,res,next)=>{
 
 const getCategories = async (req,res,next)=>{
     try {
-        const categories = await getAllCategories();
+        const categories = await getAllCategories(res);
         return respond(true,200,categories,res); 
     }catch(err){
         handleError(err,res);
@@ -167,7 +167,7 @@ const getCategories = async (req,res,next)=>{
 
 const getDoctors = async(req,res,next)=>{
     try {
-const doctors = await getDoctorsPanel();
+const doctors = await getDoctorsPanel(res);
 return respond(true,200,doctors,res); 
     }catch(err){
         handleError(err,res);
@@ -181,7 +181,7 @@ return respond(true,200,doctors,res);
 const deleteTheDoctor = async(req,res,next)=>{
     try {
         const {phone_number} = req.body;
-const deletedDoctor = await deleteDoctor(phone_number);
+const deletedDoctor = await deleteDoctor(phone_number,res);
 if (deletedDoctor){
     return respond(true,200,deletedDoctor,res); 
 
@@ -216,7 +216,7 @@ const toggleBlock = async (req, res, next) => {
 const getDoctorSlots = async (req,res,next)=>{
     try {
         const {doctor_id} = req.body;
-        const slots = await getDocSlots(doctor_id);
+        const slots = await getDocSlots(doctor_id,res);
         if (slots){
             return respond(true,200,slots,res);
         }

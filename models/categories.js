@@ -23,7 +23,7 @@ ar:{
 })
 
 
-const getCatsSpecific = async function (req){ // this will return categories where there're doctors registered in
+const getCatsSpecific = async function (res){ // this will return categories where there're doctors registered in
 try {
     const categories =  await db.query("SELECT * FROM `categories` cats where cats.category_id IN (SELECT docs.category_id FROM `doctors` docs GROUP BY cats.category_id ) ",{
         type: Sequelize.QueryTypes.SELECT,
@@ -34,9 +34,13 @@ try {
 }
 }
 
-getAllCategories = async function (){
-    const categoriesData = await categories.findAll();
-    return categoriesData;
+getAllCategories = async function (req){
+    try {
+        const categoriesData = await categories.findAll();
+        return categoriesData;
+    }catch(err){
+        handleError(err,res);
+    }
 }
 
 module.exports = {

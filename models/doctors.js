@@ -88,15 +88,23 @@ const checkDocIdExist = async function (doctor_id){
     }
 
 
-const createNewDoctor = async function (body){
-    const doctor =  await doctors.create(body);
-    return doctor;
+const createNewDoctor = async function (body,res){
+    try {
+        const doctor =  await doctors.create(body);
+        return doctor;
+    }catch(err){
+        handleError(err,res);
+    }
 }
 
 
-const deleteDoctor = async function (phone_number) {
-    const doctor = await doctors.destroy({ where: { phone_number } });
-    return doctor;
+const deleteDoctor = async function (phone_number,res) {
+    try {
+        const doctor = await doctors.destroy({ where: { phone_number } });
+        return doctor;
+    }catch(err){
+        handleError(err,res);
+    }
   };
 
 
@@ -140,11 +148,15 @@ const updateDoctor = async function (doctorObject,data,res){
 
 
 // Get Doctors With the categories data for show in control Panel: 
-const getDoctorsPanel = async function (){
-    const doctors =  await db.query("SELECT  docs.doctor_id,docs.phone_number,docs.first_name,docs.last_name,docs.country,docs.avaliable,docs.price ,cats.* FROM `doctors` docs LEFT JOIN `categories` cats ON docs.category_id = cats.category_id ORDER BY docs.doctor_id DESC",{
-        type: Sequelize.QueryTypes.SELECT,
-    });
-    return doctors;
+const getDoctorsPanel = async function (res){
+    try {
+        const doctors =  await db.query("SELECT  docs.doctor_id,docs.phone_number,docs.first_name,docs.last_name,docs.country,docs.avaliable,docs.price ,cats.* FROM `doctors` docs LEFT JOIN `categories` cats ON docs.category_id = cats.category_id ORDER BY docs.doctor_id DESC",{
+            type: Sequelize.QueryTypes.SELECT,
+        });
+        return doctors;
+    }catch(err){
+        handleError(err,res);
+    }
 }
 
 module.exports = {
