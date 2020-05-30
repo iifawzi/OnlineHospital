@@ -27,7 +27,7 @@ const signup = async (req, res, next) => {
             gender,
             fb_token_id,
         };
-        const user = await createUser(userData);
+        const user = await createUser(userData,res);
         const token = genToken(phone_number,user.role); 
         if (user){
            return respond(true,201,{...user.dataValues,token},res);
@@ -79,7 +79,7 @@ const updateFbToken = async (req,res,next)=>{
         if (user.blocked === true) {
             throw new ErrorHandler(403,"User with this phone_number is blocked");
         }
-        const updatedUser = await updateFirebaseToken(user,new_token);
+        const updatedUser = await updateFirebaseToken(user,new_token,res);
         if (updatedUser){
             return respond(true,200,{"phone_number":updatedUser.phone_number,"updated_token":updatedUser.fb_token_id},res);
         }
@@ -125,7 +125,7 @@ const updateDoctorFbToken = async (req,res,next)=>{
         if (!doctor) {
             throw new ErrorHandler(401,"Doctor with this phone_number is not found");
         }
-        const updatedDoctor = await updateDoctorFirebaseToken(doctor,new_token);
+        const updatedDoctor = await updateDoctorFirebaseToken(doctor,new_token,res);
         if (updatedDoctor){
             return respond(true,200,{"phone_number":updatedDoctor.phone_number,"updated_token":updatedDoctor.fb_token_id},res);
         }

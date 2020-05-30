@@ -78,9 +78,13 @@ const users = db.define(
 );
 
 // Functions:
-const createUser = async function (body) {
-  const user = await users.create(body);
-  return user;
+const createUser = async function (body,res) {
+  try {
+    const user = await users.create(body);
+    return user;
+  }catch(err){
+    handleError(err,res);
+  }
 };
 const deleteUser = async function (phone_number) {
   const user = await users.destroy({ where: { phone_number } });
@@ -91,10 +95,14 @@ const checkIfPhoneExist = async function (phone_number) {
   return user;
 };
 // UPDATE USER'S FIREBASE TOKEN ID
-const updateFirebaseToken = async function (userObject, new_token) {
-  userObject.fb_token_id = new_token;
-  await userObject.save();
-  return userObject;
+const updateFirebaseToken = async function (userObject, new_token,res) {
+  try {
+    userObject.fb_token_id = new_token;
+    await userObject.save();
+    return userObject;
+  }catch(err){
+    handleError(err,res);
+  }
 };
 
 // Block user:

@@ -101,10 +101,14 @@ const deleteDoctor = async function (phone_number) {
 
 
 // UPDATE DOCTOR'S FIREBASE TOKEN ID
-const updateDoctorFirebaseToken = async function (doctorObject, new_token) {
-    doctorObject.fb_token_id = new_token;
-    await doctorObject.save();
-    return doctorObject;
+const updateDoctorFirebaseToken = async function (doctorObject, new_token,res) {
+    try {
+        doctorObject.fb_token_id = new_token;
+        await doctorObject.save();
+        return doctorObject;
+    }catch(err){
+        handleError(err,res);
+    }
   };
 
 
