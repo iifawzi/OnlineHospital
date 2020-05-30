@@ -1,5 +1,6 @@
 const Sequelize = require("sequelize");
 const db = require("../utils/db");
+const { handleError } = require("../middleware/error");
 
 const users = db.define(
   "users",
@@ -105,12 +106,16 @@ const blockUser = async function (phone_number) {
 };
 
 // update user specific inputs: 
-const updateUser = async function (userObject,data){
-  for (let key in data){
-    userObject[key] = data[key];
+const updateUser = async function (userObject,data,res){
+  try {
+    for (let key in data){
+      userObject[key] = data[key];
+    }
+    await userObject.save();
+    return userObject;
+  }catch(err){
+   handleError(err,res)
   }
-  await userObject.save();
-  return userObject;
 }
 
 module.exports = {

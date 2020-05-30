@@ -3,6 +3,9 @@ const respond = require("../middleware/respond");
 const { genToken } = require("../utils/shared/genToken");
 const { updateUser, checkIfPhoneExist } = require("../models/users");
 const upload = require("../middleware/upload");
+
+
+// For updating user's info: 
 const updateInfo = async (req, res, next) => {
   try {
     const { phone_number } = req.user;
@@ -25,7 +28,7 @@ const updateInfo = async (req, res, next) => {
         }
       }
     }
-    const updatedData = await updateUser(user, data);
+    const updatedData = await updateUser(user, data,res);
 
     if (!updatedData) {
       throw new ErrorHandler(500, "Sorry, something wrong happened");
@@ -37,6 +40,9 @@ const updateInfo = async (req, res, next) => {
   }
 };
 
+
+
+// Check if user isn't blocked: 
 
 const notBlocked = async (req, res, next) => {
   try {
@@ -55,6 +61,9 @@ const notBlocked = async (req, res, next) => {
 };
 
 
+
+// Update user's profile image: 
+
 const updateImage = async (req,res,next)=>{
   try {
     const {phone_number} = req.user;
@@ -70,7 +79,7 @@ const updateImage = async (req,res,next)=>{
                 const data = {
                   picture: req.file.filename
                 }
-                const updatedData = await updateUser(user, data);
+                const updatedData = await updateUser(user, data,res);
                 if (!updatedData) {
                 throw new ErrorHandler(500, "Sorry, something wrong happened");
                  }
@@ -87,6 +96,8 @@ const updateImage = async (req,res,next)=>{
 };
 
 
+
+// Get User's data"
 const getUser = async (req, res, next) => {
   try {
     const { phone_number } = req.body;
