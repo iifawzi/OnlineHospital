@@ -49,9 +49,13 @@ const slots = db.define("slots",{
 )
 
 
-const addSlot = async (data)=>{
-  const slot = await slots.create(data);
-  return slot;
+const addSlot = async (data,res)=>{
+    try {
+        const slot = await slots.create(data);
+        return slot;
+    }catch(err){
+        handleError(err,res);
+    }
 }
 
 const deleteSlot = async (data)=>{

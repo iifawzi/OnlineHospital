@@ -7,7 +7,7 @@ const respond = require("../middleware/respond");
 const addDocSlot = async (req,res,next)=>{
     try {
         const data = {...req.body};
-        const slot = await addSlot(data);
+        const slot = await addSlot(data,res);
         if (slot){
             return respond(true,201,slot,res);
          }
