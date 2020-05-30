@@ -26,7 +26,7 @@ const getDoctor = async (req,res,next)=>{
 const getDoctors = async (req,res,next)=>{
     try {
         const {category_id} = req.body;
-const doctors = await getDoctorsData(category_id);
+const doctors = await getDoctorsData(category_id,res);
 return respond(true,200,doctors,res);
     }catch(err){
         handleError(err,res);
@@ -59,7 +59,7 @@ const updateTheDoctor = async (req, res, next) => {
         }
       }
   
-      const updatedData = await updateDoctor(doctor, data);
+      const updatedData = await updateDoctor(doctor, data,res);
       if (!updatedData) {
         throw new ErrorHandler(500, "Sorry, something wrong happened");
       }

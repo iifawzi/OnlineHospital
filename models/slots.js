@@ -1,6 +1,6 @@
 const Sequelize = require("sequelize");
 const db = require("../utils/db");
-const {handleError,ErrorHandler} = require("../middleware/error");
+const {handleError} = require("../middleware/error");
 
 const slots = db.define("slots",{
     slot_id: {

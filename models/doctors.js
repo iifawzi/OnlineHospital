@@ -1,5 +1,6 @@
 const Sequelize = require("sequelize");
 const db = require("../utils/db");
+const {handleError} = require("../middleware/error");
 
 const doctors = db.define("doctors",{
     doctor_id: {
@@ -107,22 +108,30 @@ const updateDoctorFirebaseToken = async function (doctorObject, new_token) {
   };
 
 
-const  getDoctorsData = async function  (category_id){
-   const doctorsData = await doctors.findAll({attributes:{exclude: ['password','fb_token_id','priority']},
-   order: [
-    ['priority', 'DESC'],
-],where:{category_id}}); // TODO::later just show the avaliable = true doctors
-   return doctorsData;
+const  getDoctorsData = async function  (category_id,res){
+    try {
+        const doctorsData = await doctors.findAll({attributes:{exclude: ['password','fb_token_id','priority']},
+        order: [
+         ['priority', 'DESC'],
+     ],where:{category_id}}); // TODO::later just show the avaliable = true doctors
+        return doctorsData;
+    }catch(err){
+        handleError(err,res);
+    }
 }
 
 
 // Update Specific Doctor's info : 
-const updateDoctor = async function (doctorObject,data){
-  for (let key in data){
-    doctorObject[key] = data[key];
-  }
-  await doctorObject.save();
-  return doctorObject;
+const updateDoctor = async function (doctorObject,data,res){
+    try {
+        for (let key in data){
+            doctorObject[key] = data[key];
+          }
+          await doctorObject.save();
+          return doctorObject;
+    }catch(err){
+        handleError(err,res);
+    }
 }
 
 
