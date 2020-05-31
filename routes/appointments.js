@@ -10,5 +10,6 @@ router.post("/addAppointment",isAuth(["admin"]),validate(validationSchemas.addAp
 router.post("/addConfirmedAppointment",isAuth(["admin"]),validate(validationSchemas.addConfirmedAppointment,"body"),appointmentsController.addConfirmedAppointment);
 router.post("/getUserApps",isAuth(["admin"]),validate(validationSchemas.getUserApps,"body"),appointmentsController.getUserApps);
 router.post("/getDocApps",isAuth(["admin"]),validate(validationSchemas.getDocApps,"body"),appointmentsController.getDocApps);
-router.patch("/cancelAppointment",isAuth(["admin"]),validate(validationSchemas.cancelApp,"body"),appointmentsController.cancelAppointment);
+router.patch("/cancelAppointment",isAuth(["admin","user"]),validate(validationSchemas.cancelApp,"body"),appointmentsController.cancelAppointment);
+router.patch("/confirmAppointment",isAuth(["admin","user"]),validate(validationSchemas.confirmApp,"body"),appointmentsController.confirmAppointment);
 module.exports = router;

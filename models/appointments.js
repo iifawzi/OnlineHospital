@@ -120,6 +120,19 @@ const cancelApp = async function(appointment_id,res){
 handleError(err,res)
     }
 }
+
+
+const confirmApp = async function(appointment_id,res){
+    try {
+        const getApp = await appointments.findOne({where:{appointment_id}});
+        getApp.appointment_status = 'upcoming';
+        const updated = await getApp.save();
+        return updated;
+    }catch(err){
+handleError(err,res)
+    }
+}
+
 module.exports = { 
     appointments,
     addNewAppointment,
@@ -127,5 +140,6 @@ module.exports = {
     userApps,
     docApps,
     cancelApp,
+    confirmApp,
     addConfirmNewAppointment
 }
