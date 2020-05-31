@@ -359,4 +359,35 @@ describe("/api/appointments",async()=>{
 
         });
     });
+
+
+
+    describe("/docAppsByDate",async()=>{
+        it("Should respond 401 if not Authorized",async()=>{
+            let res = await request(server)
+            .post("/api/appointments/docAppsByDate")
+            .expect(401);
+        });
+        it("Should respond 400 if one of inputs is missing or incorrect",async()=>{
+            const token = genToken("0109034748",1,"doctor");
+            let res = await request(server)
+            .post("/api/appointments/docAppsByDate")
+            .set("Authorization", `Bearer ${token}`)
+            .send({
+                "aapointment_id":"djdkj",
+                })
+            .expect(400);
+        });
+        it("Should respond with 200 if we got the apps successfully",async()=>{
+            const token = genToken('01090243795',1,"doctor");
+            let res = await request(server)
+            .post("/api/appointments/docAppsByDate")
+            .set('Authorization',`Bearer ${token}`)
+            .send({
+                "date":'2020-03-20'
+            })
+            .expect(200);
+            expect(res.body.data[0].date).to.equal("2020-03-20");
+        })
+    });
 });

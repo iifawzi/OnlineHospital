@@ -109,6 +109,20 @@ const docApps = async function(doctor_id,res){
     }
 }
 
+// Will return the appointmnents at specific date (for doctors appliction):
+const docAppsDate = async function(doctor_id,date,res){
+    console.log(date);
+    try {
+        const appointments =  await db.query("SELECT users.first_name,users.last_name,apps.date, apps.appointment_id,apps.appointment_status,slots.start_time,slots.end_time, slots.day FROM appointments apps INNER JOIN users ON users.user_id = apps.user_id INNER JOIN slots ON apps.slot_id = slots.slot_id INNER JOIN doctors docs ON slots.doctor_id = docs.doctor_id WHERE slots.doctor_id = ? AND apps.date = ? && apps.appointment_status != 'pending' ORDER BY apps.appointment_id DESC",{
+            replacements: [doctor_id,date],
+            type: Sequelize.QueryTypes.SELECT,
+        });
+        return appointments;
+    }catch(err){
+        handleError(err,res);
+    }
+}
+
 
 const cancelApp = async function(appointment_id,res){
     try {
@@ -141,5 +155,6 @@ module.exports = {
     docApps,
     cancelApp,
     confirmApp,
-    addConfirmNewAppointment
+    addConfirmNewAppointment,
+    docAppsDate
 }

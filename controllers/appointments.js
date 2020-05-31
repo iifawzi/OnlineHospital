@@ -1,4 +1,4 @@
-const {addNewAppointment,addConfirmNewAppointment,userApps,docApps,cancelApp,confirmApp} = require("../models/appointments");
+const {addNewAppointment,addConfirmNewAppointment,userApps,docApps,cancelApp,confirmApp,docAppsDate} = require("../models/appointments");
 const { handleError, ErrorHandler } = require("../middleware/error");
 const respond = require("../middleware/respond");
 
@@ -38,6 +38,9 @@ const getUserApps = async (req,res,next)=>{
   }
 } 
 
+
+
+
 const getDocApps = async (req,res,next)=>{
   try {
     const {doctor_id} = req.body;
@@ -53,17 +56,18 @@ const getDocApps = async (req,res,next)=>{
 
 
 
-// const docAppsByDate = async (req,res,next)=>{
-//   try {
-//     const {phone_number} = req.user;
-//     const appointments = await docAppsDate(doctor_id,res);
-//     if (appointments){
-//       return respond(true,200,appointments,res);
-//     }
-//   }catch(err){
-//     handleError(err,res);
-//   }
-// } 
+const docAppsByDate = async (req,res,next)=>{
+  try {
+    const {id} = req.user;
+    const {date} = req.body;
+    const appointments = await docAppsDate(id,date,res);
+    if (appointments){
+      return respond(true,200,appointments,res);
+    }
+  }catch(err){
+    handleError(err,res);
+  }
+} 
 
 
 
@@ -96,6 +100,7 @@ module.exports = {
     addAppointment,
     getUserApps,
     getDocApps,
+    docAppsByDate,
     cancelAppointment,
     addConfirmedAppointment,
     confirmAppointment
