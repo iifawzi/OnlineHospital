@@ -19,7 +19,7 @@ describe("/api/doctors",async()=>{
 
     describe("/getDoctor",async()=>{
         it("Should respond with 400 if phone doctor_id is missing (validation schema)",async()=>{
-            const token = genToken("fawzii","admin");
+            const token = genToken("01090243795",1,"admin");
             let res = await request(server)
             .post("/api/doctors/getDoctor")
             .set("Authorization", `Bearer ${token}`)
@@ -34,7 +34,7 @@ describe("/api/doctors",async()=>{
             .expect(401)
         });
         it("Should respond with 404 if doctor not found",async()=>{
-            const token = genToken("fawzii","user");
+            const token = genToken("01090243795",1,"user");
             let res = await request(server)
             .post("/api/doctors/getDoctor")
             .set("Authorization", `Bearer ${token}`)
@@ -42,7 +42,7 @@ describe("/api/doctors",async()=>{
             .expect(404);
         });
         it("Should respond with 200 if got doctor successfully",async()=>{
-            const token = genToken("fawzii","admin");
+            const token = genToken("01090243795",1,"admin");
             let res = await request(server)
             .post("/api/controlPanel/addDoctor")
             .set("Authorization", `Bearer ${token}`)
@@ -78,7 +78,7 @@ describe("/api/doctors",async()=>{
             .expect(401)
         });
         it("Should respond with 200 if got doctors successfully",async()=>{
-                    const token = genToken("fawziiiiiii","user");
+                    const token = genToken("01090243795",1,"user");
             let res = await request(server)
             .post("/api/doctors/getDoctors")
             .set("Authorization", `Bearer ${token}`)
@@ -100,7 +100,7 @@ describe("/api/doctors",async()=>{
             .expect(401);
         });
         it("Should respond with 400 if field is nor allowed",async()=>{
-            const token = genToken("01590243311","admin");
+            const token = genToken("01590243311",1,"admin");
             let res = await request(server)
             .patch("/api/doctors/updateDoctor")
             .send({"fb_token_id":"3487"})
@@ -109,7 +109,7 @@ describe("/api/doctors",async()=>{
         });
 
         it("Should respond with 200 if successfully updated",async()=>{
-            const token = genToken("11090243799", "admin");
+            const token = genToken("11090243799",1, "admin");
             let res = await request(server)
               .post("/api/controlPanel/addDoctor")
               .set("Authorization", `Bearer ${token}`)
@@ -153,7 +153,7 @@ describe("/api/doctors",async()=>{
 
 
         it("Should respond with 403 if new phone number is already registered",async()=>{
-            const token = genToken("01590243313","admin");
+            const token = genToken("01590243313",1,"admin");
           let res = await request(server)
             .post("/api/controlPanel/addDoctor")
             .set("Authorization", `Bearer ${token}`)

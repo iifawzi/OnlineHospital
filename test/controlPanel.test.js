@@ -21,7 +21,7 @@ describe("/api/controlPanel", async () => {
 
   describe("/addingDoctor", async () => {
     it("Should respond with 400 if one of inpus is missed or incorrect (SCHEMA VALIDATION)", async () => {
-      const token = genToken("01090243795", "admin");
+      const token = genToken("01090243795",1, "admin");
       const res = await request(server)
         .post("/api/controlPanel/addDoctor")
         .set("Authorization", `Bearer ${token}`)
@@ -30,7 +30,7 @@ describe("/api/controlPanel", async () => {
  
  
     it("Should respond with 201 if doctor created successfully", async () => {
-      const token = genToken("11090243799", "admin");
+      const token = genToken("11090243799",1, "admin");
       let res = await request(server)
         .post("/api/controlPanel/addDoctor")
         .set("Authorization", `Bearer ${token}`)
@@ -51,7 +51,7 @@ describe("/api/controlPanel", async () => {
 
 
     it("Should respond with 403 if the phone number is already registered", async () => {
-      const token = genToken("01090243798", "admin");
+      const token = genToken("01090243798",1, "admin");
       let res = await request(server)
         .post("/api/controlPanel/addDoctor")
         .set("Authorization", `Bearer ${token}`)
@@ -91,7 +91,7 @@ describe("/api/controlPanel", async () => {
 
   describe("/addingAdmin", async () => {
     it("Should respond with 400 if one of inpus is missed or incorrect (SCHEMA VALIDATION", async () => {
-      const token = genToken("01090243795", "admin");
+      const token = genToken("01090243795",1, "admin");
       let res = await request(server)
         .post("/api/controlPanel/addAdmin")
         .set("Authorization", `Bearer ${token}`)
@@ -99,7 +99,7 @@ describe("/api/controlPanel", async () => {
         .expect(400);
     });
     it("Should respond with 201 if created successfully", async () => {
-      const token = genToken("11090243799", "admin");
+      const token = genToken("11090243799",1, "admin");
       let res = await request(server)
         .post("/api/controlPanel/addAdmin")
         .set("Authorization", `Bearer ${token}`)
@@ -114,7 +114,7 @@ describe("/api/controlPanel", async () => {
       deleteAdmin("11090243799");
     });
     it("Should Respond with 403 if phone number is already Registered", async () => {
-      const token = genToken("01090243795", "admin");
+      const token = genToken("01090243795",1, "admin");
       let res = await request(server)
         .post("/api/controlPanel/addAdmin")
         .set("Authorization", `Bearer ${token}`)
@@ -147,7 +147,7 @@ describe("/api/controlPanel", async () => {
         .expect(401);
     });
     it("should respond with 200 if admin loged in successfully", async () => {
-      const token = genToken("01090243795", "admin");
+      const token = genToken("01090243795",1, "admin");
       let res = await request(server)
         .post("/api/controlPanel/addAdmin")
         .set("Authorization", `Bearer ${token}`)
@@ -175,14 +175,14 @@ describe("/api/controlPanel", async () => {
 
   describe("/checkAdminByToken", async () => {
     it("Should respond with 401 if admin is not authorized", async () => {
-      const token = genToken("0109024379785", "admin");
+      const token = genToken("0109024379785",1,"admin");
       let res = await request(server)
         .post("/api/controlPanel/checkAdminByToken")
         .set("Authorization", `Bearer ${token}`)
         .expect(401);
     });
     it("Should respond with 200 if token is valid and referanced to admin", async () => {
-      const token = genToken("01090243795", "admin");
+      const token = genToken("01090243795",1, "admin");
       let res = await request(server)
         .post("/api/controlPanel/addAdmin")
         .set("Authorization", `Bearer ${token}`)
@@ -208,7 +208,7 @@ describe("/api/controlPanel", async () => {
 
   describe("/addImage", async () => {
     it("Should responed with 201 if uploaded", async () => {
-      const token = genToken("ahmed", "admin");
+      const token = genToken("01090243795",1, "admin");
       let res = await request(server)
         .post("/api/controlPanel/addImage")
         .set("Authorization", `Bearer ${token}`)
@@ -217,7 +217,7 @@ describe("/api/controlPanel", async () => {
         .expect(201);
     });
     it("Should responed with 403 if type not allowed", async () => {
-      const token = genToken("ahmed", "admin");
+      const token = genToken("01090243795",1, "admin");
       let res = await request(server)
         .post("/api/controlPanel/addImage")
         .set("Authorization", `Bearer ${token}`)
@@ -246,7 +246,7 @@ describe("/api/controlPanel", async () => {
         .expect(401);
     });
     it("Should respond with 200 if got categories successfully", async () => {
-      const token = genToken("ahmed", "admin");
+      const token = genToken("01090243795",1, "admin");
 
       let res = await request(server)
         .get("/api/controlPanel/getCategories")
@@ -265,7 +265,7 @@ describe("/api/controlPanel", async () => {
         .expect(401);
     });
     it("Should respond with 200 if got categories successfully", async () => {
-      const token = genToken("ahmed", "admin");
+      const token = genToken("01090243795",1, "admin");
 
       let res = await request(server)
         .get("/api/controlPanel/getDoctors")
@@ -281,7 +281,7 @@ describe("/api/controlPanel", async () => {
         .expect(401);
     });
     it("Should respond with 404 if doctor not found", async () => {
-      const token = genToken("ahmed", "admin");
+      const token = genToken("01090243795",1, "admin");
       let res = await request(server)
         .delete("/api/controlPanel/deleteDoctor")
         .set("Authorization", `Bearer ${token}`)
@@ -289,7 +289,7 @@ describe("/api/controlPanel", async () => {
         .expect(404);
     });
     it("Should respond with 200 if doctor deleted successfully", async () => {
-      const token = genToken("ahmed", "admin");
+      const token = genToken("01090243795",1, "admin");
       let res = await request(server)
         .delete("/api/controlPanel/deleteDoctor")
         .set("Authorization", `Bearer ${token}`)
@@ -308,7 +308,7 @@ describe("/api/controlPanel", async () => {
         .expect(401);
     });
     it("Should respond with 404 if user not found", async () => {
-      const token = genToken("ahmed", "admin");
+      const token = genToken("01090243795",1, "admin");
       let res = await request(server)
         .patch("/api/controlPanel/toggleBlock")
         .set("Authorization", `Bearer ${token}`)
@@ -330,7 +330,7 @@ describe("/api/controlPanel", async () => {
           "gender": "male",
       })
       .expect(201);
-      const token = genToken("ahmed", "admin");
+      const token = genToken("01090243795",1, "admin");
       res = await request(server)
         .patch("/api/controlPanel/toggleBlock")
         .set("Authorization", `Bearer ${token}`)
@@ -351,7 +351,7 @@ describe("/api/controlPanel", async () => {
         .expect(401);
     });
     it("Should respond with 400 doctor_id is missing or incorrect", async () => {
-      const token = genToken("ahmed", "admin");
+      const token = genToken("01090243795",1, "admin");
       let res = await request(server)
       .post("/api/controlPanel/getDoctorSlots")
         .set("Authorization", `Bearer ${token}`)
@@ -359,7 +359,7 @@ describe("/api/controlPanel", async () => {
         .expect(400);
     });
     it("Should respond with 200 if got doctor's slots successfully", async () => {
-      const token = genToken("ahmed", "admin");
+      const token = genToken("01090243795",1, "admin");
       let res = await request(server)
         .post("/api/controlPanel/getDoctorSlots")
         .set("Authorization", `Bearer ${token}`)

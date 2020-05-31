@@ -130,6 +130,9 @@ const updateSlot = Joi.object({
   slot_time: Joi.string(),
   available: Joi.boolean(),
 });
+const docAppsByDate = Joi.object({
+  date: Joi.string().required(),
+});
 const schemas = {
   addUser,
   signin,
@@ -155,7 +158,8 @@ const schemas = {
   cancelApp,
   updateSlot,
   addConfirmedAppointment,
-  confirmApp
+  confirmApp,
+  docAppsByDate
 };
 
 module.exports = schemas;

@@ -50,6 +50,24 @@ const getDocApps = async (req,res,next)=>{
   }
 } 
 
+
+
+
+// const docAppsByDate = async (req,res,next)=>{
+//   try {
+//     const {phone_number} = req.user;
+//     const appointments = await docAppsDate(doctor_id,res);
+//     if (appointments){
+//       return respond(true,200,appointments,res);
+//     }
+//   }catch(err){
+//     handleError(err,res);
+//   }
+// } 
+
+
+
+
 const cancelAppointment = async (req,res,next)=>{
   try {
     const {appointment_id} = req.body;

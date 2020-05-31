@@ -25,7 +25,7 @@ describe("/api/user",async()=>{
             .expect(401);
         });
         it("Should respond with 400 if field is nor allowed",async()=>{
-            const token = genToken("01590243311","user");
+            const token = genToken("01590243311",1,"user");
             let res = await request(server)
             .patch("/api/user/updateInfo")
             .send({"fb_token_id":"3487"})
@@ -51,7 +51,7 @@ describe("/api/user",async()=>{
                 "gender": "male",
             }).expect(201);
             expect(res.body.data.phone_number).to.equal("01590243311");
-            const token = genToken("01590243311","user");
+            const token = genToken("01590243311",1,"user");
              res = await request(server)
             .patch("/api/user/updateInfo")
             .send({
@@ -93,7 +93,7 @@ describe("/api/user",async()=>{
                 "gender": "male",
             }).expect(201);
             expect(res.body.data.phone_number).to.equal("01590243313");
-            const token = genToken("01590243313","user");
+            const token = genToken("01590243313",1,"user");
              res = await request(server)
             .patch("/api/user/updateInfo")
             .send({
@@ -135,7 +135,7 @@ describe("/notBlocked",async()=>{
             "fb_token_id": "test",
             "gender": "male",
         }).expect(201);
-        const token = genToken("01590243399","user");
+        const token = genToken("01590243399",1,"user");
         await blockUser("01590243399");
         res = await request(server)
         .get("/api/user/notBlocked")
@@ -162,7 +162,7 @@ describe("/api/user/updateImage",async()=>{
             "fb_token_id": "test",
             "gender": "male",
         }).expect(201);
-        const token = genToken("01590243399","user");
+        const token = genToken("01590243399",1,"user");
         res = await request(server)
         .patch("/api/user/updateImage")
         .set("Authorization", `Bearer ${token}`)
@@ -171,7 +171,7 @@ describe("/api/user/updateImage",async()=>{
         .expect(200);
     });
     it("Should responed with 403 if type not allowed",async()=>{
-        const token = genToken("01590243399","user");
+        const token = genToken("01590243399",1,"user");
         let res = await request(server)
         .patch("/api/user/updateImage")
         .set("Authorization", `Bearer ${token}`)
@@ -180,7 +180,7 @@ describe("/api/user/updateImage",async()=>{
         .expect(403);
     });
     it("Should responed with 401 not authorized",async()=>{
-        const token = genToken("01590241","user");
+        const token = genToken("01590241",1,"user");
         let res = await request(server)
         .patch("/api/user/updateImage")
         .set("Authorization", `Bearer ${token}`)
@@ -208,7 +208,7 @@ describe("/getUser",async()=>{
         .expect(401);
     });
     it("should respond with 404 if user not found",async()=>{
-        const token = genToken("01590243399","user");
+        const token = genToken("01590243399",1,"user");
         let res = await request(server)
         .post("/api/user/getUser")
         .set("Authorization", `Bearer ${token}`)
@@ -229,7 +229,7 @@ describe("/getUser",async()=>{
             "fb_token_id": "test",
             "gender": "male",
         }).expect(201);
-        const token = genToken("015902433399","user");
+        const token = genToken("015902433399",1,"user");
         res = await request(server)
         .post("/api/user/getUser")
         .set("Authorization", `Bearer ${token}`)

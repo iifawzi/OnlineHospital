@@ -1,9 +1,10 @@
 const jwt = require("jsonwebtoken");
 const config = require("config");
-const genToken = function (phone_number, role) {
+const genToken = function (phone_number,id, role) {
     const encData = {
       phone_number,
       role,
+      id
     };
     // data to be encrypted in the JSONWEBTOKEN.
     return jwt.sign(encData, config.get("jwt.secret"), {

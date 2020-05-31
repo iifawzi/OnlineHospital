@@ -7,7 +7,7 @@ var expect = require('chai').expect;
 
 let server;
 
-describe("/api/slots",async()=>{
+describe("/api/appointments",async()=>{
     beforeEach(()=>{
         server = require("../app");
     });
@@ -22,7 +22,7 @@ describe("/api/slots",async()=>{
             .expect(401);
         });
         it("Should respond 400 if one of inputs is missing or incorrect",async()=>{
-            const token = genToken("0109034748","admin");
+            const token = genToken("0109034748",1,"admin");
             let res = await request(server)
             .post("/api/appointments/addAppointment")
             .set("Authorization", `Bearer ${token}`)
@@ -33,7 +33,7 @@ describe("/api/slots",async()=>{
             .expect(400);
         });
         it("Should respond 200 addedd Successfully",async()=>{
-            const token = genToken("0109034748","admin");
+            const token = genToken("0109034748",1,"user");
             let res = await request(server)
             .post("/api/auth/signup")
             .send({
@@ -75,7 +75,7 @@ describe("/api/slots",async()=>{
             .expect(401);
         });
         it("Should respond 400 if one of inputs is missing or incorrect",async()=>{
-            const token = genToken("0109034748","admin");
+            const token = genToken("0109034748",1,"admin");
             let res = await request(server)
             .post("/api/appointments/addConfirmedAppointment")
             .set("Authorization", `Bearer ${token}`)
@@ -86,7 +86,7 @@ describe("/api/slots",async()=>{
             .expect(400);
         });
         it("Should respond 200 addedd Successfully",async()=>{
-            const token = genToken("0109034748","admin");
+            const token = genToken("0109034748",1,"admin");
             let res = await request(server)
             .post("/api/auth/signup")
             .send({
@@ -131,7 +131,7 @@ describe("/api/slots",async()=>{
             .expect(401);
         });
         it("Should respond 400 if one of inputs is missing or incorrect",async()=>{
-            const token = genToken("0109034748","admin");
+            const token = genToken("0109034748",1,"admin");
             let res = await request(server)
             .post("/api/appointments/getUserApps")
             .set("Authorization", `Bearer ${token}`)
@@ -142,7 +142,7 @@ describe("/api/slots",async()=>{
             .expect(400);
         });
         it("Should respond 200 got Successfully",async()=>{
-            const token = genToken("0109034748","admin");
+            const token = genToken("0109034748",1,"admin");
             let res = await request(server)
             .post("/api/auth/signup")
             .send({
@@ -189,7 +189,7 @@ describe("/api/slots",async()=>{
             .expect(401);
         });
         it("Should respond 400 if one of inputs is missing or incorrect",async()=>{
-            const token = genToken("0109034748","admin");
+            const token = genToken("0109034748",1,"admin");
             let res = await request(server)
             .post("/api/appointments/getDocApps")
             .set("Authorization", `Bearer ${token}`)
@@ -200,7 +200,7 @@ describe("/api/slots",async()=>{
             .expect(400);
         });
         it("Should respond 200 got Successfully",async()=>{
-            const token = genToken("0109034748","admin");
+            const token = genToken("0109034748",1,"admin");
             let res = await request(server)
             .post("/api/auth/signup")
             .send({
@@ -249,7 +249,7 @@ describe("/api/slots",async()=>{
             .expect(401);
         });
         it("Should respond 400 if one of inputs is missing or incorrect",async()=>{
-            const token = genToken("0109034748","admin");
+            const token = genToken("0109034748",1,"admin");
             let res = await request(server)
             .patch("/api/appointments/cancelAppointment")
             .set("Authorization", `Bearer ${token}`)
@@ -259,7 +259,7 @@ describe("/api/slots",async()=>{
             .expect(400);
         });
         it("Should respond 200 updated Successfully",async()=>{
-            const token = genToken("0109034748","admin");
+            const token = genToken("0109034748",1,"admin");
             let res = await request(server)
             .post("/api/auth/signup")
             .send({
@@ -309,7 +309,7 @@ describe("/api/slots",async()=>{
             .expect(401);
         });
         it("Should respond 400 if one of inputs is missing or incorrect",async()=>{
-            const token = genToken("0109034748","admin");
+            const token = genToken("0109034748",1,"admin");
             let res = await request(server)
             .patch("/api/appointments/confirmAppointment")
             .set("Authorization", `Bearer ${token}`)
@@ -319,7 +319,7 @@ describe("/api/slots",async()=>{
             .expect(400);
         });
         it("Should respond 200 updated Successfully",async()=>{
-            const token = genToken("0109034748","admin");
+            const token = genToken("0109034748",1,"admin");
             let res = await request(server)
             .post("/api/auth/signup")
             .send({

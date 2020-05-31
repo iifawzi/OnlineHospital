@@ -33,7 +33,7 @@ const updateInfo = async (req, res, next) => {
     if (!updatedData) {
       throw new ErrorHandler(500, "Sorry, something wrong happened");
     }
-    const token = genToken(updatedData.phone_number, updatedData.role);
+    const token = genToken(updatedData.phone_number,updatedData.user_id ,updatedData.role);
     return respond(true, 200, { ...updatedData.dataValues, token }, res);
   } catch (err) {
     handleError(err, res);

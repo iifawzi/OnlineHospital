@@ -25,7 +25,7 @@ describe("/api/slots",async()=>{
             .expect(401);
         });
         it("Should respond 400 if one of inputs is missing or incorrect",async()=>{
-            const token = genToken("0109034748","admin");
+            const token = genToken("0109034748",1,"admin");
             let res = await request(server)
             .post("/api/slots/addSlot")
             .set("Authorization", `Bearer ${token}`)
@@ -37,7 +37,7 @@ describe("/api/slots",async()=>{
             .expect(400);
         });
         it("Should respond 200 addedd Successfully",async()=>{
-            const token = genToken("0109034748","admin");
+            const token = genToken("0109034748",1,"admin");
             let res = await request(server)
             .post("/api/controlPanel/addDoctor")
             .set("Authorization", `Bearer ${token}`)
@@ -79,7 +79,7 @@ describe("/api/slots",async()=>{
             .expect(401);
         });
         it("Should respond 400 if one of inputs is incorrect",async()=>{
-            const token = genToken("0109034748","admin");
+            const token = genToken("0109034748",1,"admin");
             let res = await request(server)
             .patch("/api/slots/updateSlot")
             .set("Authorization", `Bearer ${token}`)
@@ -89,7 +89,7 @@ describe("/api/slots",async()=>{
             .expect(400);
         });
         it("Should respond 200 updated Successfully",async()=>{
-            const token = genToken("0109034748","admin");
+            const token = genToken("0109034748",1,"admin");
             let res = await request(server)
             .patch("/api/slots/updateSlot")
             .set("Authorization", `Bearer ${token}`)
@@ -116,7 +116,7 @@ describe("/api/slots",async()=>{
             .expect(401);
         });
         it("Should respond 400 if one of inputs is missing or incorrect",async()=>{
-            const token = genToken("0109034748","user");
+            const token = genToken("0109034748",1,"user");
             let res = await request(server)
             .post("/api/slots/getOpenSlots")
             .set("Authorization", `Bearer ${token}`)
@@ -126,7 +126,7 @@ describe("/api/slots",async()=>{
             .expect(400);
         });
         it("Should respond 200 addedd Successfully",async()=>{
-            const token = genToken("0109034748","user");
+            const token = genToken("0109034748",1,"user");
             let res = await request(server)
             .post("/api/auth/signup")
             .send({
@@ -169,7 +169,7 @@ describe("/api/slots",async()=>{
             .expect(401);
         });
         it("Should respond 400 if one of inputs is missing or incorrect",async()=>{
-            const token = genToken("0109034748","admin");
+            const token = genToken("0109034748",1,"admin");
             let res = await request(server)
             .post("/api/slots/addSlot")
             .set("Authorization", `Bearer ${token}`)
@@ -179,7 +179,7 @@ describe("/api/slots",async()=>{
             .expect(400);
         });
         it("Should respond 200 if got days susccessfully",async()=>{
-            const token = genToken("0109034748","admin");
+            const token = genToken("0109034748",1,"admin");
             let res = await request(server)
             .post("/api/controlPanel/addDoctor")
             .set("Authorization", `Bearer ${token}`)

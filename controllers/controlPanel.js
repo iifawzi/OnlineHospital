@@ -115,7 +115,7 @@ const signAdmin = async (req,res,next)=>{
         if(!compared){
             throw new ErrorHandler(401,"Password is Incorrect");
         }
-        const token = genToken(phone_number,admin.role); 
+        const token = genToken(phone_number,admin.admin_id,admin.role); 
         const respondedAdmin = {...admin.dataValues};
         delete respondedAdmin.password;
         return respond(true,200,{...respondedAdmin,token},res);

@@ -21,7 +21,7 @@ describe("/api/categories",async()=>{
             .expect(401);
         });
         it("Should respond 200 if got categories successfully",async()=>{
-            const token = genToken("0109034748","user");
+            const token = genToken("0109034748",1,"user");
             let res = await request(server)
             .get("/api/categories/getCategories")
             .set("Authorization", `Bearer ${token}`)

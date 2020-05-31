@@ -107,7 +107,7 @@ describe("/api/auth",async()=>{
 
     describe("/updateFirebaseToken",async()=>{
         it("Should respond with 400 if one of inpus is missed (SCHEMA VALIDATION)",async()=>{
-            const token = genToken("01590243399","user");
+            const token = genToken("01590243399",1,"user");
             let res = await request(server)
             .patch("/api/auth/updateFirebaseToken")
             .send({"notInTheSchema":"haka"})
@@ -115,7 +115,7 @@ describe("/api/auth",async()=>{
             .expect(400);
         });
         it("should respond with 401 if phone number not found `backend side`",async()=>{
-            const token = genToken("01090243788","user");
+            const token = genToken("01090243788",1,"user");
             let res = await request(server)
             .patch("/api/auth/updateFirebaseToken")
             .send({"new_token":"djkdjkdjk"})
@@ -136,7 +136,7 @@ describe("/api/auth",async()=>{
                 "fb_token_id": "test",
                 "gender": "male"
             }).expect(201);
-            const token = genToken("01590243388","user");
+            const token = genToken("01590243388",1,"user");
             res = await request(server)
             .patch("/api/auth/updateFirebaseToken")
             .send({"new_token":"123456789elhamdullah"})
@@ -159,7 +159,7 @@ describe("/api/auth",async()=>{
                 "fb_token_id": "test",
                 "gender": "male",
             }).expect(201);
-            const token = genToken("01590243399","user");
+            const token = genToken("01590243399",1,"user");
             await blockUser("01590243399");
             res = await request(server)
             .patch("/api/auth/updateFirebaseToken")
@@ -204,7 +204,7 @@ describe("/api/auth",async()=>{
             .expect(400);
         });
         it("should respond with 401 if phone number or password are incorrect `backend side`",async()=>{
-            const token = genToken("01590243399","admin");
+            const token = genToken("01590243399",1,"admin");
             let res = await request(server)
             .post("/api/controlPanel/addDoctor")
             .set("Authorization", `Bearer ${token}`)
@@ -234,7 +234,7 @@ describe("/api/auth",async()=>{
 
     describe("/updateDoctorFirebaseToken",async()=>{
         it("Should respond with 400 if one of inpus is missed (SCHEMA VALIDATION)",async()=>{
-            const token = genToken("01590243399","doctor");
+            const token = genToken("01590243399",1,"doctor");
             let res = await request(server)
             .patch("/api/auth/updateDoctorFirebaseToken")
             .send({"notInTheSchema":"haka"})
@@ -242,7 +242,7 @@ describe("/api/auth",async()=>{
             .expect(400);
         });
         it("should respond with 401 if phone number not found `backend side`",async()=>{
-            const token = genToken("01090243788","doctor");
+            const token = genToken("01090243788",1,"doctor");
             let res = await request(server)
             .patch("/api/auth/updateDoctorFirebaseToken")
             .send({"new_token":"djkdjkdjk"})
@@ -250,7 +250,7 @@ describe("/api/auth",async()=>{
             .expect(401);
         });
         it("should respond with 200 if we updated the Doctor token_id successfully",async()=>{
-            const token = genToken("01090243788","admin");
+            const token = genToken("01090243788",1,"admin");
             let res = await request(server)
             .post("/api/controlPanel/addDoctor")
             .set("Authorization", `Bearer ${token}`)
@@ -266,7 +266,7 @@ describe("/api/auth",async()=>{
             })
             .expect(201);
             expect(res.body.data.phone_number).to.equal("01090243795");
-            const token2 = genToken("01090243795","doctor");
+            const token2 = genToken("01090243795",1,"doctor");
             res = await request(server)
             .patch("/api/auth/updateDoctorFirebaseToken")
             .send({"new_token":"123456789elhamdullah"})
@@ -276,7 +276,7 @@ describe("/api/auth",async()=>{
             deleteDoctor("01090243795");
         });
         it("should respond with 401 if Doctor is not authorized ",async()=>{
-            const token = genToken("01090243795","admin");
+            const token = genToken("01090243795",1,"admin");
             let res = await request(server)
             .post("/api/controlPanel/addDoctor")
             .set("Authorization", `Bearer ${token}`)
