@@ -94,7 +94,6 @@ const getDoctorDays = Joi.object({
 });
 const addAppointment = Joi.object({
   slot_id: Joi.number().required(),
-  user_id: Joi.number().required(),
   date: Joi.string().required(),
 });
 const addConfirmedAppointment = Joi.object({

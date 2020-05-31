@@ -4,7 +4,8 @@ const respond = require("../middleware/respond");
 
 const addAppointment = async (req, res, next) => {
   try {
-    const data = { ...req.body };
+    const user_id = req.user.id;
+    const data = { ...req.body,user_id };
     const newAppointment = await addNewAppointment(data,res);
     if (newAppointment){
         return respond(true,201,newAppointment,res);
