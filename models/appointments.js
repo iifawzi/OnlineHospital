@@ -73,6 +73,8 @@ doctor_joined:{
 
 const addNewAppointment = async function(data,res){
     try {
+        const room_id = new Date()+58587;
+        data.room_id = room_id
         const newAppointment = await appointments.create(data);
         return newAppointment;
     }catch(err){

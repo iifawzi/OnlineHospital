@@ -41,6 +41,44 @@
     }
   ],
   "paths": {
+    "/appointments/joinUserToAppointment": {
+      "get": {
+        "tags": ["appointments"],
+        "summary": "Join user to an appointment",
+        "consumes": ["application/json"],
+        "produces": ["application/json"],
+        "parameters": [
+          {
+            "in": "body",
+            "name": "body",
+            "required": true,
+            "schema": {
+              "$ref": "#/definitions/joinUserToAppointment"
+            }
+          },
+          {
+            "in": "header",
+            "name": "Authorization",
+            "required": true,
+            "type": "string"
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "200 WITH STATUS TRUE `AND ROOM_ID IN THE RESPONSE` (SUCCESS) OR 200 WITH STATUS FALSE `NO ROOM_ID IN RESPONSE` (FAILURE)",
+            "schema": {
+              "$ref": "#/definitions/joinUserToAppointmentSuccess"
+            }
+          },
+          "401": {
+            "description": "401 (Not Authorized)",
+            "schema": {
+              "$ref": "#/definitions/Error"
+            }
+          }
+        }
+      }
+    },
     "/appointments/upcomingAppointments": {
       "get": {
         "tags": ["appointments"],
@@ -1564,6 +1602,27 @@
     }
   },
   "definitions": {
+    "joinUserToAppointment": {
+      "type": "object",
+      "properties": {
+        "slot_id": {
+          "appointment_id": "integer"
+        }
+      },
+      "example": {
+        "appointment_id": 1
+    }
+  },
+    "joinUserToAppointmentSuccess": {
+      "type": "object",
+      "example": {
+        "status": true,
+        "message": "success",
+        "data": {
+            "room_id": "83748787"
+        }
+    }
+  },
     "updateSlot": {
       "type": "object",
       "properties": {
