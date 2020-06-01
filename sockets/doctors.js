@@ -4,15 +4,18 @@ exports.doctors = (io)=>{
 ////////////////////////////////////////////////////////// ? JOINING THE SYSTEM //////////////////////////////////////////////////////////////////
 
         // `Doctor joined the system`:  
-        socket.on("doctorJoined",(doctor_id)=>{
-            socket.doctor_id = doctor_id;
+        socket.on("doctorJoined",(doctor_id,name)=>{
             socket.role = "doctor";
+            socket.name = name;
+            socket.myId = doctor_id;
+
             addDoctor(doctor_id,socket.id);
         })
       // `User joined the system`:  
-        socket.on("userJoined",(user_id)=>{
+        socket.on("userJoined",(user_id,name)=>{
             socket.role = "user";
-            socket.user_id = user_id;
+            socket.name = name;
+            socket.myId = user_id;
         })
 
 ////////////////////////////////////////////////////////// ? ROOMS AREA ////////////////////////////////////////////////////////////////////////
@@ -53,6 +56,11 @@ socket.on("joinDoctorToRoom",(room_id)=>{
             socket.to(room_id).emit("message",{user:"System:",message:"Doctor Joined the Clinic, Say Hi!"})    
         }
 })
+////////////////////////////////////////////////////////// ? Messagging //////////////////////////////////////////////////////////////////
+
+socket.on("sendMessage",(message)=>{
+    io.to(socket.currentRoom).emit('message', { user: socket.name, message: message });
+})
 
 ////////////////////////////////////////////////////////// ? DISCONNECTING FROM THE SYSTEM //////////////////////////////////////////////////////////////////
 
@@ -62,7 +70,7 @@ socket.on("joinDoctorToRoom",(room_id)=>{
             if (socket.role === 'doctor'){
                 console.log("Doctor disconnected with socket id \t ", socket.id);
                 const doctors = getDoctors();
-                deleteDoctor(socket.doctor_id);
+                deleteDoctor(socket.myId);
                 if (socket.currentRoom != null){
                     console.log(getRoomInfo(socket.currentRoom));
                     removeDoctorFromRoom(socket.currentRoom);
