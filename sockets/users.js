@@ -4,8 +4,7 @@ exports.users = (io)=>{
     .on("connection",(socket)=>{
         console.log("New User joined",socket.id);
 
-        socket.join("/doctors/hala");
-
+        setTimeout(() => socket.disconnect(true), 5000);
 
         // When Socket disconnects delete his info: 
         socket.on("disconnect",()=>{
