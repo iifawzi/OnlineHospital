@@ -149,6 +149,46 @@ describe("/api/appointments",async()=>{
         });
     }); 
 
+
+    
+    describe("/finishedAppointments",async()=>{
+        it("Should respond 401 if not Authorized",async()=>{
+            let res = await request(server)
+            .get("/api/appointments/finishedAppointments")
+            .expect(401);
+        });
+        it("Should respond 200 got Successfully",async()=>{
+            const token = genToken("0109034748",1,"user");
+            let res = await request(server)
+            .get("/api/appointments/finishedAppointments")
+            .set("Authorization", `Bearer ${token}`)
+            .expect(200);
+        });
+    });
+
+
+
+
+
+    describe("/upcomingAppointments",async()=>{
+        it("Should respond 401 if not Authorized",async()=>{
+            let res = await request(server)
+            .get("/api/appointments/upcomingAppointments")
+            .expect(401);
+        });
+        it("Should respond 200 got Successfully",async()=>{
+            const token = genToken("0109034748",1,"user");
+            let res = await request(server)
+            .get("/api/appointments/upcomingAppointments")
+            .set("Authorization", `Bearer ${token}`)
+            .expect(200);
+        });
+    });
+
+
+
+
+
     describe("/getDocApps",async()=>{
         it("Should respond 401 if not Authorized",async()=>{
             let res = await request(server)

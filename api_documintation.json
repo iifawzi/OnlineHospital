@@ -41,6 +41,66 @@
     }
   ],
   "paths": {
+    "/appointments/upcomingAppointments": {
+      "get": {
+        "tags": ["appointments"],
+        "summary": "Get upcoming Appointments for specific user  ",
+        "consumes": ["application/json"],
+        "produces": ["application/json"],
+        "parameters": [
+          {
+            "in": "header",
+            "name": "Authorization",
+            "required": true,
+            "type": "string"
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "200 (success)",
+            "schema": {
+              "$ref": "#/definitions/upcomingAppointmentsResponse"
+            }
+          },
+          "401": {
+            "description": "401 (Not Authorized)",
+            "schema": {
+              "$ref": "#/definitions/Error"
+            }
+          }
+        }
+      }
+    },
+    "/appointments/finishedAppointments": {
+      "get": {
+        "tags": ["appointments"],
+        "summary": "Get finished Appointments for specific user  ",
+        "consumes": ["application/json"],
+        "produces": ["application/json"],
+        "parameters": [
+          {
+            "in": "header",
+            "name": "Authorization",
+            "required": true,
+            "type": "string"
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "200 (success)",
+            "schema": {
+              "$ref": "#/definitions/finishedAppointmentsResponse"
+            }
+          },
+          "401": {
+            "description": "401 (Not Authorized)",
+            "schema": {
+              "$ref": "#/definitions/Error"
+            }
+          }
+        }
+      }
+    },
     "/appointments/docAppsByDate": {
       "post": {
         "tags": ["appointments"],
@@ -1685,6 +1745,88 @@
       },
       "example": {
         "user_id": 11
+      }
+    },
+    "upcomingAppointmentsResponse": {
+      "type": "object",
+      "example": {
+        "status": true,
+        "message": "success",
+        "data": [
+            {
+                "date": "2020-05-28",
+                "appointment_id": 235,
+                "first_name": "Mostfa",
+                "last_name": "Essam",
+                "appointment_status": "upcoming",
+                "day": "wed"
+            },
+            {
+                "date": "2020-05-28",
+                "appointment_id": 234,
+                "first_name": "Mostfa",
+                "last_name": "Essam",
+                "appointment_status": "upcoming",
+                "day": "wed"
+            },
+            {
+                "date": "2020-05-28",
+                "appointment_id": 230,
+                "first_name": "Mostfa",
+                "last_name": "Essam",
+                "appointment_status": "upcoming",
+                "day": "wed"
+            },
+            {
+                "date": "2020-05-28",
+                "appointment_id": 229,
+                "first_name": "Mostfa",
+                "last_name": "Essam",
+                "appointment_status": "upcoming",
+                "day": "wed"
+            }
+        ]
+      }
+    },
+    "finishedAppointmentsResponse": {
+      "type": "object",
+      "example": {
+        "status": true,
+        "message": "success",
+        "data": [
+            {
+                "date": "2020-05-28",
+                "appointment_id": 235,
+                "first_name": "Mostfa",
+                "last_name": "Essam",
+                "appointment_status": "finished",
+                "day": "wed"
+            },
+            {
+                "date": "2020-05-28",
+                "appointment_id": 234,
+                "first_name": "Mostfa",
+                "last_name": "Essam",
+                "appointment_status": "finished",
+                "day": "wed"
+            },
+            {
+                "date": "2020-05-28",
+                "appointment_id": 230,
+                "first_name": "Mostfa",
+                "last_name": "Essam",
+                "appointment_status": "finished",
+                "day": "wed"
+            },
+            {
+                "date": "2020-05-28",
+                "appointment_id": 229,
+                "first_name": "Mostfa",
+                "last_name": "Essam",
+                "appointment_status": "finished",
+                "day": "wed"
+            }
+        ]
       }
     },
     "getUserAppsResponse": {

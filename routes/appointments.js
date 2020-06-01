@@ -9,6 +9,8 @@ const appointmentsController = require("../controllers/appointments");
 router.post("/addAppointment",isAuth(["admin","user"]),validate(validationSchemas.addAppointment,"body"),appointmentsController.addAppointment);
 router.post("/addConfirmedAppointment",isAuth(["admin"]),validate(validationSchemas.addConfirmedAppointment,"body"),appointmentsController.addConfirmedAppointment);
 router.post("/getUserApps",isAuth(["admin"]),validate(validationSchemas.getUserApps,"body"),appointmentsController.getUserApps);
+router.get("/finishedAppointments",isAuth(["user"]),appointmentsController.finishedAppointments);
+router.get("/upcomingAppointments",isAuth(["user"]),appointmentsController.upcomingAppointments);
 router.post("/getDocApps",isAuth(["admin"]),validate(validationSchemas.getDocApps,"body"),appointmentsController.getDocApps);
 router.post("/docAppsByDate",isAuth(["doctor","admin"]),validate(validationSchemas.docAppsByDate,"body"),appointmentsController.docAppsByDate);
 router.patch("/cancelAppointment",isAuth(["admin","user"]),validate(validationSchemas.cancelApp,"body"),appointmentsController.cancelAppointment);
