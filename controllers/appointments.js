@@ -1,6 +1,7 @@
-const {addNewAppointment,addConfirmNewAppointment,userApps,docApps,cancelApp,confirmApp,docAppsDate,finishedApps,upcomingApps} = require("../models/appointments");
+const {addNewAppointment,addConfirmNewAppointment,userApps,docApps,cancelApp,confirmApp,docAppsDate,finishedApps,upcomingApps,getAppointment,setUser_joined} = require("../models/appointments");
 const { handleError, ErrorHandler } = require("../middleware/error");
 const respond = require("../middleware/respond");
+var moment = require('moment');
 
 const addAppointment = async (req, res, next) => {
   try {
@@ -122,6 +123,38 @@ const confirmAppointment = async (req,res,next)=>{
   }
 } 
 
+
+const joinUser = async(req,res,next)=>{
+  try {
+    const {appointment_id} = req.body;
+    const appointment = await getAppointment(appointment_id,res); 
+    const {date,appointment_status,start_time,room_id} = appointment;
+    if (appointment_status === "running"){ 
+      const serverDate = moment().format("YYYY-MM-DD"); // server date
+      const serverTime = moment().format(); // server time
+      const appDate = moment(date,"YYYY-MM-DD").format("YYYY-MM-DD"); // appointment date
+      const appStartTime = moment(start_time, "HH:mm");  // appointment start time 
+      const appFiveBeforeStart = moment(appStartTime).subtract(6,"m"); // this substract 6 minutes from the start time (to be able to use the range) the sixth minutes is excluded 
+      const appFiveAfterStart = moment(appStartTime).add(6,"m"); // this adds 6 minutes to the start time (to be able to use the range) the sixth minutes is excluded 
+      const compareDate = moment(appDate).isSame(serverDate); // check if the server date equals the appointment date
+      const compareTime = moment(serverTime).isBetween(appFiveBeforeStart,appFiveAfterStart); // this checks if the server time is between 'five minutes before' - 'five minutes after ' the appointment time 
+      // if both checks are true : User is able to join the appointment. 
+      if (compareDate && compareTime){
+        const app = await setUser_joined(appointment_id);
+        console.log(app.dataValues);
+        return respond(true,200,{room_id},res);
+      }else { // user's isn't able to join the appointment: 
+        return respond(false,200,"",res);
+      }
+    }else { // if the appointment status is not running:
+      return respond(false,200,"",res);
+    }
+  }catch(err){
+    handleError(err,res);
+  }
+}
+
+
 module.exports = {
     addAppointment,
     getUserApps,
@@ -131,5 +164,6 @@ module.exports = {
     addConfirmedAppointment,
     confirmAppointment,
     finishedAppointments,
-    upcomingAppointments
+    upcomingAppointments,
+    joinUser
 }

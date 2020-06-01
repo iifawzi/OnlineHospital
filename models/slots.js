@@ -22,15 +22,15 @@ const slots = db.define("slots",{
         allowNull:false,
     },
     start_time: {
-        type:Sequelize.TIME,
+        type:Sequelize.STRING,
         allowNull:false,
     },
     end_time: {
-        type:Sequelize.TIME,
+        type:Sequelize.STRING,
         allowNull: false,
     },
     slot_time:{
-        type:Sequelize.TIME,
+        type:Sequelize.STRING,
         allowNull: false,
     },
     available: {

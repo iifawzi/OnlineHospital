@@ -40,6 +40,20 @@ appointment_status: {
     type: Sequelize.ENUM("pending","upcoming","running","finished","canceled"),
     allowNull: false,
     defaultValue:"pending",
+},
+room_id:{
+    type:Sequelize.STRING,
+    allowNull:false,
+},
+user_joined:{
+    type:Sequelize.BOOLEAN,
+    allowNull:false,
+    defaultValue: false,
+},
+doctor_joined:{
+    type:Sequelize.BOOLEAN,
+    allowNull:false,
+    defaultValue: false,
 }
 },{
     indexes: [
@@ -175,6 +189,33 @@ handleError(err,res)
     }
 }
 
+
+const getAppointment = async function(appointment_id,res){
+    try {
+        const appointment =  await db.query("SELECT apps.date, apps.room_id, apps.appointment_id,apps.appointment_status,slots.start_time,slots.end_time, slots.day FROM appointments apps INNER JOIN slots ON apps.slot_id = slots.slot_id WHERE apps.appointment_id = ?",{
+            replacements: [appointment_id],
+            type: Sequelize.QueryTypes.SELECT,
+        });
+        return appointment[0];
+    }catch(err){
+        handleError(err,res);
+    }
+}
+
+const setUser_joined = async function(appointment_id,res){
+    try {
+        console.log("i'm here");
+        const appointment = await appointments.findOne({where:{appointment_id}});
+        appointment.user_joined = true;
+        await appointment.save();
+       
+        return appointment;
+        console.log(appointment);
+    }catch(err){
+        handleError(err,res);
+    }
+}
+
 module.exports = { 
     appointments,
     addNewAppointment,
@@ -186,5 +227,7 @@ module.exports = {
     addConfirmNewAppointment,
     docAppsDate,
     upcomingApps,
-    finishedApps
+    finishedApps,
+    getAppointment,
+    setUser_joined
 }
