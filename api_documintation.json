@@ -42,7 +42,7 @@
   ],
   "paths": {
     "/appointments/joinUserToAppointment": {
-      "get": {
+      "patch": {
         "tags": ["appointments"],
         "summary": "Join user to an appointment",
         "consumes": ["application/json"],
@@ -65,7 +65,7 @@
         ],
         "responses": {
           "200": {
-            "description": "200 WITH STATUS TRUE `AND ROOM_ID IN THE RESPONSE` (SUCCESS) OR 200 WITH STATUS FALSE `NO ROOM_ID IN RESPONSE` (FAILURE)",
+            "description": "200 `WITH STATUS TRUE AND ROOM_ID IN THE RESPONSE` (SUCCESS) OR 200 `WITH STATUS FALSE NO ROOM_ID IN RESPONSE` (FAILURE)",
             "schema": {
               "$ref": "#/definitions/joinUserToAppointmentSuccess"
             }
@@ -1605,8 +1605,8 @@
     "joinUserToAppointment": {
       "type": "object",
       "properties": {
-        "slot_id": {
-          "appointment_id": "integer"
+        "appointment_id": {
+          "type": "integer"
         }
       },
       "example": {
