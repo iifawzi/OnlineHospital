@@ -2,14 +2,14 @@
   "stats": {
     "suites": 41,
     "tests": 100,
-    "passes": 100,
+    "passes": 99,
     "pending": 0,
-    "failures": 0,
-    "start": "2020-05-31T17:06:20.343Z",
-    "end": "2020-05-31T17:06:22.452Z",
-    "duration": 2109,
+    "failures": 1,
+    "start": "2020-06-01T13:45:21.571Z",
+    "end": "2020-06-01T13:45:23.931Z",
+    "duration": 2360,
     "testsRegistered": 100,
-    "passPercent": 100,
+    "passPercent": 99,
     "pendingPercent": 0,
     "other": 0,
     "hasOther": false,
@@ -18,7 +18,7 @@
   },
   "results": [
     {
-      "uuid": "4bf4d5bb-5d3a-45b0-b314-068f9da4bb4f",
+      "uuid": "fbf21233-6c5b-40c9-a9bd-c35691630597",
       "title": "",
       "fullFile": "",
       "file": "",
@@ -27,7 +27,7 @@
       "tests": [],
       "suites": [
         {
-          "uuid": "440bae5b-0087-4394-a1c3-ff6e1aa9f77c",
+          "uuid": "36baa118-299c-4486-a90b-6a5723e1828d",
           "title": "/api/appointments",
           "fullFile": "/Users/iifawzi/Desktop/current projects/Hospital/test/appointments.test.js",
           "file": "/test/appointments.test.js",
@@ -45,8 +45,8 @@
               "context": null,
               "code": "server = require(\"../app\");",
               "err": {},
-              "uuid": "9a329d79-5a93-4da8-9cc6-f525556af950",
-              "parentUUID": "440bae5b-0087-4394-a1c3-ff6e1aa9f77c",
+              "uuid": "baaff9f3-4778-48a1-b5af-298a137d82b7",
+              "parentUUID": "36baa118-299c-4486-a90b-6a5723e1828d",
               "isHook": true,
               "skipped": false
             }
@@ -65,8 +65,8 @@
               "context": null,
               "code": "",
               "err": {},
-              "uuid": "896ad7af-66ee-458e-9b1d-0df687ec278d",
-              "parentUUID": "440bae5b-0087-4394-a1c3-ff6e1aa9f77c",
+              "uuid": "03b4e8e5-11e9-487e-9324-faefccc3ab80",
+              "parentUUID": "36baa118-299c-4486-a90b-6a5723e1828d",
               "isHook": true,
               "skipped": false
             }
@@ -74,7 +74,7 @@
           "tests": [],
           "suites": [
             {
-              "uuid": "2de033f2-21ac-4d33-b0eb-03dc19aad820",
+              "uuid": "8c162233-d1f8-4cad-9e9a-931793632127",
               "title": "/addAppointment",
               "fullFile": "/Users/iifawzi/Desktop/current projects/Hospital/test/appointments.test.js",
               "file": "/test/appointments.test.js",
@@ -85,7 +85,7 @@
                   "title": "Should respond 401 if not Authorized",
                   "fullTitle": "/api/appointments /addAppointment Should respond 401 if not Authorized",
                   "timedOut": false,
-                  "duration": 20,
+                  "duration": 23,
                   "state": "passed",
                   "speed": "fast",
                   "pass": true,
@@ -94,8 +94,8 @@
                   "context": null,
                   "code": "let res = await request(server)\n.post(\"/api/appointments/addAppointment\")\n.expect(401);",
                   "err": {},
-                  "uuid": "614ea3d4-1b6a-4aad-8a23-5b356dcfd503",
-                  "parentUUID": "2de033f2-21ac-4d33-b0eb-03dc19aad820",
+                  "uuid": "e88cd8c4-953c-4e14-bffb-db7359b67ced",
+                  "parentUUID": "8c162233-d1f8-4cad-9e9a-931793632127",
                   "isHook": false,
                   "skipped": false
                 },
@@ -103,7 +103,7 @@
                   "title": "Should respond 400 if one of inputs is missing or incorrect",
                   "fullTitle": "/api/appointments /addAppointment Should respond 400 if one of inputs is missing or incorrect",
                   "timedOut": false,
-                  "duration": 18,
+                  "duration": 21,
                   "state": "passed",
                   "speed": "fast",
                   "pass": true,
@@ -112,8 +112,8 @@
                   "context": null,
                   "code": "const token = genToken(\"0109034748\",1,\"admin\");\nlet res = await request(server)\n.post(\"/api/appointments/addAppointment\")\n.set(\"Authorization\", `Bearer ${token}`)\n.send({\n    \"slot_id\": 1,\n    \"user_id\":44554,\n    })\n.expect(400);",
                   "err": {},
-                  "uuid": "8bfe9e25-ae09-4baf-9e4f-f1ad932c695e",
-                  "parentUUID": "2de033f2-21ac-4d33-b0eb-03dc19aad820",
+                  "uuid": "1ab25527-594f-4902-882b-9a97ef855f80",
+                  "parentUUID": "8c162233-d1f8-4cad-9e9a-931793632127",
                   "isHook": false,
                   "skipped": false
                 },
@@ -121,7 +121,7 @@
                   "title": "Should respond 200 addedd Successfully",
                   "fullTitle": "/api/appointments /addAppointment Should respond 200 addedd Successfully",
                   "timedOut": false,
-                  "duration": 22,
+                  "duration": 23,
                   "state": "passed",
                   "speed": "fast",
                   "pass": true,
@@ -130,28 +130,28 @@
                   "context": null,
                   "code": "const token = genToken(\"0109034748\",1,\"user\");\nlet res = await request(server)\n.post(\"/api/appointments/addAppointment\")\n.set(\"Authorization\", `Bearer ${token}`)\n.send({\n    \"slot_id\": 1,\n    \"date\":\"2020-05-28\"\n    })\n.expect(201);\nconst appID = res.body.data.appointment_id;\ndeleteUser(\"01590243399\");\ndeleteAppointment(appID);",
                   "err": {},
-                  "uuid": "b337d12d-c762-4a1c-aa90-1ab80c763b23",
-                  "parentUUID": "2de033f2-21ac-4d33-b0eb-03dc19aad820",
+                  "uuid": "ecc3919e-188d-415b-ac27-0aecc7ce09ed",
+                  "parentUUID": "8c162233-d1f8-4cad-9e9a-931793632127",
                   "isHook": false,
                   "skipped": false
                 }
               ],
               "suites": [],
               "passes": [
-                "614ea3d4-1b6a-4aad-8a23-5b356dcfd503",
-                "8bfe9e25-ae09-4baf-9e4f-f1ad932c695e",
-                "b337d12d-c762-4a1c-aa90-1ab80c763b23"
+                "e88cd8c4-953c-4e14-bffb-db7359b67ced",
+                "1ab25527-594f-4902-882b-9a97ef855f80",
+                "ecc3919e-188d-415b-ac27-0aecc7ce09ed"
               ],
               "failures": [],
               "pending": [],
               "skipped": [],
-              "duration": 60,
+              "duration": 67,
               "root": false,
               "rootEmpty": false,
               "_timeout": 2000
             },
             {
-              "uuid": "91827c2c-d035-4364-a9d6-6b3009239262",
+              "uuid": "414a48b6-c486-4dc5-9115-bfc1a6cc27b2",
               "title": "/addConfirmedAppointment",
               "fullFile": "/Users/iifawzi/Desktop/current projects/Hospital/test/appointments.test.js",
               "file": "/test/appointments.test.js",
@@ -162,7 +162,7 @@
                   "title": "Should respond 401 if not Authorized",
                   "fullTitle": "/api/appointments /addConfirmedAppointment Should respond 401 if not Authorized",
                   "timedOut": false,
-                  "duration": 4,
+                  "duration": 3,
                   "state": "passed",
                   "speed": "fast",
                   "pass": true,
@@ -171,8 +171,8 @@
                   "context": null,
                   "code": "let res = await request(server)\n.post(\"/api/appointments/addConfirmedAppointment\")\n.expect(401);",
                   "err": {},
-                  "uuid": "6b6c93fa-08e0-4f74-ae21-fcf886d6a32c",
-                  "parentUUID": "91827c2c-d035-4364-a9d6-6b3009239262",
+                  "uuid": "1e15b360-8a27-4ff4-853f-e9117a7e8c26",
+                  "parentUUID": "414a48b6-c486-4dc5-9115-bfc1a6cc27b2",
                   "isHook": false,
                   "skipped": false
                 },
@@ -180,7 +180,7 @@
                   "title": "Should respond 400 if one of inputs is missing or incorrect",
                   "fullTitle": "/api/appointments /addConfirmedAppointment Should respond 400 if one of inputs is missing or incorrect",
                   "timedOut": false,
-                  "duration": 9,
+                  "duration": 2,
                   "state": "passed",
                   "speed": "fast",
                   "pass": true,
@@ -189,8 +189,8 @@
                   "context": null,
                   "code": "const token = genToken(\"0109034748\",1,\"admin\");\nlet res = await request(server)\n.post(\"/api/appointments/addConfirmedAppointment\")\n.set(\"Authorization\", `Bearer ${token}`)\n.send({\n    \"slot_id\": 1,\n    \"user_id\":44554,\n    })\n.expect(400);",
                   "err": {},
-                  "uuid": "f5011afe-957a-4d6d-b177-07b0e8f05bbc",
-                  "parentUUID": "91827c2c-d035-4364-a9d6-6b3009239262",
+                  "uuid": "51615c65-181e-4f51-9f51-9bb5422b7e6e",
+                  "parentUUID": "414a48b6-c486-4dc5-9115-bfc1a6cc27b2",
                   "isHook": false,
                   "skipped": false
                 },
@@ -198,7 +198,7 @@
                   "title": "Should respond 200 addedd Successfully",
                   "fullTitle": "/api/appointments /addConfirmedAppointment Should respond 200 addedd Successfully",
                   "timedOut": false,
-                  "duration": 31,
+                  "duration": 33,
                   "state": "passed",
                   "speed": "fast",
                   "pass": true,
@@ -207,28 +207,28 @@
                   "context": null,
                   "code": "const token = genToken(\"0109034748\",1,\"admin\");\nlet res = await request(server)\n.post(\"/api/auth/signup\")\n.send({\n    \"phone_number\": \"01590243399\",\n    \"first_name\": \"fawzi\",\n    \"last_name\":\"ahmed\",\n    \"birth_date\": \"1999-03-20\",\n    \"weight\": 100,\n    \"height\": 180,\n    \"bmi\": 28,\n    \"fb_token_id\": \"djdj84\",\n    \"gender\": \"male\",\n})\n.expect(201);\nconst userId = res.body.data.user_id;\n res = await request(server)\n.post(\"/api/appointments/addConfirmedAppointment\")\n.set(\"Authorization\", `Bearer ${token}`)\n.send({\n    \"slot_id\": 1,\n    \"user_id\":userId,\n    \"date\":\"2020-05-28\"\n    })\n.expect(201);\nexpect(res.body.data.appointment_status).to.equal(\"upcoming\");\nconst appID = res.body.data.appointment_id;\ndeleteUser(\"01590243399\");\ndeleteAppointment(appID);",
                   "err": {},
-                  "uuid": "201bc2bc-74d3-4841-90c2-7c2b003e4d61",
-                  "parentUUID": "91827c2c-d035-4364-a9d6-6b3009239262",
+                  "uuid": "10e61913-a5c9-4f71-95d3-056de0b2a6f5",
+                  "parentUUID": "414a48b6-c486-4dc5-9115-bfc1a6cc27b2",
                   "isHook": false,
                   "skipped": false
                 }
               ],
               "suites": [],
               "passes": [
-                "6b6c93fa-08e0-4f74-ae21-fcf886d6a32c",
-                "f5011afe-957a-4d6d-b177-07b0e8f05bbc",
-                "201bc2bc-74d3-4841-90c2-7c2b003e4d61"
+                "1e15b360-8a27-4ff4-853f-e9117a7e8c26",
+                "51615c65-181e-4f51-9f51-9bb5422b7e6e",
+                "10e61913-a5c9-4f71-95d3-056de0b2a6f5"
               ],
               "failures": [],
               "pending": [],
               "skipped": [],
-              "duration": 44,
+              "duration": 38,
               "root": false,
               "rootEmpty": false,
               "_timeout": 2000
             },
             {
-              "uuid": "0d1cdfb3-7c81-43af-8cab-103d79808e69",
+              "uuid": "db928f07-00ac-4737-b2b7-cfebf6d51885",
               "title": "/getUserApps",
               "fullFile": "/Users/iifawzi/Desktop/current projects/Hospital/test/appointments.test.js",
               "file": "/test/appointments.test.js",
@@ -248,8 +248,8 @@
                   "context": null,
                   "code": "let res = await request(server)\n.post(\"/api/appointments/getUserApps\")\n.expect(401);",
                   "err": {},
-                  "uuid": "6e257f5a-a0bf-42a6-bac1-7f70e7e0bbd4",
-                  "parentUUID": "0d1cdfb3-7c81-43af-8cab-103d79808e69",
+                  "uuid": "ce0bfa1b-f975-45ab-87bf-c05ed56027d0",
+                  "parentUUID": "db928f07-00ac-4737-b2b7-cfebf6d51885",
                   "isHook": false,
                   "skipped": false
                 },
@@ -257,7 +257,7 @@
                   "title": "Should respond 400 if one of inputs is missing or incorrect",
                   "fullTitle": "/api/appointments /getUserApps Should respond 400 if one of inputs is missing or incorrect",
                   "timedOut": false,
-                  "duration": 3,
+                  "duration": 2,
                   "state": "passed",
                   "speed": "fast",
                   "pass": true,
@@ -266,8 +266,8 @@
                   "context": null,
                   "code": "const token = genToken(\"0109034748\",1,\"admin\");\nlet res = await request(server)\n.post(\"/api/appointments/getUserApps\")\n.set(\"Authorization\", `Bearer ${token}`)\n.send({\n    \"slot_id\": 1,\n    \"user_id\":44554,\n    })\n.expect(400);",
                   "err": {},
-                  "uuid": "c26d752a-4f3c-44da-ac49-e6ed0dac518a",
-                  "parentUUID": "0d1cdfb3-7c81-43af-8cab-103d79808e69",
+                  "uuid": "afddaf35-f80e-4c97-b1f2-6d711516ca18",
+                  "parentUUID": "db928f07-00ac-4737-b2b7-cfebf6d51885",
                   "isHook": false,
                   "skipped": false
                 },
@@ -275,7 +275,7 @@
                   "title": "Should respond 200 got Successfully",
                   "fullTitle": "/api/appointments /getUserApps Should respond 200 got Successfully",
                   "timedOut": false,
-                  "duration": 19,
+                  "duration": 25,
                   "state": "passed",
                   "speed": "fast",
                   "pass": true,
@@ -284,28 +284,28 @@
                   "context": null,
                   "code": "const token = genToken(\"0109034748\",1,\"admin\");\nlet res = await request(server)\n.post(\"/api/appointments/addAppointment\")\n.set(\"Authorization\", `Bearer ${token}`)\n.send({\n    \"slot_id\": 1,\n    \"date\":\"2020-05-28\"\n    })\n.expect(201);\nconst appID = res.body.data.appointment_id;\nres = await request(server)\n.post(\"/api/appointments/getUserApps\")\n.set(\"Authorization\", `Bearer ${token}`)\n.send({\n    \"user_id\":1,\n    })\n.expect(200);\ndeleteAppointment(appID);",
                   "err": {},
-                  "uuid": "183a7bf7-b8bc-4c3f-901e-73c75e77acd8",
-                  "parentUUID": "0d1cdfb3-7c81-43af-8cab-103d79808e69",
+                  "uuid": "75ff6e93-3686-45cb-805d-908e26a3a657",
+                  "parentUUID": "db928f07-00ac-4737-b2b7-cfebf6d51885",
                   "isHook": false,
                   "skipped": false
                 }
               ],
               "suites": [],
               "passes": [
-                "6e257f5a-a0bf-42a6-bac1-7f70e7e0bbd4",
-                "c26d752a-4f3c-44da-ac49-e6ed0dac518a",
-                "183a7bf7-b8bc-4c3f-901e-73c75e77acd8"
+                "ce0bfa1b-f975-45ab-87bf-c05ed56027d0",
+                "afddaf35-f80e-4c97-b1f2-6d711516ca18",
+                "75ff6e93-3686-45cb-805d-908e26a3a657"
               ],
               "failures": [],
               "pending": [],
               "skipped": [],
-              "duration": 25,
+              "duration": 30,
               "root": false,
               "rootEmpty": false,
               "_timeout": 2000
             },
             {
-              "uuid": "eedb0542-ac74-4c1c-a47a-de3ca3880710",
+              "uuid": "e0d911db-5f64-4fb8-a677-120b5f4b9094",
               "title": "/getDocApps",
               "fullFile": "/Users/iifawzi/Desktop/current projects/Hospital/test/appointments.test.js",
               "file": "/test/appointments.test.js",
@@ -325,8 +325,8 @@
                   "context": null,
                   "code": "let res = await request(server)\n.post(\"/api/appointments/getDocApps\")\n.expect(401);",
                   "err": {},
-                  "uuid": "ae864887-7560-4a3b-93ee-f1acb60b7339",
-                  "parentUUID": "eedb0542-ac74-4c1c-a47a-de3ca3880710",
+                  "uuid": "5f2a8cf2-7883-4ee6-8c85-b9009366f7f3",
+                  "parentUUID": "e0d911db-5f64-4fb8-a677-120b5f4b9094",
                   "isHook": false,
                   "skipped": false
                 },
@@ -343,8 +343,8 @@
                   "context": null,
                   "code": "const token = genToken(\"0109034748\",1,\"admin\");\nlet res = await request(server)\n.post(\"/api/appointments/getDocApps\")\n.set(\"Authorization\", `Bearer ${token}`)\n.send({\n    \"slot_id\": 1,\n    \"doctor_id\":44554,\n    })\n.expect(400);",
                   "err": {},
-                  "uuid": "ce291214-a2e1-4ba2-a365-bf5d247adde1",
-                  "parentUUID": "eedb0542-ac74-4c1c-a47a-de3ca3880710",
+                  "uuid": "86bfc768-c393-461e-a6eb-f6d1b7d36940",
+                  "parentUUID": "e0d911db-5f64-4fb8-a677-120b5f4b9094",
                   "isHook": false,
                   "skipped": false
                 },
@@ -352,7 +352,7 @@
                   "title": "Should respond 200 got Successfully",
                   "fullTitle": "/api/appointments /getDocApps Should respond 200 got Successfully",
                   "timedOut": false,
-                  "duration": 12,
+                  "duration": 17,
                   "state": "passed",
                   "speed": "fast",
                   "pass": true,
@@ -361,28 +361,28 @@
                   "context": null,
                   "code": "const token = genToken(\"0109034748\",1,\"admin\");\nlet res = await request(server)\n.post(\"/api/appointments/addAppointment\")\n.set(\"Authorization\", `Bearer ${token}`)\n.send({\n    \"slot_id\": 1,\n    \"date\":\"2020-05-28\"\n    })\n.expect(201);\nconst appID = res.body.data.appointment_id;\nres = await request(server)\n.post(\"/api/appointments/getDocApps\")\n.set(\"Authorization\", `Bearer ${token}`)\n.send({\n    \"doctor_id\":1,\n    })\n.expect(200);\ndeleteUser(\"01595543366\");\ndeleteAppointment(appID);",
                   "err": {},
-                  "uuid": "77fa964d-3000-4381-ae0f-14a29681467a",
-                  "parentUUID": "eedb0542-ac74-4c1c-a47a-de3ca3880710",
+                  "uuid": "976d75c6-5f7c-40c8-b3c3-ab19571ba076",
+                  "parentUUID": "e0d911db-5f64-4fb8-a677-120b5f4b9094",
                   "isHook": false,
                   "skipped": false
                 }
               ],
               "suites": [],
               "passes": [
-                "ae864887-7560-4a3b-93ee-f1acb60b7339",
-                "ce291214-a2e1-4ba2-a365-bf5d247adde1",
-                "77fa964d-3000-4381-ae0f-14a29681467a"
+                "5f2a8cf2-7883-4ee6-8c85-b9009366f7f3",
+                "86bfc768-c393-461e-a6eb-f6d1b7d36940",
+                "976d75c6-5f7c-40c8-b3c3-ab19571ba076"
               ],
               "failures": [],
               "pending": [],
               "skipped": [],
-              "duration": 18,
+              "duration": 23,
               "root": false,
               "rootEmpty": false,
               "_timeout": 2000
             },
             {
-              "uuid": "f56be980-e194-48e7-ac90-859c4467f673",
+              "uuid": "c933d6af-4f7a-4cb5-8160-25f57a3f99c8",
               "title": "/cancelAppointment",
               "fullFile": "/Users/iifawzi/Desktop/current projects/Hospital/test/appointments.test.js",
               "file": "/test/appointments.test.js",
@@ -393,7 +393,7 @@
                   "title": "Should respond 401 if not Authorized",
                   "fullTitle": "/api/appointments /cancelAppointment Should respond 401 if not Authorized",
                   "timedOut": false,
-                  "duration": 1,
+                  "duration": 2,
                   "state": "passed",
                   "speed": "fast",
                   "pass": true,
@@ -402,8 +402,8 @@
                   "context": null,
                   "code": "let res = await request(server)\n.patch(\"/api/appointments/cancelAppointment\")\n.expect(401);",
                   "err": {},
-                  "uuid": "042fd5b2-1706-4172-bc8a-085b710cb3ef",
-                  "parentUUID": "f56be980-e194-48e7-ac90-859c4467f673",
+                  "uuid": "5d534370-6dfb-401a-a6e8-184d6ba2a48d",
+                  "parentUUID": "c933d6af-4f7a-4cb5-8160-25f57a3f99c8",
                   "isHook": false,
                   "skipped": false
                 },
@@ -420,8 +420,8 @@
                   "context": null,
                   "code": "const token = genToken(\"0109034748\",1,\"admin\");\nlet res = await request(server)\n.patch(\"/api/appointments/cancelAppointment\")\n.set(\"Authorization\", `Bearer ${token}`)\n.send({\n    \"aapointment_id\":\"djdkj\",\n    })\n.expect(400);",
                   "err": {},
-                  "uuid": "a94be7de-3f26-4e8c-a13d-fdf4c536f044",
-                  "parentUUID": "f56be980-e194-48e7-ac90-859c4467f673",
+                  "uuid": "f0fe8a1b-943f-4f3f-9b16-73197bf6b7c9",
+                  "parentUUID": "c933d6af-4f7a-4cb5-8160-25f57a3f99c8",
                   "isHook": false,
                   "skipped": false
                 },
@@ -429,7 +429,7 @@
                   "title": "Should respond 200 updated Successfully",
                   "fullTitle": "/api/appointments /cancelAppointment Should respond 200 updated Successfully",
                   "timedOut": false,
-                  "duration": 16,
+                  "duration": 15,
                   "state": "passed",
                   "speed": "fast",
                   "pass": true,
@@ -438,17 +438,17 @@
                   "context": null,
                   "code": "const token = genToken(\"0109034748\",1,\"admin\");\nlet res = await request(server)\n.post(\"/api/appointments/addAppointment\")\n.set(\"Authorization\", `Bearer ${token}`)\n.send({\n    \"slot_id\": 1,\n    \"date\":\"2020-05-28\"\n    })\n.expect(201);\nconst appID = res.body.data.appointment_id;\nres = await request(server)\n.patch(\"/api/appointments/cancelAppointment\")\n.set(\"Authorization\", `Bearer ${token}`)\n.send({\n    \"appointment_id\":appID,\n    })\n.expect(200);\nexpect(res.body.data.appointment_status).to.equal(\"canceled\");\ndeleteAppointment(appID);",
                   "err": {},
-                  "uuid": "b02c10d8-102a-4cda-aa30-1b173e0c4df4",
-                  "parentUUID": "f56be980-e194-48e7-ac90-859c4467f673",
+                  "uuid": "0ee12267-0a15-4d90-8af7-b6583f9e0d1c",
+                  "parentUUID": "c933d6af-4f7a-4cb5-8160-25f57a3f99c8",
                   "isHook": false,
                   "skipped": false
                 }
               ],
               "suites": [],
               "passes": [
-                "042fd5b2-1706-4172-bc8a-085b710cb3ef",
-                "a94be7de-3f26-4e8c-a13d-fdf4c536f044",
-                "b02c10d8-102a-4cda-aa30-1b173e0c4df4"
+                "5d534370-6dfb-401a-a6e8-184d6ba2a48d",
+                "f0fe8a1b-943f-4f3f-9b16-73197bf6b7c9",
+                "0ee12267-0a15-4d90-8af7-b6583f9e0d1c"
               ],
               "failures": [],
               "pending": [],
@@ -459,7 +459,7 @@
               "_timeout": 2000
             },
             {
-              "uuid": "cab0bddc-2447-4553-898f-523a15213193",
+              "uuid": "046ac0ba-7ab7-49a1-b251-93745a364a3c",
               "title": "/confirmAppointment",
               "fullFile": "/Users/iifawzi/Desktop/current projects/Hospital/test/appointments.test.js",
               "file": "/test/appointments.test.js",
@@ -470,7 +470,7 @@
                   "title": "Should respond 401 if not Authorized",
                   "fullTitle": "/api/appointments /confirmAppointment Should respond 401 if not Authorized",
                   "timedOut": false,
-                  "duration": 2,
+                  "duration": 1,
                   "state": "passed",
                   "speed": "fast",
                   "pass": true,
@@ -479,8 +479,8 @@
                   "context": null,
                   "code": "let res = await request(server)\n.patch(\"/api/appointments/confirmAppointment\")\n.expect(401);",
                   "err": {},
-                  "uuid": "8dd44252-0633-4abe-be83-150e481d472e",
-                  "parentUUID": "cab0bddc-2447-4553-898f-523a15213193",
+                  "uuid": "13fde8ea-eb1e-4683-921a-8666fadfec7c",
+                  "parentUUID": "046ac0ba-7ab7-49a1-b251-93745a364a3c",
                   "isHook": false,
                   "skipped": false
                 },
@@ -488,7 +488,7 @@
                   "title": "Should respond 400 if one of inputs is missing or incorrect",
                   "fullTitle": "/api/appointments /confirmAppointment Should respond 400 if one of inputs is missing or incorrect",
                   "timedOut": false,
-                  "duration": 2,
+                  "duration": 3,
                   "state": "passed",
                   "speed": "fast",
                   "pass": true,
@@ -497,8 +497,8 @@
                   "context": null,
                   "code": "const token = genToken(\"0109034748\",1,\"user\");\nlet res = await request(server)\n.patch(\"/api/appointments/confirmAppointment\")\n.set(\"Authorization\", `Bearer ${token}`)\n.send({\n    \"aapointment_id\":\"djdkj\",\n    })\n.expect(400);",
                   "err": {},
-                  "uuid": "e7e954b8-d9b6-432e-8d3e-a6e2665d203f",
-                  "parentUUID": "cab0bddc-2447-4553-898f-523a15213193",
+                  "uuid": "ca72d58b-05ab-46d6-914d-c2eab21dcef9",
+                  "parentUUID": "046ac0ba-7ab7-49a1-b251-93745a364a3c",
                   "isHook": false,
                   "skipped": false
                 },
@@ -515,17 +515,17 @@
                   "context": null,
                   "code": "const token = genToken(\"0109034748\",1,\"user\");\nlet res = await request(server)\n.post(\"/api/appointments/addAppointment\")\n.set(\"Authorization\", `Bearer ${token}`)\n.send({\n    \"slot_id\": 1,\n    \"date\":\"2020-05-28\"\n    })\n.expect(201);\nconst appID = res.body.data.appointment_id;\nres = await request(server)\n.patch(\"/api/appointments/confirmAppointment\")\n.set(\"Authorization\", `Bearer ${token}`)\n.send({\n    \"appointment_id\":appID,\n    })\n.expect(200);\nexpect(res.body.data.appointment_status).to.equal(\"upcoming\");\ndeleteAppointment(appID);",
                   "err": {},
-                  "uuid": "5feab8de-6e20-4328-a3cf-2c97281b5b31",
-                  "parentUUID": "cab0bddc-2447-4553-898f-523a15213193",
+                  "uuid": "3bc77e84-2605-43b6-a59c-80bd5bef3951",
+                  "parentUUID": "046ac0ba-7ab7-49a1-b251-93745a364a3c",
                   "isHook": false,
                   "skipped": false
                 }
               ],
               "suites": [],
               "passes": [
-                "8dd44252-0633-4abe-be83-150e481d472e",
-                "e7e954b8-d9b6-432e-8d3e-a6e2665d203f",
-                "5feab8de-6e20-4328-a3cf-2c97281b5b31"
+                "13fde8ea-eb1e-4683-921a-8666fadfec7c",
+                "ca72d58b-05ab-46d6-914d-c2eab21dcef9",
+                "3bc77e84-2605-43b6-a59c-80bd5bef3951"
               ],
               "failures": [],
               "pending": [],
@@ -536,7 +536,7 @@
               "_timeout": 2000
             },
             {
-              "uuid": "84efb1b5-6ee1-49fb-8294-0bfea0a6d913",
+              "uuid": "3ada028a-6b8a-4e26-8e31-40ea9d7aeecf",
               "title": "/docAppsByDate",
               "fullFile": "/Users/iifawzi/Desktop/current projects/Hospital/test/appointments.test.js",
               "file": "/test/appointments.test.js",
@@ -547,7 +547,7 @@
                   "title": "Should respond 401 if not Authorized",
                   "fullTitle": "/api/appointments /docAppsByDate Should respond 401 if not Authorized",
                   "timedOut": false,
-                  "duration": 3,
+                  "duration": 1,
                   "state": "passed",
                   "speed": "fast",
                   "pass": true,
@@ -556,8 +556,8 @@
                   "context": null,
                   "code": "let res = await request(server)\n.post(\"/api/appointments/docAppsByDate\")\n.expect(401);",
                   "err": {},
-                  "uuid": "a204928a-4dc7-441a-aa33-13b3d5a7ac60",
-                  "parentUUID": "84efb1b5-6ee1-49fb-8294-0bfea0a6d913",
+                  "uuid": "882bee8f-013a-45c9-8595-2a0b46fefb1e",
+                  "parentUUID": "3ada028a-6b8a-4e26-8e31-40ea9d7aeecf",
                   "isHook": false,
                   "skipped": false
                 },
@@ -565,7 +565,7 @@
                   "title": "Should respond 400 if one of inputs is missing or incorrect",
                   "fullTitle": "/api/appointments /docAppsByDate Should respond 400 if one of inputs is missing or incorrect",
                   "timedOut": false,
-                  "duration": 2,
+                  "duration": 1,
                   "state": "passed",
                   "speed": "fast",
                   "pass": true,
@@ -574,8 +574,8 @@
                   "context": null,
                   "code": "const token = genToken(\"0109034748\",1,\"doctor\");\nlet res = await request(server)\n.post(\"/api/appointments/docAppsByDate\")\n.set(\"Authorization\", `Bearer ${token}`)\n.send({\n    \"aapointment_id\":\"djdkj\",\n    })\n.expect(400);",
                   "err": {},
-                  "uuid": "3a45ca9e-f679-497d-9067-32365396fdf7",
-                  "parentUUID": "84efb1b5-6ee1-49fb-8294-0bfea0a6d913",
+                  "uuid": "bd1ba88a-af96-4735-adb6-1b291a7b71cc",
+                  "parentUUID": "3ada028a-6b8a-4e26-8e31-40ea9d7aeecf",
                   "isHook": false,
                   "skipped": false
                 },
@@ -583,31 +583,36 @@
                   "title": "Should respond with 200 if we got the apps successfully",
                   "fullTitle": "/api/appointments /docAppsByDate Should respond with 200 if we got the apps successfully",
                   "timedOut": false,
-                  "duration": 4,
-                  "state": "passed",
-                  "speed": "fast",
-                  "pass": true,
-                  "fail": false,
+                  "duration": 5,
+                  "state": "failed",
+                  "speed": null,
+                  "pass": false,
+                  "fail": true,
                   "pending": false,
                   "context": null,
-                  "code": "const token = genToken('01090243795',1,\"doctor\");\nlet res = await request(server)\n.post(\"/api/appointments/docAppsByDate\")\n.set('Authorization',`Bearer ${token}`)\n.send({\n    \"date\":'2020-03-20'\n})\n.expect(200);\nexpect(res.body.data[0].date).to.equal(\"2020-03-20\");",
-                  "err": {},
-                  "uuid": "080148d6-daf6-413e-baa7-bd7284da5ea6",
-                  "parentUUID": "84efb1b5-6ee1-49fb-8294-0bfea0a6d913",
+                  "code": "const token = genToken('01090243795',1,\"doctor\");\nlet res = await request(server)\n.post(\"/api/appointments/docAppsByDate\")\n.set('Authorization',`Bearer ${token}`)\n.send({\n    \"date\":'2020-03-20'\n})\n.expect(200)\n// expect(res.body.data[0].date).to.equal(\"2020-03-20\");",
+                  "err": {
+                    "message": "Error: expected 200 \"OK\", got 500 \"Internal Server Error\"",
+                    "estack": "Error: expected 200 \"OK\", got 500 \"Internal Server Error\"\n    at Test._assertStatus (node_modules/supertest/lib/test.js:268:12)\n    at Test._assertFunction (node_modules/supertest/lib/test.js:283:11)\n    at Test.assert (node_modules/supertest/lib/test.js:173:18)\n    at localAssert (node_modules/supertest/lib/test.js:131:12)\n    at /Users/iifawzi/Desktop/current projects/Hospital/node_modules/supertest/lib/test.js:128:5\n    at Test.Request.callback (node_modules/superagent/lib/node/index.js:728:3)\n    at /Users/iifawzi/Desktop/current projects/Hospital/node_modules/superagent/lib/node/index.js:916:18\n    at IncomingMessage.<anonymous> (node_modules/superagent/lib/node/parsers/json.js:19:7)\n    at endReadableNT (_stream_readable.js:1201:12)\n    at processTicksAndRejections (internal/process/task_queues.js:84:21)",
+                    "diff": null
+                  },
+                  "uuid": "ec3d3d53-6552-4aa9-99c7-4bf483b695f6",
+                  "parentUUID": "3ada028a-6b8a-4e26-8e31-40ea9d7aeecf",
                   "isHook": false,
                   "skipped": false
                 }
               ],
               "suites": [],
               "passes": [
-                "a204928a-4dc7-441a-aa33-13b3d5a7ac60",
-                "3a45ca9e-f679-497d-9067-32365396fdf7",
-                "080148d6-daf6-413e-baa7-bd7284da5ea6"
+                "882bee8f-013a-45c9-8595-2a0b46fefb1e",
+                "bd1ba88a-af96-4735-adb6-1b291a7b71cc"
               ],
-              "failures": [],
+              "failures": [
+                "ec3d3d53-6552-4aa9-99c7-4bf483b695f6"
+              ],
               "pending": [],
               "skipped": [],
-              "duration": 9,
+              "duration": 7,
               "root": false,
               "rootEmpty": false,
               "_timeout": 2000
@@ -623,7 +628,7 @@
           "_timeout": 2000
         },
         {
-          "uuid": "23d1f7bc-bdc8-4e66-8450-52618e431e99",
+          "uuid": "804fa4ba-4718-48fe-a81c-fcc5e1a4dd4c",
           "title": "/api/auth",
           "fullFile": "/Users/iifawzi/Desktop/current projects/Hospital/test/auth.test.js",
           "file": "/test/auth.test.js",
@@ -641,8 +646,8 @@
               "context": null,
               "code": "server = require(\"../app\");",
               "err": {},
-              "uuid": "e98b88a6-044e-4acf-ae19-e905a46f2a00",
-              "parentUUID": "23d1f7bc-bdc8-4e66-8450-52618e431e99",
+              "uuid": "671b64cc-25ce-4d45-8631-10374a4ef218",
+              "parentUUID": "804fa4ba-4718-48fe-a81c-fcc5e1a4dd4c",
               "isHook": true,
               "skipped": false
             }
@@ -652,7 +657,7 @@
               "title": "\"after each\" hook",
               "fullTitle": "/api/auth \"after each\" hook",
               "timedOut": false,
-              "duration": 1,
+              "duration": 0,
               "state": null,
               "speed": null,
               "pass": false,
@@ -661,8 +666,8 @@
               "context": null,
               "code": "",
               "err": {},
-              "uuid": "39f705e1-a7c7-4c89-bbff-4ba5d4e062f7",
-              "parentUUID": "23d1f7bc-bdc8-4e66-8450-52618e431e99",
+              "uuid": "8428d416-32a4-475e-8fd6-fb7964bb0b86",
+              "parentUUID": "804fa4ba-4718-48fe-a81c-fcc5e1a4dd4c",
               "isHook": true,
               "skipped": false
             }
@@ -670,7 +675,7 @@
           "tests": [],
           "suites": [
             {
-              "uuid": "8efebbef-4646-447c-afa8-d7816e0b5409",
+              "uuid": "5598f95f-8fbb-40b4-a1c4-198cbc617cee",
               "title": "/signup",
               "fullFile": "/Users/iifawzi/Desktop/current projects/Hospital/test/auth.test.js",
               "file": "/test/auth.test.js",
@@ -690,8 +695,8 @@
                   "context": null,
                   "code": "let res = await request(server)\n.post(\"/api/auth/signup\").expect(400);  \nres = await request(server)\n.post(\"/api/auth/signup\")\n.send({password:\"fawzi\"})\n.expect(400);",
                   "err": {},
-                  "uuid": "a8b39388-8314-40c3-ac8d-938706c07e9d",
-                  "parentUUID": "8efebbef-4646-447c-afa8-d7816e0b5409",
+                  "uuid": "65c73a51-2df1-4d69-be4f-db75e45c92f1",
+                  "parentUUID": "5598f95f-8fbb-40b4-a1c4-198cbc617cee",
                   "isHook": false,
                   "skipped": false
                 },
@@ -699,7 +704,7 @@
                   "title": "should respond with 201 if user succefully registered",
                   "fullTitle": "/api/auth /signup should respond with 201 if user succefully registered",
                   "timedOut": false,
-                  "duration": 7,
+                  "duration": 9,
                   "state": "passed",
                   "speed": "fast",
                   "pass": true,
@@ -708,8 +713,8 @@
                   "context": null,
                   "code": "let res = await request(server)\n.post(\"/api/auth/signup\")\n.send({\n    \"phone_number\": \"01590243399\",\n    \"first_name\": \"fawzi\",\n    \"last_name\":\"ahmed\",\n    \"birth_date\": \"1999-03-20\",\n    \"weight\": 100,\n    \"height\": 180,\n    \"bmi\": 28,\n    \"fb_token_id\": \"djdj84\",\n    \"gender\": \"male\",\n})\n.expect(201);\nexpect(res.body.data.phone_number).to.equal(\"01590243399\");",
                   "err": {},
-                  "uuid": "fed3f58a-8a70-4202-9b0a-f222c617fcf7",
-                  "parentUUID": "8efebbef-4646-447c-afa8-d7816e0b5409",
+                  "uuid": "8ccacf6b-d15a-46fd-b62d-4978e6edb748",
+                  "parentUUID": "5598f95f-8fbb-40b4-a1c4-198cbc617cee",
                   "isHook": false,
                   "skipped": false
                 },
@@ -717,7 +722,7 @@
                   "title": "should respond with 403 if phone_number is already registered",
                   "fullTitle": "/api/auth /signup should respond with 403 if phone_number is already registered",
                   "timedOut": false,
-                  "duration": 5,
+                  "duration": 4,
                   "state": "passed",
                   "speed": "fast",
                   "pass": true,
@@ -726,28 +731,28 @@
                   "context": null,
                   "code": "let res = await request(server)\n.post(\"/api/auth/signup\")\n.send({\n    \"phone_number\": \"01590243399\",\n    \"first_name\": \"fawzi\",\n    \"last_name\":\"ahmed\",\n    \"birth_date\": \"1999-03-20\",\n    \"weight\": 100,\n    \"height\": 180,\n    \"bmi\": 28,\n    \"fb_token_id\": \"djdj84\",\n    \"gender\": \"male\",\n})\n.expect(403);\ndeleteUser(\"01590243399\");",
                   "err": {},
-                  "uuid": "89e5f89f-9c76-40d4-b31c-20c497ec334f",
-                  "parentUUID": "8efebbef-4646-447c-afa8-d7816e0b5409",
+                  "uuid": "d61ea9d3-5071-46df-b70b-f7d0e07f4719",
+                  "parentUUID": "5598f95f-8fbb-40b4-a1c4-198cbc617cee",
                   "isHook": false,
                   "skipped": false
                 }
               ],
               "suites": [],
               "passes": [
-                "a8b39388-8314-40c3-ac8d-938706c07e9d",
-                "fed3f58a-8a70-4202-9b0a-f222c617fcf7",
-                "89e5f89f-9c76-40d4-b31c-20c497ec334f"
+                "65c73a51-2df1-4d69-be4f-db75e45c92f1",
+                "8ccacf6b-d15a-46fd-b62d-4978e6edb748",
+                "d61ea9d3-5071-46df-b70b-f7d0e07f4719"
               ],
               "failures": [],
               "pending": [],
               "skipped": [],
-              "duration": 16,
+              "duration": 17,
               "root": false,
               "rootEmpty": false,
               "_timeout": 2000
             },
             {
-              "uuid": "3b1eef19-1419-42e5-a9e8-4274273c8474",
+              "uuid": "10ba0eab-4b89-4502-975f-815c5ac5cbd1",
               "title": "/signin",
               "fullFile": "/Users/iifawzi/Desktop/current projects/Hospital/test/auth.test.js",
               "file": "/test/auth.test.js",
@@ -758,7 +763,7 @@
                   "title": "should respond with 400 if input are missing (SCHEMA VALIDATION)",
                   "fullTitle": "/api/auth /signin should respond with 400 if input are missing (SCHEMA VALIDATION)",
                   "timedOut": false,
-                  "duration": 1,
+                  "duration": 3,
                   "state": "passed",
                   "speed": "fast",
                   "pass": true,
@@ -767,8 +772,8 @@
                   "context": null,
                   "code": "let res = await request(server)\n.post(\"/api/auth/signin\")\n.expect(400);",
                   "err": {},
-                  "uuid": "dbe06468-4808-428e-9381-6069555f2856",
-                  "parentUUID": "3b1eef19-1419-42e5-a9e8-4274273c8474",
+                  "uuid": "c5fc65c0-df44-4d84-bfc2-a109ba5f9713",
+                  "parentUUID": "10ba0eab-4b89-4502-975f-815c5ac5cbd1",
                   "isHook": false,
                   "skipped": false
                 },
@@ -776,7 +781,7 @@
                   "title": "should respond with 401 when phone number notfound `backend side`",
                   "fullTitle": "/api/auth /signin should respond with 401 when phone number notfound `backend side`",
                   "timedOut": false,
-                  "duration": 3,
+                  "duration": 4,
                   "state": "passed",
                   "speed": "fast",
                   "pass": true,
@@ -785,8 +790,8 @@
                   "context": null,
                   "code": "let res = await request(server)\n .post(\"/api/auth/signin\")\n .send({\"phone_number\":\"01590243311\"})\n .expect(401);",
                   "err": {},
-                  "uuid": "ef889ab8-febf-411e-9b59-7a424bf662ee",
-                  "parentUUID": "3b1eef19-1419-42e5-a9e8-4274273c8474",
+                  "uuid": "72e2c97c-77d6-4481-8363-0370043815b7",
+                  "parentUUID": "10ba0eab-4b89-4502-975f-815c5ac5cbd1",
                   "isHook": false,
                   "skipped": false
                 },
@@ -794,7 +799,7 @@
                   "title": "should respond with 200 if user loged in successfully",
                   "fullTitle": "/api/auth /signin should respond with 200 if user loged in successfully",
                   "timedOut": false,
-                  "duration": 9,
+                  "duration": 11,
                   "state": "passed",
                   "speed": "fast",
                   "pass": true,
@@ -803,28 +808,28 @@
                   "context": null,
                   "code": "let res = await request(server)\n.post(\"/api/auth/signup\")\n.send({\n    \"phone_number\": \"01590243311\",\n    \"first_name\": \"fawzi\",\n    \"last_name\":\"ahmed\",\n    \"birth_date\": \"1999-03-20\",\n    \"weight\": 100,\n    \"height\": 180,\n    \"bmi\": 28,\n    \"fb_token_id\": \"djdj84\",\n    \"gender\": \"male\",\n}).expect(201);\nexpect(res.body.data.phone_number).to.equal(\"01590243311\");\nres = await request(server)\n.post(\"/api/auth/signin\")\n.send({\"phone_number\":\"01590243311\"})\n.expect(200);\ndeleteUser(\"01590243311\");",
                   "err": {},
-                  "uuid": "5d006895-3fa4-461c-9a15-8e500ceb2f91",
-                  "parentUUID": "3b1eef19-1419-42e5-a9e8-4274273c8474",
+                  "uuid": "dfbc2696-9e7e-40a1-92af-472e95a6f682",
+                  "parentUUID": "10ba0eab-4b89-4502-975f-815c5ac5cbd1",
                   "isHook": false,
                   "skipped": false
                 }
               ],
               "suites": [],
               "passes": [
-                "dbe06468-4808-428e-9381-6069555f2856",
-                "ef889ab8-febf-411e-9b59-7a424bf662ee",
-                "5d006895-3fa4-461c-9a15-8e500ceb2f91"
+                "c5fc65c0-df44-4d84-bfc2-a109ba5f9713",
+                "72e2c97c-77d6-4481-8363-0370043815b7",
+                "dfbc2696-9e7e-40a1-92af-472e95a6f682"
               ],
               "failures": [],
               "pending": [],
               "skipped": [],
-              "duration": 13,
+              "duration": 18,
               "root": false,
               "rootEmpty": false,
               "_timeout": 2000
             },
             {
-              "uuid": "79580ca6-51f0-4d3b-9cc4-7055cd2635d7",
+              "uuid": "b88d4796-374b-4e0d-a627-b59835403007",
               "title": "/updateFirebaseToken",
               "fullFile": "/Users/iifawzi/Desktop/current projects/Hospital/test/auth.test.js",
               "file": "/test/auth.test.js",
@@ -835,7 +840,7 @@
                   "title": "Should respond with 400 if one of inpus is missed (SCHEMA VALIDATION)",
                   "fullTitle": "/api/auth /updateFirebaseToken Should respond with 400 if one of inpus is missed (SCHEMA VALIDATION)",
                   "timedOut": false,
-                  "duration": 2,
+                  "duration": 4,
                   "state": "passed",
                   "speed": "fast",
                   "pass": true,
@@ -844,8 +849,8 @@
                   "context": null,
                   "code": "const token = genToken(\"01590243399\",1,\"user\");\nlet res = await request(server)\n.patch(\"/api/auth/updateFirebaseToken\")\n.send({\"notInTheSchema\":\"haka\"})\n.set(\"Authorization\", `Bearer ${token}`)\n.expect(400);",
                   "err": {},
-                  "uuid": "6c6e5dbb-36a4-49f8-b03f-0d07ca492ed9",
-                  "parentUUID": "79580ca6-51f0-4d3b-9cc4-7055cd2635d7",
+                  "uuid": "a8819373-4ff5-4c9c-9aaf-4f88a829c56b",
+                  "parentUUID": "b88d4796-374b-4e0d-a627-b59835403007",
                   "isHook": false,
                   "skipped": false
                 },
@@ -862,8 +867,8 @@
                   "context": null,
                   "code": "const token = genToken(\"01090243788\",1,\"user\");\nlet res = await request(server)\n.patch(\"/api/auth/updateFirebaseToken\")\n.send({\"new_token\":\"djkdjkdjk\"})\n.set(\"Authorization\", `Bearer ${token}`)\n.expect(401);",
                   "err": {},
-                  "uuid": "0b513a06-1d62-4cbd-bf6b-24e9e561173d",
-                  "parentUUID": "79580ca6-51f0-4d3b-9cc4-7055cd2635d7",
+                  "uuid": "145a9070-3c1f-4cf6-9502-07978f7af52d",
+                  "parentUUID": "b88d4796-374b-4e0d-a627-b59835403007",
                   "isHook": false,
                   "skipped": false
                 },
@@ -871,7 +876,7 @@
                   "title": "should respond with 200 if we updated the token_id successfully",
                   "fullTitle": "/api/auth /updateFirebaseToken should respond with 200 if we updated the token_id successfully",
                   "timedOut": false,
-                  "duration": 12,
+                  "duration": 15,
                   "state": "passed",
                   "speed": "fast",
                   "pass": true,
@@ -880,8 +885,8 @@
                   "context": null,
                   "code": "let res = await request(server)\n.post(\"/api/auth/signup\")\n.send({\n    \"phone_number\": \"01590243388\",\n    \"first_name\": \"fawzi\",\n    \"last_name\":\"ahmed\",\n    \"birth_date\": \"1999-03-20\",\n    \"weight\": 100,\n    \"height\": 180,\n    \"bmi\": 28,\n    \"fb_token_id\": \"test\",\n    \"gender\": \"male\"\n}).expect(201);\nconst token = genToken(\"01590243388\",1,\"user\");\nres = await request(server)\n.patch(\"/api/auth/updateFirebaseToken\")\n.send({\"new_token\":\"123456789elhamdullah\"})\n.set(\"Authorization\", `Bearer ${token}`)\n.expect(200);\nexpect(res.body.data.updated_token).to.equal(\"123456789elhamdullah\");\ndeleteUser(\"01590243388\");",
                   "err": {},
-                  "uuid": "b70d27c3-7f1e-4ae8-9341-97ec44855345",
-                  "parentUUID": "79580ca6-51f0-4d3b-9cc4-7055cd2635d7",
+                  "uuid": "345befd2-bee6-43f5-8a62-b21d60b58392",
+                  "parentUUID": "b88d4796-374b-4e0d-a627-b59835403007",
                   "isHook": false,
                   "skipped": false
                 },
@@ -889,7 +894,7 @@
                   "title": "should respond with 403 if user is blocked",
                   "fullTitle": "/api/auth /updateFirebaseToken should respond with 403 if user is blocked",
                   "timedOut": false,
-                  "duration": 14,
+                  "duration": 19,
                   "state": "passed",
                   "speed": "fast",
                   "pass": true,
@@ -898,8 +903,8 @@
                   "context": null,
                   "code": "let res = await request(server)\n.post(\"/api/auth/signup\")\n.send({\n    \"phone_number\": \"01590243399\",\n    \"first_name\": \"fawzi\",\n    \"last_name\":\"ahmed\",\n    \"birth_date\": \"1999-03-20\",\n    \"weight\": 100,\n    \"height\": 180,\n    \"bmi\": 28,\n    \"fb_token_id\": \"test\",\n    \"gender\": \"male\",\n}).expect(201);\nconst token = genToken(\"01590243399\",1,\"user\");\nawait blockUser(\"01590243399\");\nres = await request(server)\n.patch(\"/api/auth/updateFirebaseToken\")\n.send({\"new_token\":\"123456789elhamdullah\"})\n.set(\"Authorization\", `Bearer ${token}`)\n.expect(403);\ndeleteUser(\"01590243399\");",
                   "err": {},
-                  "uuid": "8166c153-9e68-44da-836e-9f86ace66420",
-                  "parentUUID": "79580ca6-51f0-4d3b-9cc4-7055cd2635d7",
+                  "uuid": "92388f8a-9fcc-4b70-b2ac-f9f0098a6ad5",
+                  "parentUUID": "b88d4796-374b-4e0d-a627-b59835403007",
                   "isHook": false,
                   "skipped": false
                 },
@@ -907,7 +912,7 @@
                   "title": "should respond with 401 if user is not authorized ",
                   "fullTitle": "/api/auth /updateFirebaseToken should respond with 401 if user is not authorized ",
                   "timedOut": false,
-                  "duration": 11,
+                  "duration": 12,
                   "state": "passed",
                   "speed": "fast",
                   "pass": true,
@@ -916,30 +921,30 @@
                   "context": null,
                   "code": "let res = await request(server)\n.post(\"/api/auth/signup\")\n.send({\n    \"phone_number\": \"01590243391\",\n    \"first_name\": \"fawzi\",\n    \"last_name\":\"ahmed\",\n    \"birth_date\": \"1999-03-20\",\n    \"weight\": 100,\n    \"height\": 180,\n    \"bmi\": 28,\n    \"fb_token_id\": \"test\",\n    \"gender\": \"male\",\n}).expect(201);\n// const token = genToken(\"01590243399\",\"user\");\nres = await request(server)\n.patch(\"/api/auth/updateFirebaseToken\")\n.send({\"new_token\":\"123456789elhamdullah\"})\n// .set(\"Authorization\", `Bearer ${token}`)\n.expect(401);\ndeleteUser(\"01590243391\");",
                   "err": {},
-                  "uuid": "82636588-0dd4-4bac-b5ac-1a6e6dc00ad6",
-                  "parentUUID": "79580ca6-51f0-4d3b-9cc4-7055cd2635d7",
+                  "uuid": "2a5cc79c-2ab5-4008-bed3-574ff4e6a8bd",
+                  "parentUUID": "b88d4796-374b-4e0d-a627-b59835403007",
                   "isHook": false,
                   "skipped": false
                 }
               ],
               "suites": [],
               "passes": [
-                "6c6e5dbb-36a4-49f8-b03f-0d07ca492ed9",
-                "0b513a06-1d62-4cbd-bf6b-24e9e561173d",
-                "b70d27c3-7f1e-4ae8-9341-97ec44855345",
-                "8166c153-9e68-44da-836e-9f86ace66420",
-                "82636588-0dd4-4bac-b5ac-1a6e6dc00ad6"
+                "a8819373-4ff5-4c9c-9aaf-4f88a829c56b",
+                "145a9070-3c1f-4cf6-9502-07978f7af52d",
+                "345befd2-bee6-43f5-8a62-b21d60b58392",
+                "92388f8a-9fcc-4b70-b2ac-f9f0098a6ad5",
+                "2a5cc79c-2ab5-4008-bed3-574ff4e6a8bd"
               ],
               "failures": [],
               "pending": [],
               "skipped": [],
-              "duration": 43,
+              "duration": 54,
               "root": false,
               "rootEmpty": false,
               "_timeout": 2000
             },
             {
-              "uuid": "6a8b53ce-f995-4e6c-84c2-b2cce5f21a8d",
+              "uuid": "f1ef1574-45b2-43cd-b9cd-8d9f82c1486e",
               "title": "/signDoctor",
               "fullFile": "/Users/iifawzi/Desktop/current projects/Hospital/test/auth.test.js",
               "file": "/test/auth.test.js",
@@ -950,7 +955,7 @@
                   "title": "should respond with 400 if any inputs are incorrect or missed (SCHEMA VALIDATION)",
                   "fullTitle": "/api/auth /signDoctor should respond with 400 if any inputs are incorrect or missed (SCHEMA VALIDATION)",
                   "timedOut": false,
-                  "duration": 2,
+                  "duration": 1,
                   "state": "passed",
                   "speed": "fast",
                   "pass": true,
@@ -959,8 +964,8 @@
                   "context": null,
                   "code": "let res = await request(server)\n.post(\"/api/auth/signDoctor\")\n.send({phone_number:\"02903\"})\n.expect(400);",
                   "err": {},
-                  "uuid": "23c2d485-7457-486f-90d0-ace0e0f93336",
-                  "parentUUID": "6a8b53ce-f995-4e6c-84c2-b2cce5f21a8d",
+                  "uuid": "b776cada-8a69-4dff-9068-c6bd04c94a94",
+                  "parentUUID": "f1ef1574-45b2-43cd-b9cd-8d9f82c1486e",
                   "isHook": false,
                   "skipped": false
                 },
@@ -968,7 +973,7 @@
                   "title": "should respond with 401 if phone number or password are incorrect `backend side`",
                   "fullTitle": "/api/auth /signDoctor should respond with 401 if phone number or password are incorrect `backend side`",
                   "timedOut": false,
-                  "duration": 11,
+                  "duration": 20,
                   "state": "passed",
                   "speed": "fast",
                   "pass": true,
@@ -977,27 +982,27 @@
                   "context": null,
                   "code": "const token = genToken(\"01590243399\",1,\"admin\");\nlet res = await request(server)\n.post(\"/api/controlPanel/addDoctor\")\n.set(\"Authorization\", `Bearer ${token}`)\n.send({\n    \"phone_number\":\"01090243795\",\n    \"password\":\"testtest\",\n    \"first_name\":\"fawzi\",\n    \"last_name\": \"ahmed\",\n    \"country\":\"egypt\",\n    \"category_id\":1,\n    \"picture\":\"fkfjkfj\",\n    \"price\":\"200\"\n})\n.expect(201);\nres = await request(server)\n.post(\"/api/auth/signDoctor\")\n.send({phone_number:\"01090243794\",password:\"01288\"})\n.expect(401);\ndeleteDoctor(\"01090243795\");",
                   "err": {},
-                  "uuid": "5209f216-3d94-4132-b7b1-2aeabccc3aeb",
-                  "parentUUID": "6a8b53ce-f995-4e6c-84c2-b2cce5f21a8d",
+                  "uuid": "36f8cab4-58e2-447b-aa6e-271895a38a58",
+                  "parentUUID": "f1ef1574-45b2-43cd-b9cd-8d9f82c1486e",
                   "isHook": false,
                   "skipped": false
                 }
               ],
               "suites": [],
               "passes": [
-                "23c2d485-7457-486f-90d0-ace0e0f93336",
-                "5209f216-3d94-4132-b7b1-2aeabccc3aeb"
+                "b776cada-8a69-4dff-9068-c6bd04c94a94",
+                "36f8cab4-58e2-447b-aa6e-271895a38a58"
               ],
               "failures": [],
               "pending": [],
               "skipped": [],
-              "duration": 13,
+              "duration": 21,
               "root": false,
               "rootEmpty": false,
               "_timeout": 2000
             },
             {
-              "uuid": "bb9ec9ba-bb66-4982-8701-ecc1d3dc5527",
+              "uuid": "1c6b848b-87c8-45cd-bc00-148680f74d86",
               "title": "/updateDoctorFirebaseToken",
               "fullFile": "/Users/iifawzi/Desktop/current projects/Hospital/test/auth.test.js",
               "file": "/test/auth.test.js",
@@ -1017,8 +1022,8 @@
                   "context": null,
                   "code": "const token = genToken(\"01590243399\",1,\"doctor\");\nlet res = await request(server)\n.patch(\"/api/auth/updateDoctorFirebaseToken\")\n.send({\"notInTheSchema\":\"haka\"})\n.set(\"Authorization\", `Bearer ${token}`)\n.expect(400);",
                   "err": {},
-                  "uuid": "7e3faf88-1c5f-43e0-82b6-2d01c8953871",
-                  "parentUUID": "bb9ec9ba-bb66-4982-8701-ecc1d3dc5527",
+                  "uuid": "7b341570-6893-40ca-856f-5950b73a8ebe",
+                  "parentUUID": "1c6b848b-87c8-45cd-bc00-148680f74d86",
                   "isHook": false,
                   "skipped": false
                 },
@@ -1026,7 +1031,7 @@
                   "title": "should respond with 401 if phone number not found `backend side`",
                   "fullTitle": "/api/auth /updateDoctorFirebaseToken should respond with 401 if phone number not found `backend side`",
                   "timedOut": false,
-                  "duration": 3,
+                  "duration": 5,
                   "state": "passed",
                   "speed": "fast",
                   "pass": true,
@@ -1035,8 +1040,8 @@
                   "context": null,
                   "code": "const token = genToken(\"01090243788\",1,\"doctor\");\nlet res = await request(server)\n.patch(\"/api/auth/updateDoctorFirebaseToken\")\n.send({\"new_token\":\"djkdjkdjk\"})\n.set(\"Authorization\", `Bearer ${token}`)\n.expect(401);",
                   "err": {},
-                  "uuid": "d3a6d34a-ec38-4bf6-b9ce-974251520e73",
-                  "parentUUID": "bb9ec9ba-bb66-4982-8701-ecc1d3dc5527",
+                  "uuid": "dcf99f18-3d2a-4281-8fe1-e891dcb100a9",
+                  "parentUUID": "1c6b848b-87c8-45cd-bc00-148680f74d86",
                   "isHook": false,
                   "skipped": false
                 },
@@ -1044,7 +1049,7 @@
                   "title": "should respond with 200 if we updated the Doctor token_id successfully",
                   "fullTitle": "/api/auth /updateDoctorFirebaseToken should respond with 200 if we updated the Doctor token_id successfully",
                   "timedOut": false,
-                  "duration": 15,
+                  "duration": 17,
                   "state": "passed",
                   "speed": "fast",
                   "pass": true,
@@ -1053,8 +1058,8 @@
                   "context": null,
                   "code": "const token = genToken(\"01090243788\",1,\"admin\");\nlet res = await request(server)\n.post(\"/api/controlPanel/addDoctor\")\n.set(\"Authorization\", `Bearer ${token}`)\n.send({\n    \"phone_number\":\"01090243795\",\n    \"password\":\"testtest\",\n    \"first_name\":\"fawzi\",\n    \"last_name\": \"ahmed\",\n    \"country\":\"egypt\",\n    \"category_id\":1,\n    \"picture\":\"fkfjkfj\",\n    \"price\":\"200\"\n})\n.expect(201);\nexpect(res.body.data.phone_number).to.equal(\"01090243795\");\nconst token2 = genToken(\"01090243795\",1,\"doctor\");\nres = await request(server)\n.patch(\"/api/auth/updateDoctorFirebaseToken\")\n.send({\"new_token\":\"123456789elhamdullah\"})\n.set(\"Authorization\", `Bearer ${token2}`)\n.expect(200);\nexpect(res.body.data.updated_token).to.equal(\"123456789elhamdullah\");\ndeleteDoctor(\"01090243795\");",
                   "err": {},
-                  "uuid": "9dcbf408-1687-4aa6-8f22-7a05d2135c4f",
-                  "parentUUID": "bb9ec9ba-bb66-4982-8701-ecc1d3dc5527",
+                  "uuid": "efb40411-684c-4486-a9be-5b348ac3232e",
+                  "parentUUID": "1c6b848b-87c8-45cd-bc00-148680f74d86",
                   "isHook": false,
                   "skipped": false
                 },
@@ -1062,7 +1067,7 @@
                   "title": "should respond with 401 if Doctor is not authorized ",
                   "fullTitle": "/api/auth /updateDoctorFirebaseToken should respond with 401 if Doctor is not authorized ",
                   "timedOut": false,
-                  "duration": 8,
+                  "duration": 10,
                   "state": "passed",
                   "speed": "fast",
                   "pass": true,
@@ -1071,23 +1076,23 @@
                   "context": null,
                   "code": "const token = genToken(\"01090243795\",1,\"admin\");\nlet res = await request(server)\n.post(\"/api/controlPanel/addDoctor\")\n.set(\"Authorization\", `Bearer ${token}`)\n.send({\n    \"phone_number\":\"01010243795\",\n    \"password\":\"testtest\",\n    \"first_name\":\"fawzi\",\n    \"last_name\": \"ahmed\",\n    \"country\":\"egypt\",\n    \"category_id\":1,\n    \"picture\":\"fkfjkfj\",\n    \"price\":\"200\"\n})\n.expect(201);\n// const token = genToken(\"01590243399\",\"doctor\");\nres = await request(server)\n.patch(\"/api/auth/updateFirebaseToken\")\n.send({\"new_token\":\"123456789elhamdullah\"})\n// .set(\"Authorization\", `Bearer ${token}`)\n.expect(401);\ndeleteDoctor(\"01010243795\");",
                   "err": {},
-                  "uuid": "06569481-d7a2-4d6d-baa5-06643f27eda3",
-                  "parentUUID": "bb9ec9ba-bb66-4982-8701-ecc1d3dc5527",
+                  "uuid": "ddf140f4-f796-49c4-8cba-51632a99b94e",
+                  "parentUUID": "1c6b848b-87c8-45cd-bc00-148680f74d86",
                   "isHook": false,
                   "skipped": false
                 }
               ],
               "suites": [],
               "passes": [
-                "7e3faf88-1c5f-43e0-82b6-2d01c8953871",
-                "d3a6d34a-ec38-4bf6-b9ce-974251520e73",
-                "9dcbf408-1687-4aa6-8f22-7a05d2135c4f",
-                "06569481-d7a2-4d6d-baa5-06643f27eda3"
+                "7b341570-6893-40ca-856f-5950b73a8ebe",
+                "dcf99f18-3d2a-4281-8fe1-e891dcb100a9",
+                "efb40411-684c-4486-a9be-5b348ac3232e",
+                "ddf140f4-f796-49c4-8cba-51632a99b94e"
               ],
               "failures": [],
               "pending": [],
               "skipped": [],
-              "duration": 28,
+              "duration": 34,
               "root": false,
               "rootEmpty": false,
               "_timeout": 2000
@@ -1103,7 +1108,7 @@
           "_timeout": 2000
         },
         {
-          "uuid": "20c8719b-82f9-4b2d-bf6b-47fc07e393d0",
+          "uuid": "cbc5149d-bc66-417d-9e8e-137adc5253d7",
           "title": "/api/categories",
           "fullFile": "/Users/iifawzi/Desktop/current projects/Hospital/test/categories.js",
           "file": "/test/categories.js",
@@ -1121,8 +1126,8 @@
               "context": null,
               "code": "server = require(\"../app\");",
               "err": {},
-              "uuid": "80158eae-f7b5-457b-9278-b11a5b98ac2f",
-              "parentUUID": "20c8719b-82f9-4b2d-bf6b-47fc07e393d0",
+              "uuid": "1be8995b-18f2-4722-a5ac-ba8bd76eec11",
+              "parentUUID": "cbc5149d-bc66-417d-9e8e-137adc5253d7",
               "isHook": true,
               "skipped": false
             }
@@ -1132,7 +1137,7 @@
               "title": "\"after each\" hook",
               "fullTitle": "/api/categories \"after each\" hook",
               "timedOut": false,
-              "duration": 0,
+              "duration": 1,
               "state": null,
               "speed": null,
               "pass": false,
@@ -1141,8 +1146,8 @@
               "context": null,
               "code": "",
               "err": {},
-              "uuid": "ef95c025-8f1c-46ea-ab55-8c31de9d4328",
-              "parentUUID": "20c8719b-82f9-4b2d-bf6b-47fc07e393d0",
+              "uuid": "29b35839-7616-4520-aaf0-b6f0e2c13d93",
+              "parentUUID": "cbc5149d-bc66-417d-9e8e-137adc5253d7",
               "isHook": true,
               "skipped": false
             }
@@ -1150,7 +1155,7 @@
           "tests": [],
           "suites": [
             {
-              "uuid": "39a47f6c-ef0d-45db-b550-668f801e2ad9",
+              "uuid": "a3c6d014-0234-4a61-9f2e-532aef30ef89",
               "title": "/getCategories",
               "fullFile": "/Users/iifawzi/Desktop/current projects/Hospital/test/categories.js",
               "file": "/test/categories.js",
@@ -1161,7 +1166,7 @@
                   "title": "Should respond 401 if not Authorized",
                   "fullTitle": "/api/categories /getCategories Should respond 401 if not Authorized",
                   "timedOut": false,
-                  "duration": 2,
+                  "duration": 3,
                   "state": "passed",
                   "speed": "fast",
                   "pass": true,
@@ -1170,8 +1175,8 @@
                   "context": null,
                   "code": "let res = await request(server)\n.get(\"/api/categories/getCategories\")\n.expect(401);",
                   "err": {},
-                  "uuid": "dab7c133-d56d-47f6-9f2c-8b5f22d06762",
-                  "parentUUID": "39a47f6c-ef0d-45db-b550-668f801e2ad9",
+                  "uuid": "673beb96-55c6-466a-8a68-87d75e0fb075",
+                  "parentUUID": "a3c6d014-0234-4a61-9f2e-532aef30ef89",
                   "isHook": false,
                   "skipped": false
                 },
@@ -1188,21 +1193,21 @@
                   "context": null,
                   "code": "const token = genToken(\"0109034748\",1,\"user\");\nlet res = await request(server)\n.get(\"/api/categories/getCategories\")\n.set(\"Authorization\", `Bearer ${token}`)\n.expect(200);",
                   "err": {},
-                  "uuid": "b920d963-dd57-4fff-afa2-b2bb19b85a54",
-                  "parentUUID": "39a47f6c-ef0d-45db-b550-668f801e2ad9",
+                  "uuid": "7318eb03-3bac-48e2-9172-687926930542",
+                  "parentUUID": "a3c6d014-0234-4a61-9f2e-532aef30ef89",
                   "isHook": false,
                   "skipped": false
                 }
               ],
               "suites": [],
               "passes": [
-                "dab7c133-d56d-47f6-9f2c-8b5f22d06762",
-                "b920d963-dd57-4fff-afa2-b2bb19b85a54"
+                "673beb96-55c6-466a-8a68-87d75e0fb075",
+                "7318eb03-3bac-48e2-9172-687926930542"
               ],
               "failures": [],
               "pending": [],
               "skipped": [],
-              "duration": 6,
+              "duration": 7,
               "root": false,
               "rootEmpty": false,
               "_timeout": 2000
@@ -1218,7 +1223,7 @@
           "_timeout": 2000
         },
         {
-          "uuid": "73bce331-351d-45fa-9af4-c9a15404eea7",
+          "uuid": "c53cbade-3be8-4c3c-84ad-fd648721ca20",
           "title": "/api/controlPanel",
           "fullFile": "/Users/iifawzi/Desktop/current projects/Hospital/test/controlPanel.test.js",
           "file": "/test/controlPanel.test.js",
@@ -1236,8 +1241,8 @@
               "context": null,
               "code": "server = require(\"../app\");",
               "err": {},
-              "uuid": "7712bae7-863b-40dd-9be3-2d17e44fdc09",
-              "parentUUID": "73bce331-351d-45fa-9af4-c9a15404eea7",
+              "uuid": "9c1446ce-64ea-4fea-8ebd-f209847c4094",
+              "parentUUID": "c53cbade-3be8-4c3c-84ad-fd648721ca20",
               "isHook": true,
               "skipped": false
             }
@@ -1247,7 +1252,7 @@
               "title": "\"after each\" hook",
               "fullTitle": "/api/controlPanel \"after each\" hook",
               "timedOut": false,
-              "duration": 0,
+              "duration": 1,
               "state": null,
               "speed": null,
               "pass": false,
@@ -1256,8 +1261,8 @@
               "context": null,
               "code": "",
               "err": {},
-              "uuid": "40f8ea9a-5522-4584-a0c7-e6eeb30cc32f",
-              "parentUUID": "73bce331-351d-45fa-9af4-c9a15404eea7",
+              "uuid": "0141a5b6-3184-4f83-8d9d-5eb6ffd60782",
+              "parentUUID": "c53cbade-3be8-4c3c-84ad-fd648721ca20",
               "isHook": true,
               "skipped": false
             }
@@ -1265,7 +1270,7 @@
           "tests": [],
           "suites": [
             {
-              "uuid": "e3aadacd-7f73-488c-a2c5-4c00164cd188",
+              "uuid": "21a872ff-fa84-46af-91f3-a76b68c22167",
               "title": "/addingDoctor",
               "fullFile": "/Users/iifawzi/Desktop/current projects/Hospital/test/controlPanel.test.js",
               "file": "/test/controlPanel.test.js",
@@ -1285,8 +1290,8 @@
                   "context": null,
                   "code": "const token = genToken(\"01090243795\",1, \"admin\");\nconst res = await request(server)\n  .post(\"/api/controlPanel/addDoctor\")\n  .set(\"Authorization\", `Bearer ${token}`)\n  .expect(400);",
                   "err": {},
-                  "uuid": "00d1c064-729a-4e22-a256-fdf1c5c99b70",
-                  "parentUUID": "e3aadacd-7f73-488c-a2c5-4c00164cd188",
+                  "uuid": "8302b267-7e5c-4cc6-aec5-535621241710",
+                  "parentUUID": "21a872ff-fa84-46af-91f3-a76b68c22167",
                   "isHook": false,
                   "skipped": false
                 },
@@ -1294,7 +1299,7 @@
                   "title": "Should respond with 201 if doctor created successfully",
                   "fullTitle": "/api/controlPanel /addingDoctor Should respond with 201 if doctor created successfully",
                   "timedOut": false,
-                  "duration": 6,
+                  "duration": 7,
                   "state": "passed",
                   "speed": "fast",
                   "pass": true,
@@ -1303,8 +1308,8 @@
                   "context": null,
                   "code": "const token = genToken(\"11090243799\",1, \"admin\");\nlet res = await request(server)\n  .post(\"/api/controlPanel/addDoctor\")\n  .set(\"Authorization\", `Bearer ${token}`)\n  .send({\n    phone_number: \"11090243799\",\n    password: \"testtest\",\n    first_name: \"fawzi\",\n    last_name: \"ahmed\",\n    country: \"egypt\",\n    category_id: 1,\n    picture: \"fkfjkfj\",\n    price: \"100\",\n  })\n  .expect(201);\nexpect(res.body.data.phone_number).to.equal(\"11090243799\");\ndeleteDoctor(\"11090243799\");",
                   "err": {},
-                  "uuid": "9d53af31-716b-43de-a69b-97cee4c04cf4",
-                  "parentUUID": "e3aadacd-7f73-488c-a2c5-4c00164cd188",
+                  "uuid": "f0020f11-af4c-495d-bd85-9f9e730d785d",
+                  "parentUUID": "21a872ff-fa84-46af-91f3-a76b68c22167",
                   "isHook": false,
                   "skipped": false
                 },
@@ -1312,7 +1317,7 @@
                   "title": "Should respond with 403 if the phone number is already registered",
                   "fullTitle": "/api/controlPanel /addingDoctor Should respond with 403 if the phone number is already registered",
                   "timedOut": false,
-                  "duration": 11,
+                  "duration": 10,
                   "state": "passed",
                   "speed": "fast",
                   "pass": true,
@@ -1321,17 +1326,17 @@
                   "context": null,
                   "code": "const token = genToken(\"01090243798\",1, \"admin\");\nlet res = await request(server)\n  .post(\"/api/controlPanel/addDoctor\")\n  .set(\"Authorization\", `Bearer ${token}`)\n  .send({\n    phone_number: \"01090243798\",\n    password: \"testtest\",\n    first_name: \"fawzi\",\n    last_name: \"ahmed\",\n    country: \"egypt\",\n    category_id: 1,\n    picture: \"fkfjkfj\",\n    price: \"100\",\n  })\n  .expect(201);\nexpect(res.body.data.phone_number).to.equal(\"01090243798\");\nres = await request(server)\n  .post(\"/api/controlPanel/addDoctor\")\n  .set(\"Authorization\", `Bearer ${token}`)\n  .send({\n    phone_number: \"01090243798\",\n    password: \"testtest\",\n    first_name: \"fawzi\",\n    last_name: \"ahmed\",\n    country: \"egypt\",\n    category_id: 1,\n    picture: \"fkfjkfj\",\n    price: \"100\",\n  })\n  .expect(403);",
                   "err": {},
-                  "uuid": "5bcb2e8d-1ac2-4763-8087-afa62fbf4f3e",
-                  "parentUUID": "e3aadacd-7f73-488c-a2c5-4c00164cd188",
+                  "uuid": "aec05f76-0717-4877-8698-ac53988cc4a1",
+                  "parentUUID": "21a872ff-fa84-46af-91f3-a76b68c22167",
                   "isHook": false,
                   "skipped": false
                 }
               ],
               "suites": [],
               "passes": [
-                "00d1c064-729a-4e22-a256-fdf1c5c99b70",
-                "9d53af31-716b-43de-a69b-97cee4c04cf4",
-                "5bcb2e8d-1ac2-4763-8087-afa62fbf4f3e"
+                "8302b267-7e5c-4cc6-aec5-535621241710",
+                "f0020f11-af4c-495d-bd85-9f9e730d785d",
+                "aec05f76-0717-4877-8698-ac53988cc4a1"
               ],
               "failures": [],
               "pending": [],
@@ -1342,7 +1347,7 @@
               "_timeout": 2000
             },
             {
-              "uuid": "eccbbe11-9c10-4d8a-9d37-66fe5297bda1",
+              "uuid": "b59e28a8-40a2-4897-ab79-98cbde4cbc65",
               "title": "/addingAdmin",
               "fullFile": "/Users/iifawzi/Desktop/current projects/Hospital/test/controlPanel.test.js",
               "file": "/test/controlPanel.test.js",
@@ -1362,8 +1367,8 @@
                   "context": null,
                   "code": "const token = genToken(\"01090243795\",1, \"admin\");\nlet res = await request(server)\n  .post(\"/api/controlPanel/addAdmin\")\n  .set(\"Authorization\", `Bearer ${token}`)\n  .send({ name: \"fawzi\" })\n  .expect(400);",
                   "err": {},
-                  "uuid": "542540d7-6ea2-42f7-99be-76978658d044",
-                  "parentUUID": "eccbbe11-9c10-4d8a-9d37-66fe5297bda1",
+                  "uuid": "0037188e-7a6c-4ed3-93f9-f63da00db441",
+                  "parentUUID": "b59e28a8-40a2-4897-ab79-98cbde4cbc65",
                   "isHook": false,
                   "skipped": false
                 },
@@ -1371,7 +1376,7 @@
                   "title": "Should respond with 201 if created successfully",
                   "fullTitle": "/api/controlPanel /addingAdmin Should respond with 201 if created successfully",
                   "timedOut": false,
-                  "duration": 270,
+                  "duration": 264,
                   "state": "passed",
                   "speed": "slow",
                   "pass": true,
@@ -1380,8 +1385,8 @@
                   "context": null,
                   "code": "const token = genToken(\"11090243799\",1, \"admin\");\nlet res = await request(server)\n  .post(\"/api/controlPanel/addAdmin\")\n  .set(\"Authorization\", `Bearer ${token}`)\n  .send({\n    phone_number: \"11090243799\",\n    password: \"testtest\",\n    name: \"Fawzi E. Abdulfattah\",\n    role: \"admin\",\n  })\n  .expect(201);\nexpect(res.body.data.phone_number).to.equal(\"11090243799\");\ndeleteAdmin(\"11090243799\");",
                   "err": {},
-                  "uuid": "1f7e11ce-01f2-47d4-867d-679c61f344a1",
-                  "parentUUID": "eccbbe11-9c10-4d8a-9d37-66fe5297bda1",
+                  "uuid": "d38adb79-02f7-4940-a98b-f0ed45a65630",
+                  "parentUUID": "b59e28a8-40a2-4897-ab79-98cbde4cbc65",
                   "isHook": false,
                   "skipped": false
                 },
@@ -1389,7 +1394,7 @@
                   "title": "Should Respond with 403 if phone number is already Registered",
                   "fullTitle": "/api/controlPanel /addingAdmin Should Respond with 403 if phone number is already Registered",
                   "timedOut": false,
-                  "duration": 3,
+                  "duration": 4,
                   "state": "passed",
                   "speed": "fast",
                   "pass": true,
@@ -1398,28 +1403,28 @@
                   "context": null,
                   "code": "const token = genToken(\"01090243795\",1, \"admin\");\nlet res = await request(server)\n  .post(\"/api/controlPanel/addAdmin\")\n  .set(\"Authorization\", `Bearer ${token}`)\n  .send({\n    phone_number: \"01090243795\",\n    password: \"testtest\",\n    name: \"Fawzi E. Abdulfattah\",\n    role: \"admin\",\n  })\n  .expect(403);\ndeleteAdmin(\"01090243795\");",
                   "err": {},
-                  "uuid": "412231a7-a5ba-4655-975d-f0e1da543878",
-                  "parentUUID": "eccbbe11-9c10-4d8a-9d37-66fe5297bda1",
+                  "uuid": "50286821-9f4a-4890-a625-1fb49d81e75e",
+                  "parentUUID": "b59e28a8-40a2-4897-ab79-98cbde4cbc65",
                   "isHook": false,
                   "skipped": false
                 }
               ],
               "suites": [],
               "passes": [
-                "542540d7-6ea2-42f7-99be-76978658d044",
-                "1f7e11ce-01f2-47d4-867d-679c61f344a1",
-                "412231a7-a5ba-4655-975d-f0e1da543878"
+                "0037188e-7a6c-4ed3-93f9-f63da00db441",
+                "d38adb79-02f7-4940-a98b-f0ed45a65630",
+                "50286821-9f4a-4890-a625-1fb49d81e75e"
               ],
               "failures": [],
               "pending": [],
               "skipped": [],
-              "duration": 275,
+              "duration": 270,
               "root": false,
               "rootEmpty": false,
               "_timeout": 2000
             },
             {
-              "uuid": "69d8a6a0-105c-44ad-8d4b-edd594e7c933",
+              "uuid": "e5b60126-5145-4360-8a37-ff7137df2f2c",
               "title": "/signAdmin",
               "fullFile": "/Users/iifawzi/Desktop/current projects/Hospital/test/controlPanel.test.js",
               "file": "/test/controlPanel.test.js",
@@ -1439,8 +1444,8 @@
                   "context": null,
                   "code": "let res = await request(server)\n  .post(\"/api/controlPanel/signAdmin\")\n  .expect(400);",
                   "err": {},
-                  "uuid": "07c84213-bf35-4db9-addb-f53810953ff4",
-                  "parentUUID": "69d8a6a0-105c-44ad-8d4b-edd594e7c933",
+                  "uuid": "e6d2b5a2-9f0f-4614-9841-467311da6d1e",
+                  "parentUUID": "e5b60126-5145-4360-8a37-ff7137df2f2c",
                   "isHook": false,
                   "skipped": false
                 },
@@ -1448,7 +1453,7 @@
                   "title": "should respond with 401 when phone number is not found `backend side`",
                   "fullTitle": "/api/controlPanel /signAdmin should respond with 401 when phone number is not found `backend side`",
                   "timedOut": false,
-                  "duration": 3,
+                  "duration": 5,
                   "state": "passed",
                   "speed": "fast",
                   "pass": true,
@@ -1457,8 +1462,8 @@
                   "context": null,
                   "code": "let res = await request(server)\n  .post(\"/api/controlPanel/signAdmin\")\n  .send({ phone_number: \"01090243795\", password: \"testest\" })\n  .expect(401);",
                   "err": {},
-                  "uuid": "90fed6c6-b060-44dc-b75b-dd0be49b0cfc",
-                  "parentUUID": "69d8a6a0-105c-44ad-8d4b-edd594e7c933",
+                  "uuid": "0226982e-8d89-4f6c-872e-6220887e9fd6",
+                  "parentUUID": "e5b60126-5145-4360-8a37-ff7137df2f2c",
                   "isHook": false,
                   "skipped": false
                 },
@@ -1466,7 +1471,7 @@
                   "title": "should respond with 200 if admin loged in successfully",
                   "fullTitle": "/api/controlPanel /signAdmin should respond with 200 if admin loged in successfully",
                   "timedOut": false,
-                  "duration": 531,
+                  "duration": 530,
                   "state": "passed",
                   "speed": "slow",
                   "pass": true,
@@ -1475,28 +1480,28 @@
                   "context": null,
                   "code": "const token = genToken(\"01090243795\",1, \"admin\");\nlet res = await request(server)\n  .post(\"/api/controlPanel/addAdmin\")\n  .set(\"Authorization\", `Bearer ${token}`)\n  .send({\n    phone_number: \"01090243795\",\n    password: \"testtest\",\n    name: \"Fawzi E. Abdulfattah\",\n    role: \"admin\",\n  })\n  .expect(201);\nexpect(res.body.data.phone_number).to.equal(\"01090243795\");\nres = await request(server)\n  .post(\"/api/controlPanel/signAdmin\")\n  .send({ phone_number: \"01090243795\", password: \"testtest\" })\n  .expect(200);\nexpect(res.body.data.phone_number).to.equal(\"01090243795\");\ndeleteAdmin(\"01090243795\");",
                   "err": {},
-                  "uuid": "5827da7c-8682-4bf7-a1fc-861d426592b2",
-                  "parentUUID": "69d8a6a0-105c-44ad-8d4b-edd594e7c933",
+                  "uuid": "8253bec8-d6a8-4c5f-ac3f-5c7a91984991",
+                  "parentUUID": "e5b60126-5145-4360-8a37-ff7137df2f2c",
                   "isHook": false,
                   "skipped": false
                 }
               ],
               "suites": [],
               "passes": [
-                "07c84213-bf35-4db9-addb-f53810953ff4",
-                "90fed6c6-b060-44dc-b75b-dd0be49b0cfc",
-                "5827da7c-8682-4bf7-a1fc-861d426592b2"
+                "e6d2b5a2-9f0f-4614-9841-467311da6d1e",
+                "0226982e-8d89-4f6c-872e-6220887e9fd6",
+                "8253bec8-d6a8-4c5f-ac3f-5c7a91984991"
               ],
               "failures": [],
               "pending": [],
               "skipped": [],
-              "duration": 536,
+              "duration": 537,
               "root": false,
               "rootEmpty": false,
               "_timeout": 2000
             },
             {
-              "uuid": "b679983d-3b90-49c8-a356-8ec06ebc2fe3",
+              "uuid": "790e7143-dd40-4adb-b433-5dc6ff13d593",
               "title": "/checkAdminByToken",
               "fullFile": "/Users/iifawzi/Desktop/current projects/Hospital/test/controlPanel.test.js",
               "file": "/test/controlPanel.test.js",
@@ -1516,8 +1521,8 @@
                   "context": null,
                   "code": "const token = genToken(\"0109024379785\",1,\"admin\");\nlet res = await request(server)\n  .post(\"/api/controlPanel/checkAdminByToken\")\n  .set(\"Authorization\", `Bearer ${token}`)\n  .expect(401);",
                   "err": {},
-                  "uuid": "77872405-60bb-4c95-97f9-2d6f33fd56b3",
-                  "parentUUID": "b679983d-3b90-49c8-a356-8ec06ebc2fe3",
+                  "uuid": "a33c9975-5fdd-45d5-b5b1-96b185a1c69b",
+                  "parentUUID": "790e7143-dd40-4adb-b433-5dc6ff13d593",
                   "isHook": false,
                   "skipped": false
                 },
@@ -1525,7 +1530,7 @@
                   "title": "Should respond with 200 if token is valid and referanced to admin",
                   "fullTitle": "/api/controlPanel /checkAdminByToken Should respond with 200 if token is valid and referanced to admin",
                   "timedOut": false,
-                  "duration": 271,
+                  "duration": 270,
                   "state": "passed",
                   "speed": "slow",
                   "pass": true,
@@ -1534,27 +1539,27 @@
                   "context": null,
                   "code": "const token = genToken(\"01090243795\",1, \"admin\");\nlet res = await request(server)\n  .post(\"/api/controlPanel/addAdmin\")\n  .set(\"Authorization\", `Bearer ${token}`)\n  .send({\n    phone_number: \"01090243795\",\n    password: \"testtest\",\n    name: \"Fawzi E. Abdulfattah\",\n    role: \"admin\",\n  })\n  .expect(201);\nres = await request(server)\n  .post(\"/api/controlPanel/checkAdminByToken\")\n  .send({})\n  .set(\"Authorization\", `Bearer ${token}`)\n  .expect(200);\ndeleteAdmin(\"01090243795\");",
                   "err": {},
-                  "uuid": "43b42659-0ff5-41b3-b4ae-01de7da7b366",
-                  "parentUUID": "b679983d-3b90-49c8-a356-8ec06ebc2fe3",
+                  "uuid": "ee5db174-8fa2-4c5d-b75b-a1953b47556a",
+                  "parentUUID": "790e7143-dd40-4adb-b433-5dc6ff13d593",
                   "isHook": false,
                   "skipped": false
                 }
               ],
               "suites": [],
               "passes": [
-                "77872405-60bb-4c95-97f9-2d6f33fd56b3",
-                "43b42659-0ff5-41b3-b4ae-01de7da7b366"
+                "a33c9975-5fdd-45d5-b5b1-96b185a1c69b",
+                "ee5db174-8fa2-4c5d-b75b-a1953b47556a"
               ],
               "failures": [],
               "pending": [],
               "skipped": [],
-              "duration": 275,
+              "duration": 274,
               "root": false,
               "rootEmpty": false,
               "_timeout": 2000
             },
             {
-              "uuid": "2dbcdb95-e22d-4749-98c4-f98f873d7fc5",
+              "uuid": "dac8f8d9-3bda-49dd-b9f6-f920e928d91f",
               "title": "/addImage",
               "fullFile": "/Users/iifawzi/Desktop/current projects/Hospital/test/controlPanel.test.js",
               "file": "/test/controlPanel.test.js",
@@ -1565,7 +1570,7 @@
                   "title": "Should responed with 201 if uploaded",
                   "fullTitle": "/api/controlPanel /addImage Should responed with 201 if uploaded",
                   "timedOut": false,
-                  "duration": 17,
+                  "duration": 18,
                   "state": "passed",
                   "speed": "fast",
                   "pass": true,
@@ -1574,8 +1579,8 @@
                   "context": null,
                   "code": "const token = genToken(\"01090243795\",1, \"admin\");\nlet res = await request(server)\n  .post(\"/api/controlPanel/addImage\")\n  .set(\"Authorization\", `Bearer ${token}`)\n  .set(\"Content-Type\", \"application/x-www-form-urlencoded\")\n  .attach(\"file\", path.resolve(__dirname, \"../logo.png\"))\n  .expect(201);",
                   "err": {},
-                  "uuid": "6dd70703-5086-40d3-b0da-0cb680b243fb",
-                  "parentUUID": "2dbcdb95-e22d-4749-98c4-f98f873d7fc5",
+                  "uuid": "26a596af-5655-4a29-a4d9-1c909a1225ed",
+                  "parentUUID": "dac8f8d9-3bda-49dd-b9f6-f920e928d91f",
                   "isHook": false,
                   "skipped": false
                 },
@@ -1583,7 +1588,7 @@
                   "title": "Should responed with 403 if type not allowed",
                   "fullTitle": "/api/controlPanel /addImage Should responed with 403 if type not allowed",
                   "timedOut": false,
-                  "duration": 61,
+                  "duration": 48,
                   "state": "passed",
                   "speed": "medium",
                   "pass": true,
@@ -1592,27 +1597,27 @@
                   "context": null,
                   "code": "const token = genToken(\"01090243795\",1, \"admin\");\nlet res = await request(server)\n  .post(\"/api/controlPanel/addImage\")\n  .set(\"Authorization\", `Bearer ${token}`)\n  .set(\"Content-Type\", \"application/x-www-form-urlencoded\")\n  .attach(\"file\", path.resolve(__dirname, \"../udemy-accs.txt\"))\n  .expect(403);",
                   "err": {},
-                  "uuid": "1fd79879-7a08-4800-8fe7-e6d3798459c6",
-                  "parentUUID": "2dbcdb95-e22d-4749-98c4-f98f873d7fc5",
+                  "uuid": "15e715e0-0f37-43b7-8b74-c561a09e5663",
+                  "parentUUID": "dac8f8d9-3bda-49dd-b9f6-f920e928d91f",
                   "isHook": false,
                   "skipped": false
                 }
               ],
               "suites": [],
               "passes": [
-                "6dd70703-5086-40d3-b0da-0cb680b243fb",
-                "1fd79879-7a08-4800-8fe7-e6d3798459c6"
+                "26a596af-5655-4a29-a4d9-1c909a1225ed",
+                "15e715e0-0f37-43b7-8b74-c561a09e5663"
               ],
               "failures": [],
               "pending": [],
               "skipped": [],
-              "duration": 78,
+              "duration": 66,
               "root": false,
               "rootEmpty": false,
               "_timeout": 2000
             },
             {
-              "uuid": "d46143fa-c03e-4db7-85e4-8f78e2894933",
+              "uuid": "bbac8689-dcfa-431d-b802-a3e897c0024c",
               "title": "/getCategories",
               "fullFile": "/Users/iifawzi/Desktop/current projects/Hospital/test/controlPanel.test.js",
               "file": "/test/controlPanel.test.js",
@@ -1623,7 +1628,7 @@
                   "title": "Should respond with 401 if not authorized",
                   "fullTitle": "/api/controlPanel /getCategories Should respond with 401 if not authorized",
                   "timedOut": false,
-                  "duration": 2,
+                  "duration": 1,
                   "state": "passed",
                   "speed": "fast",
                   "pass": true,
@@ -1632,8 +1637,8 @@
                   "context": null,
                   "code": "let res = await request(server)\n  .get(\"/api/controlPanel/getCategories\")\n  .expect(401);",
                   "err": {},
-                  "uuid": "fe9dc045-099e-4008-aa59-941569b0966b",
-                  "parentUUID": "d46143fa-c03e-4db7-85e4-8f78e2894933",
+                  "uuid": "36cd8787-0f4b-4cbd-988d-9e62332812bf",
+                  "parentUUID": "bbac8689-dcfa-431d-b802-a3e897c0024c",
                   "isHook": false,
                   "skipped": false
                 },
@@ -1650,27 +1655,27 @@
                   "context": null,
                   "code": "const token = genToken(\"01090243795\",1, \"admin\");\nlet res = await request(server)\n  .get(\"/api/controlPanel/getCategories\")\n  .set(\"Authorization\", `Bearer ${token}`)\n  .expect(200);",
                   "err": {},
-                  "uuid": "69794ab1-9014-4855-87f5-a961c601f6ff",
-                  "parentUUID": "d46143fa-c03e-4db7-85e4-8f78e2894933",
+                  "uuid": "3e3bccf5-2097-45b1-8ae0-a139330759ca",
+                  "parentUUID": "bbac8689-dcfa-431d-b802-a3e897c0024c",
                   "isHook": false,
                   "skipped": false
                 }
               ],
               "suites": [],
               "passes": [
-                "fe9dc045-099e-4008-aa59-941569b0966b",
-                "69794ab1-9014-4855-87f5-a961c601f6ff"
+                "36cd8787-0f4b-4cbd-988d-9e62332812bf",
+                "3e3bccf5-2097-45b1-8ae0-a139330759ca"
               ],
               "failures": [],
               "pending": [],
               "skipped": [],
-              "duration": 7,
+              "duration": 6,
               "root": false,
               "rootEmpty": false,
               "_timeout": 2000
             },
             {
-              "uuid": "b8484bad-3b80-4579-b754-3fd915fcdaf4",
+              "uuid": "76bc061c-642c-423c-b8eb-e048a4d9ff35",
               "title": "/getDoctors",
               "fullFile": "/Users/iifawzi/Desktop/current projects/Hospital/test/controlPanel.test.js",
               "file": "/test/controlPanel.test.js",
@@ -1690,8 +1695,8 @@
                   "context": null,
                   "code": "let res = await request(server)\n  .get(\"/api/controlPanel/getCategories\")\n  .expect(401);",
                   "err": {},
-                  "uuid": "a807edf4-d92f-48ac-88ca-fee4cea47703",
-                  "parentUUID": "b8484bad-3b80-4579-b754-3fd915fcdaf4",
+                  "uuid": "124bcf7a-56c6-4a04-ab75-99d90b9d73fb",
+                  "parentUUID": "76bc061c-642c-423c-b8eb-e048a4d9ff35",
                   "isHook": false,
                   "skipped": false
                 },
@@ -1708,16 +1713,16 @@
                   "context": null,
                   "code": "const token = genToken(\"01090243795\",1, \"admin\");\nlet res = await request(server)\n  .get(\"/api/controlPanel/getDoctors\")\n  .set(\"Authorization\", `Bearer ${token}`)\n  .expect(200);",
                   "err": {},
-                  "uuid": "d38cea13-7db9-4f0d-9a05-6448ccfa02c1",
-                  "parentUUID": "b8484bad-3b80-4579-b754-3fd915fcdaf4",
+                  "uuid": "2208d8c2-597d-4ac6-a6fa-f49bd8643a58",
+                  "parentUUID": "76bc061c-642c-423c-b8eb-e048a4d9ff35",
                   "isHook": false,
                   "skipped": false
                 }
               ],
               "suites": [],
               "passes": [
-                "a807edf4-d92f-48ac-88ca-fee4cea47703",
-                "d38cea13-7db9-4f0d-9a05-6448ccfa02c1"
+                "124bcf7a-56c6-4a04-ab75-99d90b9d73fb",
+                "2208d8c2-597d-4ac6-a6fa-f49bd8643a58"
               ],
               "failures": [],
               "pending": [],
@@ -1728,7 +1733,7 @@
               "_timeout": 2000
             },
             {
-              "uuid": "69bc788c-d8ca-4995-a115-65379e7d4246",
+              "uuid": "25049bfe-7fda-449d-9f91-93893b371fb5",
               "title": "/deleteDoctor",
               "fullFile": "/Users/iifawzi/Desktop/current projects/Hospital/test/controlPanel.test.js",
               "file": "/test/controlPanel.test.js",
@@ -1748,8 +1753,8 @@
                   "context": null,
                   "code": "let res = await request(server)\n  .get(\"/api/controlPanel/getCategories\")\n  .expect(401);",
                   "err": {},
-                  "uuid": "c32b1fd6-628e-44b4-9b38-f3c933e2ec0c",
-                  "parentUUID": "69bc788c-d8ca-4995-a115-65379e7d4246",
+                  "uuid": "e46cb7c9-8984-4b32-98c5-01c00c4b6361",
+                  "parentUUID": "25049bfe-7fda-449d-9f91-93893b371fb5",
                   "isHook": false,
                   "skipped": false
                 },
@@ -1757,7 +1762,7 @@
                   "title": "Should respond with 404 if doctor not found",
                   "fullTitle": "/api/controlPanel /deleteDoctor Should respond with 404 if doctor not found",
                   "timedOut": false,
-                  "duration": 3,
+                  "duration": 8,
                   "state": "passed",
                   "speed": "fast",
                   "pass": true,
@@ -1766,8 +1771,8 @@
                   "context": null,
                   "code": "const token = genToken(\"01090243795\",1, \"admin\");\nlet res = await request(server)\n  .delete(\"/api/controlPanel/deleteDoctor\")\n  .set(\"Authorization\", `Bearer ${token}`)\n  .send({ phone_number: \"0109024371111212129511113\"})\n  .expect(404);",
                   "err": {},
-                  "uuid": "d9d67290-bbb9-4735-99e9-8ec9c814d073",
-                  "parentUUID": "69bc788c-d8ca-4995-a115-65379e7d4246",
+                  "uuid": "38439ef2-0ee2-41ac-9f78-7649fb03ebbe",
+                  "parentUUID": "25049bfe-7fda-449d-9f91-93893b371fb5",
                   "isHook": false,
                   "skipped": false
                 },
@@ -1775,7 +1780,7 @@
                   "title": "Should respond with 200 if doctor deleted successfully",
                   "fullTitle": "/api/controlPanel /deleteDoctor Should respond with 200 if doctor deleted successfully",
                   "timedOut": false,
-                  "duration": 2,
+                  "duration": 5,
                   "state": "passed",
                   "speed": "fast",
                   "pass": true,
@@ -1784,28 +1789,28 @@
                   "context": null,
                   "code": "const token = genToken(\"01090243795\",1, \"admin\");\nlet res = await request(server)\n  .delete(\"/api/controlPanel/deleteDoctor\")\n  .set(\"Authorization\", `Bearer ${token}`)\n  .send({ phone_number: \"01090243798\"}) // this tee number which registered above\n  .expect(200);",
                   "err": {},
-                  "uuid": "41e5f5c3-8b7b-46c3-bcfd-a8e55ad44df0",
-                  "parentUUID": "69bc788c-d8ca-4995-a115-65379e7d4246",
+                  "uuid": "dca5ba8b-7599-48ec-b3fe-a5e758b5e76f",
+                  "parentUUID": "25049bfe-7fda-449d-9f91-93893b371fb5",
                   "isHook": false,
                   "skipped": false
                 }
               ],
               "suites": [],
               "passes": [
-                "c32b1fd6-628e-44b4-9b38-f3c933e2ec0c",
-                "d9d67290-bbb9-4735-99e9-8ec9c814d073",
-                "41e5f5c3-8b7b-46c3-bcfd-a8e55ad44df0"
+                "e46cb7c9-8984-4b32-98c5-01c00c4b6361",
+                "38439ef2-0ee2-41ac-9f78-7649fb03ebbe",
+                "dca5ba8b-7599-48ec-b3fe-a5e758b5e76f"
               ],
               "failures": [],
               "pending": [],
               "skipped": [],
-              "duration": 6,
+              "duration": 14,
               "root": false,
               "rootEmpty": false,
               "_timeout": 2000
             },
             {
-              "uuid": "8c7442b4-2875-4833-b054-2677db0da38a",
+              "uuid": "08ec0dcd-9ad7-4b9b-8bf3-45a47a1e612a",
               "title": "/toggleBlock",
               "fullFile": "/Users/iifawzi/Desktop/current projects/Hospital/test/controlPanel.test.js",
               "file": "/test/controlPanel.test.js",
@@ -1825,8 +1830,8 @@
                   "context": null,
                   "code": "let res = await request(server)\n  .patch(\"/api/controlPanel/toggleBlock\")\n  .expect(401);",
                   "err": {},
-                  "uuid": "eadb8581-b519-497d-8931-3c8f3bd1295a",
-                  "parentUUID": "8c7442b4-2875-4833-b054-2677db0da38a",
+                  "uuid": "32669674-db1a-4a01-aafa-5ad18dcf22dd",
+                  "parentUUID": "08ec0dcd-9ad7-4b9b-8bf3-45a47a1e612a",
                   "isHook": false,
                   "skipped": false
                 },
@@ -1834,7 +1839,7 @@
                   "title": "Should respond with 404 if user not found",
                   "fullTitle": "/api/controlPanel /toggleBlock Should respond with 404 if user not found",
                   "timedOut": false,
-                  "duration": 3,
+                  "duration": 5,
                   "state": "passed",
                   "speed": "fast",
                   "pass": true,
@@ -1843,8 +1848,8 @@
                   "context": null,
                   "code": "const token = genToken(\"01090243795\",1, \"admin\");\nlet res = await request(server)\n  .patch(\"/api/controlPanel/toggleBlock\")\n  .set(\"Authorization\", `Bearer ${token}`)\n  .send({ phone_number: \"0109024371111212129511113\"})\n  .expect(404);",
                   "err": {},
-                  "uuid": "bb7ac393-034f-4b9a-8b26-137598fc7ccd",
-                  "parentUUID": "8c7442b4-2875-4833-b054-2677db0da38a",
+                  "uuid": "67e89fc3-b3c2-45bf-b34f-44b5cd5b329b",
+                  "parentUUID": "08ec0dcd-9ad7-4b9b-8bf3-45a47a1e612a",
                   "isHook": false,
                   "skipped": false
                 },
@@ -1861,28 +1866,28 @@
                   "context": null,
                   "code": "let res = await request(server)\n.post(\"/api/auth/signup\")\n.send({\n    \"phone_number\": \"015902433199\",\n    \"first_name\": \"fawzi\",\n    \"last_name\":\"ahmed\",\n    \"birth_date\": \"1999-03-20\",\n    \"weight\": 100,\n    \"height\": 180,\n    \"bmi\": 28,\n    \"fb_token_id\": \"djdj84\",\n    \"gender\": \"male\",\n})\n.expect(201);\nconst token = genToken(\"01090243795\",1, \"admin\");\nres = await request(server)\n  .patch(\"/api/controlPanel/toggleBlock\")\n  .set(\"Authorization\", `Bearer ${token}`)\n  .send({ phone_number: \"015902433199\"})\n  .expect(200);\n  deleteUser(\"015902433199\");",
                   "err": {},
-                  "uuid": "e1d46aa9-a6be-40ac-a6cb-6c05cd96d04a",
-                  "parentUUID": "8c7442b4-2875-4833-b054-2677db0da38a",
+                  "uuid": "ca8ff9e0-2ba1-46ad-9057-9ab77d97a5cb",
+                  "parentUUID": "08ec0dcd-9ad7-4b9b-8bf3-45a47a1e612a",
                   "isHook": false,
                   "skipped": false
                 }
               ],
               "suites": [],
               "passes": [
-                "eadb8581-b519-497d-8931-3c8f3bd1295a",
-                "bb7ac393-034f-4b9a-8b26-137598fc7ccd",
-                "e1d46aa9-a6be-40ac-a6cb-6c05cd96d04a"
+                "32669674-db1a-4a01-aafa-5ad18dcf22dd",
+                "67e89fc3-b3c2-45bf-b34f-44b5cd5b329b",
+                "ca8ff9e0-2ba1-46ad-9057-9ab77d97a5cb"
               ],
               "failures": [],
               "pending": [],
               "skipped": [],
-              "duration": 16,
+              "duration": 18,
               "root": false,
               "rootEmpty": false,
               "_timeout": 2000
             },
             {
-              "uuid": "2cbdd900-c750-4bd3-84c6-29fa55caf82a",
+              "uuid": "6920348f-d05c-4c45-9206-37e4c346759e",
               "title": "/getDoctorSlots",
               "fullFile": "/Users/iifawzi/Desktop/current projects/Hospital/test/controlPanel.test.js",
               "file": "/test/controlPanel.test.js",
@@ -1902,8 +1907,8 @@
                   "context": null,
                   "code": "let res = await request(server)\n  .post(\"/api/controlPanel/getDoctorSlots\")\n  .expect(401);",
                   "err": {},
-                  "uuid": "ebd0ed34-7819-490e-8926-9051ba59dc82",
-                  "parentUUID": "2cbdd900-c750-4bd3-84c6-29fa55caf82a",
+                  "uuid": "d449fc6a-c065-48a3-88a8-3c191d6d7080",
+                  "parentUUID": "6920348f-d05c-4c45-9206-37e4c346759e",
                   "isHook": false,
                   "skipped": false
                 },
@@ -1911,7 +1916,7 @@
                   "title": "Should respond with 400 doctor_id is missing or incorrect",
                   "fullTitle": "/api/controlPanel /getDoctorSlots Should respond with 400 doctor_id is missing or incorrect",
                   "timedOut": false,
-                  "duration": 3,
+                  "duration": 2,
                   "state": "passed",
                   "speed": "fast",
                   "pass": true,
@@ -1920,8 +1925,8 @@
                   "context": null,
                   "code": "const token = genToken(\"01090243795\",1, \"admin\");\nlet res = await request(server)\n.post(\"/api/controlPanel/getDoctorSlots\")\n  .set(\"Authorization\", `Bearer ${token}`)\n  .send({ doctor_id: \"ahmed\"})\n  .expect(400);",
                   "err": {},
-                  "uuid": "798563e3-eb14-4e49-b386-48958f0b33d3",
-                  "parentUUID": "2cbdd900-c750-4bd3-84c6-29fa55caf82a",
+                  "uuid": "301f5e20-ae0a-4c1d-8b6a-6916bd4efd01",
+                  "parentUUID": "6920348f-d05c-4c45-9206-37e4c346759e",
                   "isHook": false,
                   "skipped": false
                 },
@@ -1929,7 +1934,7 @@
                   "title": "Should respond with 200 if got doctor's slots successfully",
                   "fullTitle": "/api/controlPanel /getDoctorSlots Should respond with 200 if got doctor's slots successfully",
                   "timedOut": false,
-                  "duration": 5,
+                  "duration": 6,
                   "state": "passed",
                   "speed": "fast",
                   "pass": true,
@@ -1938,17 +1943,17 @@
                   "context": null,
                   "code": "const token = genToken(\"01090243795\",1, \"admin\");\nlet res = await request(server)\n  .post(\"/api/controlPanel/getDoctorSlots\")\n  .set(\"Authorization\", `Bearer ${token}`)\n  .send({ doctor_id: 11})\n  .expect(200);",
                   "err": {},
-                  "uuid": "1aa9b1e8-b023-46f4-aeac-ad3682f0be4c",
-                  "parentUUID": "2cbdd900-c750-4bd3-84c6-29fa55caf82a",
+                  "uuid": "69d25966-8c00-4342-9311-96a4b11283a1",
+                  "parentUUID": "6920348f-d05c-4c45-9206-37e4c346759e",
                   "isHook": false,
                   "skipped": false
                 }
               ],
               "suites": [],
               "passes": [
-                "ebd0ed34-7819-490e-8926-9051ba59dc82",
-                "798563e3-eb14-4e49-b386-48958f0b33d3",
-                "1aa9b1e8-b023-46f4-aeac-ad3682f0be4c"
+                "d449fc6a-c065-48a3-88a8-3c191d6d7080",
+                "301f5e20-ae0a-4c1d-8b6a-6916bd4efd01",
+                "69d25966-8c00-4342-9311-96a4b11283a1"
               ],
               "failures": [],
               "pending": [],
@@ -1969,7 +1974,7 @@
           "_timeout": 2000
         },
         {
-          "uuid": "34f4cbf8-e2b2-4e0d-9832-b57448e0154c",
+          "uuid": "a50831e5-4c09-441d-aaeb-b65b19c7b6f9",
           "title": "/api/doctors",
           "fullFile": "/Users/iifawzi/Desktop/current projects/Hospital/test/doctors.js",
           "file": "/test/doctors.js",
@@ -1987,8 +1992,8 @@
               "context": null,
               "code": "server = require(\"../app\");",
               "err": {},
-              "uuid": "646a29a3-26dc-42da-83c2-d77ec7f0e982",
-              "parentUUID": "34f4cbf8-e2b2-4e0d-9832-b57448e0154c",
+              "uuid": "f0574c17-7cd7-4636-a8ed-4d094413feb4",
+              "parentUUID": "a50831e5-4c09-441d-aaeb-b65b19c7b6f9",
               "isHook": true,
               "skipped": false
             }
@@ -2007,8 +2012,8 @@
               "context": null,
               "code": "",
               "err": {},
-              "uuid": "f3a9b2f4-ad65-46de-a178-122822c86da7",
-              "parentUUID": "34f4cbf8-e2b2-4e0d-9832-b57448e0154c",
+              "uuid": "bbbd6bd5-229b-4ad8-b9b6-97798c86fb0e",
+              "parentUUID": "a50831e5-4c09-441d-aaeb-b65b19c7b6f9",
               "isHook": true,
               "skipped": false
             }
@@ -2016,7 +2021,7 @@
           "tests": [],
           "suites": [
             {
-              "uuid": "636b6a1c-b20f-453f-8d71-064175ad0352",
+              "uuid": "6fd31aef-a669-498c-92b1-fad35a89d762",
               "title": "/getDoctor",
               "fullFile": "/Users/iifawzi/Desktop/current projects/Hospital/test/doctors.js",
               "file": "/test/doctors.js",
@@ -2036,8 +2041,8 @@
                   "context": null,
                   "code": "const token = genToken(\"01090243795\",1,\"admin\");\nlet res = await request(server)\n.post(\"/api/doctors/getDoctor\")\n.set(\"Authorization\", `Bearer ${token}`)\n.send({})\n.expect(400);",
                   "err": {},
-                  "uuid": "27112f9f-71a0-4ef9-a8bf-5035a189e684",
-                  "parentUUID": "636b6a1c-b20f-453f-8d71-064175ad0352",
+                  "uuid": "c4c8346b-f28c-412d-affb-90bdd133842e",
+                  "parentUUID": "6fd31aef-a669-498c-92b1-fad35a89d762",
                   "isHook": false,
                   "skipped": false
                 },
@@ -2054,8 +2059,8 @@
                   "context": null,
                   "code": "let res = await request(server)\n.post(\"/api/doctors/getDoctor\")\n.send({doctor_id: \"1233\"})\n.expect(401)",
                   "err": {},
-                  "uuid": "dd424b2a-7df7-45af-94d2-6704cc8ce01e",
-                  "parentUUID": "636b6a1c-b20f-453f-8d71-064175ad0352",
+                  "uuid": "6c45ffe7-0b55-4eb9-97c0-fb17ac8df4ea",
+                  "parentUUID": "6fd31aef-a669-498c-92b1-fad35a89d762",
                   "isHook": false,
                   "skipped": false
                 },
@@ -2063,7 +2068,7 @@
                   "title": "Should respond with 404 if doctor not found",
                   "fullTitle": "/api/doctors /getDoctor Should respond with 404 if doctor not found",
                   "timedOut": false,
-                  "duration": 3,
+                  "duration": 4,
                   "state": "passed",
                   "speed": "fast",
                   "pass": true,
@@ -2072,8 +2077,8 @@
                   "context": null,
                   "code": "const token = genToken(\"01090243795\",1,\"user\");\nlet res = await request(server)\n.post(\"/api/doctors/getDoctor\")\n.set(\"Authorization\", `Bearer ${token}`)\n.send({doctor_id: 54878785})\n.expect(404);",
                   "err": {},
-                  "uuid": "04c61b82-e2d7-45de-8792-659a129a56ef",
-                  "parentUUID": "636b6a1c-b20f-453f-8d71-064175ad0352",
+                  "uuid": "b6881357-d48d-4df6-831c-78ec921a9e14",
+                  "parentUUID": "6fd31aef-a669-498c-92b1-fad35a89d762",
                   "isHook": false,
                   "skipped": false
                 },
@@ -2090,29 +2095,29 @@
                   "context": null,
                   "code": "const token = genToken(\"01090243795\",1,\"admin\");\nlet res = await request(server)\n.post(\"/api/controlPanel/addDoctor\")\n.set(\"Authorization\", `Bearer ${token}`)\n.send({\n    \"phone_number\":\"01090113795\",\n    \"password\":\"testtest\",\n    \"first_name\":\"fawzi\",\n    \"last_name\": \"ahmed\",\n    \"country\":\"egypt\",\n    \"category_id\":1,\n    \"picture\":\"fkfjkfj\",\n    \"price\": \"100\",\n})\n.expect(201);\nconst doctor_id = res.body.data.doctor_id;\nres = await request(server)\n.post(\"/api/doctors/getDoctor\")\n.set(\"Authorization\", `Bearer ${token}`)\n.send({doctor_id: doctor_id})\n.expect(200);\ndeleteDoctor(\"01090113795\");",
                   "err": {},
-                  "uuid": "2cae4fe1-e849-43b1-bff7-9e5603cacfee",
-                  "parentUUID": "636b6a1c-b20f-453f-8d71-064175ad0352",
+                  "uuid": "b550fed2-292f-4bfa-9b63-ed6e9cd052eb",
+                  "parentUUID": "6fd31aef-a669-498c-92b1-fad35a89d762",
                   "isHook": false,
                   "skipped": false
                 }
               ],
               "suites": [],
               "passes": [
-                "27112f9f-71a0-4ef9-a8bf-5035a189e684",
-                "dd424b2a-7df7-45af-94d2-6704cc8ce01e",
-                "04c61b82-e2d7-45de-8792-659a129a56ef",
-                "2cae4fe1-e849-43b1-bff7-9e5603cacfee"
+                "c4c8346b-f28c-412d-affb-90bdd133842e",
+                "6c45ffe7-0b55-4eb9-97c0-fb17ac8df4ea",
+                "b6881357-d48d-4df6-831c-78ec921a9e14",
+                "b550fed2-292f-4bfa-9b63-ed6e9cd052eb"
               ],
               "failures": [],
               "pending": [],
               "skipped": [],
-              "duration": 15,
+              "duration": 16,
               "root": false,
               "rootEmpty": false,
               "_timeout": 2000
             },
             {
-              "uuid": "f266f646-4e90-45ce-b387-40d4f566fa2d",
+              "uuid": "5ff50136-72d5-4fcb-bb90-3213bfba95ba",
               "title": "/getDoctors",
               "fullFile": "/Users/iifawzi/Desktop/current projects/Hospital/test/doctors.js",
               "file": "/test/doctors.js",
@@ -2123,7 +2128,7 @@
                   "title": "Should respond with 401 if not authorized",
                   "fullTitle": "/api/doctors /getDoctors Should respond with 401 if not authorized",
                   "timedOut": false,
-                  "duration": 2,
+                  "duration": 3,
                   "state": "passed",
                   "speed": "fast",
                   "pass": true,
@@ -2132,8 +2137,8 @@
                   "context": null,
                   "code": "let res = await request(server)\n.post(\"/api/doctors/getDoctors\")\n.expect(401)",
                   "err": {},
-                  "uuid": "7384c5b1-416f-401b-8cdb-becc36487746",
-                  "parentUUID": "f266f646-4e90-45ce-b387-40d4f566fa2d",
+                  "uuid": "266cd2f9-f38f-40c6-a258-272d47cabea3",
+                  "parentUUID": "5ff50136-72d5-4fcb-bb90-3213bfba95ba",
                   "isHook": false,
                   "skipped": false
                 },
@@ -2141,7 +2146,7 @@
                   "title": "Should respond with 200 if got doctors successfully",
                   "fullTitle": "/api/doctors /getDoctors Should respond with 200 if got doctors successfully",
                   "timedOut": false,
-                  "duration": 5,
+                  "duration": 4,
                   "state": "passed",
                   "speed": "fast",
                   "pass": true,
@@ -2150,16 +2155,16 @@
                   "context": null,
                   "code": "const token = genToken(\"01090243795\",1,\"user\");\n            let res = await request(server)\n            .post(\"/api/doctors/getDoctors\")\n            .set(\"Authorization\", `Bearer ${token}`)\n            .send({category_id: 42})\n            .expect(200);",
                   "err": {},
-                  "uuid": "aeb2228f-be49-4591-b1ee-fd89f1523119",
-                  "parentUUID": "f266f646-4e90-45ce-b387-40d4f566fa2d",
+                  "uuid": "638c084f-4856-4c84-899f-94e33fce0234",
+                  "parentUUID": "5ff50136-72d5-4fcb-bb90-3213bfba95ba",
                   "isHook": false,
                   "skipped": false
                 }
               ],
               "suites": [],
               "passes": [
-                "7384c5b1-416f-401b-8cdb-becc36487746",
-                "aeb2228f-be49-4591-b1ee-fd89f1523119"
+                "266cd2f9-f38f-40c6-a258-272d47cabea3",
+                "638c084f-4856-4c84-899f-94e33fce0234"
               ],
               "failures": [],
               "pending": [],
@@ -2170,7 +2175,7 @@
               "_timeout": 2000
             },
             {
-              "uuid": "da030d29-b665-4c08-9fb7-60d93971964f",
+              "uuid": "501a78bf-4199-49bf-86e2-cf05d7961035",
               "title": "/updateDoctor",
               "fullFile": "/Users/iifawzi/Desktop/current projects/Hospital/test/doctors.js",
               "file": "/test/doctors.js",
@@ -2190,8 +2195,8 @@
                   "context": null,
                   "code": "let res = await request(server)\n.patch(\"/api/doctors/updateDoctor\")\n.send({\"phone_number\":\"3487\"})\n.expect(401);",
                   "err": {},
-                  "uuid": "7473bb4e-fc59-47f9-aeb9-e7290c9682b0",
-                  "parentUUID": "da030d29-b665-4c08-9fb7-60d93971964f",
+                  "uuid": "506feed6-6499-45db-9a7c-0ac76fff7e7e",
+                  "parentUUID": "501a78bf-4199-49bf-86e2-cf05d7961035",
                   "isHook": false,
                   "skipped": false
                 },
@@ -2208,8 +2213,8 @@
                   "context": null,
                   "code": "const token = genToken(\"01590243311\",1,\"admin\");\nlet res = await request(server)\n.patch(\"/api/doctors/updateDoctor\")\n.send({\"fb_token_id\":\"3487\"})\n.set(\"Authorization\", `Bearer ${token}`)\n.expect(400);",
                   "err": {},
-                  "uuid": "949c3f60-5591-4f10-a992-f654776acdba",
-                  "parentUUID": "da030d29-b665-4c08-9fb7-60d93971964f",
+                  "uuid": "55631a67-9dae-4465-beda-c7a457ae4061",
+                  "parentUUID": "501a78bf-4199-49bf-86e2-cf05d7961035",
                   "isHook": false,
                   "skipped": false
                 },
@@ -2217,7 +2222,7 @@
                   "title": "Should respond with 200 if successfully updated",
                   "fullTitle": "/api/doctors /updateDoctor Should respond with 200 if successfully updated",
                   "timedOut": false,
-                  "duration": 14,
+                  "duration": 15,
                   "state": "passed",
                   "speed": "fast",
                   "pass": true,
@@ -2226,8 +2231,8 @@
                   "context": null,
                   "code": "const token = genToken(\"11090243799\",1, \"admin\");\nlet res = await request(server)\n  .post(\"/api/controlPanel/addDoctor\")\n  .set(\"Authorization\", `Bearer ${token}`)\n  .send({\n    phone_number: \"11090243799\",\n    password: \"testtest\",\n    first_name: \"fawzi\",\n    last_name: \"ahmed\",\n    country: \"egypt\",\n    category_id: 1,\n    picture: \"fkfjkfj\",\n    price: \"100\",\n  })\n  .expect(201);\n  const docId = res.body.data.doctor_id;\nres = await request(server)\n .patch(\"/api/doctors/updateDoctor\")\n.send({\n    doctor_id: docId,\n    phone_number: \"112345\",\n    password: \"t123\",\n    first_name: \"fawziiiii\",\n    last_name: \"ahmedddddd\",\n    country: \"saudiarabia\",\n    category_id: 5,\n    picture: \"fkfjkfj\",\n    price: \"300\",\n})\n.set(\"Authorization\", `Bearer ${token}`)\n.expect(200);\nexpect(res.body.data.phone_number).to.equal(\"112345\");\nexpect(res.body.data.password).to.equal(\"t123\");\nexpect(res.body.data.first_name).to.equal(\"fawziiiii\");\nexpect(res.body.data.last_name).to.equal(\"ahmedddddd\");\nexpect(res.body.data.country).to.equal(\"saudiarabia\");\nexpect(res.body.data.category_id).to.equal(5);\nexpect(res.body.data.picture).to.equal(\"fkfjkfj\");\nexpect(res.body.data.price).to.equal(\"300\");",
                   "err": {},
-                  "uuid": "4523a660-5d26-4c77-b02a-a863797d054f",
-                  "parentUUID": "da030d29-b665-4c08-9fb7-60d93971964f",
+                  "uuid": "4f66cfa2-7160-4904-889b-32b40a23a6ee",
+                  "parentUUID": "501a78bf-4199-49bf-86e2-cf05d7961035",
                   "isHook": false,
                   "skipped": false
                 },
@@ -2235,7 +2240,7 @@
                   "title": "Should respond with 403 if new phone number is already registered",
                   "fullTitle": "/api/doctors /updateDoctor Should respond with 403 if new phone number is already registered",
                   "timedOut": false,
-                  "duration": 11,
+                  "duration": 13,
                   "state": "passed",
                   "speed": "fast",
                   "pass": true,
@@ -2244,23 +2249,23 @@
                   "context": null,
                   "code": "const token = genToken(\"01590243313\",1,\"admin\");\n          let res = await request(server)\n.post(\"/api/controlPanel/addDoctor\")\n.set(\"Authorization\", `Bearer ${token}`)\n.send({\n  phone_number: \"110902411\",\n  password: \"testtest\",\n  first_name: \"fawzi\",\n  last_name: \"ahmed\",\n  country: \"egypt\",\n  category_id: 1,\n  picture: \"fkfjkfj\",\n  price: \"100\",\n})\n.expect(201);\nconst docId = res.body.data.doctor_id;\nres = await request(server)\n.patch(\"/api/doctors/updateDoctor\")\n.send({\n    doctor_id: docId,\n    phone_number: \"112345\",\n})\n.set(\"Authorization\", `Bearer ${token}`)\n.expect(403);\ndeleteDoctor(\"110902411\");\ndeleteDoctor(\"112345\");",
                   "err": {},
-                  "uuid": "f4086374-7042-49ed-9927-130163a8fb11",
-                  "parentUUID": "da030d29-b665-4c08-9fb7-60d93971964f",
+                  "uuid": "92f65bfe-6bd5-4585-b763-b3f6853e7557",
+                  "parentUUID": "501a78bf-4199-49bf-86e2-cf05d7961035",
                   "isHook": false,
                   "skipped": false
                 }
               ],
               "suites": [],
               "passes": [
-                "7473bb4e-fc59-47f9-aeb9-e7290c9682b0",
-                "949c3f60-5591-4f10-a992-f654776acdba",
-                "4523a660-5d26-4c77-b02a-a863797d054f",
-                "f4086374-7042-49ed-9927-130163a8fb11"
+                "506feed6-6499-45db-9a7c-0ac76fff7e7e",
+                "55631a67-9dae-4465-beda-c7a457ae4061",
+                "4f66cfa2-7160-4904-889b-32b40a23a6ee",
+                "92f65bfe-6bd5-4585-b763-b3f6853e7557"
               ],
               "failures": [],
               "pending": [],
               "skipped": [],
-              "duration": 29,
+              "duration": 32,
               "root": false,
               "rootEmpty": false,
               "_timeout": 2000
@@ -2276,7 +2281,7 @@
           "_timeout": 2000
         },
         {
-          "uuid": "e52d067d-d0da-44a3-81ef-cedd342d0d11",
+          "uuid": "c300630f-0fb0-48e8-a000-0f14e794bda4",
           "title": "/api/slots",
           "fullFile": "/Users/iifawzi/Desktop/current projects/Hospital/test/slots.test.js",
           "file": "/test/slots.test.js",
@@ -2294,8 +2299,8 @@
               "context": null,
               "code": "server = require(\"../app\");",
               "err": {},
-              "uuid": "b95bf362-6860-49bb-858d-3df7d8ebebad",
-              "parentUUID": "e52d067d-d0da-44a3-81ef-cedd342d0d11",
+              "uuid": "1153d038-1013-4aff-8fb7-313960eba688",
+              "parentUUID": "c300630f-0fb0-48e8-a000-0f14e794bda4",
               "isHook": true,
               "skipped": false
             }
@@ -2314,8 +2319,8 @@
               "context": null,
               "code": "",
               "err": {},
-              "uuid": "661606c4-62e5-43c0-8c46-d8eb8039fe8c",
-              "parentUUID": "e52d067d-d0da-44a3-81ef-cedd342d0d11",
+              "uuid": "663a5c62-76db-4394-9795-027e2142287b",
+              "parentUUID": "c300630f-0fb0-48e8-a000-0f14e794bda4",
               "isHook": true,
               "skipped": false
             }
@@ -2323,7 +2328,7 @@
           "tests": [],
           "suites": [
             {
-              "uuid": "79ba06ab-54f7-437c-9c6d-210c4605dca5",
+              "uuid": "15f939ef-127c-4981-bc94-83fb6e7cdc0f",
               "title": "/addSlot",
               "fullFile": "/Users/iifawzi/Desktop/current projects/Hospital/test/slots.test.js",
               "file": "/test/slots.test.js",
@@ -2334,7 +2339,7 @@
                   "title": "Should respond 401 if not Authorized",
                   "fullTitle": "/api/slots /addSlot Should respond 401 if not Authorized",
                   "timedOut": false,
-                  "duration": 1,
+                  "duration": 2,
                   "state": "passed",
                   "speed": "fast",
                   "pass": true,
@@ -2343,8 +2348,8 @@
                   "context": null,
                   "code": "let res = await request(server)\n.post(\"/api/slots/addSlot\")\n.expect(401);",
                   "err": {},
-                  "uuid": "86822062-939e-4ad4-a419-91ffd127adc7",
-                  "parentUUID": "79ba06ab-54f7-437c-9c6d-210c4605dca5",
+                  "uuid": "b3a37772-e6e0-417c-b5d0-fbd51e722993",
+                  "parentUUID": "15f939ef-127c-4981-bc94-83fb6e7cdc0f",
                   "isHook": false,
                   "skipped": false
                 },
@@ -2361,8 +2366,8 @@
                   "context": null,
                   "code": "const token = genToken(\"0109034748\",1,\"admin\");\nlet res = await request(server)\n.post(\"/api/slots/addSlot\")\n.set(\"Authorization\", `Bearer ${token}`)\n.send({\n    \"day\":\"mon\",\n    \"slot_time\":\"60:00\",\n    \"available\":false\n    })\n.expect(400);",
                   "err": {},
-                  "uuid": "ddc417dc-eeec-44c3-8c93-7b3d555960e3",
-                  "parentUUID": "79ba06ab-54f7-437c-9c6d-210c4605dca5",
+                  "uuid": "48ad6828-47c6-46c0-ac11-c7546c6a07c0",
+                  "parentUUID": "15f939ef-127c-4981-bc94-83fb6e7cdc0f",
                   "isHook": false,
                   "skipped": false
                 },
@@ -2370,7 +2375,7 @@
                   "title": "Should respond 200 addedd Successfully",
                   "fullTitle": "/api/slots /addSlot Should respond 200 addedd Successfully",
                   "timedOut": false,
-                  "duration": 9,
+                  "duration": 11,
                   "state": "passed",
                   "speed": "fast",
                   "pass": true,
@@ -2379,28 +2384,28 @@
                   "context": null,
                   "code": "const token = genToken(\"0109034748\",1,\"admin\");\nlet res = await request(server)\n.post(\"/api/controlPanel/addDoctor\")\n.set(\"Authorization\", `Bearer ${token}`)\n.send({\n    \"phone_number\":\"01090113795\",\n    \"password\":\"testtest\",\n    \"first_name\":\"fawzi\",\n    \"last_name\": \"ahmed\",\n    \"country\":\"egypt\",\n    \"category_id\":1,\n    \"picture\":\"fkfjkfj\",\n    \"price\": \"100\",\n})\n.expect(201);\nconst docId = res.body.data.doctor_id;\nres = await request(server)\n.post(\"/api/slots/addSlot\")\n.set(\"Authorization\", `Bearer ${token}`)\n.send({\n    \"doctor_id\":docId,\n    \"day\":\"mon\",\n    \"start_time\":\"23:00\",\n    \"end_time\":\"24:00\",\n    \"slot_time\":\"60:00\",\n    \"available\":false\n    })\n.expect(201);\nconst slotId = res.body.data.slot_id;\ndeleteDoctor(\"01090113795\");\ndeleteSlot(slotId);",
                   "err": {},
-                  "uuid": "db42819c-8446-42e6-9c55-fdd309c96125",
-                  "parentUUID": "79ba06ab-54f7-437c-9c6d-210c4605dca5",
+                  "uuid": "16c792c9-c7ef-4b47-bc4b-40a5958ee266",
+                  "parentUUID": "15f939ef-127c-4981-bc94-83fb6e7cdc0f",
                   "isHook": false,
                   "skipped": false
                 }
               ],
               "suites": [],
               "passes": [
-                "86822062-939e-4ad4-a419-91ffd127adc7",
-                "ddc417dc-eeec-44c3-8c93-7b3d555960e3",
-                "db42819c-8446-42e6-9c55-fdd309c96125"
+                "b3a37772-e6e0-417c-b5d0-fbd51e722993",
+                "48ad6828-47c6-46c0-ac11-c7546c6a07c0",
+                "16c792c9-c7ef-4b47-bc4b-40a5958ee266"
               ],
               "failures": [],
               "pending": [],
               "skipped": [],
-              "duration": 12,
+              "duration": 15,
               "root": false,
               "rootEmpty": false,
               "_timeout": 2000
             },
             {
-              "uuid": "6d9d2362-6216-4cb1-9319-8cbb193b8174",
+              "uuid": "ad06a923-9719-4166-aa83-dbaa221ba360",
               "title": "/updateSlot",
               "fullFile": "/Users/iifawzi/Desktop/current projects/Hospital/test/slots.test.js",
               "file": "/test/slots.test.js",
@@ -2411,7 +2416,7 @@
                   "title": "Should respond 401 if not Authorized",
                   "fullTitle": "/api/slots /updateSlot Should respond 401 if not Authorized",
                   "timedOut": false,
-                  "duration": 1,
+                  "duration": 2,
                   "state": "passed",
                   "speed": "fast",
                   "pass": true,
@@ -2420,8 +2425,8 @@
                   "context": null,
                   "code": "let res = await request(server)\n.patch(\"/api/slots/updateSlot\")\n.expect(401);",
                   "err": {},
-                  "uuid": "cb27a081-776e-4cfc-a69e-f7f5fe58b182",
-                  "parentUUID": "6d9d2362-6216-4cb1-9319-8cbb193b8174",
+                  "uuid": "604211d4-016d-42a5-bfa5-4164f896dcbf",
+                  "parentUUID": "ad06a923-9719-4166-aa83-dbaa221ba360",
                   "isHook": false,
                   "skipped": false
                 },
@@ -2429,7 +2434,7 @@
                   "title": "Should respond 400 if one of inputs is incorrect",
                   "fullTitle": "/api/slots /updateSlot Should respond 400 if one of inputs is incorrect",
                   "timedOut": false,
-                  "duration": 1,
+                  "duration": 2,
                   "state": "passed",
                   "speed": "fast",
                   "pass": true,
@@ -2438,8 +2443,8 @@
                   "context": null,
                   "code": "const token = genToken(\"0109034748\",1,\"admin\");\nlet res = await request(server)\n.patch(\"/api/slots/updateSlot\")\n.set(\"Authorization\", `Bearer ${token}`)\n.send({\n    \"ahmed\":\"mon\",\n    })\n.expect(400);",
                   "err": {},
-                  "uuid": "c475ef22-7f8e-45fa-b49e-442c0f2b5ae4",
-                  "parentUUID": "6d9d2362-6216-4cb1-9319-8cbb193b8174",
+                  "uuid": "1601f1c4-1bc3-4dba-bb4f-d058f30c176a",
+                  "parentUUID": "ad06a923-9719-4166-aa83-dbaa221ba360",
                   "isHook": false,
                   "skipped": false
                 },
@@ -2456,28 +2461,28 @@
                   "context": null,
                   "code": "const token = genToken(\"0109034748\",1,\"admin\");\nlet res = await request(server)\n.patch(\"/api/slots/updateSlot\")\n.set(\"Authorization\", `Bearer ${token}`)\n.send({\n    \"slot_id\":1,\n    \"day\":\"wed\",\n    \"start_time\":\"21:00\",\n    \"end_time\":\"22:30\",\n    \"slot_time\":\"30:00\",\n    \"available\":true\n    })\n.expect(200);\nexpect(res.body.data.day).to.equal(\"wed\");\nconst slotId = res.body.data.slot_id;\ndeleteSlot(slotId);",
                   "err": {},
-                  "uuid": "b3d46d59-bd42-48d0-9905-1abad0c02445",
-                  "parentUUID": "6d9d2362-6216-4cb1-9319-8cbb193b8174",
+                  "uuid": "3f06c5df-1670-4aae-9fb4-7011809cb741",
+                  "parentUUID": "ad06a923-9719-4166-aa83-dbaa221ba360",
                   "isHook": false,
                   "skipped": false
                 }
               ],
               "suites": [],
               "passes": [
-                "cb27a081-776e-4cfc-a69e-f7f5fe58b182",
-                "c475ef22-7f8e-45fa-b49e-442c0f2b5ae4",
-                "b3d46d59-bd42-48d0-9905-1abad0c02445"
+                "604211d4-016d-42a5-bfa5-4164f896dcbf",
+                "1601f1c4-1bc3-4dba-bb4f-d058f30c176a",
+                "3f06c5df-1670-4aae-9fb4-7011809cb741"
               ],
               "failures": [],
               "pending": [],
               "skipped": [],
-              "duration": 7,
+              "duration": 9,
               "root": false,
               "rootEmpty": false,
               "_timeout": 2000
             },
             {
-              "uuid": "f7f8f976-2a2f-43a3-9af2-710076481d93",
+              "uuid": "b46e10ac-5f27-4fde-b564-22770532d38c",
               "title": "/getOpenSlots",
               "fullFile": "/Users/iifawzi/Desktop/current projects/Hospital/test/slots.test.js",
               "file": "/test/slots.test.js",
@@ -2497,8 +2502,8 @@
                   "context": null,
                   "code": "let res = await request(server)\n.post(\"/api/slots/getOpenSlots\")\n.expect(401);",
                   "err": {},
-                  "uuid": "089bcedf-2636-4a65-bfac-8aa06ca19c7c",
-                  "parentUUID": "f7f8f976-2a2f-43a3-9af2-710076481d93",
+                  "uuid": "1270a382-2538-4e12-bf6f-612b920f0965",
+                  "parentUUID": "b46e10ac-5f27-4fde-b564-22770532d38c",
                   "isHook": false,
                   "skipped": false
                 },
@@ -2515,8 +2520,8 @@
                   "context": null,
                   "code": "const token = genToken(\"0109034748\",1,\"user\");\nlet res = await request(server)\n.post(\"/api/slots/getOpenSlots\")\n.set(\"Authorization\", `Bearer ${token}`)\n.send({\n    \"doctor_id\":44554,\n    })\n.expect(400);",
                   "err": {},
-                  "uuid": "eae92766-183f-47fd-8e23-8bcb94b8637b",
-                  "parentUUID": "f7f8f976-2a2f-43a3-9af2-710076481d93",
+                  "uuid": "40896eae-6d4f-4094-8463-f8646afa6fb9",
+                  "parentUUID": "b46e10ac-5f27-4fde-b564-22770532d38c",
                   "isHook": false,
                   "skipped": false
                 },
@@ -2533,17 +2538,17 @@
                   "context": null,
                   "code": "const token = genToken(\"0109034748\",1,\"user\");\nlet res = await request(server)\n.post(\"/api/auth/signup\")\n.send({\n    \"phone_number\": \"01590243399\",\n    \"first_name\": \"fawzi\",\n    \"last_name\":\"ahmed\",\n    \"birth_date\": \"1999-03-20\",\n    \"weight\": 100,\n    \"height\": 180,\n    \"bmi\": 28,\n    \"fb_token_id\": \"djdj84\",\n    \"gender\": \"male\",\n})\n.expect(201);\nconst userId = res.body.data.user_id;\n res = await request(server)\n.post(\"/api/slots/getOpenSlots\")\n.set(\"Authorization\", `Bearer ${token}`)\n.send({\n    \"doctor_id\": 11,\n    \"day\": \"wed\",\n    \"date\":\"2020-05-27\"\n    })\n.expect(200);\nconst appId = res.body.data.slot_id;\ndeleteAppointment(1);\ndeleteUser(\"01590243399\");",
                   "err": {},
-                  "uuid": "07d306bb-c6b4-47eb-bcf3-fe850b51e9d4",
-                  "parentUUID": "f7f8f976-2a2f-43a3-9af2-710076481d93",
+                  "uuid": "971c6261-eb0f-4f71-8be7-c6ffffae1618",
+                  "parentUUID": "b46e10ac-5f27-4fde-b564-22770532d38c",
                   "isHook": false,
                   "skipped": false
                 }
               ],
               "suites": [],
               "passes": [
-                "089bcedf-2636-4a65-bfac-8aa06ca19c7c",
-                "eae92766-183f-47fd-8e23-8bcb94b8637b",
-                "07d306bb-c6b4-47eb-bcf3-fe850b51e9d4"
+                "1270a382-2538-4e12-bf6f-612b920f0965",
+                "40896eae-6d4f-4094-8463-f8646afa6fb9",
+                "971c6261-eb0f-4f71-8be7-c6ffffae1618"
               ],
               "failures": [],
               "pending": [],
@@ -2554,7 +2559,7 @@
               "_timeout": 2000
             },
             {
-              "uuid": "0405631f-54a7-42b7-8f19-0e3b8bbc8894",
+              "uuid": "82248a5b-36d9-47b1-a0ac-2459075e26d8",
               "title": "/getDoctorDays",
               "fullFile": "/Users/iifawzi/Desktop/current projects/Hospital/test/slots.test.js",
               "file": "/test/slots.test.js",
@@ -2574,8 +2579,8 @@
                   "context": null,
                   "code": "let res = await request(server)\n.post(\"/api/slots/addSlot\")\n.expect(401);",
                   "err": {},
-                  "uuid": "d9ce3297-ecad-4caa-a56d-0ea20dfda658",
-                  "parentUUID": "0405631f-54a7-42b7-8f19-0e3b8bbc8894",
+                  "uuid": "12459be4-4a50-43a7-9eeb-9fb40d8e09f5",
+                  "parentUUID": "82248a5b-36d9-47b1-a0ac-2459075e26d8",
                   "isHook": false,
                   "skipped": false
                 },
@@ -2592,8 +2597,8 @@
                   "context": null,
                   "code": "const token = genToken(\"0109034748\",1,\"admin\");\nlet res = await request(server)\n.post(\"/api/slots/addSlot\")\n.set(\"Authorization\", `Bearer ${token}`)\n.send({\n\"doctor_id\":\"kjdkjdk\"\n    })\n.expect(400);",
                   "err": {},
-                  "uuid": "8e68845b-ad9f-4077-92f3-84a41ab99c25",
-                  "parentUUID": "0405631f-54a7-42b7-8f19-0e3b8bbc8894",
+                  "uuid": "cd404447-e220-463e-bc94-6cf33f465d21",
+                  "parentUUID": "82248a5b-36d9-47b1-a0ac-2459075e26d8",
                   "isHook": false,
                   "skipped": false
                 },
@@ -2601,7 +2606,7 @@
                   "title": "Should respond 200 if got days susccessfully",
                   "fullTitle": "/api/slots /getDoctorDays Should respond 200 if got days susccessfully",
                   "timedOut": false,
-                  "duration": 11,
+                  "duration": 18,
                   "state": "passed",
                   "speed": "fast",
                   "pass": true,
@@ -2610,22 +2615,22 @@
                   "context": null,
                   "code": "const token = genToken(\"0109034748\",1,\"admin\");\nlet res = await request(server)\n.post(\"/api/controlPanel/addDoctor\")\n.set(\"Authorization\", `Bearer ${token}`)\n.send({\n    \"phone_number\":\"01090113795\",\n    \"password\":\"testtest\",\n    \"first_name\":\"fawzi\",\n    \"last_name\": \"ahmed\",\n    \"country\":\"egypt\",\n    \"category_id\":1,\n    \"picture\":\"fkfjkfj\",\n    \"price\": \"100\",\n})\n.expect(201);\nconst docId = res.body.data.doctor_id;\nres = await request(server)\n.post(\"/api/slots/addSlot\")\n.set(\"Authorization\", `Bearer ${token}`)\n.send({\n    \"doctor_id\":docId,\n    \"day\":\"mon\",\n    \"start_time\":\"23:00\",\n    \"end_time\":\"24:00\",\n    \"slot_time\":\"60:00\",\n    \"available\":false\n    })\n.expect(201);\nres = await request(server)\n.post(\"/api/slots/getDoctorDays\")\n.set(\"Authorization\", `Bearer ${token}`)\n.send({\n    \"doctor_id\":docId,\n    })\n.expect(200);\nconst slotId = res.body.data.slot_id;\ndeleteDoctor(\"01090113795\");\ndeleteSlot(slotId);",
                   "err": {},
-                  "uuid": "580a7609-61d6-44f3-924c-85edb85c79ca",
-                  "parentUUID": "0405631f-54a7-42b7-8f19-0e3b8bbc8894",
+                  "uuid": "05a77184-3b76-4eed-8250-e438caa8634f",
+                  "parentUUID": "82248a5b-36d9-47b1-a0ac-2459075e26d8",
                   "isHook": false,
                   "skipped": false
                 }
               ],
               "suites": [],
               "passes": [
-                "d9ce3297-ecad-4caa-a56d-0ea20dfda658",
-                "8e68845b-ad9f-4077-92f3-84a41ab99c25",
-                "580a7609-61d6-44f3-924c-85edb85c79ca"
+                "12459be4-4a50-43a7-9eeb-9fb40d8e09f5",
+                "cd404447-e220-463e-bc94-6cf33f465d21",
+                "05a77184-3b76-4eed-8250-e438caa8634f"
               ],
               "failures": [],
               "pending": [],
               "skipped": [],
-              "duration": 14,
+              "duration": 21,
               "root": false,
               "rootEmpty": false,
               "_timeout": 2000
@@ -2641,7 +2646,7 @@
           "_timeout": 2000
         },
         {
-          "uuid": "2ab4bbb8-67c0-4f26-a7a4-d89a0b4cbb88",
+          "uuid": "5e393cf1-568c-4727-880f-9f586119e6ab",
           "title": "/api/user",
           "fullFile": "/Users/iifawzi/Desktop/current projects/Hospital/test/user.js",
           "file": "/test/user.js",
@@ -2659,8 +2664,8 @@
               "context": null,
               "code": "server = require(\"../app\");",
               "err": {},
-              "uuid": "c5f44561-7cf9-4595-9ff5-519968064ab3",
-              "parentUUID": "2ab4bbb8-67c0-4f26-a7a4-d89a0b4cbb88",
+              "uuid": "f1f82539-7739-4368-8b45-9995e8c26a3d",
+              "parentUUID": "5e393cf1-568c-4727-880f-9f586119e6ab",
               "isHook": true,
               "skipped": false
             }
@@ -2670,7 +2675,7 @@
               "title": "\"after each\" hook",
               "fullTitle": "/api/user \"after each\" hook",
               "timedOut": false,
-              "duration": 0,
+              "duration": 1,
               "state": null,
               "speed": null,
               "pass": false,
@@ -2679,8 +2684,8 @@
               "context": null,
               "code": "",
               "err": {},
-              "uuid": "6e036994-526e-4b99-afa5-b30c491aff20",
-              "parentUUID": "2ab4bbb8-67c0-4f26-a7a4-d89a0b4cbb88",
+              "uuid": "29dc2140-ec19-4fdf-9db7-cb99b0c7f08c",
+              "parentUUID": "5e393cf1-568c-4727-880f-9f586119e6ab",
               "isHook": true,
               "skipped": false
             }
@@ -2688,7 +2693,7 @@
           "tests": [],
           "suites": [
             {
-              "uuid": "4b7229d6-7f9d-48a7-9bc8-3ab372211f09",
+              "uuid": "e852fcd1-f261-4d1d-8694-6672477c861f",
               "title": "/updateInfo",
               "fullFile": "/Users/iifawzi/Desktop/current projects/Hospital/test/user.js",
               "file": "/test/user.js",
@@ -2699,7 +2704,7 @@
                   "title": "Should respond with 401 if not authorized",
                   "fullTitle": "/api/user /updateInfo Should respond with 401 if not authorized",
                   "timedOut": false,
-                  "duration": 2,
+                  "duration": 3,
                   "state": "passed",
                   "speed": "fast",
                   "pass": true,
@@ -2708,8 +2713,8 @@
                   "context": null,
                   "code": "let res = await request(server)\n.patch(\"/api/user/updateInfo\")\n.send({\"phone_number\":\"3487\"})\n.expect(401);",
                   "err": {},
-                  "uuid": "b6d05d7e-7f66-4a4e-9c2c-5763baf75845",
-                  "parentUUID": "4b7229d6-7f9d-48a7-9bc8-3ab372211f09",
+                  "uuid": "68d16f3b-27f0-4a79-ba7a-d0979f32d1be",
+                  "parentUUID": "e852fcd1-f261-4d1d-8694-6672477c861f",
                   "isHook": false,
                   "skipped": false
                 },
@@ -2726,8 +2731,8 @@
                   "context": null,
                   "code": "const token = genToken(\"01590243311\",1,\"user\");\nlet res = await request(server)\n.patch(\"/api/user/updateInfo\")\n.send({\"fb_token_id\":\"3487\"})\n.set(\"Authorization\", `Bearer ${token}`)\n.expect(400);",
                   "err": {},
-                  "uuid": "612be26c-2a67-4e22-944f-06041820d72a",
-                  "parentUUID": "4b7229d6-7f9d-48a7-9bc8-3ab372211f09",
+                  "uuid": "4a18145f-c333-41a1-903c-b6cccbb6393e",
+                  "parentUUID": "e852fcd1-f261-4d1d-8694-6672477c861f",
                   "isHook": false,
                   "skipped": false
                 },
@@ -2744,8 +2749,8 @@
                   "context": null,
                   "code": "let res = await request(server)\n.post(\"/api/auth/signup\")\n.send({\n    \"phone_number\": \"01590243311\",\n    \"first_name\": \"fawzi\",\n    \"last_name\":\"ahmed\",\n    \"birth_date\": \"1999-03-20\",\n    \"weight\": 100,\n    \"height\": 180,\n    \"bmi\": 28,\n    \"fb_token_id\": \"djdj84\",\n    \"gender\": \"male\",\n}).expect(201);\nexpect(res.body.data.phone_number).to.equal(\"01590243311\");\nconst token = genToken(\"01590243311\",1,\"user\");\n res = await request(server)\n.patch(\"/api/user/updateInfo\")\n.send({\n    \"phone_number\": \"12345\",\n    \"first_name\": \"ahmed\",\n    \"last_name\":\"mohammed\",\n    \"birth_date\": \"1999-03-22\",\n    \"weight\": 200,\n    \"height\": 300,\n    \"bmi\": 50,\n    \"gender\": \"male\",\n})\n.set(\"Authorization\", `Bearer ${token}`)\n.expect(200);\nexpect(res.body.data.phone_number).to.equal(\"12345\");\nexpect(res.body.data.first_name).to.equal(\"ahmed\");\nexpect(res.body.data.last_name).to.equal(\"mohammed\");\nexpect(res.body.data.birth_date).to.equal(\"1999-03-22\");\nexpect(res.body.data.weight).to.equal(200);\nexpect(res.body.data.height).to.equal(300);\nexpect(res.body.data.bmi).to.equal(50);\nexpect(res.body.data.gender).to.equal(\"male\");",
                   "err": {},
-                  "uuid": "30ad1d53-68e3-4f72-aba5-396ce548c5c2",
-                  "parentUUID": "4b7229d6-7f9d-48a7-9bc8-3ab372211f09",
+                  "uuid": "499050eb-ea93-4193-afaf-ad272845eb33",
+                  "parentUUID": "e852fcd1-f261-4d1d-8694-6672477c861f",
                   "isHook": false,
                   "skipped": false
                 },
@@ -2753,7 +2758,7 @@
                   "title": "Should respond with 403 if phone number is already registered",
                   "fullTitle": "/api/user /updateInfo Should respond with 403 if phone number is already registered",
                   "timedOut": false,
-                  "duration": 13,
+                  "duration": 11,
                   "state": "passed",
                   "speed": "fast",
                   "pass": true,
@@ -2762,29 +2767,29 @@
                   "context": null,
                   "code": "let res = await request(server)\n.post(\"/api/auth/signup\")\n.send({\n    \"phone_number\": \"01590243313\",\n    \"first_name\": \"fawzi\",\n    \"last_name\":\"ahmed\",\n    \"birth_date\": \"1999-03-20\",\n    \"weight\": 100,\n    \"height\": 180,\n    \"bmi\": 28,\n    \"fb_token_id\": \"djdj84\",\n    \"gender\": \"male\",\n}).expect(201);\nexpect(res.body.data.phone_number).to.equal(\"01590243313\");\nconst token = genToken(\"01590243313\",1,\"user\");\n res = await request(server)\n.patch(\"/api/user/updateInfo\")\n.send({\n    \"phone_number\": \"12345\",\n    \"first_name\": \"ahmed\",\n    \"last_name\":\"mohammed\",\n    \"birth_date\": \"1999-03-22\",\n    \"weight\": 200,\n    \"height\": 300,\n    \"bmi\": 50,\n    \"gender\": \"male\",\n})\n.set(\"Authorization\", `Bearer ${token}`)\n.expect(403);\ndeleteUser(\"01590243313\");\ndeleteUser(\"12345\");",
                   "err": {},
-                  "uuid": "66a9f4b8-a2c1-49ea-9e8d-e91cf310ef54",
-                  "parentUUID": "4b7229d6-7f9d-48a7-9bc8-3ab372211f09",
+                  "uuid": "a0efac0e-22d7-4e66-91fc-0584f13aaa61",
+                  "parentUUID": "e852fcd1-f261-4d1d-8694-6672477c861f",
                   "isHook": false,
                   "skipped": false
                 }
               ],
               "suites": [],
               "passes": [
-                "b6d05d7e-7f66-4a4e-9c2c-5763baf75845",
-                "612be26c-2a67-4e22-944f-06041820d72a",
-                "30ad1d53-68e3-4f72-aba5-396ce548c5c2",
-                "66a9f4b8-a2c1-49ea-9e8d-e91cf310ef54"
+                "68d16f3b-27f0-4a79-ba7a-d0979f32d1be",
+                "4a18145f-c333-41a1-903c-b6cccbb6393e",
+                "499050eb-ea93-4193-afaf-ad272845eb33",
+                "a0efac0e-22d7-4e66-91fc-0584f13aaa61"
               ],
               "failures": [],
               "pending": [],
               "skipped": [],
-              "duration": 33,
+              "duration": 32,
               "root": false,
               "rootEmpty": false,
               "_timeout": 2000
             },
             {
-              "uuid": "0f914248-2ca9-43ad-a615-867ceaa2fb7c",
+              "uuid": "6798eed2-57ae-482a-abce-5108baed8299",
               "title": "/notBlocked",
               "fullFile": "/Users/iifawzi/Desktop/current projects/Hospital/test/user.js",
               "file": "/test/user.js",
@@ -2804,8 +2809,8 @@
                   "context": null,
                   "code": "let res = await request(server)\n.get(\"/api/user/notBlocked\")\n.expect(401);",
                   "err": {},
-                  "uuid": "abaadc95-c8e2-43db-a484-ee3b4cb3798a",
-                  "parentUUID": "0f914248-2ca9-43ad-a615-867ceaa2fb7c",
+                  "uuid": "71dd4368-2506-4fb3-b289-bb6b93a6328b",
+                  "parentUUID": "6798eed2-57ae-482a-abce-5108baed8299",
                   "isHook": false,
                   "skipped": false
                 },
@@ -2813,7 +2818,7 @@
                   "title": "should respond with 403 if user is blocked",
                   "fullTitle": "/api/user /notBlocked should respond with 403 if user is blocked",
                   "timedOut": false,
-                  "duration": 12,
+                  "duration": 14,
                   "state": "passed",
                   "speed": "fast",
                   "pass": true,
@@ -2822,27 +2827,27 @@
                   "context": null,
                   "code": "let res = await request(server)\n.post(\"/api/auth/signup\")\n.send({\n    \"phone_number\": \"01590243399\",\n    \"first_name\": \"fawzi\",\n    \"last_name\":\"ahmed\",\n    \"birth_date\": \"1999-03-20\",\n    \"weight\": 100,\n    \"height\": 180,\n    \"bmi\": 28,\n    \"fb_token_id\": \"test\",\n    \"gender\": \"male\",\n}).expect(201);\nconst token = genToken(\"01590243399\",1,\"user\");\nawait blockUser(\"01590243399\");\nres = await request(server)\n.get(\"/api/user/notBlocked\")\n.set(\"Authorization\", `Bearer ${token}`)\n.expect(403);\ndeleteUser(\"01590243399\");",
                   "err": {},
-                  "uuid": "8d7f3a9b-1b23-45c0-8ba2-43da2a60d46d",
-                  "parentUUID": "0f914248-2ca9-43ad-a615-867ceaa2fb7c",
+                  "uuid": "32f88a06-4e7e-4105-ae75-87272a85bd81",
+                  "parentUUID": "6798eed2-57ae-482a-abce-5108baed8299",
                   "isHook": false,
                   "skipped": false
                 }
               ],
               "suites": [],
               "passes": [
-                "abaadc95-c8e2-43db-a484-ee3b4cb3798a",
-                "8d7f3a9b-1b23-45c0-8ba2-43da2a60d46d"
+                "71dd4368-2506-4fb3-b289-bb6b93a6328b",
+                "32f88a06-4e7e-4105-ae75-87272a85bd81"
               ],
               "failures": [],
               "pending": [],
               "skipped": [],
-              "duration": 14,
+              "duration": 16,
               "root": false,
               "rootEmpty": false,
               "_timeout": 2000
             },
             {
-              "uuid": "461ae040-a21c-4f71-a450-66854e230ead",
+              "uuid": "26bc7084-fc1b-41b3-9bfc-8cd594eb5228",
               "title": "/api/user/updateImage",
               "fullFile": "/Users/iifawzi/Desktop/current projects/Hospital/test/user.js",
               "file": "/test/user.js",
@@ -2862,8 +2867,8 @@
                   "context": null,
                   "code": "let res = await request(server)\n.post(\"/api/auth/signup\")\n.send({\n    \"phone_number\": \"01590243399\",\n    \"first_name\": \"fawzi\",\n    \"last_name\":\"ahmed\",\n    \"birth_date\": \"1999-03-20\",\n    \"weight\": 100,\n    \"height\": 180,\n    \"bmi\": 28,\n    \"fb_token_id\": \"test\",\n    \"gender\": \"male\",\n}).expect(201);\nconst token = genToken(\"01590243399\",1,\"user\");\nres = await request(server)\n.patch(\"/api/user/updateImage\")\n.set(\"Authorization\", `Bearer ${token}`)\n.set('Content-Type', 'application/x-www-form-urlencoded')\n.attach('file',path.resolve(__dirname, \"../logo.png\"))\n.expect(200);",
                   "err": {},
-                  "uuid": "212f0406-267a-4308-84af-50baba6e4b11",
-                  "parentUUID": "461ae040-a21c-4f71-a450-66854e230ead",
+                  "uuid": "baa65466-632d-47ae-af24-dd2486911aa1",
+                  "parentUUID": "26bc7084-fc1b-41b3-9bfc-8cd594eb5228",
                   "isHook": false,
                   "skipped": false
                 },
@@ -2871,17 +2876,17 @@
                   "title": "Should responed with 403 if type not allowed",
                   "fullTitle": "/api/user /api/user/updateImage Should responed with 403 if type not allowed",
                   "timedOut": false,
-                  "duration": 34,
+                  "duration": 40,
                   "state": "passed",
-                  "speed": "fast",
+                  "speed": "medium",
                   "pass": true,
                   "fail": false,
                   "pending": false,
                   "context": null,
                   "code": "const token = genToken(\"01590243399\",1,\"user\");\nlet res = await request(server)\n.patch(\"/api/user/updateImage\")\n.set(\"Authorization\", `Bearer ${token}`)\n.set('Content-Type', 'application/x-www-form-urlencoded')\n.attach('file',path.resolve(__dirname, \"../udemy-accs.txt\"))\n.expect(403);",
                   "err": {},
-                  "uuid": "9f975dc1-4922-49ac-bbbc-28d78e9fd137",
-                  "parentUUID": "461ae040-a21c-4f71-a450-66854e230ead",
+                  "uuid": "5b7e84a9-6c32-460c-b3f5-1a14f49978e0",
+                  "parentUUID": "26bc7084-fc1b-41b3-9bfc-8cd594eb5228",
                   "isHook": false,
                   "skipped": false
                 },
@@ -2898,28 +2903,28 @@
                   "context": null,
                   "code": "const token = genToken(\"01590241\",1,\"user\");\nlet res = await request(server)\n.patch(\"/api/user/updateImage\")\n.set(\"Authorization\", `Bearer ${token}`)\n.set('Content-Type', 'application/x-www-form-urlencoded')\n.attach('file',path.resolve(__dirname, \"../logo.png\"))\n.expect(401);\ndeleteUser(\"01590243399\");",
                   "err": {},
-                  "uuid": "09c320a3-ce23-47e0-8695-a05888755a96",
-                  "parentUUID": "461ae040-a21c-4f71-a450-66854e230ead",
+                  "uuid": "2ecb1f56-9308-4ce7-bfd9-cad91ee56ad1",
+                  "parentUUID": "26bc7084-fc1b-41b3-9bfc-8cd594eb5228",
                   "isHook": false,
                   "skipped": false
                 }
               ],
               "suites": [],
               "passes": [
-                "212f0406-267a-4308-84af-50baba6e4b11",
-                "9f975dc1-4922-49ac-bbbc-28d78e9fd137",
-                "09c320a3-ce23-47e0-8695-a05888755a96"
+                "baa65466-632d-47ae-af24-dd2486911aa1",
+                "5b7e84a9-6c32-460c-b3f5-1a14f49978e0",
+                "2ecb1f56-9308-4ce7-bfd9-cad91ee56ad1"
               ],
               "failures": [],
               "pending": [],
               "skipped": [],
-              "duration": 51,
+              "duration": 57,
               "root": false,
               "rootEmpty": false,
               "_timeout": 2000
             },
             {
-              "uuid": "617b24cf-1af1-4692-9697-8e818a41ebbb",
+              "uuid": "36b79fb9-1c6c-46b2-b61a-755e23084581",
               "title": "/getUser",
               "fullFile": "/Users/iifawzi/Desktop/current projects/Hospital/test/user.js",
               "file": "/test/user.js",
@@ -2930,7 +2935,7 @@
                   "title": "Should respond with 401 if not authorized",
                   "fullTitle": "/api/user /getUser Should respond with 401 if not authorized",
                   "timedOut": false,
-                  "duration": 2,
+                  "duration": 1,
                   "state": "passed",
                   "speed": "fast",
                   "pass": true,
@@ -2939,8 +2944,8 @@
                   "context": null,
                   "code": "let res = await request(server)\n.post(\"/api/user/getUser\")\n.expect(401);",
                   "err": {},
-                  "uuid": "1b1b7bfc-150b-402a-88bc-a97cc38c57cc",
-                  "parentUUID": "617b24cf-1af1-4692-9697-8e818a41ebbb",
+                  "uuid": "28d6bf3c-e3a9-4b63-8502-dae9bc2881f3",
+                  "parentUUID": "36b79fb9-1c6c-46b2-b61a-755e23084581",
                   "isHook": false,
                   "skipped": false
                 },
@@ -2948,7 +2953,7 @@
                   "title": "should respond with 404 if user not found",
                   "fullTitle": "/api/user /getUser should respond with 404 if user not found",
                   "timedOut": false,
-                  "duration": 4,
+                  "duration": 2,
                   "state": "passed",
                   "speed": "fast",
                   "pass": true,
@@ -2957,8 +2962,8 @@
                   "context": null,
                   "code": "const token = genToken(\"01590243399\",1,\"user\");\nlet res = await request(server)\n.post(\"/api/user/getUser\")\n.set(\"Authorization\", `Bearer ${token}`)\n.send({ \"phone_number\": \"9868956981256\", })\n.expect(404);",
                   "err": {},
-                  "uuid": "d6655358-f4ed-4598-b04a-d17bafc1fcc0",
-                  "parentUUID": "617b24cf-1af1-4692-9697-8e818a41ebbb",
+                  "uuid": "c2c1a201-83cf-4a15-9e0b-0895334dfafe",
+                  "parentUUID": "36b79fb9-1c6c-46b2-b61a-755e23084581",
                   "isHook": false,
                   "skipped": false
                 },
@@ -2966,7 +2971,7 @@
                   "title": "should respond with 200 if got user successfully",
                   "fullTitle": "/api/user /getUser should respond with 200 if got user successfully",
                   "timedOut": false,
-                  "duration": 8,
+                  "duration": 14,
                   "state": "passed",
                   "speed": "fast",
                   "pass": true,
@@ -2975,22 +2980,22 @@
                   "context": null,
                   "code": "let res = await request(server)\n.post(\"/api/auth/signup\")\n.send({\n    \"phone_number\": \"01590243399\",\n    \"first_name\": \"fawzi\",\n    \"last_name\":\"ahmed\",\n    \"birth_date\": \"1999-03-20\",\n    \"weight\": 100,\n    \"height\": 180,\n    \"bmi\": 28,\n    \"fb_token_id\": \"test\",\n    \"gender\": \"male\",\n}).expect(201);\nconst token = genToken(\"015902433399\",1,\"user\");\nres = await request(server)\n.post(\"/api/user/getUser\")\n.set(\"Authorization\", `Bearer ${token}`)\n.send({ \"phone_number\": \"01590243399\", })\n.expect(200);\ndeleteUser(\"01590243399\");",
                   "err": {},
-                  "uuid": "c15d658c-a036-4872-a53e-fb3d786c942c",
-                  "parentUUID": "617b24cf-1af1-4692-9697-8e818a41ebbb",
+                  "uuid": "84a264a1-3c90-4493-9950-07cc17fa0a68",
+                  "parentUUID": "36b79fb9-1c6c-46b2-b61a-755e23084581",
                   "isHook": false,
                   "skipped": false
                 }
               ],
               "suites": [],
               "passes": [
-                "1b1b7bfc-150b-402a-88bc-a97cc38c57cc",
-                "d6655358-f4ed-4598-b04a-d17bafc1fcc0",
-                "c15d658c-a036-4872-a53e-fb3d786c942c"
+                "28d6bf3c-e3a9-4b63-8502-dae9bc2881f3",
+                "c2c1a201-83cf-4a15-9e0b-0895334dfafe",
+                "84a264a1-3c90-4493-9950-07cc17fa0a68"
               ],
               "failures": [],
               "pending": [],
               "skipped": [],
-              "duration": 14,
+              "duration": 17,
               "root": false,
               "rootEmpty": false,
               "_timeout": 2000
