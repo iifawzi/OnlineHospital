@@ -44,7 +44,7 @@ const getUserApps = async (req,res,next)=>{
 const finishedAppointments = async (req,res,next)=>{
   try {
     const {id} = req.user;
-    const appointments = await finishedApps(user_id,res);
+    const appointments = await finishedApps(id,res);
     if (appointments){
       return respond(true,200,appointments,res);
     }
@@ -57,7 +57,7 @@ const finishedAppointments = async (req,res,next)=>{
 const upcomingAppointments = async (req,res,next)=>{
   try {
     const {id} = req.user;
-    const appointments = await upcomingApps(user_id,res);
+    const appointments = await upcomingApps(od,res);
     if (appointments){
       return respond(true,200,appointments,res);
     }
