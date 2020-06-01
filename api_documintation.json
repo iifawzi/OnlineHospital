@@ -1755,6 +1755,8 @@
         "data": [
             {
                 "date": "2020-05-28",
+                "start_time":"23:00",
+                "end_time":"24:00",
                 "appointment_id": 235,
                 "first_name": "Mostfa",
                 "last_name": "Essam",
@@ -1765,6 +1767,8 @@
             },
             {
                 "date": "2020-05-28",
+                "start_time":"23:00",
+                "end_time":"24:00",
                 "appointment_id": 234,
                 "first_name": "Mostfa",
                 "ar":"القلب والاوعية الدموية",
@@ -1775,6 +1779,8 @@
             },
             {
                 "date": "2020-05-28",
+                "start_time":"23:00",
+                "end_time":"24:00",
                 "appointment_id": 230,
                 "first_name": "Mostfa",
                 "last_name": "Essam",
@@ -1785,6 +1791,8 @@
             },
             {
                 "date": "2020-05-28",
+                "start_time":"23:00",
+                "end_time":"24:00",
                 "appointment_id": 229,
                 "first_name": "Mostfa",
                 "last_name": "Essam",
