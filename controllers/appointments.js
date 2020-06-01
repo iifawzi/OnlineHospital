@@ -174,17 +174,18 @@ const joinUser = async(req,res,next)=>{
         const app = await setUser_joined(appointment_id);
         return respond(true,200,{room_id},res);
       }else { // user's isn't allowed to join the appointment: 
-        return respond(false,200,"",res);
+      return respond(false,200,{room_id: ""},res);
+
       }
     }else if (appointment_status === 'running' && user_joined == 1){ // if the user lost his connection and wanna join again :: => i will just check if the session is still running and return the room id to him to join: 
       const compareBeforeEnd = moment(serverTime).isBefore(appEndTime) // this an additional check, by default the corn task will change the status to finished so we will not join this if at all, but this is additional if the corn didn't work for any reason,
       if (compareBeforeEnd){
         return respond(true,200,{room_id},res);
       }else {
-        return respond(false,200,"",res);
+        return respond(false,200,{room_id: ""},res);
       }
     }else {
-      return respond(false,200,"",res);
+      return respond(false,200,{room_id: ""},res);
     }
   }catch(err){
     handleError(err,res);
@@ -211,10 +212,12 @@ const joinDoctor = async(req,res,next)=>{
         const app = await setDoctor_joined(appointment_id);
         return respond(true,200,{room_id},res);
       }else { // Doctor's isn't allowed to join the appointment: 
-        return respond(false,200,"",res);
+      return respond(false,200,{room_id: ""},res);
+
       }
     }else {
-      return respond(false,200,"",res);
+      return respond(false,200,{room_id: ""},res);
+
     }
   }catch(err){
     handleError(err,res);
