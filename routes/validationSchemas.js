@@ -133,7 +133,10 @@ const docAppsByDate = Joi.object({
   date: Joi.string().required(),
 });
 const joinUserAppointment = Joi.object({
-  appointment_id: Joi.string().required(),
+  appointment_id: Joi.number().required(),
+});
+const joinDoctorAppointment = Joi.object({
+  appointment_id: Joi.number().required(),
 });
 
 const schemas = {
@@ -163,7 +166,8 @@ const schemas = {
   addConfirmedAppointment,
   confirmApp,
   docAppsByDate,
-  joinUserAppointment
+  joinUserAppointment,
+  joinDoctorAppointment
 };
 
 module.exports = schemas;

@@ -21,6 +21,7 @@ router.post("/getDocApps",isAuth(["admin"]),validate(validationSchemas.getDocApp
 // get doctor appointments by date for doctor's application
 router.post("/docAppsByDate",isAuth(["doctor","admin"]),validate(validationSchemas.docAppsByDate,"body"),appointmentsController.docAppsByDate);
 // to check if user's is able to join to specific appointment: 
-router.patch("/joinUserToAppointment",isAuth(["user","admin"],validate(validationSchemas.joinUserAppointment,"body")),appointmentsController.joinUser)
+router.patch("/joinUserToAppointment",isAuth(["user","admin"]),validate(validationSchemas.joinUserAppointment,"body"),appointmentsController.joinUser);
+router.patch("/joinDoctorToAppointment",isAuth(["user","admin"]),validate(validationSchemas.joinDoctorAppointment,"body"),appointmentsController.joinDoctor);
 
 module.exports = router;

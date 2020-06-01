@@ -41,6 +41,44 @@
     }
   ],
   "paths": {
+    "/appointments/joinDoctorToAppointment": {
+      "patch": {
+        "tags": ["appointments"],
+        "summary": "Join doctor to an appointment",
+        "consumes": ["application/json"],
+        "produces": ["application/json"],
+        "parameters": [
+          {
+            "in": "body",
+            "name": "body",
+            "required": true,
+            "schema": {
+              "$ref": "#/definitions/joinDoctorToAppointment"
+            }
+          },
+          {
+            "in": "header",
+            "name": "Authorization",
+            "required": true,
+            "type": "string"
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "200 `WITH STATUS TRUE AND ROOM_ID IN THE RESPONSE` (SUCCESS) OR 200 `WITH STATUS FALSE NO ROOM_ID IN RESPONSE` (FAILURE)",
+            "schema": {
+              "$ref": "#/definitions/joinDoctorToAppointmentSuccess"
+            }
+          },
+          "401": {
+            "description": "401 (Not Authorized)",
+            "schema": {
+              "$ref": "#/definitions/Error"
+            }
+          }
+        }
+      }
+    },
     "/appointments/joinUserToAppointment": {
       "patch": {
         "tags": ["appointments"],
@@ -1602,6 +1640,27 @@
     }
   },
   "definitions": {
+    "joinDoctorToAppointment": {
+      "type": "object",
+      "properties": {
+        "appointment_id": {
+          "type": "integer"
+        }
+      },
+      "example": {
+        "appointment_id": 1
+    }
+  },
+    "joinDoctorToAppointmentSuccess": {
+      "type": "object",
+      "example": {
+        "status": true,
+        "message": "success",
+        "data": {
+            "room_id": "83748787"
+        }
+    }
+  },
     "joinUserToAppointment": {
       "type": "object",
       "properties": {

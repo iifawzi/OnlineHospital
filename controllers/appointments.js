@@ -1,4 +1,4 @@
-const {addNewAppointment,addConfirmNewAppointment,userApps,docApps,cancelApp,confirmApp,docAppsDate,finishedApps,upcomingApps,getAppointment,setUser_joined} = require("../models/appointments");
+const {addNewAppointment,addConfirmNewAppointment,userApps,docApps,cancelApp,confirmApp,docAppsDate,finishedApps,upcomingApps,getAppointment,setUser_joined,setDoctor_joined} = require("../models/appointments");
 const { handleError, ErrorHandler } = require("../middleware/error");
 const respond = require("../middleware/respond");
 var moment = require('moment');
@@ -123,7 +123,7 @@ const confirmAppointment = async (req,res,next)=>{
   }
 } 
 
-
+// TODO:: TEST THIS FUNCTION: 
 const joinUser = async(req,res,next)=>{
   try {
     const {appointment_id} = req.body;
@@ -162,6 +162,36 @@ const joinUser = async(req,res,next)=>{
   }
 }
 
+// TODO:: TEST THIS FUNCTION: 
+const joinDoctor = async(req,res,next)=>{
+  try {
+    const {appointment_id} = req.body;
+    const appointment = await getAppointment(appointment_id,res); 
+    const {date,appointment_status,end_time,room_id} = appointment;
+    const serverDate = moment().format("YYYY-MM-DD"); // server date
+    const serverTime = moment().format(); // server time
+    const appDate = moment(date,"YYYY-MM-DD").format("YYYY-MM-DD"); // appointment date
+    const appEndTime = moment(end_time, "HH:mm");  // appointment end time 
+
+    if (appointment_status === "running"){ 
+      console.log('im here');
+      const compareDate = moment(appDate).isSame(serverDate); // check if the server date equals the appointment date
+      const compareBeforeEnd = moment(serverTime).isBefore(appEndTime) // this an additional check, by default the corn task will change the status to finished so we will not join `if` at all, but this is additional if the corn didn't work for any reason,
+      // if both checks are true : Doctor is allowed to join the appointment. 
+      if (compareDate && compareBeforeEnd){
+        const app = await setDoctor_joined(appointment_id);
+        return respond(true,200,{room_id},res);
+      }else { // Doctor's isn't allowed to join the appointment: 
+        return respond(false,200,"",res);
+      }
+    }else {
+      return respond(false,200,"",res);
+    }
+  }catch(err){
+    handleError(err,res);
+  }
+}
+
 
 module.exports = {
     addAppointment,
@@ -173,5 +203,6 @@ module.exports = {
     confirmAppointment,
     finishedAppointments,
     upcomingAppointments,
-    joinUser
+    joinUser,
+    joinDoctor
 }

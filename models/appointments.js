@@ -206,13 +206,22 @@ const getAppointment = async function(appointment_id,res){
 
 const setUser_joined = async function(appointment_id,res){
     try {
-        console.log("i'm here");
         const appointment = await appointments.findOne({where:{appointment_id}});
         appointment.user_joined = true;
         await appointment.save();
        
         return appointment;
-        console.log(appointment);
+    }catch(err){
+        handleError(err,res);
+    }
+}
+
+const setDoctor_joined = async function(appointment_id,res){
+    try {
+        const appointment = await appointments.findOne({where:{appointment_id}});
+        appointment.doctor_joined = true;
+        await appointment.save();
+        return appointment;
     }catch(err){
         handleError(err,res);
     }
@@ -231,5 +240,6 @@ module.exports = {
     upcomingApps,
     finishedApps,
     getAppointment,
-    setUser_joined
+    setUser_joined,
+    setDoctor_joined
 }
