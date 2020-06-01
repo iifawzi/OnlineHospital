@@ -120,7 +120,8 @@ const userApps = async function(user_id,res){
 
 const upcomingApps = async function(user_id,res){
     try {
-        const appointments =  await db.query("SELECT apps.date, apps.appointment_id,docs.first_name,docs.last_name,apps.appointment_status,slots.start_time,slots.end_time,cats.ar,cats.en, slots.day FROM appointments apps INNER JOIN slots ON apps.slot_id = slots.slot_id INNER JOIN doctors docs ON slots.doctor_id = docs.doctor_id INNER JOIN categories cats ON cats.category_id = docs.category_id WHERE apps.user_id = ? AND apps.appointment_status = 'upcoming' ORDER BY apps.appointment_id DESC",{
+        // TODO::RETURN RUNNING AND UPCOMING
+        const appointments =  await db.query("SELECT apps.date, apps.appointment_id,docs.first_name,docs.last_name,apps.appointment_status,slots.start_time,slots.end_time,cats.ar,cats.en, slots.day FROM appointments apps INNER JOIN slots ON apps.slot_id = slots.slot_id INNER JOIN doctors docs ON slots.doctor_id = docs.doctor_id INNER JOIN categories cats ON cats.category_id = docs.category_id WHERE apps.user_id = ? AND apps.appointment_status = 'running' ORDER BY apps.appointment_id DESC",{
             replacements: [1],
             type: Sequelize.QueryTypes.SELECT,
         });
