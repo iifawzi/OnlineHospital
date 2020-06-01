@@ -23,18 +23,19 @@ exports.doctors = (io)=>{
 //  `Join User a room` 
 socket.on("joinUserToRoom", (room_id)=>{
     socket.join(room_id)
+    console.log("i'm joined my name is", socket.name);
     socket.currentRoom = room_id;
     if (getRoomInfo(room_id) == null){
         addRoom(room_id);
     }
     addUserToRoom(room_id);
-    socket.emit("message",{user:"System", message:"Welcome to the clinic"})
+    socket.emit("message",{user:"System", message:"Welcome to the clinic",role:"system"})
     // if doctor is still not connected to the room: 
     if (isDoctorInRoom(room_id) === null){
-    socket.emit("message",{user:"System", message:"Doctor is not connected Yet, any message you send before doctor joins will not be deliverd, pleasw wait."});
+    socket.emit("message",{user:"System", message:"Doctor is not connected Yet, any message you send before doctor joins will not be deliverd, pleasw wait.",role:"system"});
     }else {   // if doctor is connected to the system:
-        socket.emit("message",{user:"System", message:"Doctor is Here, Just talk"});
-    socket.to(room_id).emit("message",{user:"System:",message:"User Joined the Clinic, Say Hi!"})
+        socket.emit("message",{user:"System", message:"Doctor is Here, Just talk",role:"system"});
+    socket.to(room_id).emit("message",{user:"System:",message:"User Joined the Clinic, Say Hi!",role:"system"})
 
     }
 })
@@ -48,18 +49,18 @@ socket.on("joinDoctorToRoom",(room_id)=>{
         addRoom(room_id);
     }
     addDoctorToRoom(room_id);
-    socket.emit("message",{user:"System", message:"Welcome Doctor to the clinic"});  
+    socket.emit("message",{user:"System", message:"Welcome Doctor to the clinic",role:"system"});  
     if (isUserInRoom(room_id) === null){
-        socket.emit("message",{user:"System", message:"User isn't connected Yet"});
+        socket.emit("message",{user:"System", message:"User isn't connected Yet",role:"system"});
         }else {   // if user is connected to the system:
-            socket.emit("message",{user:"System", message:"User is Here, Just talk"});
-            socket.to(room_id).emit("message",{user:"System:",message:"Doctor Joined the Clinic, Say Hi!"})    
+            socket.emit("message",{user:"System", message:"User is Here, Just talk",role:"system"});
+            socket.to(room_id).emit("message",{user:"System:",message:"Doctor Joined the Clinic, Say Hi!",role:"system"})    
         }
 })
 ////////////////////////////////////////////////////////// ? Messagging //////////////////////////////////////////////////////////////////
 
 socket.on("sendMessage",(message)=>{
-    io.to(socket.currentRoom).emit('message', { user: socket.name, message: message });
+    io.to(socket.currentRoom).emit('message', { user: socket.name, message: message, role: socket.role });
 })
 
 ////////////////////////////////////////////////////////// ? DISCONNECTING FROM THE SYSTEM //////////////////////////////////////////////////////////////////
