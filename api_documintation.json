@@ -1759,12 +1759,16 @@
                 "first_name": "Mostfa",
                 "last_name": "Essam",
                 "appointment_status": "upcoming",
+                "ar":"القلب والاوعية الدموية",
+                "en":"Cardiology",
                 "day": "wed"
             },
             {
                 "date": "2020-05-28",
                 "appointment_id": 234,
                 "first_name": "Mostfa",
+                "ar":"القلب والاوعية الدموية",
+                "en":"Cardiology",
                 "last_name": "Essam",
                 "appointment_status": "upcoming",
                 "day": "wed"
@@ -1774,6 +1778,8 @@
                 "appointment_id": 230,
                 "first_name": "Mostfa",
                 "last_name": "Essam",
+                "ar":"القلب والاوعية الدموية",
+                "en":"Cardiology",
                 "appointment_status": "upcoming",
                 "day": "wed"
             },
@@ -1782,6 +1788,8 @@
                 "appointment_id": 229,
                 "first_name": "Mostfa",
                 "last_name": "Essam",
+                "ar":"القلب والاوعية الدموية",
+                "en":"Cardiology",
                 "appointment_status": "upcoming",
                 "day": "wed"
             }
@@ -1800,6 +1808,8 @@
                 "first_name": "Mostfa",
                 "last_name": "Essam",
                 "appointment_status": "finished",
+                "ar":"القلب والاوعية الدموية",
+                "en":"Cardiology",
                 "day": "wed"
             },
             {
@@ -1808,6 +1818,8 @@
                 "first_name": "Mostfa",
                 "last_name": "Essam",
                 "appointment_status": "finished",
+                "ar":"القلب والاوعية الدموية",
+                "en":"Cardiology",
                 "day": "wed"
             },
             {
@@ -1815,6 +1827,8 @@
                 "appointment_id": 230,
                 "first_name": "Mostfa",
                 "last_name": "Essam",
+                "ar":"القلب والاوعية الدموية",
+                "en":"Cardiology",
                 "appointment_status": "finished",
                 "day": "wed"
             },
@@ -1822,6 +1836,8 @@
                 "date": "2020-05-28",
                 "appointment_id": 229,
                 "first_name": "Mostfa",
+                "ar":"القلب والاوعية الدموية",
+                "en":"Cardiology",
                 "last_name": "Essam",
                 "appointment_status": "finished",
                 "day": "wed"
