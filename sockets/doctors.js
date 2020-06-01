@@ -8,11 +8,11 @@ exports.doctors = (io)=>{
             socket.role = "doctor";
             socket.name = name;
             socket.myId = doctor_id;
-
             addDoctor(doctor_id,socket.id);
         })
       // `User joined the system`:  
         socket.on("userJoined",(user_id,name)=>{
+            console.log("bsbs is here", user_id, "my name is", name);
             socket.role = "user";
             socket.name = name;
             socket.myId = user_id;
@@ -21,7 +21,7 @@ exports.doctors = (io)=>{
 ////////////////////////////////////////////////////////// ? ROOMS AREA ////////////////////////////////////////////////////////////////////////
 
 //  `Join User a room` 
-socket.on("joinUserToRoom", (room_id,doctor_id = null)=>{
+socket.on("joinUserToRoom", (room_id)=>{
     socket.join(room_id)
     socket.currentRoom = room_id;
     if (getRoomInfo(room_id) == null){
