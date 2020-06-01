@@ -75,6 +75,7 @@ const addNewAppointment = async function(data,res){
     try {
         const room_id = 58758658587;
         data.room_id = room_id
+        // TODO:: MAKE RANDOM ID
         const newAppointment = await appointments.create(data);
         return newAppointment;
     }catch(err){
@@ -87,6 +88,8 @@ const addNewAppointment = async function(data,res){
 const addConfirmNewAppointment = async function(data,res){
     try {
         data.appointment_status = "upcoming"
+        data.room_id = 5985;
+        // TODO:: MAKE RANDOM ID
         const newAppointment = await appointments.create(data);
         return newAppointment;
     }catch(err){
@@ -118,7 +121,7 @@ const userApps = async function(user_id,res){
 const upcomingApps = async function(user_id,res){
     try {
         const appointments =  await db.query("SELECT apps.date, apps.appointment_id,docs.first_name,docs.last_name,apps.appointment_status,slots.start_time,slots.end_time,cats.ar,cats.en, slots.day FROM appointments apps INNER JOIN slots ON apps.slot_id = slots.slot_id INNER JOIN doctors docs ON slots.doctor_id = docs.doctor_id INNER JOIN categories cats ON cats.category_id = docs.category_id WHERE apps.user_id = ? AND apps.appointment_status = 'upcoming' ORDER BY apps.appointment_id DESC",{
-            replacements: [user_id],
+            replacements: [1],
             type: Sequelize.QueryTypes.SELECT,
         });
         return appointments;
@@ -130,8 +133,8 @@ const upcomingApps = async function(user_id,res){
 
 const finishedApps = async function(user_id,res){
     try {
-        const appointments =  await db.query("SELECT apps.date, apps.appointment_id,docs.first_name,docs.last_name,apps.appointment_status,slots.day,cats.ar,cats.en, FROM appointments apps INNER JOIN slots ON apps.slot_id = slots.slot_id INNER JOIN doctors docs ON slots.doctor_id = docs.doctor_id INNER JOIN categories cats ON cats.category_id = docs.category_id WHERE apps.user_id = ? AND apps.appointment_status = 'finished' ORDER BY apps.appointment_id DESC",{
-            replacements: [user_id],
+        const appointments =  await db.query("SELECT apps.date, apps.appointment_id,docs.first_name,docs.last_name,apps.appointment_status,slots.day,cats.ar,cats.en FROM appointments apps INNER JOIN slots ON apps.slot_id = slots.slot_id INNER JOIN doctors docs ON slots.doctor_id = docs.doctor_id INNER JOIN categories cats ON cats.category_id = docs.category_id WHERE apps.user_id = ? AND apps.appointment_status = 'finished' ORDER BY apps.appointment_id DESC",{
+            replacements: [1],
             type: Sequelize.QueryTypes.SELECT,
         });
         return appointments;
@@ -140,6 +143,31 @@ const finishedApps = async function(user_id,res){
     }
 }
 
+
+const doctorUpcomingApps = async function(doctor_id,res){
+    try {
+        const appointments =  await db.query("SELECT apps.date, apps.appointment_id,users.first_name,users.last_name,apps.appointment_status,slots.start_time,slots.end_time, slots.day FROM appointments apps INNER JOIN slots ON apps.slot_id = slots.slot_id INNER JOIN users ON users.user_id = apps.user_id INNER JOIN doctors docs ON slots.doctor_id = docs.doctor_id INNER JOIN categories cats ON cats.category_id = docs.category_id WHERE slots.doctor_id = ? AND apps.appointment_status = 'upcoming' ORDER BY apps.appointment_id DESC",{
+            replacements: [doctor_id],
+            type: Sequelize.QueryTypes.SELECT,
+        });
+        return appointments;
+    }catch(err){
+        handleError(err,res);
+    }
+}
+
+
+const doctorFinishedApps = async function(doctor_id,res){
+    try {
+        const appointments =  await db.query("SELECT apps.date, apps.appointment_id,users.first_name,users.last_name,apps.appointment_status,slots.day FROM appointments apps INNER JOIN slots ON apps.slot_id = slots.slot_id INNER JOIN users ON users.user_id = apps.user_id INNER JOIN doctors docs ON slots.doctor_id = docs.doctor_id INNER JOIN categories cats ON cats.category_id = docs.category_id WHERE slots.doctor_id = ? AND apps.appointment_status = 'finished' ORDER BY apps.appointment_id DESC",{
+            replacements: [doctor_id],
+            type: Sequelize.QueryTypes.SELECT,
+        });
+        return appointments;
+    }catch(err){
+        handleError(err,res);
+    }
+}
 
 
 const docApps = async function(doctor_id,res){
@@ -241,5 +269,7 @@ module.exports = {
     finishedApps,
     getAppointment,
     setUser_joined,
-    setDoctor_joined
+    setDoctor_joined,
+    doctorFinishedApps,
+    doctorUpcomingApps
 }

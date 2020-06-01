@@ -1,4 +1,4 @@
-const {addNewAppointment,addConfirmNewAppointment,userApps,docApps,cancelApp,confirmApp,docAppsDate,finishedApps,upcomingApps,getAppointment,setUser_joined,setDoctor_joined} = require("../models/appointments");
+const {addNewAppointment,addConfirmNewAppointment,userApps,docApps,cancelApp,confirmApp,docAppsDate,finishedApps,upcomingApps,getAppointment,setUser_joined,setDoctor_joined,doctorUpcomingApps,doctorFinishedApps} = require("../models/appointments");
 const { handleError, ErrorHandler } = require("../middleware/error");
 const respond = require("../middleware/respond");
 var moment = require('moment');
@@ -40,7 +40,7 @@ const getUserApps = async (req,res,next)=>{
   }
 } 
 
-// Get finished appointments for users app use : 
+// Get User's finished appointments for users app use : 
 const finishedAppointments = async (req,res,next)=>{
   try {
     const {id} = req.user;
@@ -53,11 +53,40 @@ const finishedAppointments = async (req,res,next)=>{
   }
 } 
 
-// Get upcoming appointments for users app use : 
+// Get User's upcoming appointments for users app use : 
 const upcomingAppointments = async (req,res,next)=>{
   try {
     const {id} = req.user;
     const appointments = await upcomingApps(id,res);
+    if (appointments){
+      return respond(true,200,appointments,res);
+    }
+  }catch(err){
+    handleError(err,res);
+  }
+} 
+
+
+
+
+// Get Doctor's finished appointments for doctors app use : 
+const doctorFinishedAppointments = async (req,res,next)=>{
+  try {
+    const {id} = req.user;
+    const appointments = await doctorFinishedApps(id,res);
+    if (appointments){
+      return respond(true,200,appointments,res);
+    }
+  }catch(err){
+    handleError(err,res);
+  }
+} 
+
+// Get Doctor's upcoming appointments for doctors app use : 
+const doctorUpcomingAppointments = async (req,res,next)=>{
+  try {
+    const {id} = req.user;
+    const appointments = await doctorUpcomingApps(id,res);
     if (appointments){
       return respond(true,200,appointments,res);
     }
@@ -204,5 +233,7 @@ module.exports = {
     finishedAppointments,
     upcomingAppointments,
     joinUser,
-    joinDoctor
+    joinDoctor,
+    doctorUpcomingAppointments,
+    doctorFinishedAppointments
 }
