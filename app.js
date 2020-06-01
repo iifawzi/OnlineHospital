@@ -1,13 +1,16 @@
 const express = require("express");
 const http = require("http");
+const socketio = require("socket.io");
 const app = express();
-const path = require("path");
 const port = process.env.PORT || 5000;
+const socketController = require("./controllers/socket");
 
 require("./startup/models"); // indlude the db connection and models
 require("./startup/routes")(app); // include routes
 app.use('/images', express.static('uploadedImages'))
 const server = http.createServer(app);
+const io = socketio(server);
+socketController.socket(io);
 const init = server.listen(port, () => {
   console.log(`server is running at ${port}`);
 });
