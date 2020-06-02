@@ -125,7 +125,7 @@ const  getDoctorsData = async function  (category_id,res){
         const doctorsData = await doctors.findAll({attributes:{exclude: ['password','fb_token_id','priority']},
         order: [
          ['priority', 'DESC'],
-     ],where:{category_id}}); // TODO::later just show the avaliable = true doctors
+     ],where:{category_id, avaliable: true}}); 
         return doctorsData;
     }catch(err){
         handleError(err,res);
