@@ -31,8 +31,7 @@ socket.on("joinUserToRoom", (room_id)=>{
     addUserToRoom(room_id);
     socket.emit("message",{user:"System", message:"Welcome to the clinic",role:"system"})
     // if doctor is still not connected to the room: 
-    console.log(isDoctorInRoom(room_id),"tesssst");
-    if (isDoctorInRoom(room_id) === null){
+    if (isDoctorInRoom(room_id) == null){
     socket.emit("message",{user:"System", message:"Doctor is not connected Yet, any message you send before doctor joins will not be deliverd, pleasw wait.",role:"system"});
     }else {   // if doctor is connected to the system:
         socket.emit("message",{user:"System", message:"Doctor is Here, Just talk",role:"system"});
@@ -51,7 +50,7 @@ socket.on("joinDoctorToRoom",(room_id)=>{
     }
     addDoctorToRoom(room_id);
     socket.emit("message",{user:"System", message:"Welcome Doctor to the clinic",role:"system"});  
-    if (isUserInRoom(room_id) === null){
+    if (isUserInRoom(room_id) == null){
         socket.emit("message",{user:"System", message:"User isn't connected Yet",role:"system"});
         }else {   // if user is connected to the system:
             socket.emit("message",{user:"System", message:"User is Here, Just talk",role:"system"});
