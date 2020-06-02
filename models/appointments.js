@@ -1,6 +1,7 @@
 const Sequelize = require("sequelize");
 const db = require("../utils/db");
 const { handleError, ErrorHandler } = require("../middleware/error");
+var moment = require('moment'); // require
 
 
 
@@ -73,9 +74,8 @@ doctor_joined:{
 
 const addNewAppointment = async function(data,res){
     try {
-        const room_id = 58758658587;
+        const room_id = moment().format("x");
         data.room_id = room_id
-        // TODO:: MAKE RANDOM ID
         const newAppointment = await appointments.create(data);
         return newAppointment;
     }catch(err){
@@ -88,8 +88,8 @@ const addNewAppointment = async function(data,res){
 const addConfirmNewAppointment = async function(data,res){
     try {
         data.appointment_status = "upcoming"
-        data.room_id = 5985;
-        // TODO:: MAKE RANDOM ID
+        const room_id = moment().format("x");
+        data.room_id = room_id;
         const newAppointment = await appointments.create(data);
         return newAppointment;
     }catch(err){
@@ -142,8 +142,6 @@ const finishedApps = async function(user_id,res){
         handleError(err,res);
     }
 }
-
-   // TODO::RETURN RUNNING AND UPCOMING
 const doctorUpcomingApps = async function(doctor_id,res){
     try {
         const appointments =  await db.query("SELECT apps.date, apps.appointment_id,users.first_name,users.last_name,apps.appointment_status,slots.start_time,slots.end_time, slots.day FROM appointments apps INNER JOIN slots ON apps.slot_id = slots.slot_id INNER JOIN users ON users.user_id = apps.user_id INNER JOIN doctors docs ON slots.doctor_id = docs.doctor_id INNER JOIN categories cats ON cats.category_id = docs.category_id WHERE slots.doctor_id = ? AND (apps.appointment_status = 'upcoming' || apps.appointment_status = 'running') ORDER BY apps.appointment_id DESC",{
