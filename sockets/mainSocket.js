@@ -1,5 +1,5 @@
-exports.doctors = (io)=>{
-    const doctors = io
+exports.main = (io)=>{
+    io
     .on("connect",(socket)=>{
 ////////////////////////////////////////////////////////// ? JOINING THE SYSTEM //////////////////////////////////////////////////////////////////
 
@@ -12,7 +12,6 @@ exports.doctors = (io)=>{
         })
       // `User joined the system`:  
         socket.on("userJoined",(user_id,name)=>{
-            console.log("bsbs is here", user_id, "my name is", name);
             socket.role = "user";
             socket.name = name;
             socket.myId = user_id;
@@ -23,7 +22,6 @@ exports.doctors = (io)=>{
 //  `Join User a room` 
 socket.on("joinUserToRoom", (room_id)=>{
     socket.join(room_id)
-    console.log("i'm joined my name is", socket.name);
     socket.currentRoom = room_id;
     if (getRoomInfo(room_id) == null){
         addRoom(room_id);
@@ -60,7 +58,6 @@ socket.on("joinDoctorToRoom",(room_id)=>{
 ////////////////////////////////////////////////////////// ? Messagging ////////////////////////////////////////////////////////////////////////////////////
 
 socket.on("sendMessage",(message)=>{
-    console.log(socket.name, "sends a message ", message);
     io.to(socket.currentRoom).emit('message', { user: socket.name, message: message, role: socket.role });
 })
 
@@ -70,36 +67,22 @@ socket.on("sendMessage",(message)=>{
         socket.on("disconnect",()=>{
             //  if the socket that leaved is a doctor remove its socket info from the doctors array : 
             if (socket.role === 'doctor'){
-                console.log("Doctor disconnected with socket id \t ", socket.id);
                 const doctors = getDoctors();
                 deleteDoctor(socket.myId);
                 if (socket.currentRoom != null){
-                    console.log(getRoomInfo(socket.currentRoom));
                     removeDoctorFromRoom(socket.currentRoom);
-                    console.log(getRoomInfo(socket.currentRoom));
                     if (getRoomInfo(socket.currentRoom).user == undefined){
-                        console.log("hey");
-                        console.log(getRooms());
                         deleteRoom(socket.currentRoom);
                     }
-                    console.log(getRooms());
-
                 }
 
                      //  if the socket that leaved is a user: 
             }else if (socket.role === 'user'){
-                console.log("User Disconnected with socket id \t", socket.id );
                 if (socket.currentRoom != null){
-                    console.log(getRoomInfo(socket.currentRoom));
                     removeUserFromRoom(socket.currentRoom);
-                    console.log(getRoomInfo(socket.currentRoom));
                     if (getRoomInfo(socket.currentRoom).doctor == undefined){
-                        console.log("hey");
-                        console.log(getRooms());
                         deleteRoom(socket.currentRoom);
                     }
-                    console.log(getRooms());
-
                 }
             }
         })
@@ -146,7 +129,6 @@ const addRoom = (room_id)=>{
 };
 
 const deleteRoom = (room_id)=>{
-    console.log("bitch")
     delete onlineRooms[room_id];
 };
 
