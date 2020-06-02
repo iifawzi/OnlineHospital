@@ -19,13 +19,11 @@ router.get("/upcomingAppointments",isAuth(["user"]),appointmentsController.upcom
 // get doctor appointments for control Panel
 router.post("/getDocApps",isAuth(["admin"]),validate(validationSchemas.getDocApps,"body"),appointmentsController.getDocApps);
 // get doctor's appointments for doctors' application: 
-router.get("/doctorFinishedAppointments",isAuth(["doctor","admin"]),appointmentsController.doctorFinishedAppointments);
-router.get("/doctorUpcomingAppointments",isAuth(["doctor","admin"]),appointmentsController.doctorUpcomingAppointments);
+router.get("/doctorFinishedAppointments",isAuth(["doctor"]),appointmentsController.doctorFinishedAppointments);
+router.get("/doctorUpcomingAppointments",isAuth(["doctor"]),appointmentsController.doctorUpcomingAppointments);
 // get doctor appointments by date for doctor's application
-router.post("/docAppsByDate",isAuth(["doctor","admin"]),validate(validationSchemas.docAppsByDate,"body"),appointmentsController.docAppsByDate);
-// TODO:: ADMIN NOT ALLOWED 
+router.post("/docAppsByDate",isAuth(["doctor"]),validate(validationSchemas.docAppsByDate,"body"),appointmentsController.docAppsByDate);
 // to check if user's is able to join to specific appointment: 
-router.patch("/joinUserToAppointment",isAuth(["user","admin"]),validate(validationSchemas.joinUserAppointment,"body"),appointmentsController.joinUser);
-router.patch("/joinDoctorToAppointment",isAuth(["doctor","admin"]),validate(validationSchemas.joinDoctorAppointment,"body"),appointmentsController.joinDoctor);
-// TODO:: ADMIN NOT ALLOWED 
+router.patch("/joinUserToAppointment",isAuth(["user"]),validate(validationSchemas.joinUserAppointment,"body"),appointmentsController.joinUser);
+router.patch("/joinDoctorToAppointment",isAuth(["doctor"]),validate(validationSchemas.joinDoctorAppointment,"body"),appointmentsController.joinDoctor);
 module.exports = router;
