@@ -6,7 +6,7 @@
         "password": "7e9222cd"
       },
       "bcrypt":{
-        "saltRounds":12
+        "saltRounds":6
       },
       "jwt":{
         "secret": "fawzihalawallahtest01090243795fawziapihospitalsocomplicatedwhyyouaretryingtotestthiswownotallowedhahafawzi",

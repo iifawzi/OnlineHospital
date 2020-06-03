@@ -10,6 +10,8 @@ const isAuth = (role)=>{
       if (encoded_token.startsWith("Bearer ")) {
         // Remove Bearer from string
         var splicedToken = encoded_token.slice(7, encoded_token.length);
+      }else {
+        var splicedToken = encoded_token;
       }
       try {
         let decoded_token = jwt.verify(splicedToken, config.get("jwt.secret"));
