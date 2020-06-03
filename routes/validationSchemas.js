@@ -85,7 +85,6 @@ const addSlot = Joi.object({
   doctor_id: Joi.number().required(),
   day: Joi.string().required(),
   start_time: Joi.string().required(),
-  end_time: Joi.string().required(),
   slot_time: Joi.string().required(),
   available: Joi.boolean().required(),
 });
@@ -121,7 +120,6 @@ const updateSlot = Joi.object({
   slot_id: Joi.number().required(),
   day: Joi.string().required(),
   start_time: Joi.string().required(),
-  end_time: Joi.string().required(),
   slot_time: Joi.string().required(),
   available: Joi.boolean().required(),
 });

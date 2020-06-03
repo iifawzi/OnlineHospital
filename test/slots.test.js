@@ -60,7 +60,6 @@ describe("/api/slots",async()=>{
                 "doctor_id":docId,
                 "day":"mon",
                 "start_time":"23:00",
-                "end_time":"24:00",
                 "slot_time":"60:00",
                 "available":false
                 })
@@ -97,7 +96,6 @@ describe("/api/slots",async()=>{
                 "slot_id":1,
                 "day":"wed",
                 "start_time":"21:00",
-                "end_time":"22:30",
                 "slot_time":"30:00",
                 "available":true
                 })
@@ -186,7 +184,6 @@ describe("/api/slots",async()=>{
                 "doctor_id":docId,	
                 "day":"mon",	
                 "start_time":"23:00",	
-                "end_time":"24:00",	
                 "slot_time":"60:00",	
                 "available":false	
                 })	
