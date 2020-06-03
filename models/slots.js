@@ -25,10 +25,6 @@ const slots = db.define("slots",{
         type:Sequelize.STRING,
         allowNull:false,
     },
-    end_time: {
-        type:Sequelize.STRING,
-        allowNull: false,
-    },
     slot_time:{
         type:Sequelize.STRING,
         allowNull: false,
@@ -75,7 +71,7 @@ const getDocOpenSlots = async function(info,res){ // this api will return the sl
         const day = info.day;
         const doctor_id = info.doctor_id;
         const date = info.date;
-        const slots =  await db.query("SELECT slots.slot_id,slots.doctor_id,slots.day,slots.slot_time, CONCAT(?,'T',slots.start_time,'Z') start_time,CONCAT(?,'T',slots.end_time,'Z') end_time FROM slots LEFT JOIN appointments apps ON slots.slot_id = apps.slot_id && apps.date = ? && apps.appointment_status != 'canceled' WHERE slots.doctor_id = ? && slots.day = ? && slots.available = 1 && apps.slot_id is null ",{
+        const slots =  await db.query("SELECT slots.slot_id,slots.doctor_id,slots.day,slots.slot_time, CONCAT(?,'T',slots.start_time,'Z') start_time FROM slots LEFT JOIN appointments apps ON slots.slot_id = apps.slot_id && apps.date = ? && apps.appointment_status != 'canceled' WHERE slots.doctor_id = ? && slots.day = ? && slots.available = 1 && apps.slot_id is null ",{
             replacements: [date,date,date,doctor_id,day],
             type: Sequelize.QueryTypes.SELECT,
         });
