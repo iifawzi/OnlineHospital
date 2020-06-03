@@ -158,12 +158,12 @@ const joinUser = async(req,res,next)=>{
   try {
     const {appointment_id} = req.body;
     const appointment = await getAppointment(appointment_id,res); 
-    const {date,appointment_status,start_time,end_time,room_id,user_joined} = appointment;
+    const {date,appointment_status,start_time,slot_time,room_id,user_joined} = appointment;
     const serverDate = moment().format("YYYY-MM-DD"); // server date
     const serverTime = moment().format(); // server time
     const appDate = moment(date,"YYYY-MM-DD").format("YYYY-MM-DD"); // appointment date
     const appStartTime = moment(start_time, "HH:mm");  // appointment start time 
-    const appEndTime = moment(end_time, "HH:mm");  // appointment end time 
+    const appEndTime = moment(start_time, "HH:mm").add(slot_time,"m");  // appointment end time 
     const appFiveBeforeStart = moment(appStartTime).subtract(6,"m"); // this substract 6 minutes from the start time (to be able to use the range) the sixth minutes is excluded 
     const appFiveAfterStart = moment(appStartTime).add(6,"m"); // this adds 6 minutes to the start time (to be able to use the range) the sixth minutes is excluded 
     if (appointment_status === "running" && user_joined === 0){ 
@@ -172,7 +172,7 @@ const joinUser = async(req,res,next)=>{
       const compareBeforeEnd = moment(serverTime).isBefore(appEndTime) // this an additional check, by default the corn task will change the status to finished so we will not join this if at all, but this is additional if the corn didn't work for any reason,
       // if both checks are true : User is allowed to join the appointment. 
       if (compareDate && compareTime && compareBeforeEnd){
-        const app = await setUser_joined(appointment_id);
+        const updateApp = await setUser_joined(appointment_id);
         return respond(true,200,{room_id},res);
       }else { // user's isn't allowed to join the appointment: 
       return respond(false,200,{room_id: ""},res);
@@ -198,19 +198,19 @@ const joinDoctor = async(req,res,next)=>{
   try {
     const {appointment_id} = req.body;
     const appointment = await getAppointment(appointment_id,res); 
-    const {date,appointment_status,end_time,room_id} = appointment;
+    const {date,appointment_status,slot_time,room_id} = appointment;
     const serverDate = moment().format("YYYY-MM-DD"); // server date
     const serverTime = moment().format(); // server time
     const appDate = moment(date,"YYYY-MM-DD").format("YYYY-MM-DD"); // appointment date
-    const appEndTime = moment(end_time, "HH:mm");  // appointment end time 
+    const appEndTime = moment(start_time, "HH:mm").add(slot_time,"m");  // appointment end time 
+
 
     if (appointment_status === "running"){ 
-      console.log('im here');
       const compareDate = moment(appDate).isSame(serverDate); // check if the server date equals the appointment date
       const compareBeforeEnd = moment(serverTime).isBefore(appEndTime) // this an additional check, by default the corn task will change the status to finished so we will not join `if` at all, but this is additional if the corn didn't work for any reason,
       // if both checks are true : Doctor is allowed to join the appointment. 
       if (compareDate && compareBeforeEnd){
-        const app = await setDoctor_joined(appointment_id);
+        const updateApp = await setDoctor_joined(appointment_id);
         return respond(true,200,{room_id},res);
       }else { // Doctor's isn't allowed to join the appointment: 
       return respond(false,200,{room_id: ""},res);

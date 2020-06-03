@@ -41,42 +41,6 @@
     }
   ],
   "paths": {
-    "/slots/getDoctorDays": {	
-      "get": {	
-        "tags": ["slots"],	
-        "summary": "get the days which doctor working in just `days`",	
-        "consumes": ["application/json"],	
-        "produces": ["application/json"],	
-        "parameters": [	
-          {	
-            "in": "header",	
-            "name": "Authorization",	
-            "required": true,	
-            "type": "string"	
-          }	
-        ],	
-        "responses": {	
-          "200": {	
-            "description": "20 (Success)",	
-            "schema": {	
-              "$ref": "#/definitions/getDaysResponse"	
-            }	
-          },	
-          "400": {	
-            "description": "400 (Doctor_id is missed or incorrect)",	
-            "schema": {	
-              "$ref": "#/definitions/Error"	
-            }	
-          },	
-          "401": {	
-            "description": "401 (Not Authorized)",	
-            "schema": {	
-              "$ref": "#/definitions/Error"	
-            }	
-          }	
-        }	
-      }	
-    },
     "/appointments/joinDoctorToAppointment": {
       "patch": {
         "tags": ["appointments"],
@@ -1692,14 +1656,6 @@
     }
   },
   "definitions": {
-    "getDaysResponse": {	
-      "type": "object",	
-      "example": {	
-        "status": true,	
-        "message": "success",	
-        "data": ["fri", "mon", "wed"]	
-      }	
-    },
     "joinDoctorToAppointment": {
       "type": "object",
       "properties": {
@@ -1862,6 +1818,7 @@
             "date": "2020-05-28",
             "appointment_status": "pending",
             "start_time": "23:00",
+            "slot_time": "30",
             "updatedAt": "2020-05-28T19:49:13.000Z"
           }
         ]
@@ -1892,7 +1849,8 @@
             "day": "mon",
             "date": "2020-03-20",
             "appointment_status": "upcoming",
-            "start_time": "23:00"
+            "start_time": "23:00",
+            "slot_time": "30"
           },
           {
             "appointment_id": 1,
@@ -1901,7 +1859,8 @@
             "day": "mon",
             "date": "2020-03-20",
             "appointment_status": "finished",
-            "start_time": "23:00"
+            "start_time": "23:00",
+            "slot_time": "30"
           }
         ]
       }
@@ -1917,47 +1876,6 @@
         "user_id": 11
       }
     },
-    "doctorFinishedAppointmentsResponse": {
-      "type": "object",
-      "example": {
-        "status": true,
-        "message": "success",
-        "data": [
-            {
-                "date": "2020-05-28",
-                "appointment_id": 235,
-                "first_name": "Mostfa",
-                "last_name": "Essam",
-                "appointment_status": "finished",
-                "day": "wed"
-            },
-            {
-                "date": "2020-05-28",
-                "appointment_id": 234,
-                "first_name": "Mostfa",
-                "last_name": "Essam",
-                "appointment_status": "finished",
-                "day": "wed"
-            },
-            {
-                "date": "2020-05-28",
-                "appointment_id": 230,
-                "first_name": "Mostfa",
-                "last_name": "Essam",
-                "appointment_status": "finished",
-                "day": "wed"
-            },
-            {
-                "date": "2020-05-28",
-                "appointment_id": 229,
-                "first_name": "Mostfa",
-                "last_name": "Essam",
-                "appointment_status": "finished",
-                "day": "wed"
-            }
-        ]
-      }
-    },
     "doctorUpcomingAppointmentsResponse": {
       "type": "object",
       "example": {
@@ -1967,6 +1885,7 @@
             {
                 "date": "2020-05-28",
                 "start_time":"23:00",
+                "slot_time":"30",
                 "appointment_id": 235,
                 "first_name": "Mostfa",
                 "last_name": "Essam",
@@ -1976,6 +1895,7 @@
             {
                 "date": "2020-05-28",
                 "start_time":"23:00",
+                "slot_time":"30",
                 "appointment_id": 234,
                 "first_name": "Mostfa",
                 "last_name": "Essam",
@@ -1985,6 +1905,7 @@
             {
                 "date": "2020-05-28",
                 "start_time":"23:00",
+                "slot_time":"30",
                 "appointment_id": 230,
                 "first_name": "Mostfa",
                 "last_name": "Essam",
@@ -1994,6 +1915,7 @@
             {
                 "date": "2020-05-28",
                 "start_time":"23:00",
+                "slot_time":"30",
                 "appointment_id": 229,
                 "first_name": "Mostfa",
                 "last_name": "Essam",
@@ -2012,6 +1934,7 @@
             {
                 "date": "2020-05-28",
                 "start_time":"23:00",
+                "slot_time":"30",
                 "appointment_id": 235,
                 "first_name": "Mostfa",
                 "last_name": "Essam",
@@ -2023,6 +1946,7 @@
             {
                 "date": "2020-05-28",
                 "start_time":"23:00",
+                "slot_time":"30",
                 "appointment_id": 234,
                 "first_name": "Mostfa",
                 "ar":"القلب والاوعية الدموية",
@@ -2033,6 +1957,7 @@
             },
             {
                 "date": "2020-05-28",
+                "slot_time":"30",
                 "start_time":"23:00",
                 "appointment_id": 230,
                 "first_name": "Mostfa",
@@ -2045,6 +1970,7 @@
             {
                 "date": "2020-05-28",
                 "start_time":"23:00",
+                "slot_time":"30",
                 "appointment_id": 229,
                 "first_name": "Mostfa",
                 "last_name": "Essam",
@@ -2121,6 +2047,7 @@
             "en": "Internal Medicine",
             "appointment_status": "pending",
             "start_time": "23:00",
+            "slot_time":"30",
             "updatedAt": "2020-05-28T19:49:13.000Z"
           }
         ]

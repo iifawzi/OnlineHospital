@@ -106,7 +106,7 @@ const deleteAppointment = async function(appointment_id){
 
 const userApps = async function(user_id,res){
     try {
-        const appointments =  await db.query("SELECT apps.date, apps.appointment_id,docs.first_name,docs.last_name,cats.ar,cats.en,apps.updatedAt,apps.appointment_status,slots.start_time,slots.end_time, slots.day FROM appointments apps INNER JOIN slots ON apps.slot_id = slots.slot_id INNER JOIN doctors docs ON slots.doctor_id = docs.doctor_id INNER JOIN categories cats ON cats.category_id = docs.category_id WHERE apps.user_id = ? ORDER BY apps.appointment_id DESC",{
+        const appointments =  await db.query("SELECT apps.date, apps.appointment_id,docs.first_name,docs.last_name,cats.ar,cats.en,apps.updatedAt,apps.appointment_status,slots.start_time,slots.slot_time, slots.day FROM appointments apps INNER JOIN slots ON apps.slot_id = slots.slot_id INNER JOIN doctors docs ON slots.doctor_id = docs.doctor_id INNER JOIN categories cats ON cats.category_id = docs.category_id WHERE apps.user_id = ? ORDER BY apps.appointment_id DESC",{
             replacements: [user_id],
             type: Sequelize.QueryTypes.SELECT,
         });
@@ -120,7 +120,7 @@ const userApps = async function(user_id,res){
 
 const upcomingApps = async function(user_id,res){
     try {
-        const appointments =  await db.query("SELECT apps.date, apps.appointment_id,docs.first_name,docs.last_name,apps.appointment_status,slots.start_time,slots.end_time,cats.ar,cats.en, slots.day FROM appointments apps INNER JOIN slots ON apps.slot_id = slots.slot_id INNER JOIN doctors docs ON slots.doctor_id = docs.doctor_id INNER JOIN categories cats ON cats.category_id = docs.category_id WHERE apps.user_id = ? AND (apps.appointment_status = 'upcoming' || apps.appointment_status = 'running') ORDER BY apps.appointment_id DESC",{
+        const appointments =  await db.query("SELECT apps.date, apps.appointment_id,docs.first_name,docs.last_name,apps.appointment_status,slots.start_time,slots.slot_time,cats.ar,cats.en, slots.day FROM appointments apps INNER JOIN slots ON apps.slot_id = slots.slot_id INNER JOIN doctors docs ON slots.doctor_id = docs.doctor_id INNER JOIN categories cats ON cats.category_id = docs.category_id WHERE apps.user_id = ? AND (apps.appointment_status = 'upcoming' || apps.appointment_status = 'running') ORDER BY apps.appointment_id DESC",{
             replacements: [user_id],
             type: Sequelize.QueryTypes.SELECT,
         });
@@ -144,7 +144,7 @@ const finishedApps = async function(user_id,res){
 }
 const doctorUpcomingApps = async function(doctor_id,res){
     try {
-        const appointments =  await db.query("SELECT apps.date, apps.appointment_id,users.first_name,users.last_name,apps.appointment_status,slots.start_time,slots.end_time, slots.day FROM appointments apps INNER JOIN slots ON apps.slot_id = slots.slot_id INNER JOIN users ON users.user_id = apps.user_id INNER JOIN doctors docs ON slots.doctor_id = docs.doctor_id INNER JOIN categories cats ON cats.category_id = docs.category_id WHERE slots.doctor_id = ? AND (apps.appointment_status = 'upcoming' || apps.appointment_status = 'running') ORDER BY apps.appointment_id DESC",{
+        const appointments =  await db.query("SELECT apps.date, apps.appointment_id,users.first_name,users.last_name,apps.appointment_status,slots.start_time,slots.slot_time, slots.day FROM appointments apps INNER JOIN slots ON apps.slot_id = slots.slot_id INNER JOIN users ON users.user_id = apps.user_id INNER JOIN doctors docs ON slots.doctor_id = docs.doctor_id INNER JOIN categories cats ON cats.category_id = docs.category_id WHERE slots.doctor_id = ? AND (apps.appointment_status = 'upcoming' || apps.appointment_status = 'running') ORDER BY apps.appointment_id DESC",{
             replacements: [doctor_id],
             type: Sequelize.QueryTypes.SELECT,
         });
@@ -170,7 +170,7 @@ const doctorFinishedApps = async function(doctor_id,res){
 
 const docApps = async function(doctor_id,res){
     try {
-        const appointments =  await db.query("SELECT users.first_name,users.last_name,apps.date, apps.appointment_id,apps.appointment_status,apps.updatedAt,slots.start_time,slots.end_time, slots.day FROM appointments apps INNER JOIN users ON users.user_id = apps.user_id INNER JOIN slots ON apps.slot_id = slots.slot_id INNER JOIN doctors docs ON slots.doctor_id = docs.doctor_id WHERE slots.doctor_id = ? ORDER BY apps.appointment_id DESC",{
+        const appointments =  await db.query("SELECT users.first_name,users.last_name,apps.date, apps.appointment_id,apps.appointment_status,apps.updatedAt,slots.start_time,slots.slot_time, slots.day FROM appointments apps INNER JOIN users ON users.user_id = apps.user_id INNER JOIN slots ON apps.slot_id = slots.slot_id INNER JOIN doctors docs ON slots.doctor_id = docs.doctor_id WHERE slots.doctor_id = ? ORDER BY apps.appointment_id DESC",{
             replacements: [doctor_id],
             type: Sequelize.QueryTypes.SELECT,
         });
@@ -183,7 +183,7 @@ const docApps = async function(doctor_id,res){
 // Will return the appointmnents at specific date (for doctors appliction):
 const docAppsDate = async function(doctor_id,date,res){
     try {
-        const appointments =  await db.query("SELECT users.first_name,users.last_name,apps.date, apps.appointment_id,apps.appointment_status,slots.start_time,slots.end_time, slots.day, users.picture FROM appointments apps INNER JOIN users ON users.user_id = apps.user_id INNER JOIN slots ON apps.slot_id = slots.slot_id INNER JOIN doctors docs ON slots.doctor_id = docs.doctor_id WHERE slots.doctor_id = ? AND apps.date = ? AND apps.appointment_status != 'pending' ORDER BY apps.appointment_id DESC",{
+        const appointments =  await db.query("SELECT users.first_name,users.last_name,apps.date, apps.appointment_id,apps.appointment_status,slots.start_time,slots.slot_time, slots.day, users.picture FROM appointments apps INNER JOIN users ON users.user_id = apps.user_id INNER JOIN slots ON apps.slot_id = slots.slot_id INNER JOIN doctors docs ON slots.doctor_id = docs.doctor_id WHERE slots.doctor_id = ? AND apps.date = ? AND apps.appointment_status != 'pending' ORDER BY apps.appointment_id DESC",{
             replacements: [doctor_id,date],
             type: Sequelize.QueryTypes.SELECT,
         });
@@ -220,7 +220,7 @@ handleError(err,res)
 
 const getAppointment = async function(appointment_id,res){
     try {
-        const appointment =  await db.query("SELECT apps.date, apps.room_id, apps.appointment_id,apps.appointment_status,slots.start_time,slots.end_time,apps.user_joined,slots.day FROM appointments apps INNER JOIN slots ON apps.slot_id = slots.slot_id WHERE apps.appointment_id = ?",{
+        const appointment =  await db.query("SELECT apps.date, apps.room_id, apps.appointment_id,apps.appointment_status,slots.start_time,slots.slot_time,apps.user_joined,slots.day FROM appointments apps INNER JOIN slots ON apps.slot_id = slots.slot_id WHERE apps.appointment_id = ?",{
             replacements: [appointment_id],
             type: Sequelize.QueryTypes.SELECT,
         });
