@@ -1876,6 +1876,47 @@
         "user_id": 11
       }
     },
+    "doctorFinishedAppointmentsResponse": {
+      "type": "object",
+      "example": {
+        "status": true,
+        "message": "success",
+        "data": [
+            {
+                "date": "2020-05-28",
+                "appointment_id": 235,
+                "first_name": "Mostfa",
+                "last_name": "Essam",
+                "appointment_status": "finished",
+                "day": "wed"
+            },
+            {
+                "date": "2020-05-28",
+                "appointment_id": 234,
+                "first_name": "Mostfa",
+                "last_name": "Essam",
+                "appointment_status": "finished",
+                "day": "wed"
+            },
+            {
+                "date": "2020-05-28",
+                "appointment_id": 230,
+                "first_name": "Mostfa",
+                "last_name": "Essam",
+                "appointment_status": "finished",
+                "day": "wed"
+            },
+            {
+                "date": "2020-05-28",
+                "appointment_id": 229,
+                "first_name": "Mostfa",
+                "last_name": "Essam",
+                "appointment_status": "finished",
+                "day": "wed"
+            }
+        ]
+      }
+    },
     "doctorUpcomingAppointmentsResponse": {
       "type": "object",
       "example": {
