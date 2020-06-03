@@ -86,6 +86,11 @@ const getDocOpenSlots = async function(info,res){ // this api will return the sl
  
 }
 
+const doctorDays = async(doctor_id)=>{ // this will return the days which doctor working in:	
+    const days = await slots.findAll({where:{doctor_id,available: true},attributes: ['day'], group: ['day']});	
+    return days;	
+}
+
 const getDocSlots = async(doctor_id,res)=>{ // this end point for admins: ( will return all slots of specific doctor):
     try {
         const docSlots = await slots.findAll({where: {doctor_id}, order: [ ['slot_id', 'ASC']],});
@@ -120,5 +125,6 @@ module.exports = {
     deleteSlot,
     getDocOpenSlots,
     getDocSlots,
-    slotUpdate
+    slotUpdate,
+    doctorDays
 }

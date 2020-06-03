@@ -1,4 +1,4 @@
-const {addSlot,getDocOpenSlots,slotUpdate} = require("../models/slots");
+const {addSlot,getDocOpenSlots,slotUpdate,doctorDays} = require("../models/slots");
 const {handleError,ErrorHandler} = require("../middleware/error");
 const respond = require("../middleware/respond");
 var moment = require('moment'); // require
@@ -17,6 +17,23 @@ const addDocSlot = async (req,res,next)=>{
     }
 }
 
+const getDoctorDays = async (req,res,nect)=>{	
+    try {	
+        const {id} = req.user;	
+const days = await doctorDays(id);	
+if (!days){	
+    throw new ErrorHandler(500,"error happened while getting the Slots");	
+}	
+const RealDays = [];	
+for (day of days){	
+    RealDays.push(day.dataValues.day);	
+}
+return respond(true,200,RealDays,res);	
+
+    }catch(err){	
+        handleError(err,res);	
+    }	
+}
 
 const getOpenSlots = async (req,res,next)=>{
     try {
@@ -64,5 +81,6 @@ return respond(true,200,appointmentsForWeek.flat(),res);
 module.exports = {
     addDocSlot,
     getOpenSlots,
-    updateSlot
+    updateSlot,
+    getDoctorDays
 }
