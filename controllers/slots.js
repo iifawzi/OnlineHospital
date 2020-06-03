@@ -7,6 +7,15 @@ var moment = require('moment'); // require
 
 const addDocSlot = async (req,res,next)=>{
     try {
+        const {start_time, end_time, day} = req.body;
+        const utcStartDay = moment(day+" "+start_time,"ddd HH:mm").utc().format("ddd HH:mm");
+        const utcEndDay = moment(day+" "+end_time,"ddd HH:mm").utc().format("ddd HH:mm");
+        const [utcDay,utcStart_time] = utcStartDay.split(" ").map(e=> e.toLowerCase());
+        const utcEnd_time = utcEndDay.split(" ")[1];
+
+        req.body.start_time = utcStart_time;
+        req.body.end_time = utcEnd_time;
+        req.body.day = utcDay;
         const data = {...req.body};
         const slot = await addSlot(data,res);
         if (slot){
@@ -70,6 +79,14 @@ return respond(true,200,appointmentsForWeek.flat(),res);
   const updateSlot = async (req,res,next)=>{
       try {
         const data = req.body;
+        const {start_time, end_time, day} = req.body;
+        const utcStartDay = moment(day+" "+start_time,"ddd HH:mm").utc().format("ddd HH:mm");
+        const utcEndDay = moment(day+" "+end_time,"ddd HH:mm").utc().format("ddd HH:mm");
+        const [utcDay,utcStart_time] = utcStartDay.split(" ").map(e=> e.toLowerCase());
+        const utcEnd_time = utcEndDay.split(" ")[1];
+        data.start_time = utcStart_time;
+        data.end_time = utcEnd_time;
+        data.day = utcDay;
         const updated = await slotUpdate(data,res);
         if (updated){
             return respond(true,200,updated,res)

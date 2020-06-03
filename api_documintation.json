@@ -1754,9 +1754,6 @@
         "start_time": {
           "type": "string"
         },
-        "end_time": {
-          "type": "string"
-        },
         "slot_time": {
           "type": "integer"
         },
@@ -1768,7 +1765,6 @@
         "slot_id": 1,
         "day": "tue",
         "start_time": "23:00",
-        "end_time": "24:00",
         "slot_time": "60:00",
         "available": false
       }
@@ -1782,7 +1778,6 @@
           "slot_id": 1,
           "day": "tue",
           "start_time": "23:00",
-          "end_time": "24:00",
           "slot_time": "60:00",
           "available": false
         }
@@ -1867,7 +1862,6 @@
             "date": "2020-05-28",
             "appointment_status": "pending",
             "start_time": "23:00",
-            "end_time": "23:30",
             "updatedAt": "2020-05-28T19:49:13.000Z"
           }
         ]
@@ -1898,8 +1892,7 @@
             "day": "mon",
             "date": "2020-03-20",
             "appointment_status": "upcoming",
-            "start_time": "23:00",
-            "end_time": "23:30"
+            "start_time": "23:00"
           },
           {
             "appointment_id": 1,
@@ -1908,8 +1901,7 @@
             "day": "mon",
             "date": "2020-03-20",
             "appointment_status": "finished",
-            "start_time": "23:00",
-            "end_time": "23:30"
+            "start_time": "23:00"
           }
         ]
       }
@@ -1975,7 +1967,6 @@
             {
                 "date": "2020-05-28",
                 "start_time":"23:00",
-                "end_time":"24:00",
                 "appointment_id": 235,
                 "first_name": "Mostfa",
                 "last_name": "Essam",
@@ -1985,7 +1976,6 @@
             {
                 "date": "2020-05-28",
                 "start_time":"23:00",
-                "end_time":"24:00",
                 "appointment_id": 234,
                 "first_name": "Mostfa",
                 "last_name": "Essam",
@@ -1995,7 +1985,6 @@
             {
                 "date": "2020-05-28",
                 "start_time":"23:00",
-                "end_time":"24:00",
                 "appointment_id": 230,
                 "first_name": "Mostfa",
                 "last_name": "Essam",
@@ -2005,7 +1994,6 @@
             {
                 "date": "2020-05-28",
                 "start_time":"23:00",
-                "end_time":"24:00",
                 "appointment_id": 229,
                 "first_name": "Mostfa",
                 "last_name": "Essam",
@@ -2024,7 +2012,6 @@
             {
                 "date": "2020-05-28",
                 "start_time":"23:00",
-                "end_time":"24:00",
                 "appointment_id": 235,
                 "first_name": "Mostfa",
                 "last_name": "Essam",
@@ -2036,7 +2023,6 @@
             {
                 "date": "2020-05-28",
                 "start_time":"23:00",
-                "end_time":"24:00",
                 "appointment_id": 234,
                 "first_name": "Mostfa",
                 "ar":"القلب والاوعية الدموية",
@@ -2048,7 +2034,6 @@
             {
                 "date": "2020-05-28",
                 "start_time":"23:00",
-                "end_time":"24:00",
                 "appointment_id": 230,
                 "first_name": "Mostfa",
                 "last_name": "Essam",
@@ -2060,7 +2045,6 @@
             {
                 "date": "2020-05-28",
                 "start_time":"23:00",
-                "end_time":"24:00",
                 "appointment_id": 229,
                 "first_name": "Mostfa",
                 "last_name": "Essam",
@@ -2137,7 +2121,6 @@
             "en": "Internal Medicine",
             "appointment_status": "pending",
             "start_time": "23:00",
-            "end_time": "23:30",
             "updatedAt": "2020-05-28T19:49:13.000Z"
           }
         ]
@@ -2165,7 +2148,6 @@
             "doctor_id": 11,
             "day": "wed",
             "start_time": "23:00",
-            "end_time": "24:00",
             "slot_time": "60",
             "available": 1
           },
@@ -2174,7 +2156,6 @@
             "doctor_id": 11,
             "day": "wed",
             "start_time": "22:00",
-            "end_time": "24:00",
             "slot_time": "60",
             "available": 1
           },
@@ -2183,7 +2164,6 @@
             "doctor_id": 11,
             "day": "wed",
             "start_time": "23:00",
-            "end_time": "24:00",
             "slot_time": "60",
             "available": 1
           }
@@ -2216,112 +2196,98 @@
               "doctor_id": 1,
               "day": "wed",
               "slot_time": "30:00",
-              "start_time": "2020-06-03T21:00",
-              "end_time": "2020-06-03T22:30"
+              "start_time": "2020-06-03T21:00"
           },
           {
               "slot_id": 4,
               "doctor_id": 1,
               "day": "wed",
               "slot_time": "30:00",
-              "start_time": "2020-06-03T23:00",
-              "end_time": "2020-06-03T22:30"
+              "start_time": "2020-06-03T23:00"
           },
           {
               "slot_id": 5,
               "doctor_id": 1,
               "day": "wed",
               "slot_time": "30:00",
-              "start_time": "2020-06-03T24:00",
-              "end_time": "2020-06-03T22:30"
+              "start_time": "2020-06-03T24:00"
           },
           {
               "slot_id": 6,
               "doctor_id": 1,
               "day": "wed",
               "slot_time": "30:00",
-              "start_time": "2020-06-03T25:00",
-              "end_time": "2020-06-03T22:30"
+              "start_time": "2020-06-03T25:00"
           },
           {
               "slot_id": 9,
               "doctor_id": 1,
               "day": "wed",
               "slot_time": "22:30",
-              "start_time": "2020-06-03T22:00",
-              "end_time": "2020-06-03T22:30"
+              "start_time": "2020-06-03T22:00"
           },
           {
               "slot_id": 2,
               "doctor_id": 1,
               "day": "fri",
               "slot_time": "60",
-              "start_time": "2020-06-05T21:00",
-              "end_time": "2020-06-05T22:00"
+              "start_time": "2020-06-05T21:00"
           },
           {
               "slot_id": 1,
               "doctor_id": 1,
               "day": "wed",
               "slot_time": "30:00",
-              "start_time": "2020-06-10T21:00",
-              "end_time": "2020-06-10T22:30"
+              "start_time": "2020-06-10T21:00"
           },
           {
               "slot_id": 4,
               "doctor_id": 1,
               "day": "wed",
               "slot_time": "30:00",
-              "start_time": "2020-06-10T23:00",
-              "end_time": "2020-06-10T22:30"
+              "start_time": "2020-06-10T23:00"
           },
           {
               "slot_id": 5,
               "doctor_id": 1,
               "day": "wed",
               "slot_time": "30:00",
-              "start_time": "2020-06-10T24:00",
-              "end_time": "2020-06-10T22:30"
+              "start_time": "2020-06-10T24:00"
           },
           {
               "slot_id": 6,
               "doctor_id": 1,
               "day": "wed",
               "slot_time": "30:00",
-              "start_time": "2020-06-10T25:00",
-              "end_time": "2020-06-10T22:30"
+              "start_time": "2020-06-10T25:00"
           },
           {
               "slot_id": 9,
               "doctor_id": 1,
               "day": "wed",
               "slot_time": "22:30",
-              "start_time": "2020-06-10T22:00",
-              "end_time": "2020-06-10T22:30"
+              "start_time": "2020-06-10T22:00"
           },
           {
               "slot_id": 2,
               "doctor_id": 1,
               "day": "fri",
               "slot_time": "60",
-              "start_time": "2020-06-12T21:00",
-              "end_time": "2020-06-12T22:00"
+              "start_time": "2020-06-12T21:00"
           },
           {
               "slot_id": 1,
               "doctor_id": 1,
               "day": "wed",
               "slot_time": "30:00",
-              "start_time": "2020-06-17T21:00",
-              "end_time": "2020-06-17T22:30"
+              "start_time": "2020-06-17T21:00"
           },
           {
               "slot_id": 4,
               "doctor_id": 1,
               "day": "wed",
               "slot_time": "30:00",
-              "start_time": "2020-06-17T23:00",
-              "end_time": "2020-06-17T22:30"
+              "start_time": "2020-06-17T23:00"
           }
         ]
       }
@@ -2400,9 +2366,6 @@
         "start_time": {
           "type": "string"
         },
-        "end_time": {
-          "type": "string"
-        },
         "slot_time": {
           "type": "integer"
         },
@@ -2414,7 +2377,6 @@
         "doctor_id": 1,
         "day": "mon",
         "start_time": "23:00",
-        "end_time": "24:00",
         "slot_time": "60:00",
         "available": false
       }
@@ -2429,7 +2391,6 @@
           "doctor_id": 1,
           "day": "mon",
           "start_time": "23:00",
-          "end_time": "24:00",
           "slot_time": "60:00",
           "available": false
         }

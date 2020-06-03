@@ -118,12 +118,12 @@ const confirmApp = Joi.object({
   appointment_id: Joi.number().required(),
 });
 const updateSlot = Joi.object({
-  slot_id: Joi.number(),
-  day: Joi.string(),
-  start_time: Joi.string(),
-  end_time: Joi.string(),
-  slot_time: Joi.string(),
-  available: Joi.boolean(),
+  slot_id: Joi.number().required(),
+  day: Joi.string().required(),
+  start_time: Joi.string().required(),
+  end_time: Joi.string().required(),
+  slot_time: Joi.string().required(),
+  available: Joi.boolean().required(),
 });
 const docAppsByDate = Joi.object({
   date: Joi.string().required(),
