@@ -22,9 +22,14 @@ const addDocSlot = async (req,res,next)=>{
     }
 }
 
-const getDoctorDays = async (req,res,nect)=>{	
+const getDoctorDays = async (req,res,nect)=>{	// if there's an doctor_id in the body, use that id (control panel use), if not take the id from the header (doctor's application use)
     try {	
-        const {id} = req.user;	
+        let id = "";
+        if (req.body.doctor_id){
+            id = req.body.doctor_id;
+        }else {
+            id = req.user.id;
+        }
 const days = await doctorDays(id);	
 if (!days){	
     throw new ErrorHandler(500,"error happened while getting the Slots");	

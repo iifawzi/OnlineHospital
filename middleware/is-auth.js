@@ -3,13 +3,14 @@ const { ErrorHandler, handleError } = require("./error");
 const config = require("config");
 const isAuth = (role)=>{
   return (req, res, next) => {
-    const encoded_token = req.get("Authorization");
+    const encoded_token = req.headers.authorization;
     if (!encoded_token) {
       throw new ErrorHandler(401, "User is not Authorized");
     } else {
       if (encoded_token.startsWith("Bearer ")) {
         // Remove Bearer from string
-        var splicedToken = encoded_token.slice(7, encoded_token.length);
+        var spliced = encoded_token.split(' ');
+        var splicedToken = spliced[1];
       }else {
         var splicedToken = encoded_token;
       }
