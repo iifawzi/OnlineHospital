@@ -49,14 +49,6 @@
         "produces": ["application/json"],	
         "parameters": [	
           {	
-            "in": "body",	
-            "name": "body",	
-            "required": true,	
-            "schema": {	
-              "$ref": "#/definitions/getDays"	
-            }	
-          },	
-          {	
             "in": "header",	
             "name": "Authorization",	
             "required": true,	
@@ -1700,17 +1692,6 @@
     }
   },
   "definitions": {
-    "getDays": {	
-      "type": "object",	
-      "properties": {	
-        "doctor_id": {	
-          "type": "integer"	
-        }	
-      },	
-      "example": {	
-        "doctor_id": 1	
-      }	
-    },	
     "getDaysResponse": {	
       "type": "object",	
       "example": {	
@@ -1942,6 +1923,47 @@
       },
       "example": {
         "user_id": 11
+      }
+    },
+    "doctorFinishedAppointmentsResponse": {
+      "type": "object",
+      "example": {
+        "status": true,
+        "message": "success",
+        "data": [
+            {
+                "date": "2020-05-28",
+                "appointment_id": 235,
+                "first_name": "Mostfa",
+                "last_name": "Essam",
+                "appointment_status": "finished",
+                "day": "wed"
+            },
+            {
+                "date": "2020-05-28",
+                "appointment_id": 234,
+                "first_name": "Mostfa",
+                "last_name": "Essam",
+                "appointment_status": "finished",
+                "day": "wed"
+            },
+            {
+                "date": "2020-05-28",
+                "appointment_id": 230,
+                "first_name": "Mostfa",
+                "last_name": "Essam",
+                "appointment_status": "finished",
+                "day": "wed"
+            },
+            {
+                "date": "2020-05-28",
+                "appointment_id": 229,
+                "first_name": "Mostfa",
+                "last_name": "Essam",
+                "appointment_status": "finished",
+                "day": "wed"
+            }
+        ]
       }
     },
     "doctorUpcomingAppointmentsResponse": {
