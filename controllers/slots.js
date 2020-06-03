@@ -50,6 +50,7 @@ const getOpenSlots = async (req,res,next)=>{
     try {
         const appointmentsForWeek = [];
         const {doctor_id, searchIn} = req.body;
+        console.log(req.body);
 const forLoop =  async (doctor_id,searchIn) =>{
     for (let i=0;i<=searchIn;i++){
         const date = moment().utc().add(i,"d").format("YYYY-MM-DD");
@@ -68,6 +69,7 @@ const forLoop =  async (doctor_id,searchIn) =>{
     }
 }
 await forLoop(doctor_id,searchIn);
+console.log(appointmentsForWeek);
 return respond(true,200,appointmentsForWeek.flat(),res);
     }catch(err){
         handleError(err,res);
