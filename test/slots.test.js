@@ -190,7 +190,7 @@ describe("/api/slots",async()=>{
             .expect(201);	
             const doctorToken = genToken("01090113795",1,"doctor");	
             res = await request(server)	
-            .get("/api/slots/getDoctorDays")	
+            .post("/api/slots/getDoctorDays")	
             .set("Authorization", `Bearer ${doctorToken}`)	
             .expect(200);	
             const slotId = res.body.data.slot_id;	

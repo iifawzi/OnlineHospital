@@ -23,6 +23,7 @@ const addDocSlot = async (req,res,next)=>{
 }
 
 const getDoctorDays = async (req,res,nect)=>{	// if there's an doctor_id in the body, use that id (control panel use), if not take the id from the header (doctor's application use)
+console.log(req.body);
     try {	
         let id = "";
         if (req.body.doctor_id){
