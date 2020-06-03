@@ -7,10 +7,9 @@ var moment = require('moment'); // require
 
 const addDocSlot = async (req,res,next)=>{
     try {
-        const {start_time, day} = req.body;
+        const {start_time,day} = req.body;
         const utcStartDay = moment(day+" "+start_time,"ddd HH:mm").utc().format("ddd HH:mm");
         const [utcDay,utcStart_time] = utcStartDay.split(" ").map(e=> e.toLowerCase());
-
         req.body.start_time = utcStart_time;
         req.body.day = utcDay;
         const data = {...req.body};

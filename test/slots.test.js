@@ -166,7 +166,7 @@ describe("/api/slots",async()=>{
             .post("/api/controlPanel/addDoctor")	
             .set("Authorization", `Bearer ${token}`)	
             .send({	
-                "phone_number":"01090113795",	
+                "phone_number":"01090113785",	
                 "password":"testtest",	
                 "first_name":"fawzi",	
                 "last_name": "ahmed",	
@@ -190,11 +190,11 @@ describe("/api/slots",async()=>{
             .expect(201);	
             const doctorToken = genToken("01090113795",1,"doctor");	
             res = await request(server)	
-            .post("/api/slots/getDoctorDays")	
+            .get("/api/slots/getDoctorDays")	
             .set("Authorization", `Bearer ${doctorToken}`)	
             .expect(200);	
             const slotId = res.body.data.slot_id;	
-            deleteDoctor("01090113795");	
+            deleteDoctor("01090113785");	
             deleteSlot(slotId);	
 
 
