@@ -89,9 +89,6 @@ const addSlot = Joi.object({
   slot_time: Joi.string().required(),
   available: Joi.boolean().required(),
 });
-const getDoctorDays = Joi.object({
-  doctor_id: Joi.number().required(),
-});
 const addAppointment = Joi.object({
   slot_id: Joi.number().required(),
   date: Joi.string().required(),
@@ -103,8 +100,7 @@ const addConfirmedAppointment = Joi.object({
 });
 const getOpenSlots = Joi.object({
   doctor_id: Joi.number().required(),
-  day: Joi.string().required(),
-  date: Joi.string().required(),
+  searchIn: Joi.number().required()
 });
 const getDoctorSlots = Joi.object({
   doctor_id: Joi.number().required(),
@@ -155,7 +151,6 @@ const schemas = {
   getUser,
   toggleBlock,
   addSlot,
-  getDoctorDays,
   addAppointment,
   getOpenSlots,
   getDoctorSlots,

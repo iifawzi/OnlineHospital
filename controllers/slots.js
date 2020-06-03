@@ -1,6 +1,7 @@
-const {addSlot,doctorDays,getDocOpenSlots,slotUpdate} = require("../models/slots");
+const {addSlot,getDocOpenSlots,slotUpdate} = require("../models/slots");
 const {handleError,ErrorHandler} = require("../middleware/error");
 const respond = require("../middleware/respond");
+var moment = require('moment'); // require
 
 
 
@@ -16,37 +17,38 @@ const addDocSlot = async (req,res,next)=>{
     }
 }
 
-const getDoctorDays = async (req,res,nect)=>{
-    try {
-        const {doctor_id} = req.body;
-const slots = await doctorDays(doctor_id);
-if (!slots){
-    throw new ErrorHandler(500,"error happened while getting the Slots");
-}
-const days = [];
-for (day of slots){
-    days.push(day.dataValues.day);
-}
-return respond(true,200,days,res);
-
-    }catch(err){
-        handleError(err,res);
-    }
-}
-
 
 const getOpenSlots = async (req,res,next)=>{
     try {
-        const info = {...req.body};
+        const appointmentsForWeek = [];
+        const {doctor_id, searchIn} = req.body;
+const forLoop =  async (doctor_id,searchIn) =>{
+    for (let i=0;i<=searchIn;i++){
+        const date = moment().utc().add(i,"d").format("YYYY-MM-DD");
+        const day = moment(date).format("ddd").toLowerCase();
+        const info = {
+            date: date,
+            doctor_id: doctor_id,
+            day:day,
+        }
         const slots = await getDocOpenSlots(info,res);
         if (slots){
-          return respond(true,200,slots,res);
+        if (slots.length != 0){
+            appointmentsForWeek.push(slots);
         }
+        }
+    }
+}
+await forLoop(doctor_id,searchIn);
+return respond(true,200,appointmentsForWeek.flat(),res);
     }catch(err){
         handleError(err,res);
     }
 
   }
+
+
+
 
   const updateSlot = async (req,res,next)=>{
       try {
@@ -61,7 +63,6 @@ const getOpenSlots = async (req,res,next)=>{
   }
 module.exports = {
     addDocSlot,
-    getDoctorDays,
     getOpenSlots,
     updateSlot
 }

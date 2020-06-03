@@ -64,24 +64,19 @@ const deleteSlot = async (data)=>{
   }
   
 
-const doctorDays = async(doctor_id)=>{ // this will return the days which doctor working in:
-    const days = await slots.findAll({where:{doctor_id,available: true},attributes: ['day'], group: ['day']});
-    return days;
-}
-
 
 // ON slots.slot_id = apps.slot_id => will return all the records in slots table with null for unmatched in appointments table. 
 // apps.date = `` => will help us to return everyting in the slots model, with null if date not registerd in right model
 // apps.appointment_status != 'canceled` => will help us to return all the records in slots model, with null for the records which canceled in the appointments model. 
 // WHERE => filtering the returned data, get specific doctor id, for specific day, where the right table `appointments` slot_id equals null (to match the above conditions )
-
+// concatenated dates used to let the front-end users able to use different time-zones
 const getDocOpenSlots = async function(info,res){ // this api will return the slots which are allowed to be preserved: 
     try {
         const day = info.day;
         const doctor_id = info.doctor_id;
         const date = info.date;
-        const slots =  await db.query("SELECT slots.* FROM slots LEFT JOIN appointments apps ON slots.slot_id = apps.slot_id && apps.date = ? && apps.appointment_status != 'canceled' WHERE slots.doctor_id = ? && slots.day = ? && slots.available = 1 && apps.slot_id is null ",{
-            replacements: [date,doctor_id,day],
+        const slots =  await db.query("SELECT slots.slot_id,slots.doctor_id,slots.day,slots.slot_time, CONCAT(?,'T',slots.start_time) start_time,CONCAT(?,'T',slots.end_time) end_time FROM slots LEFT JOIN appointments apps ON slots.slot_id = apps.slot_id && apps.date = ? && apps.appointment_status != 'canceled' WHERE slots.doctor_id = ? && slots.day = ? && slots.available = 1 && apps.slot_id is null ",{
+            replacements: [date,date,date,doctor_id,day],
             type: Sequelize.QueryTypes.SELECT,
         });
         return slots;
@@ -122,7 +117,6 @@ const slotUpdate = async(data,res)=>{ // this end point for admins:
 module.exports = {
     slots,
     addSlot,
-    doctorDays,
     deleteSlot,
     getDocOpenSlots,
     getDocSlots,
