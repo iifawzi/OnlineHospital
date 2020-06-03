@@ -6,7 +6,7 @@ var moment = require('moment');
 const addAppointment = async (req, res, next) => {
   try {
     const user_id = req.user.id;
-    req.body.date = moment(req.body.date).format("YYYY-MM-DD");
+    req.body.date = moment(req.body.date).utc().format("YYYY-MM-DD");
     const data = { ...req.body,user_id };
     const newAppointment = await addNewAppointment(data,res);
     if (newAppointment){
