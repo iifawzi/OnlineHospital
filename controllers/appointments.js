@@ -20,6 +20,7 @@ const addAppointment = async (req, res, next) => {
 const addConfirmedAppointment = async (req, res, next) => { // will be confirmed immediately (for control panel use)
   try {
     const data = { ...req.body };
+    data.date = moment(data.date).utc().format("YYYY-MM-DD");
     const newAppointment = await addConfirmNewAppointment(data,res);
     if (newAppointment){
         return respond(true,201,newAppointment,res);

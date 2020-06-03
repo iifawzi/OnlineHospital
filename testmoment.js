@@ -31,8 +31,12 @@ var moment = require('moment'); // require
 // console.log("--------");
 // console.log(compareDate);
 // console.log(compareTime);
-
-const test =  moment("2020-06-01T23:00Z").format("YYYY-MM-DD");
-console.log(test);
+const t = [1,2,3];
+for (n of t){
+    console.log(n);
+}
+const test =  moment("Tue Jun 02 2020 23:00:00 GMT+4", "ddd MMM DD YYYY HH:mm:ss").format("YYYY-MM-DD  HH:mm:ss");
+let ddd = moment("2020-06-01T23:00Z").utc().parseZone().utcOffset(120).format("YYYY-MM-DD");
+console.log(ddd);
 // const test = moment("23:00", "HH:mm").parseZone().utcOffset(120).format("HH:mm")
 // console.log(test);

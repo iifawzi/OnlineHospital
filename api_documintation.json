@@ -1164,6 +1164,7 @@
         "parameters": [
           {
             "in": "header",
+            "description": "if you passed the doctor_id, it will use it instead of the header",
             "name": "Authorization",
             "required": true,
             "type": "string"

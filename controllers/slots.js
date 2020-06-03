@@ -23,7 +23,6 @@ const addDocSlot = async (req,res,next)=>{
 }
 
 const getDoctorDays = async (req,res,nect)=>{	// if there's an doctor_id in the body, use that id (control panel use), if not take the id from the header (doctor's application use)
-console.log(req.body);
     try {	
         let id = "";
         if (req.body.doctor_id){
@@ -50,7 +49,6 @@ const getOpenSlots = async (req,res,next)=>{
     try {
         const appointmentsForWeek = [];
         const {doctor_id, searchIn} = req.body;
-        console.log(req.body);
 const forLoop =  async (doctor_id,searchIn) =>{
     for (let i=0;i<=searchIn;i++){
         const date = moment().utc().add(i,"d").format("YYYY-MM-DD");
@@ -69,7 +67,6 @@ const forLoop =  async (doctor_id,searchIn) =>{
     }
 }
 await forLoop(doctor_id,searchIn);
-console.log(appointmentsForWeek);
 return respond(true,200,appointmentsForWeek.flat(),res);
     }catch(err){
         handleError(err,res);
