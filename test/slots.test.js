@@ -125,7 +125,7 @@ describe("/api/slots",async()=>{
                 })
             .expect(400);
         });
-        it("Should respond 200 addedd Successfully",async()=>{
+        it("Should respond 200 got slots Successfully",async()=>{
             const token = genToken("0109034748",1,"user");
             let res = await request(server)
             .post("/api/auth/signup")
