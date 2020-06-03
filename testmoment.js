@@ -32,7 +32,7 @@ var moment = require('moment'); // require
 // console.log(compareDate);
 // console.log(compareTime);
 
-const test =  moment("2020-06-01T23:00Z").utc().format("YYYY-MM-DD");
+const test =  moment("2020-06-01T23:00Z").format("YYYY-MM-DD");
 console.log(test);
 // const test = moment("23:00", "HH:mm").parseZone().utcOffset(120).format("HH:mm")
 // console.log(test);

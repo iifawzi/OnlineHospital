@@ -2349,7 +2349,7 @@
       },
       "example": {
         "slot_id": 1,
-        "date": "1999-03-20"
+        "date": "2020-06-17T23:00Z"
       }
     },
     "newAppointmentResponse": {
