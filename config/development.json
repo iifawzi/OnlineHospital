@@ -12,5 +12,8 @@
         "secret": "fawzi01090243795fawzi",
         "expiresIn":"99 years",
         "expiresInAdmins":"1d"
+      },
+      "fcm":{
+        "key": "   key=AAAA7O02IZ4:APA91bF-hFYXpoiHtOKIeG5kF8JfyZq20l7gzu0UfRhoU_WgvGFBL6gYOKdBXBLBSG9poXeEWk7_mrg3lLbrWhraFDsHz3oecSbq5x-hZwYWD8CoQEoybrnLqECSmbJsX5LbNDMVmbur"
       }
 }

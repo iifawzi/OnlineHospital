@@ -159,6 +159,14 @@ const getDoctorsPanel = async function (res){
     }
 }
 
+const getTokenFromSlot = async function(slot_id){
+    const fbToken =  await db.query("SELECT fb_token_id FROM doctors LEFT JOIN slots ON doctors.doctor_id = slots.doctor_id WHERE slot_id = ?",{
+        replacements: [slot_id],
+        type: Sequelize.QueryTypes.SELECT,
+    });
+    return fbToken[0].fb_token_id;
+}
+
 module.exports = {
     doctors,
     checkDocPhoneExist,
@@ -168,5 +176,6 @@ module.exports = {
     getDoctorsData,
     updateDoctor,
     checkDocIdExist,
-    getDoctorsPanel
+    getDoctorsPanel,
+    getTokenFromSlot
 }

@@ -94,6 +94,10 @@ const checkIfPhoneExist = async function (phone_number) {
   const user = await users.findOne({ where: { phone_number } });
   return user;
 };
+const checkIfUserExist = async function (user_id) {
+  const user = await users.findOne({ where: { user_id } });
+  return user;
+};
 // UPDATE USER'S FIREBASE TOKEN ID
 const updateFirebaseToken = async function (userObject, new_token,res) {
   try {
@@ -134,4 +138,5 @@ module.exports = {
   updateFirebaseToken,
   blockUser,
   updateUser,
+  checkIfUserExist
 };

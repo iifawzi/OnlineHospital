@@ -4,7 +4,10 @@ const {
   slotUpdate,
   doctorDays,
 } = require("../models/slots");
+const {sendNotfication} = require("../utils/shared/sendNotfication");
 const { handleError, ErrorHandler } = require("../middleware/error");
+const {checkDocIdExist} = require("../models/doctors");
+
 const respond = require("../middleware/respond");
 var moment = require("moment"); // require
 
@@ -101,6 +104,10 @@ const updateSlot = async (req, res, next) => {
     data.day = utcDay;
     const updated = await slotUpdate(data, res);
     if (updated) {
+      const doctor = await checkDocIdExist(updated.doctor_id);
+      if (doctor.fb_token_id != null ){
+        sendNotfication(doctor.fb_token_id,"تم تحديث مواعيدك");
+      }
       return respond(true, 200, updated, res);
     }
   } catch (err) {

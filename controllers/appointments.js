@@ -1,5 +1,8 @@
 const {addNewAppointment,addConfirmNewAppointment,userApps,docApps,cancelApp,confirmApp,docAppsDate,finishedApps,upcomingApps,getAppointment,setUser_joined,setDoctor_joined,doctorUpcomingApps,doctorFinishedApps} = require("../models/appointments");
+const {checkIfUserExist} = require("../models/users");
+const {getTokenFromSlot} = require("../models/doctors");
 const { handleError, ErrorHandler } = require("../middleware/error");
+const {sendNotfication} = require("../utils/shared/sendNotfication");
 const respond = require("../middleware/respond");
 var moment = require('moment');
 
@@ -10,6 +13,10 @@ const addAppointment = async (req, res, next) => {
     const data = { ...req.body,user_id };
     const newAppointment = await addNewAppointment(data,res);
     if (newAppointment){
+      const token = await getTokenFromSlot(newAppointment.dataValues.slot_id);
+      if (token != null){
+        sendNotfication(token,"هناك حجز جديد");
+      }
         return respond(true,201,newAppointment,res);
      }
   } catch (err) {
@@ -23,6 +30,14 @@ const addConfirmedAppointment = async (req, res, next) => { // will be confirmed
     data.date = moment(data.date).utc().format("YYYY-MM-DD");
     const newAppointment = await addConfirmNewAppointment(data,res);
     if (newAppointment){
+      const user = await checkIfUserExist(newAppointment.user_id);
+      if (user.fb_token_id != null){
+        sendNotfication(user.fb_token_id,"تم إضافة حجز جديد");
+      }
+      const token = await getTokenFromSlot(newAppointment.dataValues.slot_id);
+      if (token != null){
+        sendNotfication(token,"هناك حجز جديد");
+      }
         return respond(true,201,newAppointment,res);
      }
   } catch (err) {
@@ -135,6 +150,10 @@ const cancelAppointment = async (req,res,next)=>{
     const {appointment_id} = req.body;
     const canceled = await cancelApp(appointment_id,res);
     if (canceled){
+      const user = await checkIfUserExist(canceled.user_id);
+      if (user.fb_token_id != null){
+        sendNotfication(user.fb_token_id,"يرجى مراجعة حجوزاتك، تم إلغاء احدها");
+      }
       return respond(true,200,canceled,res);
     }
   }catch(err){
