@@ -9,7 +9,7 @@
         "saltRounds":6
       },
       "jwt":{
-        "secret": "fawzihalawallahtest01090243795fawziapihospitalsocomplicatedwhyyouaretryingtotestthiswownotallowedhahafawzi",
+        "secret": "fawzi01090243795fawzi",
         "expiresIn":"9999 years",
         "expiresInAdmins":"1d"
       }
