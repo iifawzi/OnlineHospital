@@ -102,16 +102,21 @@ const slotUpdate = async(data,res)=>{ // this end point for admins:
     try {
         const slot_id = data.slot_id;
         const slot = await slots.findOne({where:{slot_id}});
-        const old_status = slot.available;
-        const new_status = data.available == "true" ? true : false;
-
         delete data.slot_id;
+        let shouldCancelApps = false;
+        const old_status = slot.available;
+        
         for (let key in data){
+           if (slot[key] != data[key]){
             slot[key] = data[key];
+            shouldCancelApps = true;
+           }
           }
-        if (((old_status === true) && (new_status === false))){
-            await cancelApps(slot_id);
-        }
+
+          if (shouldCancelApps && old_status === true){
+              await cancelApps(slot_id);
+          }
+
           await slot.save();
           return slot;
     }catch(err){
