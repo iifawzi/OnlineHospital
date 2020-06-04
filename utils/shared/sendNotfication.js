@@ -24,6 +24,24 @@ exports.sendNotfication = (to,message) => {
     console.log(err);
   }
 };
-
-
+exports.callNotfication = (to,room_id,doctor_name) => {
+  const SendNotfiTo = {
+    to,
+    data: {
+      title: "Call",
+      room_id,
+      doctor_name
+    },
+  };
+  try {
+    axios.post("https://fcm.googleapis.com/fcm/send",SendNotfiTo,RequestConfig)
+      .then((res) => {
+        console.log("done");
+      })
+      .catch((error) => {
+      });
+  } catch (err) {
+    console.log(err);
+  }
+};
 

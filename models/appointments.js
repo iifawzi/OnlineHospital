@@ -217,6 +217,16 @@ handleError(err,res)
     }
 }
 
+const runApp = async function(appointment_id,res){
+    try {
+        const getApp = await appointments.findOne({where:{appointment_id}});
+        getApp.appointment_status = 'running';
+        const updated = await getApp.save();
+        return updated;
+    }catch(err){
+handleError(err,res)
+    }
+}
 
 const getAppointment = async function(appointment_id,res){
     try {
@@ -264,6 +274,18 @@ const cancelApps = async function(slot_id,res){
     }
 }
 
+const getAppointmentInfo = async function(appointment_id,res){
+    try {
+        const appInfo = await db.query("SELECT apps.appointment_id,apps.appointment_status,apps.user_joined,apps.doctor_joined,apps.room_id,CONCAT(apps.date,'T',slots.start_time,'Z') start_time,slots.slot_time,docs.first_name,docs.last_name ,docs.fb_token_id as 'doctor_token', users.fb_token_id as 'user_token' FROM appointments apps LEFT JOIN slots ON apps.slot_id = slots.slot_id LEFT JOIN doctors docs ON slots.doctor_id = docs.doctor_id LEFT JOIN users ON apps.user_id = users.user_id WHERE apps.appointment_id = ? ", {
+            replacements: [appointment_id],
+            type: Sequelize.QueryTypes.SELECT,
+        });
+        return appInfo[0];
+    }catch(err){
+        handleError(err,res);
+    }
+}
+
 module.exports = { 
     appointments,
     addNewAppointment,
@@ -281,5 +303,7 @@ module.exports = {
     setDoctor_joined,
     doctorFinishedApps,
     doctorUpcomingApps,
-    cancelApps
+    cancelApps,
+    runApp,
+    getAppointmentInfo
 }

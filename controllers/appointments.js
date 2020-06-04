@@ -1,7 +1,8 @@
 const {addNewAppointment,addConfirmNewAppointment,userApps,docApps,cancelApp,confirmApp,docAppsDate,finishedApps,upcomingApps,getAppointment,setUser_joined,setDoctor_joined,doctorUpcomingApps,doctorFinishedApps} = require("../models/appointments");
 const {checkIfUserExist} = require("../models/users");
 const {getTokenFromSlot} = require("../models/doctors");
-const { handleError, ErrorHandler } = require("../middleware/error");
+const { handleError} = require("../middleware/error");
+const {newAppointmentTask} = require("../tasks/tasks");
 const {sendNotfication} = require("../utils/shared/sendNotfication");
 const respond = require("../middleware/respond");
 var moment = require('moment');
@@ -13,10 +14,6 @@ const addAppointment = async (req, res, next) => {
     const data = { ...req.body,user_id };
     const newAppointment = await addNewAppointment(data,res);
     if (newAppointment){
-      const token = await getTokenFromSlot(newAppointment.dataValues.slot_id);
-      if (token != null){
-        sendNotfication(token,"هناك حجز جديد");
-      }
         return respond(true,201,newAppointment,res);
      }
   } catch (err) {
@@ -166,6 +163,13 @@ const confirmAppointment = async (req,res,next)=>{
     const {appointment_id} = req.body;
     const confirmed = await confirmApp(appointment_id,res);
     if (confirmed){
+      const token = await getTokenFromSlot(confirmed.dataValues.slot_id); // doctor's token
+      if (token != null){
+        sendNotfication(token,"هناك حجز جديد");
+      }
+      // JOBS
+      await newAppointmentTask(confirmed.appointment_id,res);
+      //END JOBS: 
       return respond(true,200,confirmed,res);
     }
   }catch(err){

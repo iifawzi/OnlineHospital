@@ -41,7 +41,10 @@
 // // const test = moment("23:00", "HH:mm").parseZone().utcOffset(120).format("HH:mm")
 // // console.log(test);
 
-const {genToken} = require("./utils/shared/genToken");
+// const {genToken} = require("./utils/shared/genToken");
 
-const token = genToken("01090243795",1,"admin"); 
-console.log(token);
+// const token = genToken("01090243795",1,"user"); 
+// console.log(token);
+
+var date = new Date(2012, 11, 21, 5, 30, 0);
+console.log(date);
