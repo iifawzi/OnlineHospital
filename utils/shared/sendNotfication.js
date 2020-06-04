@@ -24,13 +24,13 @@ exports.sendNotfication = (to,message) => {
     console.log(err);
   }
 };
-exports.callNotfication = (to,room_id,doctor_name) => {
+exports.callNotfication = (to,room_id,user_name) => {
   const SendNotfiTo = {
     to,
     data: {
       title: "Call",
       room_id,
-      doctor_name
+      user_name
     },
   };
   try {

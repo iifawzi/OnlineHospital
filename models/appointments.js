@@ -282,7 +282,19 @@ const getAppointmentInfo = async function(appointment_id,res){
         });
         return appInfo[0];
     }catch(err){
-        handleError(err,res);
+        console.log(err,"getAppointmentInfo")
+
+    }
+}
+
+const getAppointmentsInfo = async function(){ // plural :D (this will be used on the jobs controller to get all upcoming appointments)
+    try {
+        const appInfo = await db.query("SELECT apps.appointment_id,apps.appointment_status,apps.user_joined,apps.doctor_joined,apps.room_id,CONCAT(apps.date,'T',slots.start_time,'Z') start_time,slots.slot_time,CONCAT(docs.first_name + ' ' + docs.last_name) doctor_name,CONCAT(users.first_name + ' ' + users.last_name) user_name ,docs.fb_token_id as 'doctor_token', users.fb_token_id as 'user_token' FROM appointments apps LEFT JOIN slots ON apps.slot_id = slots.slot_id LEFT JOIN doctors docs ON slots.doctor_id = docs.doctor_id LEFT JOIN users ON apps.user_id = users.user_id WHERE apps.appointment_status = 'upcoming' ", {
+            type: Sequelize.QueryTypes.SELECT,
+        });
+        return appInfo;
+    }catch(err){
+       console.log(err,"getAppointmentsInfo")
     }
 }
 
@@ -305,5 +317,6 @@ module.exports = {
     doctorUpcomingApps,
     cancelApps,
     runApp,
-    getAppointmentInfo
+    getAppointmentInfo,
+    getAppointmentsInfo
 }
