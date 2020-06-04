@@ -10,7 +10,7 @@
       },
       "jwt":{
         "secret": "fawzi01090243795fawzi",
-        "expiresIn":"9999 years",
+        "expiresIn":"99 years",
         "expiresInAdmins":"1d"
       }
 }
