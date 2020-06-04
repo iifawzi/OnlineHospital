@@ -253,6 +253,17 @@ const setDoctor_joined = async function(appointment_id,res){
     }
 }
 
+const cancelApps = async function(slot_id,res){
+    try {
+        const appointment =  await db.query("UPDATE appointments SET appointment_status = 'canceled' WHERE slot_id = ?",{
+            replacements: [slot_id],
+            type: Sequelize.QueryTypes.UPDATE,
+        });
+    }catch(err){
+        handleError(err,res);
+    }
+}
+
 module.exports = { 
     appointments,
     addNewAppointment,
@@ -269,5 +280,6 @@ module.exports = {
     setUser_joined,
     setDoctor_joined,
     doctorFinishedApps,
-    doctorUpcomingApps
+    doctorUpcomingApps,
+    cancelApps
 }
