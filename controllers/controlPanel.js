@@ -5,6 +5,8 @@ const {checkAdminExist,createAdmin} = require("../models/admins");
 const {getAllCategories} = require("../models/categories");
 const {checkIfPhoneExist } = require("../models/users");
 const {genToken} = require("../utils/shared/genToken");
+const {cancelAppsByUser} = require("../models/appointments");
+
 const {hashPassword,compareHashed} = require("../utils/shared/bcrypt");
 const respond = require("../middleware/respond");
 const upload = require("../middleware/upload");
@@ -204,6 +206,9 @@ const toggleBlock = async (req, res, next) => {
       const user = await checkIfPhoneExist(phone_number);
       if (!user) {
         throw new ErrorHandler(404, "User not found");
+      }
+      if (user.blocked === false){
+await cancelAppsByUser(user.user_id);
       }
       user.blocked = !user.blocked;
       await user.save();
