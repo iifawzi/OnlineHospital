@@ -70,7 +70,7 @@ const updateDoctor = Joi.object({
   category_id: Joi.number(),
   picture: Joi.string(),
   price: Joi.number(),
-  avaliable: Joi.boolean(),
+  available: Joi.boolean(),
 });
 const deleteDoctor = Joi.object({
   phone_number: Joi.string().required(),

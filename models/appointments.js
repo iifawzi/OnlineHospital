@@ -308,10 +308,32 @@ const setDoctor_joined = async function(appointment_id,res){
     }
 }
 
-const cancelApps = async function(slot_id,res){
+const cancelApps = async function(slot_id,res){ // cancel apps by slot_id
     try {
         const appointment =  await db.query("UPDATE appointments SET appointment_status = 'canceled' WHERE slot_id = ?",{
             replacements: [slot_id],
+            type: Sequelize.QueryTypes.UPDATE,
+        });
+    }catch(err){
+        handleError(err,res);
+    }
+}
+
+const cancelAppsByDoctor = async function(doctor_id,res){ // cancel apps by doctor_id
+    try {
+        const appointment =  await db.query("UPDATE appointments apps LEFT JOIN slots ON apps.slot_id = slots.slot_id  SET appointment_status = 'canceled' WHERE  apps.appointment_status = 'upcoming' AND slots.doctor_id = ? ",{
+            replacements: [doctor_id],
+            type: Sequelize.QueryTypes.UPDATE,
+        });
+    }catch(err){
+        handleError(err,res);
+    }
+}
+
+const cancelAppsByUser = async function(user_id,res){ // cancel apps by user_id
+    try {
+        const appointment =  await db.query("UPDATE appointments SET appointment_status = 'canceled' WHERE user_id = ?",{
+            replacements: [user_id],
             type: Sequelize.QueryTypes.UPDATE,
         });
     }catch(err){
@@ -367,5 +389,7 @@ module.exports = {
     missUserApp,
     missApp,
     getAppointmentInfo,
-    getAppointmentsInfo
+    getAppointmentsInfo,
+    cancelAppsByDoctor,
+    cancelAppsByUser
 }

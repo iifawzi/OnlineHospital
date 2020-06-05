@@ -1,6 +1,7 @@
 const Sequelize = require("sequelize");
 const db = require("../utils/db");
 const {handleError} = require("../middleware/error");
+const {cancelAppsByDoctor} = require("../models/appointments");
 
 const doctors = db.define("doctors",{
     doctor_id: {
@@ -44,7 +45,7 @@ const doctors = db.define("doctors",{
         type:Sequelize.STRING,
         allowNull:false,
     },
-    avaliable:{
+    available:{
         type:Sequelize.BOOLEAN,
         allowNull:false,
         defaultValue:false,
@@ -64,7 +65,7 @@ const doctors = db.define("doctors",{
             fields: ["country"],
           },
         {
-            fields: ["category_id","avaliable"],
+            fields: ["category_id","available"],
           },
         {
           unique: true,
@@ -125,7 +126,7 @@ const  getDoctorsData = async function  (category_id,res){
         const doctorsData = await doctors.findAll({attributes:{exclude: ['password','fb_token_id','priority']},
         order: [
          ['priority', 'DESC'],
-     ],where:{category_id, avaliable: true}}); 
+     ],where:{category_id, available: true}}); 
         return doctorsData;
     }catch(err){
         handleError(err,res);
@@ -136,6 +137,11 @@ const  getDoctorsData = async function  (category_id,res){
 // Update Specific Doctor's info : 
 const updateDoctor = async function (doctorObject,data,res){
     try {
+        if (data.available != undefined){
+            if (doctorObject.available === true && data.available === false){
+                await cancelAppsByDoctor(doctorObject.doctor_id,res);
+            }
+        }
         for (let key in data){
             doctorObject[key] = data[key];
           }
@@ -150,7 +156,7 @@ const updateDoctor = async function (doctorObject,data,res){
 // Get Doctors With the categories data for show in control Panel: 
 const getDoctorsPanel = async function (res){
     try {
-        const doctors =  await db.query("SELECT  docs.doctor_id,docs.phone_number,docs.first_name,docs.last_name,docs.country,docs.avaliable,docs.price ,cats.* FROM `doctors` docs LEFT JOIN `categories` cats ON docs.category_id = cats.category_id ORDER BY docs.doctor_id DESC",{
+        const doctors =  await db.query("SELECT  docs.doctor_id,docs.phone_number,docs.first_name,docs.last_name,docs.country,docs.available,docs.price ,cats.* FROM `doctors` docs LEFT JOIN `categories` cats ON docs.category_id = cats.category_id ORDER BY docs.doctor_id DESC",{
             type: Sequelize.QueryTypes.SELECT,
         });
         return doctors;
