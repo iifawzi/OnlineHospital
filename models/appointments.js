@@ -228,6 +228,18 @@ handleError(err,res)
     }
 }
 
+const finishApp = async function(appointment_id,res){
+    try {
+        const getApp = await appointments.findOne({where:{appointment_id}});
+        getApp.appointment_status = 'finished';
+        const updated = await getApp.save();
+        return updated;
+    }catch(err){
+handleError(err,res)
+    }
+}
+
+
 const getAppointment = async function(appointment_id,res){
     try {
         const appointment =  await db.query("SELECT apps.date, apps.room_id, apps.appointment_id,apps.appointment_status,slots.start_time,slots.slot_time,apps.user_joined,slots.day FROM appointments apps INNER JOIN slots ON apps.slot_id = slots.slot_id WHERE apps.appointment_id = ?",{
@@ -317,6 +329,7 @@ module.exports = {
     doctorUpcomingApps,
     cancelApps,
     runApp,
+    finishApp,
     getAppointmentInfo,
     getAppointmentsInfo
 }
