@@ -9,7 +9,7 @@ exports.sendNotfication = (to,message) => {
   const SendNotfiTo = {
     to,
     data: {
-      title: "ECLINIC",
+      title: "eClinic",
       message,
     },
   };
