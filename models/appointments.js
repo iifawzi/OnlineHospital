@@ -38,7 +38,7 @@ date: {
     allowNull:false,
 },
 appointment_status: {
-    type: Sequelize.ENUM("pending","upcoming","running","finished","canceled"),
+    type: Sequelize.ENUM("pending","upcoming","running","finished","canceled", "client missed","doctor missed","missed"),
     allowNull: false,
     defaultValue:"pending",
 },
@@ -239,6 +239,39 @@ handleError(err,res)
     }
 }
 
+const missDocApp = async function(appointment_id,res){ // if doctor missed the appointment
+    try {
+        const getApp = await appointments.findOne({where:{appointment_id}});
+        getApp.appointment_status = 'doctor missed';
+        const updated = await getApp.save();
+        return updated;
+    }catch(err){
+handleError(err,res)
+    }
+}
+
+const missUserApp = async function(appointment_id,res){ // if user missed the appointment
+    try {
+        const getApp = await appointments.findOne({where:{appointment_id}});
+        getApp.appointment_status = 'user missed';
+        const updated = await getApp.save();
+        return updated;
+    }catch(err){
+handleError(err,res)
+    }
+}
+
+
+const missApp = async function(appointment_id,res){ // if both missed the appointment
+    try {
+        const getApp = await appointments.findOne({where:{appointment_id}});
+        getApp.appointment_status = 'missed';
+        const updated = await getApp.save();
+        return updated;
+    }catch(err){
+handleError(err,res)
+    }
+}
 
 const getAppointment = async function(appointment_id,res){
     try {
@@ -330,6 +363,9 @@ module.exports = {
     cancelApps,
     runApp,
     finishApp,
+    missDocApp,
+    missUserApp,
+    missApp,
     getAppointmentInfo,
     getAppointmentsInfo
 }

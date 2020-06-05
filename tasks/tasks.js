@@ -1,5 +1,5 @@
 const schedule = require('node-schedule');
-const {cancelApp,runApp,finishApp,getAppointmentInfo} = require("../models/appointments");
+const {cancelApp,runApp,finishApp,missDocApp,missUserApp,missApp,getAppointmentInfo} = require("../models/appointments");
 const {sendNotfication,callNotfication} = require("../utils/shared/sendNotfication");
 const moment = require('moment');
 
@@ -9,11 +9,15 @@ exports.newAppointmentTask = async (appointment_id,res)=>{ // these tasks is nee
     let onTime = moment(appInfo.start_time).utc().format("YYYY-MM-DD HH:mm:ss");
     let fiveMinAfter = moment(appInfo.start_time).utc().add(1,"m").format("YYYY-MM-DD HH:mm:ss");
     let endTime = moment(appInfo.start_time).utc().add(appInfo.slot_time,'m').format("YYYY-MM-DD HH:mm:ss");
+
+
     const beforeFive = schedule.scheduleJob(fiveMinBefore, async function(){
-     await runApp(appInfo.appointment_id);
+     await runApp(appInfo.appointment_id,res);
      sendNotfication(appInfo.doctor_token,"دكتور، بنفكرك عندك معاد كمان ٥ دقايق");
      sendNotfication(appInfo.user_token,"عندك معاد كمان ٥ دقايق، تقدر تدخل من دلوقتي");
     });
+
+
     const onExact = schedule.scheduleJob(onTime, async function(){
         const currentInfo = await getAppointmentInfo(appInfo.appointment_id,res);
         if (currentInfo.doctor_joined === 0){
@@ -23,28 +27,52 @@ exports.newAppointmentTask = async (appointment_id,res)=>{ // these tasks is nee
             sendNotfication(appInfo.user_token,"معادك بدأ");
         }
      });
+
+
      const afterFive = schedule.scheduleJob(fiveMinAfter, async function(){
       const currentInfo = await getAppointmentInfo(appInfo.appointment_id,res);
-      if (currentInfo.user_joined === 0){
-        sendNotfication(currentInfo.user_token,"عدا ١٠ دقايق على المعاد، تم اغلاقه");
-        await cancelApp(currentInfo.appointment_id);
+      if (currentInfo.user_joined === 0 && currentInfo.doctor_joined === 0){
+        sendNotfication(currentInfo.user_token,"نظرًا لعدم حضورك، تم إلغاء المعاد");
+        sendNotfication(currentInfo.doctor_token," دكتور، نظرًا لعدم حضورك، تم إلغاء المعاد");
+        await missApp(currentInfo.appointment_id,res);
+      }
+      else if (currentInfo.user_joined === 0){
+        sendNotfication(currentInfo.user_token,"نظرًا لعدم حضورك، تم إلغاء المعاد");
+        sendNotfication(currentInfo.doctor_token,"دكتور، نظرًا لعدم حضور المستخدم، تم الغاء المعاد");
+        await missUserApp(currentInfo.appointment_id,res);
+      }
+      else if (currentInfo.doctor_joined === 0){
+        sendNotfication(currentInfo.doctor_token,"دكتور، نظرًا لعدم حضورك، تم إلغاء المعاد");
+        sendNotfication(currentInfo.user_token,"نظرًا لعدم حضور الدكتور، تم الغاء المعاد");
+        await missDocApp(currentInfo.appointment_id,res);
       }
      });
+
+
      const atEnd = schedule.scheduleJob(endTime, async function(){
-        await finishApp(appInfo.appointment_id);
+        await finishApp(appInfo.appointment_id,res);
        });
 }
+
+
+
+
+
 
 exports.existUpcomingTask = async (appInfo,res)=>{ // this will be used on jobs controller (for exist upcoming appointment)
     let fiveMinBefore = moment(appInfo.start_time).utc().subtract(1,"m").format("YYYY-MM-DD HH:mm:ss");
     let onTime = moment(appInfo.start_time).utc().format("YYYY-MM-DD HH:mm:ss");
     let fiveMinAfter = moment(appInfo.start_time).utc().add(1,"m").format("YYYY-MM-DD HH:mm:ss");
     let endTime = moment(appInfo.start_time).utc().add(appInfo.slot_time,'m').format("YYYY-MM-DD HH:mm:ss");
+
+
     const beforeFive = schedule.scheduleJob(fiveMinBefore, async function(){
-     await runApp(appInfo.appointment_id);
+     await runApp(appInfo.appointment_id,res);
      sendNotfication(appInfo.doctor_token,"دكتور، بنفكرك عندك معاد كمان ٥ دقايق");
      sendNotfication(appInfo.user_token,"عندك معاد كمان ٥ دقايق، تقدر تدخل من دلوقتي");
     });
+
+
     const onExact = schedule.scheduleJob(onTime, async function(){
         const currentInfo = await getAppointmentInfo(appInfo.appointment_id,res);
         if (currentInfo.doctor_joined === 0){
@@ -54,14 +82,31 @@ exports.existUpcomingTask = async (appInfo,res)=>{ // this will be used on jobs 
             sendNotfication(appInfo.user_token,"معادك بدأ");
         }
      });
+
+
      const afterFive = schedule.scheduleJob(fiveMinAfter, async function(){
       const currentInfo = await getAppointmentInfo(appInfo.appointment_id,res);
-      if (currentInfo.user_joined === 0){
-        sendNotfication(currentInfo.user_token,"عدا ١٠ دقايق على المعاد، تم اغلاقه");
-        await cancelApp(currentInfo.appointment_id);
+      if (currentInfo.user_joined === 0 && currentInfo.doctor_joined === 0){
+        sendNotfication(currentInfo.user_token,"نظرًا لعدم حضورك، تم إلغاء المعاد");
+        sendNotfication(currentInfo.doctor_token," دكتور، نظرًا لعدم حضورك، تم إلغاء المعاد");
+        await missApp(currentInfo.appointment_id,res);
       }
+      else if (currentInfo.user_joined === 0){
+        sendNotfication(currentInfo.user_token,"نظرًا لعدم حضورك، تم إلغاء المعاد");
+        sendNotfication(currentInfo.doctor_token,"دكتور، نظرًا لعدم حضور المستخدم، تم الغاء المعاد");
+        await missUserApp(currentInfo.appointment_id,res);
+      }
+      else if (currentInfo.doctor_joined === 0){
+        sendNotfication(currentInfo.doctor_token,"دكتور، نظرًا لعدم حضورك، تم إلغاء المعاد");
+        sendNotfication(currentInfo.user_token,"نظرًا لعدم حضور الدكتور، تم الغاء المعاد");
+        await missDocApp(currentInfo.appointment_id,res);
+      }
+
      });
+
+
+
      const atEnd = schedule.scheduleJob(endTime, async function(){
-        await finishApp(appInfo.appointment_id);
+        await finishApp(appInfo.appointment_id,res);
        });
 }
