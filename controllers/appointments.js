@@ -222,7 +222,7 @@ const joinDoctor = async(req,res,next)=>{
   try {
     const {appointment_id} = req.body;
     const appointment = await getAppointment(appointment_id,res); 
-    const {date,appointment_status,slot_time,room_id} = appointment;
+    const {date,appointment_status,slot_time,start_time,room_id} = appointment;
     const serverDate = moment().format("YYYY-MM-DD"); // server date
     const serverTime = moment().format(); // server time
     const appDate = moment(date,"YYYY-MM-DD").format("YYYY-MM-DD"); // appointment date
