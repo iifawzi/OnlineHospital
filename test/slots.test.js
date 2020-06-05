@@ -60,13 +60,13 @@ describe("/api/slots",async()=>{
                 "doctor_id":docId,
                 "day":"mon",
                 "start_time":"23:00",
-                "slot_time":"60:00",
+                "slot_time":"3300",
                 "available":false
                 })
             .expect(201);
             const slotId = res.body.data.slot_id;
             deleteDoctor("01090113795");
-            deleteSlot(slotId);
+            // deleteSlot(slotId);
         });
     });
 
@@ -102,7 +102,7 @@ describe("/api/slots",async()=>{
             .expect(200);
             expect(res.body.data.day).to.equal("wed");
             const slotId = res.body.data.slot_id;
-            deleteSlot(slotId);
+            // deleteSlot(slotId);
         });
     });
 
@@ -188,14 +188,14 @@ describe("/api/slots",async()=>{
                 "available":false	
                 })	
             .expect(201);	
+            const slotId = res.body.data.slot_id;	
             const doctorToken = genToken("01090113795",1,"doctor");	
             res = await request(server)	
             .post("/api/slots/getDoctorDays")	
             .set("Authorization", `Bearer ${doctorToken}`)	
             .expect(200);	
-            const slotId = res.body.data.slot_id;	
             deleteDoctor("01090113785");	
-            deleteSlot(slotId);	
+            // deleteSlot(slotId);	
 
 
         });	
