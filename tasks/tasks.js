@@ -11,15 +11,15 @@ exports.newAppointmentTask = async (appointment_id,res)=>{ // these tasks is nee
     var beforeFive = schedule.scheduleJob(fiveMinBefore, async function(){
      await runApp(appInfo.appointment_id);
      sendNotfication(appInfo.doctor_token,"دكتور، بنفكرك عندك معاد كمان ٥ دقايق");
-     callNotfication(appInfo.user_token,appInfo.room_id,appInfo.doctor_name);
+     sendNotfication(appInfo.user_token,"عندك معاد كمان ٥ دقايق، تقدر تدخل من دلوقتي");
     });
     var onExact = schedule.scheduleJob(onTime, async function(){
         const currentInfo = await getAppointmentInfo(appInfo.appointment_id,res);
         if (currentInfo.doctor_joined === 0){
-            callNotfication(appInfo.doctor_token,appInfo.room_id,appInfo.user_name);
+            sendNotfication(appInfo.doctor_token,"دكتور، عندك معاد دلوقتي");
         }
         if (currentInfo.user_joined === 0){
-            callNotfication(appInfo.user_token,appInfo.room_id,appInfo.doctor_name);
+            sendNotfication(appInfo.user_token,"معادك بدأ");
         }
      });
      var afterFive = schedule.scheduleJob(fiveMinAfter, async function(){
@@ -38,15 +38,15 @@ exports.existUpcomingTask = async (appInfo,res)=>{ // this will be used on jobs 
     var beforeFive = schedule.scheduleJob(fiveMinBefore, async function(){
      await runApp(appInfo.appointment_id);
      sendNotfication(appInfo.doctor_token,"دكتور، بنفكرك عندك معاد كمان ٥ دقايق");
-     callNotfication(appInfo.user_token,appInfo.room_id,appInfo.doctor_name);
+     sendNotfication(appInfo.user_token,"عندك معاد كمان ٥ دقايق، تقدر تدخل من دلوقتي");
     });
     var onExact = schedule.scheduleJob(onTime, async function(){
         const currentInfo = await getAppointmentInfo(appInfo.appointment_id,res);
         if (currentInfo.doctor_joined === 0){
-            callNotfication(appInfo.doctor_token,appInfo.room_id,appInfo.user_name);
+            sendNotfication(appInfo.doctor_token,"دكتور، عندك معاد دلوقتي");
         }
         if (currentInfo.user_joined === 0){
-            callNotfication(appInfo.user_token,appInfo.room_id,appInfo.doctor_name);
+            sendNotfication(appInfo.user_token,"معادك بدأ");
         }
      });
      var afterFive = schedule.scheduleJob(fiveMinAfter, async function(){

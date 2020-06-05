@@ -67,7 +67,6 @@ socket.on("sendMessage",(message)=>{
         socket.on("disconnect",()=>{
             //  if the socket that leaved is a doctor remove its socket info from the doctors array : 
             if (socket.role === 'doctor'){
-                const doctors = getDoctors();
                 deleteDoctor(socket.myId);
                 if (socket.currentRoom != null){
                     removeDoctorFromRoom(socket.currentRoom);
