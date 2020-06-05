@@ -100,7 +100,7 @@ const addConfirmNewAppointment = async function(data,res){
 
 
 const deleteAppointment = async function(appointment_id){
-    const deleted = await appointments.destroy(appointment_id);
+    const deleted = await appointments.destroy({ where: { appointment_id } });
     return deleted;
 }
 

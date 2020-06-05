@@ -4,10 +4,7 @@ const config = require("config");
 const isAuth = (role)=>{
   return (req, res, next) => {
     const encoded_token = req.headers.authorization;
-    console.log(encoded_token);
     if (!encoded_token) {
-      console.log(encoded_token);
-      console.log(req.headers);
       throw new ErrorHandler(401, "User is not Authorized");
     } else {
       if (encoded_token.startsWith("Bearer ")) {

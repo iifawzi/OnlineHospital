@@ -16,7 +16,6 @@ exports.sendNotfication = (to,message) => {
   try {
     axios.post("https://fcm.googleapis.com/fcm/send",SendNotfiTo,RequestConfig)
       .then((res) => {
-        console.log("done");
       })
       .catch((error) => {
       });
@@ -36,7 +35,6 @@ exports.callNotfication = (to,room_id,user_name) => {
   try {
     axios.post("https://fcm.googleapis.com/fcm/send",SendNotfiTo,RequestConfig)
       .then((res) => {
-        console.log("done");
       })
       .catch((error) => {
       });

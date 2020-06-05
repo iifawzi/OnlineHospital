@@ -55,7 +55,7 @@ const addSlot = async (data,res)=>{
     }
 }
 
-const deleteSlot = async (data)=>{
+const deleteSlot = async (doctor_id)=>{
     const slot = await slots.destroy({where:{doctor_id}});
     return slot;
   }
