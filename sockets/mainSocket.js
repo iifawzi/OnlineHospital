@@ -1,17 +1,40 @@
+const moment = require('moment'); 
 exports.main = (io)=>{
     io
     .on("connect",(socket)=>{
 ////////////////////////////////////////////////////////// ? JOINING THE SYSTEM //////////////////////////////////////////////////////////////////
 
         // `Doctor joined the system`:  
-        socket.on("doctorJoined",(doctor_id,name)=>{
+        socket.on("doctorJoined",(doctor_id,name,end_time)=>{
+
+            // TIME SETTINGS: 
+            let currentTime = moment().utc();
+            let finish_time = moment(end_time).utc();
+            let remainingTime = finish_time.diff(currentTime,true);  // in milliseconds
+            setTimeout(() => socket.disconnect(true), remainingTime);
+            setInterval(() => {
+                socket.emit("time",remainingTime-=1000);
+            }, 1000);
+            // END TIME SETTINGS 
+
             socket.role = "doctor";
             socket.name = name;
             socket.myId = doctor_id;
             addDoctor(doctor_id,socket.id);
         })
       // `User joined the system`:  
-        socket.on("userJoined",(user_id,name)=>{
+        socket.on("userJoined",(user_id,name,end_time)=>{
+
+                        // TIME SETTINGS: 
+                        let currentTime = moment().utc();
+                        let finish_time = moment(end_time).utc();
+                        let remainingTime = finish_time.diff(currentTime,true);  // in milliseconds
+                        setTimeout(() => socket.disconnect(true), remainingTime);
+                        setInterval(() => {
+                            socket.emit("time",remainingTime-=1000);
+                        }, 1000);
+                        // END TIME SETTINGS 
+
             socket.role = "user";
             socket.name = name;
             socket.myId = user_id;
