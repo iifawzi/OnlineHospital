@@ -7,7 +7,6 @@ exports.main = (io)=>{
 
         // `Doctor joined the system`:  
         socket.on("doctorJoined",(doctor_id,name,end_time)=>{
-
             // TIME SETTINGS: 
             let currentTime = moment().utc();
             let finish_time = moment(end_time).utc();
@@ -23,7 +22,6 @@ exports.main = (io)=>{
             socket.myId = doctor_id;
             addDoctor(doctor_id,socket.id);
         })
-
 
       // `User joined the system`:  
         socket.on("userJoined",(user_id,name,end_time)=>{
@@ -106,6 +104,10 @@ socket.on("sendMessage",(message)=>{
     io.to(socket.currentRoom).emit('message', { user: socket.name, message: message, role: socket.role });
 })
 
+////////////////////////////////////////////////////////// ? TYPING ////////////////////////////////////////////////////////////////////////////////////
+socket.on("typing",()=>{
+    socket.to(room_id).emit("isTyping",socket.role+" is typing...");    
+})
 ////////////////////////////////////////////////////////// ? DISCONNECTING FROM THE SYSTEM //////////////////////////////////////////////////////////////////
 
         // When Socket disconnects from the System: 
