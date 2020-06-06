@@ -14,9 +14,7 @@ var moment = require("moment"); // require
 const addDocSlot = async (req, res, next) => {
   try {
     const { start_time, day } = req.body;
-    const utcStartDay = moment(day + " " + start_time, "ddd HH:mm")
-      .utc()
-      .format("ddd HH:mm");
+    const utcStartDay = moment(day + " " + start_time, "ddd HH:mm").subtract(120,'m').format("ddd HH:mm");
     const [utcDay, utcStart_time] = utcStartDay
       .split(" ")
       .map((e) => e.toLowerCase());
