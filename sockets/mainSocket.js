@@ -1,4 +1,5 @@
 const moment = require('moment'); 
+const {addNewMessage} = require("../models/messages");
 exports.main = (io)=>{
     io
     .on("connect",(socket)=>{
@@ -81,6 +82,13 @@ socket.on("joinDoctorToRoom",(room_id)=>{
 ////////////////////////////////////////////////////////// ? Messagging ////////////////////////////////////////////////////////////////////////////////////
 
 socket.on("sendMessage",(message)=>{
+    const info = {
+        room_id: socket.currentRoom,
+        message,
+        type:"message",
+        sender:socket.role
+    }
+    addNewMessage(info);
     io.to(socket.currentRoom).emit('message', { user: socket.name, message: message, role: socket.role });
 })
 

@@ -64,6 +64,9 @@ doctor_joined:{
           {
             fields: ["user_id","date"],
           },
+          {
+            fields: ['room_id']
+          }
       ],
       freezeTableName: true,
       timestamps: true,
