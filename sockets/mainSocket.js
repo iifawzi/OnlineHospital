@@ -45,6 +45,7 @@ exports.main = (io)=>{
 
 //  `Join User a room` 
 socket.on("joinUserToRoom", (room_id)=>{
+    console.log("user joineddddd to rooooom");
     socket.join(room_id)
     socket.currentRoom = room_id;
     if (getRoomInfo(room_id) == null){
@@ -52,6 +53,8 @@ socket.on("joinUserToRoom", (room_id)=>{
     }
     addUserToRoom(room_id);
     const oldMessages = messagesFromRoom(socket.currentRoom).then(messages=>{
+        console.log(messages,"userkjdkjdjk");
+
         if (messages.length != 0){
             messages.map(msg=>{
                 socket.emit("message", {user:msg.sender_name,message:msg.message,role:msg.sender});
@@ -74,6 +77,7 @@ socket.on("joinUserToRoom", (room_id)=>{
 
 // `Join Doctor to a Room`
 socket.on("joinDoctorToRoom",(room_id)=>{
+    console.log("doctor joineddddd to rooooom");
     socket.join(room_id);
     socket.currentRoom = room_id;
     if (getRoomInfo(room_id) == null){
@@ -81,6 +85,7 @@ socket.on("joinDoctorToRoom",(room_id)=>{
     }
     addDoctorToRoom(room_id);
     const oldMessages = messagesFromRoom(socket.currentRoom).then(messages=>{
+        console.log(messages,"doctorororororo");
         if (messages.length != 0){
             messages.map(msg=>{
                 socket.emit("message", {user:msg.sender_name,message:msg.message,role:msg.sender});
