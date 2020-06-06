@@ -93,7 +93,7 @@ const updateSlot = async (req, res, next) => {
     const data = req.body;
     const { start_time, day } = req.body;
     const utcStartDay = moment(day + " " + start_time, "ddd HH:mm")
-      .utc()
+      .subtract(120,'m')
       .format("ddd HH:mm");
     const [utcDay, utcStart_time] = utcStartDay
       .split(" ")
