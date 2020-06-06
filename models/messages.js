@@ -21,6 +21,10 @@ const messages = db.define("messages",{
         type: Sequelize.STRING,
         allowNull: false,
     },
+    sender_name: {
+        type: Sequelize.STRING,
+        allowNull: false,
+    },
     message: {
         type: Sequelize.TEXT,
         allowNull: false,
@@ -47,10 +51,14 @@ const addNewMessage = async(info)=>{
 }
 
 
-
+const messagesFromRoom = async(room_id)=>{
+    const oldMessages = await messages.findAll({where:{room_id}});
+    return oldMessages;
+}
 
 
 module.exports = {
 messages,
-addNewMessage
+addNewMessage,
+messagesFromRoom
 }

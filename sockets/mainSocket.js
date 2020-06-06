@@ -1,5 +1,5 @@
 const moment = require('moment'); 
-const {addNewMessage} = require("../models/messages");
+const {addNewMessage,messagesFromRoom} = require("../models/messages");
 exports.main = (io)=>{
     io
     .on("connect",(socket)=>{
@@ -23,6 +23,8 @@ exports.main = (io)=>{
             socket.myId = doctor_id;
             addDoctor(doctor_id,socket.id);
         })
+
+
       // `User joined the system`:  
         socket.on("userJoined",(user_id,name,end_time)=>{
 
@@ -51,15 +53,20 @@ socket.on("joinUserToRoom", (room_id)=>{
         addRoom(room_id);
     }
     addUserToRoom(room_id);
-    socket.emit("message",{user:"System", message:"Welcome to the clinic",role:"system"})
+    const oldMessages = messagesFromRoom(socket.currentRoom).then(messages=>{
+        messages.map(msg=>{
+            socket.emit("message", {user:msg.sender_name,message:msg.message,role:msg.sender});
+        })
+    socket.emit("message",{user:"System", message:"اهلا بيك في العيادة",role:"system"})
     // if doctor is still not connected to the room: 
     if (isDoctorInRoom(room_id) == null){
-    socket.emit("message",{user:"System", message:"Doctor is not connected Yet, any message you send before doctor joins will not be deliverd, pleasw wait.",role:"system"});
+    socket.emit("message",{user:"System", message:"الدكتور غير متواجد يرجى الانتظار",role:"system"});
     }else {   // if doctor is connected to the system:
-        socket.emit("message",{user:"System", message:"Doctor is Here, Just talk",role:"system"});
-    socket.to(room_id).emit("message",{user:"System:",message:"User Joined the Clinic, Say Hi!",role:"system"})
-
+        socket.emit("message",{user:"System", message:"دخل الدكتور إلى العيادة، يمكنك بدأ حديثك الان",role:"system"});
+    socket.to(room_id).emit("message",{user:"System:",message:"قام المستخدم بالدخول إلى العيادة",role:"system"})
     }
+    })
+   
 })
 
 
@@ -71,13 +78,19 @@ socket.on("joinDoctorToRoom",(room_id)=>{
         addRoom(room_id);
     }
     addDoctorToRoom(room_id);
-    socket.emit("message",{user:"System", message:"Welcome Doctor to the clinic",role:"system"});  
+    const oldMessages = messagesFromRoom(socket.currentRoom).then(messages=>{
+        messages.map(msg=>{
+            socket.emit("message", {user:msg.sender_name,message:msg.message,role:msg.sender});
+        })
+        
+    socket.emit("message",{user:"System", message:"اهلا بك يا دكتور في العيادة",role:"system"});  
     if (isUserInRoom(room_id) == null){
-        socket.emit("message",{user:"System", message:"User isn't connected Yet",role:"system"});
+        socket.emit("message",{user:"System", message:"المستخدم غير متواجد يرجى الإنتظار",role:"system"});
         }else {   // if user is connected to the system:
-            socket.emit("message",{user:"System", message:"User is Here, Just talk",role:"system"});
-            socket.to(room_id).emit("message",{user:"System:",message:"Doctor Joined the Clinic, Say Hi!",role:"system"})    
+            socket.emit("message",{user:"System", message:"دخل المستخدم إلى العيادة، يمكنك الحديث الأن",role:"system"});
+            socket.to(room_id).emit("message",{user:"System:",message:"قام الدكتور بالدخول إلى العيادة",role:"system"})    
         }
+    });
 })
 ////////////////////////////////////////////////////////// ? Messagging ////////////////////////////////////////////////////////////////////////////////////
 
@@ -86,7 +99,8 @@ socket.on("sendMessage",(message)=>{
         room_id: socket.currentRoom,
         message,
         type:"message",
-        sender:socket.role
+        sender:socket.role,
+        sender_name: socket.name
     }
     addNewMessage(info);
     io.to(socket.currentRoom).emit('message', { user: socket.name, message: message, role: socket.role });
@@ -100,6 +114,7 @@ socket.on("sendMessage",(message)=>{
             if (socket.role === 'doctor'){
                 deleteDoctor(socket.myId);
                 if (socket.currentRoom != null){
+            socket.to(room_id).emit("message",{user:"System:",message:"قام الدكتور بالخروج من العيادة",role:"system"})    
                     removeDoctorFromRoom(socket.currentRoom);
                     if (getRoomInfo(socket.currentRoom).user == undefined){
                         deleteRoom(socket.currentRoom);
