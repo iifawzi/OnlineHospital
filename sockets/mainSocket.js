@@ -65,7 +65,9 @@ socket.on("joinUserToRoom", (room_id)=>{
         socket.emit("message",{user:"System", message:"دخل الدكتور إلى العيادة، يمكنك بدأ حديثك الان",role:"system"});
     socket.to(room_id).emit("message",{user:"System:",message:"قام المستخدم بالدخول إلى العيادة",role:"system"})
     }
-    })
+    }).catch(err=>{
+        console.log(err);
+    });
    
 })
 
@@ -91,6 +93,8 @@ socket.on("joinDoctorToRoom",(room_id)=>{
             socket.emit("message",{user:"System", message:"دخل المستخدم إلى العيادة، يمكنك الحديث الأن",role:"system"});
             socket.to(room_id).emit("message",{user:"System:",message:"قام الدكتور بالدخول إلى العيادة",role:"system"})    
         }
+    }).catch(err=>{
+        console.log(err);
     });
 })
 ////////////////////////////////////////////////////////// ? Messagging ////////////////////////////////////////////////////////////////////////////////////
