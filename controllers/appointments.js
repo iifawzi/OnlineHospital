@@ -35,6 +35,9 @@ const addConfirmedAppointment = async (req, res, next) => { // will be confirmed
       if (token != null){
         sendNotfication(token,"هناك حجز جديد");
       }
+            // JOBS
+            await newAppointmentTask(newAppointment.appointment_id,res);
+            //END JOBS: 
         return respond(true,201,newAppointment,res);
      }
   } catch (err) {

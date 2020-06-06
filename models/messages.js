@@ -1,6 +1,6 @@
 const Sequelize = require("sequelize");
 const db = require("../utils/db");
-
+const {handleError} = require("../middleware/error");
 
 const messages = db.define("messages",{
     message_id: {
@@ -57,8 +57,18 @@ const messagesFromRoom = async(room_id)=>{
 }
 
 
+const messagesFromFinished = async(room_id,res)=>{ // finished appointments messages
+    try {
+        const oldMessages = await messages.findAll({where:{room_id, appointment_status: 'finished'}});
+        return oldMessages;
+    }catch(err){
+        handleError(err,res);
+    }
+}
+
 module.exports = {
 messages,
 addNewMessage,
-messagesFromRoom
+messagesFromRoom,
+messagesFromFinished
 }
