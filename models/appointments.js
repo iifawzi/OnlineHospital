@@ -123,7 +123,7 @@ const userApps = async function(user_id,res){
 
 const upcomingApps = async function(user_id,res){
     try {
-        const appointments =  await db.query("SELECT apps.appointment_id,docs.first_name,docs.last_name,apps.appointment_status,CONCAT(apps.date,'T',slots.start_time,'Z') start_time,slots.slot_time,cats.ar,cats.en, slots.day FROM appointments apps INNER JOIN slots ON apps.slot_id = slots.slot_id INNER JOIN doctors docs ON slots.doctor_id = docs.doctor_id INNER JOIN categories cats ON cats.category_id = docs.category_id WHERE apps.user_id = ? AND (apps.appointment_status = 'upcoming' || apps.appointment_status = 'running') ORDER BY apps.appointment_id DESC",{
+        const appointments =  await db.query("SELECT apps.appointment_id,docs.first_name,docs.last_name,apps.appointment_status,CONCAT(apps.date,'T',slots.start_time,'Z') start_time,slots.slot_time,cats.ar,cats.en, slots.day FROM appointments apps INNER JOIN slots ON apps.slot_id = slots.slot_id INNER JOIN doctors docs ON slots.doctor_id = docs.doctor_id INNER JOIN categories cats ON cats.category_id = docs.category_id WHERE apps.user_id = ? AND (apps.appointment_status = 'upcoming' OR apps.appointment_status = 'running') ORDER BY apps.appointment_id DESC",{
             replacements: [user_id],
             type: Sequelize.QueryTypes.SELECT,
         });
@@ -147,7 +147,7 @@ const finishedApps = async function(user_id,res){
 }
 const doctorUpcomingApps = async function(doctor_id,res){
     try {
-        const appointments =  await db.query("SELECT apps.appointment_id,users.first_name,users.last_name,apps.appointment_status,CONCAT(apps.date,'T',slots.start_time,'Z') start_time,slots.slot_time, slots.day FROM appointments apps INNER JOIN slots ON apps.slot_id = slots.slot_id INNER JOIN users ON users.user_id = apps.user_id INNER JOIN doctors docs ON slots.doctor_id = docs.doctor_id INNER JOIN categories cats ON cats.category_id = docs.category_id WHERE slots.doctor_id = ? AND (apps.appointment_status = 'upcoming' || apps.appointment_status = 'running') ORDER BY apps.appointment_id DESC",{
+        const appointments =  await db.query("SELECT apps.appointment_id,users.first_name,users.last_name,apps.appointment_status,CONCAT(apps.date,'T',slots.start_time,'Z') start_time,slots.slot_time, slots.day FROM appointments apps INNER JOIN slots ON apps.slot_id = slots.slot_id INNER JOIN users ON users.user_id = apps.user_id INNER JOIN doctors docs ON slots.doctor_id = docs.doctor_id INNER JOIN categories cats ON cats.category_id = docs.category_id WHERE slots.doctor_id = ? AND (apps.appointment_status = 'upcoming' OR apps.appointment_status = 'running') ORDER BY apps.appointment_id DESC",{
             replacements: [doctor_id],
             type: Sequelize.QueryTypes.SELECT,
         });
@@ -357,9 +357,9 @@ const getAppointmentInfo = async function(appointment_id,res){ // for tasks and 
     }
 }
 
-const getAppointmentsInfo = async function(){ // plural :D (this will be used on the jobs controller to get all upcoming appointments)
+const getAppointmentsInfo = async function(){ // plural :D (this will be used on the jobs controller to get all upcoming / running appointments)
     try {
-        const appInfo = await db.query("SELECT apps.appointment_id,apps.appointment_status,apps.user_joined,apps.doctor_joined,apps.room_id,CONCAT(apps.date,'T',slots.start_time,'Z') start_time,slots.slot_time,CONCAT(docs.first_name + ' ' + docs.last_name) doctor_name,CONCAT(users.first_name + ' ' + users.last_name) user_name ,docs.fb_token_id as 'doctor_token', users.fb_token_id as 'user_token' FROM appointments apps LEFT JOIN slots ON apps.slot_id = slots.slot_id LEFT JOIN doctors docs ON slots.doctor_id = docs.doctor_id LEFT JOIN users ON apps.user_id = users.user_id WHERE apps.appointment_status = 'upcoming' ", {
+        const appInfo = await db.query("SELECT apps.appointment_id,apps.appointment_status,apps.user_joined,apps.doctor_joined,apps.room_id,CONCAT(apps.date,'T',slots.start_time,'Z') start_time,slots.slot_time,CONCAT(docs.first_name + ' ' + docs.last_name) doctor_name,CONCAT(users.first_name + ' ' + users.last_name) user_name ,docs.fb_token_id as 'doctor_token', users.fb_token_id as 'user_token' FROM appointments apps LEFT JOIN slots ON apps.slot_id = slots.slot_id LEFT JOIN doctors docs ON slots.doctor_id = docs.doctor_id LEFT JOIN users ON apps.user_id = users.user_id WHERE (apps.appointment_status = 'upcoming' OR apps.appointment_status = 'running') ", {
             type: Sequelize.QueryTypes.SELECT,
         });
         return appInfo;

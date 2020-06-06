@@ -64,7 +64,12 @@ exports.existUpcomingTask = async (appInfo,res)=>{ // this will be used on jobs 
     let onTime = moment(appInfo.start_time).utc().format("YYYY-MM-DD HH:mm:ss");
     let fiveMinAfter = moment(appInfo.start_time).utc().add(1,"m").format("YYYY-MM-DD HH:mm:ss");
     let endTime = moment(appInfo.start_time).utc().add(appInfo.slot_time,'m').format("YYYY-MM-DD HH:mm:ss");
-
+    let serverTime = moment().format();
+    let compareBeforeEnd = moment(serverTime).isAfter(endTime);
+    console.log(compareBeforeEnd);
+    if (compareBeforeEnd){ // if server run and there's an old slot didn't finished (updated to finished)
+      await finishApp(appInfo.appointment_id,res);
+    }else {
 
     const beforeFive = schedule.scheduleJob(fiveMinBefore, async function(){
      await runApp(appInfo.appointment_id,res);
@@ -109,4 +114,6 @@ exports.existUpcomingTask = async (appInfo,res)=>{ // this will be used on jobs 
      const atEnd = schedule.scheduleJob(endTime, async function(){
         await finishApp(appInfo.appointment_id,res);
        });
+
+      }
 }
