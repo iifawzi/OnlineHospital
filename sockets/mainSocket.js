@@ -52,9 +52,11 @@ socket.on("joinUserToRoom", (room_id)=>{
     }
     addUserToRoom(room_id);
     const oldMessages = messagesFromRoom(socket.currentRoom).then(messages=>{
-        messages.map(msg=>{
-            socket.emit("message", {user:msg.sender_name,message:msg.message,role:msg.sender});
-        })
+        if (messages.length != 0){
+            messages.map(msg=>{
+                socket.emit("message", {user:msg.sender_name,message:msg.message,role:msg.sender});
+            })
+        }
     socket.emit("message",{user:"System", message:"اهلا بيك في العيادة",role:"system"})
     // if doctor is still not connected to the room: 
     if (isDoctorInRoom(room_id) == null){
@@ -77,10 +79,11 @@ socket.on("joinDoctorToRoom",(room_id)=>{
     }
     addDoctorToRoom(room_id);
     const oldMessages = messagesFromRoom(socket.currentRoom).then(messages=>{
-        messages.map(msg=>{
-            socket.emit("message", {user:msg.sender_name,message:msg.message,role:msg.sender});
-        })
-        
+        if (messages.length != 0){
+            messages.map(msg=>{
+                socket.emit("message", {user:msg.sender_name,message:msg.message,role:msg.sender});
+            })
+        }
     socket.emit("message",{user:"System", message:"اهلا بك يا دكتور في العيادة",role:"system"});  
     if (isUserInRoom(room_id) == null){
         socket.emit("message",{user:"System", message:"المستخدم غير متواجد يرجى الإنتظار",role:"system"});
