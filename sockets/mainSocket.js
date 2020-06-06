@@ -56,6 +56,7 @@ socket.on("joinUserToRoom", (room_id)=>{
 
         if (messages.length != 0){
             messages.map(msg=>{
+                console.log(msg);
                 socket.emit("message", {user:msg.sender_name,message:msg.message,role:msg.sender});
             })
         }
