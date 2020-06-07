@@ -313,7 +313,7 @@ const setDoctor_joined = async function(appointment_id,res){
 
 const cancelApps = async function(slot_id,res){ // cancel apps by slot_id
     try {
-        const appointment =  await db.query("UPDATE appointments SET appointment_status = 'canceled' WHERE slot_id = ?",{
+        const appointment =  await db.query("UPDATE appointments SET appointment_status = 'canceled' WHERE slot_id = ? AND appointment_status = 'upcoming'",{
             replacements: [slot_id],
             type: Sequelize.QueryTypes.UPDATE,
         });
@@ -335,7 +335,7 @@ const cancelAppsByDoctor = async function(doctor_id,res){ // cancel apps by doct
 
 const cancelAppsByUser = async function(user_id,res){ // cancel apps by user_id
     try {
-        const appointment =  await db.query("UPDATE appointments SET appointment_status = 'canceled' WHERE user_id = ?",{
+        const appointment =  await db.query("UPDATE appointments SET appointment_status = 'canceled' WHERE user_id = ? AND appointment_status = 'upcoming'",{
             replacements: [user_id],
             type: Sequelize.QueryTypes.UPDATE,
         });
