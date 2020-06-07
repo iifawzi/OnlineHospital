@@ -1,7 +1,3 @@
-for test (after destroying the db) -  put this data in the db : 
-
-
-
 '1','Internal Medicine','طب الباطنة'
 '2','Endocrinology','باطنة غدد صماء وسكر'
 '3','Cardiology','القلب والاوعية الدموية'
