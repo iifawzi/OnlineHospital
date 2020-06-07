@@ -49,7 +49,7 @@
       "post": {
         "tags": ["messages"],
         "summary": "upload files in the chat.",
-        "consumes": ["application/json"],
+        "consumes": ["multipart/form-data"],
         "produces": ["application/json"],
         "parameters": [
           {
