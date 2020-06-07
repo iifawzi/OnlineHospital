@@ -25,7 +25,7 @@ const addImage = async (req,res,next)=>{
                 if (req.file){
                     return respond(true,201,{filename: req.file.filename},res)
                 }else {
-            throw new ErrorHandler(500,"Something wrong happened");
+            const error = new ErrorHandler(500,"Something wrong happened");
             handleError(error,res);
                 }
             }
