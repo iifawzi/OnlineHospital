@@ -82,7 +82,6 @@ const getDocOpenSlots = async function(info,res){ // this api will return the sl
     }catch(err){
         handleError(err,res);
     }
- 
 }
 
 const doctorDays = async(doctor_id)=>{ // this will return the days which doctor working in:	

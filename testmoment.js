@@ -49,9 +49,7 @@ var moment = require('moment'); // require
 // var date = new Date(2012, 11, 21, 5, 30, 0);
 // console.log(date);
 
+const start_time = "2020-06-07T13:05Z"
+const serverTime = moment(start_time).format(); // server time
 
-var a = moment().utc();
-var b = moment("2020-06-06T02:10Z").utc();
-console.log(b);
-console.log(a);
-console.log(b.diff(a,true)) // "in a day"
+console.log(serverTime);

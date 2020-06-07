@@ -353,7 +353,6 @@ const getAppointmentInfo = async function(appointment_id,res){ // for tasks and 
         return appInfo[0];
     }catch(err){
         console.log(err,"getAppointmentInfo")
-
     }
 }
 
