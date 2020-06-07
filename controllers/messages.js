@@ -2,7 +2,8 @@ const {handleError,ErrorHandler} = require("../middleware/error");
 const {messagesFromFinished} = require("../models/messages");
 const respond = require("../middleware/respond");
 const upload = require("../middleware/upload");
-
+const fs = require("fs");
+const path = require("path");
 
 const finishedMessages = async (req,res,next)=>{
     try {
@@ -23,7 +24,19 @@ const uploadFile = async (req,res,next)=>{
                 handleError(error,res);
             }else {
                 if (req.file){
-                    return respond(true,201,{filename: req.file.filename},res)
+                    const filename = req.file.filename;
+                    const currentPath = path.join("uploadedImages/",filename);
+                    const roomDestination = path.join("uploadedImages/chats",chatroomid);
+                    const fileFinalDestination = path.join("uploadedImages/chats",chatroomid, filename);
+                    if (fs.existsSync(roomDestination)){
+                        fs.copyFileSync(currentPath, fileFinalDestination);
+                        fs.unlinkSync(currentPath);
+                    }else {
+                        fs.mkdirSync(roomDestination);
+                        fs.copyFileSync(currentPath, fileFinalDestination);
+                        fs.unlinkSync(currentPath);
+                    };
+                    return respond(true,201,{filename: "/"+chatroomid+"/"+req.file.filename},res)
                 }else {
             const error = new ErrorHandler(500,"Something wrong happened");
             handleError(error,res);
