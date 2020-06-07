@@ -45,7 +45,7 @@ describe("/api/messages",async()=>{
             .set("Authorization", `Bearer ${token}`)
             .set("chatRoomId", `589598958`)
             .set("Content-Type", "application/x-www-form-urlencoded")
-            .field('chatroomid', '87478478874')
+            .field('chatRoomId', '87478478874')
             .attach("file", path.resolve(__dirname, "../logo.png"))
             .expect(200);
         });
@@ -54,7 +54,7 @@ describe("/api/messages",async()=>{
           let res = await request(server)
           .post("/api/messages/uploadFile")
             .set("Authorization", `Bearer ${token}`)
-            .set("chatroomid", `589598958`)
+            .set("chatRoomId", `589598958`)
             .set("Content-Type", "application/x-www-form-urlencoded")
             .attach("file", path.resolve(__dirname, "../udemy-accs.txt"))
             .expect(403);
