@@ -125,8 +125,10 @@ socket.on("stopTyping",()=>{
 });
 
 ////////////////////////////////////////////////////////// ? IMAGE UPLOADING ////////////////////////////////////////////////////////////////////////////////
-socket.on("uploadImage",(fakeRequest)=>{
-    console.log(fakeRequest, "first");
+socket.on("uploadImage",(file)=>{
+    const fakeRequest = {
+        file,
+    }
     upload().single('file')(fakeRequest,{}, error=>{
         if (error){
             console.log(error);
