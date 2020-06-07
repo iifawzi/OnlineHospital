@@ -38,9 +38,57 @@
     {
       "name": "appointments",
       "description": "Everything related to appointments will be listed here"
+    },
+    {
+      "name": "messages",
+      "description": "Everything related to messages will be listed here"
     }
   ],
   "paths": {
+    "/messages/getFinishedMessages": {
+      "patch": {
+        "tags": ["messages"],
+        "summary": "Get messages for the finished appointments for controPanel and mobile applications use.",
+        "consumes": ["application/json"],
+        "produces": ["application/json"],
+        "parameters": [
+          {
+            "in": "body",
+            "name": "body",
+            "required": true,
+            "schema": {
+              "$ref": "#/definitions/getFinishedMessages"
+            }
+          },
+          {
+            "in": "header",
+            "name": "Authorization",
+            "required": true,
+            "type": "string"
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "200 (success)",
+            "schema": {
+              "$ref": "#/definitions/getFinishedMessagesResponse"
+            }
+          },
+          "400": {
+            "description": "400 (inputs or missing or incorrect)",
+            "schema": {
+              "$ref": "#/definitions/Error"
+            }
+          },
+          "401": {
+            "description": "401 (Not Authorized)",
+            "schema": {
+              "$ref": "#/definitions/Error"
+            }
+          }
+        }
+      }
+    },
     "/appointments/joinDoctorToAppointment": {
       "patch": {
         "tags": ["appointments"],
@@ -1693,6 +1741,676 @@
     }
   },
   "definitions": {
+    "getFinishedMessages": {
+      "type": "object",
+      "properties": {
+        "room_id": {
+          "type": "string"
+        }
+      },
+      "example": {
+        "room_id": "837488893198787"
+    }
+  },
+  "getFinishedMessagesResponse": {
+    "type": "object",
+    "example": {
+      "status": true,
+      "message": "success",
+      "data": [
+          {
+              "message_id": 1,
+              "room_id": "1591470036382",
+              "sender": "doctor",
+              "sender_name": "Bsbosa Basha",
+              "message": "هاي",
+              "type": "message",
+              "createdAt": "2020-06-06T19:26:43.000Z",
+              "updatedAt": "2020-06-06T19:26:43.000Z"
+          },
+          {
+              "message_id": 11,
+              "room_id": "1591470036382",
+              "sender": "user",
+              "sender_name": "Muhammad Elblasy",
+              "message": "هاي",
+              "type": "message",
+              "createdAt": "2020-06-06T19:26:47.000Z",
+              "updatedAt": "2020-06-06T19:26:47.000Z"
+          },
+          {
+              "message_id": 21,
+              "room_id": "1591470036382",
+              "sender": "user",
+              "sender_name": "Muhammad Elblasy",
+              "message": "ازيك ",
+              "type": "message",
+              "createdAt": "2020-06-06T19:26:49.000Z",
+              "updatedAt": "2020-06-06T19:26:49.000Z"
+          },
+          {
+              "message_id": 31,
+              "room_id": "1591470036382",
+              "sender": "doctor",
+              "sender_name": "Bsbosa Basha",
+              "message": "هنا",
+              "type": "message",
+              "createdAt": "2020-06-06T19:26:54.000Z",
+              "updatedAt": "2020-06-06T19:26:54.000Z"
+          },
+          {
+              "message_id": 41,
+              "room_id": "1591470036382",
+              "sender": "doctor",
+              "sender_name": "Bsbosa Basha",
+              "message": "ؤبا",
+              "type": "message",
+              "createdAt": "2020-06-06T19:26:56.000Z",
+              "updatedAt": "2020-06-06T19:26:56.000Z"
+          },
+          {
+              "message_id": 51,
+              "room_id": "1591470036382",
+              "sender": "user",
+              "sender_name": "Muhammad Elblasy",
+              "message": "رنرنبه",
+              "type": "message",
+              "createdAt": "2020-06-06T19:26:59.000Z",
+              "updatedAt": "2020-06-06T19:26:59.000Z"
+          },
+          {
+              "message_id": 61,
+              "room_id": "1591470036382",
+              "sender": "user",
+              "sender_name": "Muhammad Elblasy",
+              "message": "لهبهب",
+              "type": "message",
+              "createdAt": "2020-06-06T19:27:01.000Z",
+              "updatedAt": "2020-06-06T19:27:01.000Z"
+          },
+          {
+              "message_id": 71,
+              "room_id": "1591470036382",
+              "sender": "doctor",
+              "sender_name": "Bsbosa Basha",
+              "message": "بنبنب",
+              "type": "message",
+              "createdAt": "2020-06-06T19:27:03.000Z",
+              "updatedAt": "2020-06-06T19:27:03.000Z"
+          },
+          {
+              "message_id": 81,
+              "room_id": "1591470036382",
+              "sender": "user",
+              "sender_name": "Muhammad Elblasy",
+              "message": "ىنىمبخبخ",
+              "type": "message",
+              "createdAt": "2020-06-06T19:27:08.000Z",
+              "updatedAt": "2020-06-06T19:27:08.000Z"
+          },
+          {
+              "message_id": 91,
+              "room_id": "1591470036382",
+              "sender": "doctor",
+              "sender_name": "Bsbosa Basha",
+              "message": "ظبظيظ",
+              "type": "message",
+              "createdAt": "2020-06-06T19:27:10.000Z",
+              "updatedAt": "2020-06-06T19:27:10.000Z"
+          },
+          {
+              "message_id": 101,
+              "room_id": "1591470036382",
+              "sender": "user",
+              "sender_name": "Muhammad Elblasy",
+              "message": "تقنثتثتثتثنثنق\n",
+              "type": "message",
+              "createdAt": "2020-06-06T19:27:18.000Z",
+              "updatedAt": "2020-06-06T19:27:18.000Z"
+          },
+          {
+              "message_id": 111,
+              "room_id": "1591470036382",
+              "sender": "doctor",
+              "sender_name": "Bsbosa Basha",
+              "message": "تيتايةي",
+              "type": "message",
+              "createdAt": "2020-06-06T19:38:59.000Z",
+              "updatedAt": "2020-06-06T19:38:59.000Z"
+          },
+          {
+              "message_id": 121,
+              "room_id": "1591470036382",
+              "sender": "doctor",
+              "sender_name": "Bsbosa Basha",
+              "message": "ايااي",
+              "type": "message",
+              "createdAt": "2020-06-06T19:50:01.000Z",
+              "updatedAt": "2020-06-06T19:50:01.000Z"
+          },
+          {
+              "message_id": 131,
+              "room_id": "1591470036382",
+              "sender": "user",
+              "sender_name": "Muhammad Elblasy",
+              "message": "تووويتةيةي",
+              "type": "message",
+              "createdAt": "2020-06-06T19:50:10.000Z",
+              "updatedAt": "2020-06-06T19:50:10.000Z"
+          },
+          {
+              "message_id": 141,
+              "room_id": "1591470036382",
+              "sender": "user",
+              "sender_name": "Muhammad Elblasy",
+              "message": "تلالتت",
+              "type": "message",
+              "createdAt": "2020-06-06T19:51:08.000Z",
+              "updatedAt": "2020-06-06T19:51:08.000Z"
+          },
+          {
+              "message_id": 151,
+              "room_id": "1591470036382",
+              "sender": "user",
+              "sender_name": "Muhammad Elblasy",
+              "message": "ااتتت",
+              "type": "message",
+              "createdAt": "2020-06-06T19:51:11.000Z",
+              "updatedAt": "2020-06-06T19:51:11.000Z"
+          },
+          {
+              "message_id": 161,
+              "room_id": "1591470036382",
+              "sender": "user",
+              "sender_name": "Muhammad Elblasy",
+              "message": "لببعبب٦",
+              "type": "message",
+              "createdAt": "2020-06-06T19:51:13.000Z",
+              "updatedAt": "2020-06-06T19:51:13.000Z"
+          },
+          {
+              "message_id": 171,
+              "room_id": "1591470036382",
+              "sender": "user",
+              "sender_name": "Muhammad Elblasy",
+              "message": "تتااااا",
+              "type": "message",
+              "createdAt": "2020-06-06T19:51:51.000Z",
+              "updatedAt": "2020-06-06T19:51:51.000Z"
+          },
+          {
+              "message_id": 181,
+              "room_id": "1591470036382",
+              "sender": "user",
+              "sender_name": "Muhammad Elblasy",
+              "message": "ملهبخبخلخبخلخبه",
+              "type": "message",
+              "createdAt": "2020-06-06T19:51:53.000Z",
+              "updatedAt": "2020-06-06T19:51:53.000Z"
+          },
+          {
+              "message_id": 191,
+              "room_id": "1591470036382",
+              "sender": "user",
+              "sender_name": "Muhammad Elblasy",
+              "message": "عسهيهبهبخه",
+              "type": "message",
+              "createdAt": "2020-06-06T19:51:56.000Z",
+              "updatedAt": "2020-06-06T19:51:56.000Z"
+          },
+          {
+              "message_id": 201,
+              "room_id": "1591470036382",
+              "sender": "user",
+              "sender_name": "Muhammad Elblasy",
+              "message": "خرمرخبخلح",
+              "type": "message",
+              "createdAt": "2020-06-06T19:51:57.000Z",
+              "updatedAt": "2020-06-06T19:51:57.000Z"
+          },
+          {
+              "message_id": 211,
+              "room_id": "1591470036382",
+              "sender": "doctor",
+              "sender_name": "Bsbosa Basha",
+              "message": "ق٨قخبخبخب",
+              "type": "message",
+              "createdAt": "2020-06-06T19:52:01.000Z",
+              "updatedAt": "2020-06-06T19:52:01.000Z"
+          },
+          {
+              "message_id": 221,
+              "room_id": "1591470036382",
+              "sender": "doctor",
+              "sender_name": "Bsbosa Basha",
+              "message": "بخبهبهبهب٨",
+              "type": "message",
+              "createdAt": "2020-06-06T19:52:02.000Z",
+              "updatedAt": "2020-06-06T19:52:02.000Z"
+          },
+          {
+              "message_id": 231,
+              "room_id": "1591470036382",
+              "sender": "doctor",
+              "sender_name": "Bsbosa Basha",
+              "message": "خبهيخب",
+              "type": "message",
+              "createdAt": "2020-06-06T19:52:04.000Z",
+              "updatedAt": "2020-06-06T19:52:04.000Z"
+          },
+          {
+              "message_id": 241,
+              "room_id": "1591470036382",
+              "sender": "doctor",
+              "sender_name": "Bsbosa Basha",
+              "message": "هاي ",
+              "type": "message",
+              "createdAt": "2020-06-06T20:11:56.000Z",
+              "updatedAt": "2020-06-06T20:11:56.000Z"
+          },
+          {
+              "message_id": 251,
+              "room_id": "1591470036382",
+              "sender": "user",
+              "sender_name": "Muhammad Elblasy",
+              "message": "bhshsh",
+              "type": "message",
+              "createdAt": "2020-06-06T20:53:16.000Z",
+              "updatedAt": "2020-06-06T20:53:16.000Z"
+          },
+          {
+              "message_id": 261,
+              "room_id": "1591470036382",
+              "sender": "user",
+              "sender_name": "Muhammad Elblasy",
+              "message": "hshhsh",
+              "type": "message",
+              "createdAt": "2020-06-06T20:53:17.000Z",
+              "updatedAt": "2020-06-06T20:53:17.000Z"
+          },
+          {
+              "message_id": 271,
+              "room_id": "1591470036382",
+              "sender": "user",
+              "sender_name": "Muhammad Elblasy",
+              "message": "hshsbbsvs",
+              "type": "message",
+              "createdAt": "2020-06-06T20:53:18.000Z",
+              "updatedAt": "2020-06-06T20:53:18.000Z"
+          },
+          {
+              "message_id": 281,
+              "room_id": "1591470036382",
+              "sender": "user",
+              "sender_name": "Muhammad Elblasy",
+              "message": "shbshsvsbsjjsnns",
+              "type": "message",
+              "createdAt": "2020-06-06T20:53:20.000Z",
+              "updatedAt": "2020-06-06T20:53:20.000Z"
+          },
+          {
+              "message_id": 291,
+              "room_id": "1591470036382",
+              "sender": "user",
+              "sender_name": "Muhammad Elblasy",
+              "message": "sbhsvsvsvsbshshsjwkskakw",
+              "type": "message",
+              "createdAt": "2020-06-06T20:53:23.000Z",
+              "updatedAt": "2020-06-06T20:53:23.000Z"
+          },
+          {
+              "message_id": 301,
+              "room_id": "1591470036382",
+              "sender": "user",
+              "sender_name": "Muhammad Elblasy",
+              "message": "syhshshsjjwjwjejejjejejejjejejejejjejejejjs\n\nsjshshje\n\nshehhehehhehehehehhe\nehehhehehehhehshehehheheheheh",
+              "type": "message",
+              "createdAt": "2020-06-06T20:53:35.000Z",
+              "updatedAt": "2020-06-06T20:53:35.000Z"
+          },
+          {
+              "message_id": 311,
+              "room_id": "1591470036382",
+              "sender": "user",
+              "sender_name": "Muhammad Elblasy",
+              "message": "sggsgshshhshwhshhs",
+              "type": "message",
+              "createdAt": "2020-06-06T20:53:37.000Z",
+              "updatedAt": "2020-06-06T20:53:37.000Z"
+          },
+          {
+              "message_id": 321,
+              "room_id": "1591470036382",
+              "sender": "user",
+              "sender_name": "Muhammad Elblasy",
+              "message": "hhshs",
+              "type": "message",
+              "createdAt": "2020-06-06T20:53:38.000Z",
+              "updatedAt": "2020-06-06T20:53:38.000Z"
+          },
+          {
+              "message_id": 331,
+              "room_id": "1591470036382",
+              "sender": "user",
+              "sender_name": "Muhammad Elblasy",
+              "message": "dhbshs",
+              "type": "message",
+              "createdAt": "2020-06-06T20:53:39.000Z",
+              "updatedAt": "2020-06-06T20:53:39.000Z"
+          },
+          {
+              "message_id": 341,
+              "room_id": "1591470036382",
+              "sender": "user",
+              "sender_name": "Muhammad Elblasy",
+              "message": "eghehegge",
+              "type": "message",
+              "createdAt": "2020-06-06T20:53:40.000Z",
+              "updatedAt": "2020-06-06T20:53:40.000Z"
+          },
+          {
+              "message_id": 351,
+              "room_id": "1591470036382",
+              "sender": "user",
+              "sender_name": "Muhammad Elblasy",
+              "message": "shhshsh",
+              "type": "message",
+              "createdAt": "2020-06-06T20:53:41.000Z",
+              "updatedAt": "2020-06-06T20:53:41.000Z"
+          },
+          {
+              "message_id": 361,
+              "room_id": "1591470036382",
+              "sender": "user",
+              "sender_name": "Muhammad Elblasy",
+              "message": "shshhshe",
+              "type": "message",
+              "createdAt": "2020-06-06T20:53:42.000Z",
+              "updatedAt": "2020-06-06T20:53:42.000Z"
+          },
+          {
+              "message_id": 371,
+              "room_id": "1591470036382",
+              "sender": "user",
+              "sender_name": "Muhammad Elblasy",
+              "message": "shhehe",
+              "type": "message",
+              "createdAt": "2020-06-06T20:53:43.000Z",
+              "updatedAt": "2020-06-06T20:53:43.000Z"
+          },
+          {
+              "message_id": 381,
+              "room_id": "1591470036382",
+              "sender": "user",
+              "sender_name": "Muhammad Elblasy",
+              "message": "shhsh",
+              "type": "message",
+              "createdAt": "2020-06-06T20:53:44.000Z",
+              "updatedAt": "2020-06-06T20:53:44.000Z"
+          },
+          {
+              "message_id": 391,
+              "room_id": "1591470036382",
+              "sender": "user",
+              "sender_name": "Muhammad Elblasy",
+              "message": "shhshdh",
+              "type": "message",
+              "createdAt": "2020-06-06T20:53:45.000Z",
+              "updatedAt": "2020-06-06T20:53:45.000Z"
+          },
+          {
+              "message_id": 401,
+              "room_id": "1591470036382",
+              "sender": "user",
+              "sender_name": "Muhammad Elblasy",
+              "message": "dhhshsh",
+              "type": "message",
+              "createdAt": "2020-06-06T20:53:46.000Z",
+              "updatedAt": "2020-06-06T20:53:46.000Z"
+          },
+          {
+              "message_id": 411,
+              "room_id": "1591470036382",
+              "sender": "user",
+              "sender_name": "Muhammad Elblasy",
+              "message": "dgdhhd",
+              "type": "message",
+              "createdAt": "2020-06-06T20:53:47.000Z",
+              "updatedAt": "2020-06-06T20:53:47.000Z"
+          },
+          {
+              "message_id": 421,
+              "room_id": "1591470036382",
+              "sender": "user",
+              "sender_name": "Muhammad Elblasy",
+              "message": "dggegev",
+              "type": "message",
+              "createdAt": "2020-06-06T20:53:48.000Z",
+              "updatedAt": "2020-06-06T20:53:48.000Z"
+          },
+          {
+              "message_id": 431,
+              "room_id": "1591470036382",
+              "sender": "user",
+              "sender_name": "Muhammad Elblasy",
+              "message": "shhshsh",
+              "type": "message",
+              "createdAt": "2020-06-06T20:53:49.000Z",
+              "updatedAt": "2020-06-06T20:53:49.000Z"
+          },
+          {
+              "message_id": 441,
+              "room_id": "1591470036382",
+              "sender": "user",
+              "sender_name": "Muhammad Elblasy",
+              "message": "hehhshe",
+              "type": "message",
+              "createdAt": "2020-06-06T20:53:50.000Z",
+              "updatedAt": "2020-06-06T20:53:50.000Z"
+          },
+          {
+              "message_id": 451,
+              "room_id": "1591470036382",
+              "sender": "user",
+              "sender_name": "Muhammad Elblasy",
+              "message": "hshshhehs",
+              "type": "message",
+              "createdAt": "2020-06-06T20:53:51.000Z",
+              "updatedAt": "2020-06-06T20:53:51.000Z"
+          },
+          {
+              "message_id": 461,
+              "room_id": "1591470036382",
+              "sender": "user",
+              "sender_name": "Muhammad Elblasy",
+              "message": "hhshdhdhehe",
+              "type": "message",
+              "createdAt": "2020-06-06T20:53:52.000Z",
+              "updatedAt": "2020-06-06T20:53:52.000Z"
+          },
+          {
+              "message_id": 471,
+              "room_id": "1591470036382",
+              "sender": "user",
+              "sender_name": "Muhammad Elblasy",
+              "message": "eghrgegdvdbvdgdvdvdv",
+              "type": "message",
+              "createdAt": "2020-06-06T20:53:55.000Z",
+              "updatedAt": "2020-06-06T20:53:55.000Z"
+          },
+          {
+              "message_id": 481,
+              "room_id": "1591470036382",
+              "sender": "user",
+              "sender_name": "Muhammad Elblasy",
+              "message": "dhhdgdhdhhshss",
+              "type": "message",
+              "createdAt": "2020-06-06T20:53:57.000Z",
+              "updatedAt": "2020-06-06T20:53:57.000Z"
+          },
+          {
+              "message_id": 491,
+              "room_id": "1591470036382",
+              "sender": "user",
+              "sender_name": "Muhammad Elblasy",
+              "message": "hshshshhehsjjjjjjj",
+              "type": "message",
+              "createdAt": "2020-06-06T20:53:59.000Z",
+              "updatedAt": "2020-06-06T20:53:59.000Z"
+          },
+          {
+              "message_id": 501,
+              "room_id": "1591470036382",
+              "sender": "user",
+              "sender_name": "Muhammad Elblasy",
+              "message": "dhhshshshshhwhsgsggsgsgsgsgsgs",
+              "type": "message",
+              "createdAt": "2020-06-06T20:54:03.000Z",
+              "updatedAt": "2020-06-06T20:54:03.000Z"
+          },
+          {
+              "message_id": 511,
+              "room_id": "1591470036382",
+              "sender": "user",
+              "sender_name": "Muhammad Elblasy",
+              "message": "hshshhshshshshhdhdhshdhsh",
+              "type": "message",
+              "createdAt": "2020-06-06T20:54:06.000Z",
+              "updatedAt": "2020-06-06T20:54:06.000Z"
+          },
+          {
+              "message_id": 521,
+              "room_id": "1591470036382",
+              "sender": "user",
+              "sender_name": "Muhammad Elblasy",
+              "message": "suhshsh",
+              "type": "message",
+              "createdAt": "2020-06-06T20:54:07.000Z",
+              "updatedAt": "2020-06-06T20:54:07.000Z"
+          },
+          {
+              "message_id": 531,
+              "room_id": "1591470036382",
+              "sender": "user",
+              "sender_name": "Muhammad Elblasy",
+              "message": "suhs",
+              "type": "message",
+              "createdAt": "2020-06-06T20:54:08.000Z",
+              "updatedAt": "2020-06-06T20:54:08.000Z"
+          },
+          {
+              "message_id": 541,
+              "room_id": "1591470036382",
+              "sender": "user",
+              "sender_name": "Muhammad Elblasy",
+              "message": "yhwhwh",
+              "type": "message",
+              "createdAt": "2020-06-06T20:54:09.000Z",
+              "updatedAt": "2020-06-06T20:54:09.000Z"
+          },
+          {
+              "message_id": 551,
+              "room_id": "1591470036382",
+              "sender": "user",
+              "sender_name": "Muhammad Elblasy",
+              "message": "suhshs",
+              "type": "message",
+              "createdAt": "2020-06-06T20:54:10.000Z",
+              "updatedAt": "2020-06-06T20:54:10.000Z"
+          },
+          {
+              "message_id": 561,
+              "room_id": "1591470036382",
+              "sender": "user",
+              "sender_name": "Muhammad Elblasy",
+              "message": "hshsjj",
+              "type": "message",
+              "createdAt": "2020-06-06T20:54:16.000Z",
+              "updatedAt": "2020-06-06T20:54:16.000Z"
+          },
+          {
+              "message_id": 571,
+              "room_id": "1591470036382",
+              "sender": "user",
+              "sender_name": "Muhammad Elblasy",
+              "message": "hshshs",
+              "type": "message",
+              "createdAt": "2020-06-06T20:54:17.000Z",
+              "updatedAt": "2020-06-06T20:54:17.000Z"
+          },
+          {
+              "message_id": 581,
+              "room_id": "1591470036382",
+              "sender": "user",
+              "sender_name": "Muhammad Elblasy",
+              "message": "hsbb",
+              "type": "message",
+              "createdAt": "2020-06-06T20:54:18.000Z",
+              "updatedAt": "2020-06-06T20:54:18.000Z"
+          },
+          {
+              "message_id": 591,
+              "room_id": "1591470036382",
+              "sender": "user",
+              "sender_name": "Muhammad Elblasy",
+              "message": "shhshsh",
+              "type": "message",
+              "createdAt": "2020-06-06T20:54:19.000Z",
+              "updatedAt": "2020-06-06T20:54:19.000Z"
+          },
+          {
+              "message_id": 601,
+              "room_id": "1591470036382",
+              "sender": "user",
+              "sender_name": "Muhammad Elblasy",
+              "message": "shhshsb",
+              "type": "message",
+              "createdAt": "2020-06-06T20:54:20.000Z",
+              "updatedAt": "2020-06-06T20:54:20.000Z"
+          },
+          {
+              "message_id": 611,
+              "room_id": "1591470036382",
+              "sender": "user",
+              "sender_name": "Muhammad Elblasy",
+              "message": "shsbbsh",
+              "type": "message",
+              "createdAt": "2020-06-06T20:54:21.000Z",
+              "updatedAt": "2020-06-06T20:54:21.000Z"
+          },
+          {
+              "message_id": 621,
+              "room_id": "1591470036382",
+              "sender": "user",
+              "sender_name": "Muhammad Elblasy",
+              "message": "shshhshs",
+              "type": "message",
+              "createdAt": "2020-06-06T20:54:22.000Z",
+              "updatedAt": "2020-06-06T20:54:22.000Z"
+          },
+          {
+              "message_id": 631,
+              "room_id": "1591470036382",
+              "sender": "user",
+              "sender_name": "Muhammad Elblasy",
+              "message": "bsbsbhs",
+              "type": "message",
+              "createdAt": "2020-06-06T20:54:23.000Z",
+              "updatedAt": "2020-06-06T20:54:23.000Z"
+          },
+          {
+              "message_id": 641,
+              "room_id": "1591470036382",
+              "sender": "user",
+              "sender_name": "Muhammad Elblasy",
+              "message": "shhsh",
+              "type": "message",
+              "createdAt": "2020-06-06T20:54:24.000Z",
+              "updatedAt": "2020-06-06T20:54:24.000Z"
+          }
+      ]
+  }
+},
     "joinDoctorToAppointment": {
       "type": "object",
       "properties": {
