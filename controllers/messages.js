@@ -36,7 +36,7 @@ const uploadFile = async (req,res,next)=>{
                         fs.copyFileSync(currentPath, fileFinalDestination);
                         fs.unlinkSync(currentPath);
                     };
-                    return respond(true,201,{filename: "/"+chatroomid+"/"+req.file.filename},res)
+                    return respond(true,201,"/"+chatroomid+"/"+req.file.filename,res)
                 }else {
             const error = new ErrorHandler(500,"Something wrong happened");
             handleError(error,res);
