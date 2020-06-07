@@ -41,15 +41,16 @@ var moment = require('moment'); // require
 // // const test = moment("23:00", "HH:mm").parseZone().utcOffset(120).format("HH:mm")
 // // console.log(test);
 
-// const {genToken} = require("./utils/shared/genToken");
+const {genToken} = require("./utils/shared/genToken");
 
-// const token = genToken("01090243795",1,"user"); 
-// console.log(token);
+const token = genToken("01090243795",1,"doctor"); 
+console.log(token);
 
-// var date = new Date(2012, 11, 21, 5, 30, 0);
-// console.log(date);
-
-const start_time = "2020-06-07T13:05Z"
-const serverTime = moment(start_time).format(); // server time
-
-console.log(serverTime);
+let serverTime = moment().format();
+// let appEndTime = moment("2020-06-07 18:50:00").format("YYYY-MM-DDTHH:mm:ss");
+const end_time = "2020-06-07 18:55:00";
+// const compareBeforeEnd = moment(serverTime).isBefore(appEndTime);
+let currentTime = moment().utc();
+let finish_time = moment(end_time).utc();
+let remainingTime = finish_time.diff(currentTime,true);  // in milliseconds
+console.log(remainingTime);
