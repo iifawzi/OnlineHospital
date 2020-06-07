@@ -125,21 +125,16 @@ socket.on("stopTyping",()=>{
 });
 
 ////////////////////////////////////////////////////////// ? IMAGE UPLOADING ////////////////////////////////////////////////////////////////////////////////
-
-socket.on("uploadImage",(file)=>{
-    console.log(file);
-    let obj = {
-        file,
-    }
-    upload().single('file')(obj,{},async error=>{
+socket.on("uploadImage",(fakeRequest)=>{
+    console.log(fakeRequest, "first");
+    upload().single('file')(fakeRequest,{},async error=>{
         if (error){
             console.log(error);
         }else {
             if (obj.file){
-                console.log(obj.file.filename);
+                console.log(fakeRequest.file.filename);
             }else {
-                console.log(obj);
-
+                console.log(fakeRequest, "last");
             }
         }
 })

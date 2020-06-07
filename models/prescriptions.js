@@ -7,20 +7,9 @@ const prescriptions = db.define("prescriptions",{
         autoIncrement: true,
         primaryKey: true,
     },
-    appointment_id: {
-        type:Sequelize.INTEGER,
+    room_id: {
+        type:Sequelize.STRING,
         allowNull: false,
-    },
-    doctor_id: {
-        type:Sequelize.INTEGER,
-        allowNull: false,
-    },
-    user_id: {
-        type:Sequelize.INTEGER,
-        allowNull: false,
-    },
-    date: {
-        type: Sequelize.DATE,
     },
     title: {
         type: Sequelize.STRING,
@@ -30,6 +19,12 @@ const prescriptions = db.define("prescriptions",{
         type: Sequelize.TEXT,
         allowNull: false,
     },
+}, {
+    indexes: [
+        {
+            fields: ['room_id'],
+          },
+      ],
 })
 
 
