@@ -7,6 +7,6 @@ const messagesController = require("../controllers/messages");
 
 
 router.post("/getFinishedMessages", isAuth(['admin','user','doctor']),validate(validationSchemas.getFinishedMessages,"body"),messagesController.finishedMessages)
-router.post("/uploadFile",isAuth(['admin','user']),messagesController.uploadFile);
+router.post("/uploadFile",isAuth(['user','doctor']),messagesController.uploadFile);
 
 module.exports = router;
