@@ -46,7 +46,7 @@
   ],
   "paths": {
     "/messages/getFinishedMessages": {
-      "patch": {
+      "post": {
         "tags": ["messages"],
         "summary": "Get messages for the finished appointments for controPanel and mobile applications use.",
         "consumes": ["application/json"],
