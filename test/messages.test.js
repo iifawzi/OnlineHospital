@@ -55,6 +55,7 @@ describe("/api/messages",async()=>{
             .set("Authorization", `Bearer ${token}`)
             .set("chatRoomId", `589598958`)
             .set("Content-Type", "application/x-www-form-urlencoded")
+            .field('fawziSbahElkher', 'test yearb yeshtaghl')
             .attach("file", path.resolve(__dirname, "../udemy-accs.txt"))
             .expect(403);
         });

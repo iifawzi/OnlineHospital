@@ -18,6 +18,7 @@ const finishedMessages = async (req,res,next)=>{
 
 const uploadFile = async (req,res,next)=>{
     const {chatroomid} = req.headers; 
+    console.log(req, 'djkkjdkjdkjdkj');
     try {
         upload().single('file')(req,{},async error=>{
             if (error){
@@ -36,7 +37,7 @@ const uploadFile = async (req,res,next)=>{
                         fs.copyFileSync(currentPath, fileFinalDestination);
                         fs.unlinkSync(currentPath);
                     };
-                    return respond(true,201,"/"+chatroomid+"/"+req.file.filename,res)
+                    return respond(true,200,"/"+chatroomid+"/"+req.file.filename,res);
                 }else {
             const error = new ErrorHandler(500,"Something wrong happened");
             handleError(error,res);
