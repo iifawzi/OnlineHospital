@@ -59,7 +59,7 @@ const messagesFromRoom = async(room_id)=>{
 
 const messagesFromFinished = async(room_id,res)=>{ // finished appointments messages
     try {
-        const oldMessages = await messages.findAll({where:{room_id, appointment_status: 'finished'}});
+        const oldMessages = await messages.findAll({where:{room_id}});
         return oldMessages;
     }catch(err){
         handleError(err,res);

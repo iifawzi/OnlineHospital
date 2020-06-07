@@ -132,6 +132,9 @@ const joinUserAppointment = Joi.object({
 const joinDoctorAppointment = Joi.object({
   appointment_id: Joi.number().required(),
 });
+const getFinishedMessages = Joi.object({
+  room_id: Joi.string().required(),
+});
 
 const schemas = {
   addUser,
@@ -160,7 +163,8 @@ const schemas = {
   confirmApp,
   docAppsByDate,
   joinUserAppointment,
-  joinDoctorAppointment
+  joinDoctorAppointment,
+  getFinishedMessages
 };
 
 module.exports = schemas;
