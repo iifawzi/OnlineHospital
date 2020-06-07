@@ -56,7 +56,12 @@ socket.on("joinUserToRoom", (room_id)=>{
     const oldMessages = messagesFromRoom(socket.currentRoom).then(messages=>{
         if (messages.length != 0){
             messages.map(msg=>{
-                socket.emit("message", {user:msg.sender_name,message:msg.message,role:msg.sender});
+                if (msg.type === 'message'){
+                    socket.emit("message", {user:msg.sender_name,message:msg.message,role:msg.sender});
+                }else if(msg.type === 'image') {
+                    socket.emit("imageUploaded", {user:msg.sender_name,image:msg.message,role:msg.sender});
+                }
+               
             })
         }
     socket.emit("message",{user:"System", message:"Welcome to the clinic.",role:"system"})
@@ -123,6 +128,14 @@ socket.on("stopTyping",()=>{
 
 ////////////////////////////////////////////////////////// ? IMAGE UPLOADING ////////////////////////////////////////////////////////////////////////////////
 socket.on("uploadImage",(imageName)=>{
+    const info = {
+        room_id: socket.currentRoom,
+        message: imageName,
+        type:"image",
+        sender:socket.role,
+        sender_name: socket.name
+    }
+    addNewMessage(info);
     io.to(socket.currentRoom).emit('imageUploaded', { user: socket.name, image: imageName, role: socket.role });
 });
 ////////////////////////////////////////////////////////// ? DISCONNECTING FROM THE SYSTEM //////////////////////////////////////////////////////////////////
