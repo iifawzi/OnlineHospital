@@ -37,7 +37,7 @@ const slots = db.define("slots",{
 },{
     indexes: [
         {
-            fields: ["doctor_id","day","available"],
+            fields: ["doctor_id","day","available",'start_time'],
           },
       ],
       freezeTableName: true,

@@ -1,4 +1,3 @@
-'1', '0109024388', '12qwaszx', 'Mostfa', 'Essam', 'egypt', '42', NULL, 'sasa.JPG', '1', '100', '1'
-'11', '8888', 'qwaszx', 'fawzi', 'Abdulfattah', 'egypt', '1', 'eTEhsxilRiCyAIySYsX33a:APA91bFYr-nYMhonVX_G9gpB7Un2OS8pdN_RWPFXTljihCWbLfJ5HXeEo6rfz42_UXwh-zmUV4Gj8yDpTVcdzEbEdgvFDcUUmrMH8kvE9aWpVX5KzgO9z473KsOb2nyHRPhWUfUgS8WQ', 'fawzi.png', '0', '180', '2'
-'21', '019283', '12qwaz', 'Bsbosa basha', 'Basha', 'egypt', '3', NULL, 'bsbs.JPG', '1', '280', '3'
-
+'1','0109024388','12qwaszx','Mostfa','Essam','egypt','42',NULL,'sasa.JPG','1','100','1'
+'11','8888','qwaszx','fawzi','Abdulfattah','egypt','1','eTEhsxilRiCyAIySYsX33a:APA91bFYr-nYMhonVX_G9gpB7Un2OS8pdN_RWPFXTljihCWbLfJ5HXeEo6rfz42_UXwh-zmUV4Gj8yDpTVcdzEbEdgvFDcUUmrMH8kvE9aWpVX5KzgO9z473KsOb2nyHRPhWUfUgS8WQ','fawzi.png','1','180','2'
+'21','01060279201','123456789','Bsbosa','Basha','egypt','3','d5SQXsoeSYepE95jdpOjyr:APA91bHk4lsqnwlv4snwlMp3zuVoXgT3378ufLmaPCoqMcVRoJ45tYChKkdaEKYHmghl1mDTOMGiIPi8B00se-NPBNajwqnLFV5Af2D2thm68KxMQSy6ow9yVh6uF4OXb03OTbVqHkHQ','bsbs.JPG','1','280','3'
