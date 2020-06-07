@@ -54,11 +54,8 @@ socket.on("joinUserToRoom", (room_id)=>{
     }
     addUserToRoom(room_id);
     const oldMessages = messagesFromRoom(socket.currentRoom).then(messages=>{
-        console.log(messages,"userkjdkjdjk");
-
         if (messages.length != 0){
             messages.map(msg=>{
-                console.log(msg);
                 socket.emit("message", {user:msg.sender_name,message:msg.message,role:msg.sender});
             })
         }
