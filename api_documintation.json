@@ -1799,9 +1799,7 @@
       "example": {
         "status": true,
         "message": "success",
-        "data": {
-            "filename": "/489948/2d231a47d6001591563057963.jpeg"
-        }
+        "data": "/489948/2d231a47d6001591563057963.jpeg"
     }
   },
   "getFinishedMessagesResponse": {
