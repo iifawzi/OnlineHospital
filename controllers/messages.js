@@ -17,10 +17,9 @@ const finishedMessages = async (req,res,next)=>{
 
 
 const uploadFile = async (req,res,next)=>{
-    const {chatroomid} = req.headers; 
-    console.log(req, 'djkkjdkjdkjdkj');
     try {
         upload().single('file')(req,{},async error=>{
+            const {chatroomid} = req.body; 
             if (error){
                 handleError(error,res);
             }else {

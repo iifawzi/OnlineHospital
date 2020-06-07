@@ -45,17 +45,17 @@ describe("/api/messages",async()=>{
             .set("Authorization", `Bearer ${token}`)
             .set("chatRoomId", `589598958`)
             .set("Content-Type", "application/x-www-form-urlencoded")
+            .field('chatroomid', '87478478874')
             .attach("file", path.resolve(__dirname, "../logo.png"))
-            .expect(201);
+            .expect(200);
         });
         it("Should responed with 403 if type is not allowed", async () => {
           const token = genToken("01090243795",1, "user");
           let res = await request(server)
           .post("/api/messages/uploadFile")
             .set("Authorization", `Bearer ${token}`)
-            .set("chatRoomId", `589598958`)
+            .set("chatroomid", `589598958`)
             .set("Content-Type", "application/x-www-form-urlencoded")
-            .field('fawziSbahElkher', 'test yearb yeshtaghl')
             .attach("file", path.resolve(__dirname, "../udemy-accs.txt"))
             .expect(403);
         });
