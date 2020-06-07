@@ -190,7 +190,7 @@ const joinUser = async(req,res,next)=>{
     const serverTime = moment().format(); // server time
     const appDate = moment(date,"YYYY-MM-DD").format("YYYY-MM-DD"); // appointment date
     const appStartTime = moment(start_time, "HH:mm");  // appointment start time 
-    const appEndTime = moment(start_time).utc().add(slot_time,'m').format();  // appointment end time 
+    const appEndTime = moment(start_time, "HH:mm").add(slot_time,"m");  // appointment end time 
    
 
     const appFiveBeforeStart = moment(appStartTime).subtract(6,"m"); // this substract 6 minutes from the start time (to be able to use the range) the sixth minutes is excluded 
@@ -231,7 +231,7 @@ const joinDoctor = async(req,res,next)=>{
     const serverDate = moment().format("YYYY-MM-DD"); // server date
     const serverTime = moment().format(); // server time
     const appDate = moment(date,"YYYY-MM-DD").format("YYYY-MM-DD"); // appointment date
-    const appEndTime = moment(start_time).utc().add(slot_time,'m').format();  // appointment end time 
+    const appEndTime = moment(start_time, "HH:mm").add(slot_time,"m");  // appointment end time 
 
 
     if (appointment_status === "running"){ 
