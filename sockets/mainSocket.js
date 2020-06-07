@@ -1,5 +1,7 @@
 const moment = require('moment'); 
 const {addNewMessage,messagesFromRoom} = require("../models/messages");
+const upload = require("../middleware/upload");
+
 exports.main = (io)=>{
     io
     .on("connect",(socket)=>{
@@ -120,6 +122,27 @@ socket.on("typing",()=>{
 });
 socket.on("stopTyping",()=>{
     socket.to(socket.currentRoom).emit("isTyping","");    
+});
+
+////////////////////////////////////////////////////////// ? IMAGE UPLOADING ////////////////////////////////////////////////////////////////////////////////
+
+socket.on("uploadImage",(file)=>{
+    console.log(file);
+    let obj = {
+        file,
+    }
+    upload().single('file')(obj,{},async error=>{
+        if (error){
+            console.log(error);
+        }else {
+            if (obj.file){
+                console.log(obj.file.filename);
+            }else {
+                console.log(obj);
+
+            }
+        }
+})
 });
 ////////////////////////////////////////////////////////// ? DISCONNECTING FROM THE SYSTEM //////////////////////////////////////////////////////////////////
 
