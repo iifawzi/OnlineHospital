@@ -53,6 +53,12 @@
         "produces": ["application/json"],
         "parameters": [
           {
+            "in": "formData",
+            "name": "file",
+            "type": "file",
+            "description": "The file to upload."
+          },
+          {
             "in": "header",
             "name": "Authorization",
             "required": true,
@@ -1206,7 +1212,7 @@
         "parameters": [
           {
             "in": "formData",
-            "name": "upfile",
+            "name": "file",
             "type": "file",
             "description": "The file to upload."
           },
