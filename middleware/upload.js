@@ -12,7 +12,7 @@ const storage = multer.diskStorage({
     if (!fs.existsSync(dir)) {
       fs.mkdirSync(dir);
     }
-    cb(null, "./uploadedImages/");
+    cb(null, dir);
   },
   filename: function (req, file, cb) {
     crypto.pseudoRandomBytes(6, function (err, raw) {
