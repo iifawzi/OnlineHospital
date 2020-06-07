@@ -37,7 +37,7 @@ const slots = db.define("slots",{
 },{
     indexes: [
         {
-            fields: ["available","day","doctor_id"],
+            fields: ["doctor_id","day","available",'start_time'],
           },
       ],
       freezeTableName: true,
@@ -66,13 +66,14 @@ const deleteSlot = async (slot_id)=>{
 // apps.date = `` => will help us to return everyting in the slots model, with null if date not registerd in right model
 // apps.appointment_status != 'canceled` => will help us to return all the records in slots model, with null for the records which canceled in the appointments model. 
 // WHERE => filtering the returned data, get specific doctor id, for specific day, where the right table `appointments` slot_id equals null (to match the above conditions )
+// add 10 min (11 for avoiding seconds) to the current time (to get all slots that's available before 10 minutes of the current time)
 // concatenated dates used to let the front-end users able to use different time-zones
 const getDocOpenSlots = async function(info,res){ // this api will return the slots which are allowed to be preserved: 
     try {
         const day = info.day;
         const doctor_id = info.doctor_id;
         const date = info.date;
-        const slots =  await db.query("SELECT slots.slot_id,slots.doctor_id,slots.day,slots.slot_time, CONCAT(?,'T',slots.start_time,'Z') start_time FROM slots LEFT JOIN appointments apps ON slots.slot_id = apps.slot_id AND apps.date = ? AND apps.appointment_status != 'canceled' WHERE slots.doctor_id = ? AND slots.day = ? AND slots.available = 1 AND apps.slot_id is null ",{
+        const slots =  await db.query("SELECT slots.slot_id,slots.doctor_id,slots.day,slots.slot_time, CONCAT(?,'T',slots.start_time,'Z') start_time FROM slots LEFT JOIN appointments apps ON slots.slot_id = apps.slot_id AND apps.date = ? AND apps.appointment_status != 'canceled' WHERE slots.doctor_id = ? AND slots.day = ? AND slots.available = 1 AND slots.start_time > addtime(time(now()), '00:11:00') AND apps.slot_id is null  ",{
             replacements: [date,date,doctor_id,day],
             type: Sequelize.QueryTypes.SELECT,
         });
