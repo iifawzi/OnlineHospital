@@ -14,8 +14,8 @@ const sequelize = new Sequelize(
 (async () => {
   try {
     await sequelize.authenticate();
-    await sequelize.sync({force:true}); // to force the tables to update " when ( add / delete / update ) models"
-    // await sequelize.sync();
+    // await sequelize.sync({force:true}); // to force the tables to update " when ( add / delete / update ) models"
+    await sequelize.sync();
     // SET SQL_SAFE_UPDATES = 0; // when re-set the schema use this command in the mysql management.
     console.log("Connection has been established successfully.");
   } catch (error) {
