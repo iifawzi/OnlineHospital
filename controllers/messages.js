@@ -26,8 +26,8 @@ const uploadFile = async (req,res,next)=>{
                 if (req.file){
                     const filename = req.file.filename;
                     const currentPath = path.join("uploadedImages/",filename);
-                    const roomDestination = path.join("uploadedImages/chats",chatroomid);
-                    const fileFinalDestination = path.join("uploadedImages/chats",chatroomid, filename);
+                    const roomDestination = path.join("uploadedImages/chats",chatRoomId);
+                    const fileFinalDestination = path.join("uploadedImages/chats",chatRoomId, filename);
                     if (fs.existsSync(roomDestination)){
                         fs.copyFileSync(currentPath, fileFinalDestination);
                         fs.unlinkSync(currentPath);
@@ -36,7 +36,7 @@ const uploadFile = async (req,res,next)=>{
                         fs.copyFileSync(currentPath, fileFinalDestination);
                         fs.unlinkSync(currentPath);
                     };
-                    return respond(true,200,"/"+chatroomid+"/"+req.file.filename,res);
+                    return respond(true,200,"/"+chatRoomId+"/"+req.file.filename,res);
                 }else {
             const error = new ErrorHandler(500,"Something wrong happened");
             handleError(error,res);

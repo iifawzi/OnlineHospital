@@ -53,20 +53,16 @@
         "produces": ["application/json"],
         "parameters": [
           {
-            "in": "formData",
-            "name": "file",
-            "type": "file",
-            "description": "The file to upload."
+            "in": "body",
+            "name": "body",
+            "required": true,
+            "schema": {
+              "$ref": "#/definitions/chatUploadFile"
+            }
           },
           {
             "in": "header",
             "name": "Authorization",
-            "required": true,
-            "type": "string"
-          },
-          {
-            "in": "header",
-            "name": "chatroomid",
             "required": true,
             "type": "string"
           }
@@ -1789,6 +1785,17 @@
     }
   },
   "definitions": {
+    "chatUploadFile": {
+      "type": "object",
+      "properties": {
+        "chatRoomId": {
+          "type": "string"
+        }
+      },
+      "example": {
+        "chatRoomId": "837488893198787"
+    }
+  },
     "getFinishedMessages": {
       "type": "object",
       "properties": {
