@@ -8,7 +8,7 @@ const bodyParser = require("body-parser");
 
 router.post("/addPrescription", isAuth(['doctor']),validate(validationSchemas.addPrescription,"body"),prescroptionController.addPrescription);
 router.put("/updatePrescription", isAuth(['doctor']),validate(validationSchemas.updatePrescription,"body"),prescroptionController.updatePrescription);
-router.post("/getPrescription", isAuth(['doctor','doctor','admin']),validate(validationSchemas.getPrescription,"body"),prescroptionController.getPrescription);
+router.post("/getPrescription", isAuth(['doctor','user','admin']),validate(validationSchemas.getPrescription,"body"),prescroptionController.getPrescription);
 
 
 module.exports = router;
