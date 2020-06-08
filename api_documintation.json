@@ -63,6 +63,12 @@
             "schema": {
               "$ref": "#/definitions/getPrescription"
             }
+          },
+          {
+            "in": "header",
+            "name": "Authorization",
+            "required": true,
+            "type": "string"
           }
         ],
         "responses": {
@@ -101,6 +107,12 @@
             "schema": {
               "$ref": "#/definitions/updatePrescription"
             }
+          },
+          {
+            "in": "header",
+            "name": "Authorization",
+            "required": true,
+            "type": "string"
           }
         ],
         "responses": {
@@ -145,6 +157,12 @@
             "schema": {
               "$ref": "#/definitions/addPrescription"
             }
+          },
+          {
+            "in": "header",
+            "name": "Authorization",
+            "required": true,
+            "type": "string"
           }
         ],
         "responses": {

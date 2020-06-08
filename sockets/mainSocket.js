@@ -97,7 +97,7 @@ socket.on("joinDoctorToRoom",(room_id)=>{
                 }
                
             });
-        }
+        };
     socket.emit("message",{user:"System", message:"Welcome doctor to the clinic.",role:"system"});  
     if (isUserInRoom(room_id) == null){
         socket.emit("message",{user:"System", message:"User didn't join until now, please wait.",role:"system"});
