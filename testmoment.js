@@ -43,7 +43,7 @@ var moment = require('moment'); // require
 
 const {genToken} = require("./utils/shared/genToken");
 
-const token = genToken("01090243795",1,"doctor"); 
+const token = genToken("01090243795",1,"admin"); 
 console.log(token);
 
 // let serverTime = moment().format();

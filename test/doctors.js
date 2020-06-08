@@ -51,7 +51,6 @@ describe("/api/doctors",async()=>{
                 "password":"testtest",
                 "first_name":"fawzi",
                 "last_name": "ahmed",
-                "country":"egypt",
                 "category_id":1,
                 "picture":"fkfjkfj",
                 "price": "100",
@@ -118,7 +117,6 @@ describe("/api/doctors",async()=>{
                 password: "testtest",
                 first_name: "fawzi",
                 last_name: "ahmed",
-                country: "egypt",
                 category_id: 1,
                 picture: "fkfjkfj",
                 price: "100",
@@ -133,7 +131,6 @@ describe("/api/doctors",async()=>{
                 password: "t123",
                 first_name: "fawziiiii",
                 last_name: "ahmedddddd",
-                country: "saudiarabia",
                 category_id: 5,
                 picture: "fkfjkfj",
                 price: "300",
@@ -144,7 +141,6 @@ describe("/api/doctors",async()=>{
             expect(res.body.data.password).to.equal("t123");
             expect(res.body.data.first_name).to.equal("fawziiiii");
             expect(res.body.data.last_name).to.equal("ahmedddddd");
-            expect(res.body.data.country).to.equal("saudiarabia");
             expect(res.body.data.category_id).to.equal(5);
             expect(res.body.data.picture).to.equal("fkfjkfj");
             expect(res.body.data.price).to.equal("300");
@@ -162,7 +158,6 @@ describe("/api/doctors",async()=>{
               password: "testtest",
               first_name: "fawzi",
               last_name: "ahmed",
-              country: "egypt",
               category_id: 1,
               picture: "fkfjkfj",
               price: "100",

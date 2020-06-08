@@ -42,7 +42,7 @@ const addImage = async (req,res,next)=>{
 
 const addDoctor = async (req,res,next)=>{
     try{
-        const {first_name,last_name,phone_number,password,country,category_id,picture,price} = req.body;
+        const {first_name,last_name,phone_number,password,category_id,picture,price} = req.body;
         const Checkdoctors = await checkDocPhoneExist(phone_number);
         if (Checkdoctors){
             const filePath = "./uploadedImages/"+picture;
@@ -57,7 +57,6 @@ const addDoctor = async (req,res,next)=>{
             last_name,
             password,
             phone_number,
-            country,
             category_id,
             picture,
             price

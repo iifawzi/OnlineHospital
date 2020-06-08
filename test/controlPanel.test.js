@@ -39,7 +39,6 @@ describe("/api/controlPanel", async () => {
           password: "testtest",
           first_name: "fawzi",
           last_name: "ahmed",
-          country: "egypt",
           category_id: 1,
           picture: "fkfjkfj",
           price: "100",
@@ -60,7 +59,6 @@ describe("/api/controlPanel", async () => {
           password: "testtest",
           first_name: "fawzi",
           last_name: "ahmed",
-          country: "egypt",
           category_id: 1,
           picture: "fkfjkfj",
           price: "100",
@@ -75,7 +73,6 @@ describe("/api/controlPanel", async () => {
           password: "testtest",
           first_name: "fawzi",
           last_name: "ahmed",
-          country: "egypt",
           category_id: 1,
           picture: "fkfjkfj",
           price: "100",
@@ -264,7 +261,7 @@ describe("/api/controlPanel", async () => {
         .get("/api/controlPanel/getCategories")
         .expect(401);
     });
-    it("Should respond with 200 if got categories successfully", async () => {
+    it("Should respond with 200 if got doctors successfully", async () => {
       const token = genToken("01090243795",1, "admin");
 
       let res = await request(server)

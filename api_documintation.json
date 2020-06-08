@@ -3602,7 +3602,6 @@
           "phone_number": "01090243795",
           "first_name": "fawzi",
           "last_name": "ahmed",
-          "country": "egypt",
           "category_id": 1,
           "picture": "3874878487478.png",
           "price": "494",
@@ -3627,9 +3626,6 @@
         "last_name": {
           "type": "string"
         },
-        "country": {
-          "type": "string"
-        },
         "category_id": {
           "type": "integer"
         },
@@ -3645,7 +3641,6 @@
         "password": "halawallah",
         "first_name": "fawzi",
         "last_name": "ahmed",
-        "country": "egypt",
         "category_id": 1,
         "picture": "498489849984.png",
         "price": "190"
@@ -3664,9 +3659,6 @@
           "type": "string"
         },
         "last_name": {
-          "type": "string"
-        },
-        "country": {
           "type": "string"
         },
         "category_id": {
@@ -3688,7 +3680,6 @@
           "first_name": "fawzi",
           "last_name": "ahmed",
           "phone_number": "01090243795",
-          "country": "egypt",
           "category_id": 1,
           "picture": "3874878487478.png",
           "price": "190"
@@ -3805,7 +3796,6 @@
           "first_name": "fawzi",
           "last_name": "ahmed",
           "phone_number": "01090243795",
-          "country": "egypt",
           "category_id": 1,
           "picture": "3874878487478.png",
           "price": "138"
@@ -3834,7 +3824,6 @@
             "phone_number": "01090243795",
             "first_name": "fawzi",
             "last_name": "ahmed",
-            "country": "egypt",
             "category_id": 41,
             "picture": "3a1c3b41259e1590085993534.png",
             "available": false,
@@ -3845,7 +3834,6 @@
             "phone_number": "01090243785",
             "first_name": "bsbosa",
             "last_name": "ahmed",
-            "country": "egypt",
             "category_id": 41,
             "picture": "4ae44da439e91590091288985.png",
             "available": false,
@@ -3856,7 +3844,6 @@
             "phone_number": "01090243715",
             "first_name": "mostfa",
             "last_name": "ahmed",
-            "country": "egypt",
             "category_id": 41,
             "picture": "6d75d1540c411590056094785.jpeg",
             "available": false,
@@ -3960,9 +3947,6 @@
         "first_name": {
           "type": "string"
         },
-        "country": {
-          "type": "string"
-        },
         "category_id": {
           "type": "integer"
         },
@@ -3993,7 +3977,6 @@
           "password": "12qwasz1",
           "first_name": "fawzi",
           "last_name": "ahmed",
-          "country": "egypt",
           "category_id": 1,
           "fb_token_id": null,
           "picture": "fawzi.png",
@@ -4034,7 +4017,6 @@
             "phone_number": "11111111",
             "first_name": "fawzi",
             "last_name": "ahmed",
-            "country": "egypt",
             "available": 0,
             "price": "180",
             "category_id": 1,
@@ -4046,7 +4028,6 @@
             "phone_number": "01090246711",
             "first_name": "Belassy",
             "last_name": "ahmed",
-            "country": "egypt",
             "available": 0,
             "price": "280",
             "category_id": 3,
@@ -4058,7 +4039,6 @@
             "phone_number": "87348",
             "first_name": "fawziii",
             "last_name": "dffddf",
-            "country": "Egypt",
             "available": 0,
             "price": "43434",
             "category_id": 31,
@@ -4070,7 +4050,6 @@
             "phone_number": "1122334444",
             "first_name": "editted",
             "last_name": "edited",
-            "country": "saudiarabia",
             "available": 0,
             "price": "123456",
             "category_id": 14,
@@ -4082,7 +4061,6 @@
             "phone_number": "544545",
             "first_name": "fgfg",
             "last_name": "fgfg",
-            "country": "Egypt",
             "available": 0,
             "price": "4545",
             "category_id": 3,

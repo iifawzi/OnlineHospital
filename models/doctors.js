@@ -25,10 +25,6 @@ const doctors = db.define("doctors",{
         type:Sequelize.STRING,
         allowNull: false,
     },
-    country:{
-        type:Sequelize.STRING,
-        allowNull:false,
-    },
     category_id:{
         type:Sequelize.INTEGER,
         allowNull:false,
@@ -61,9 +57,6 @@ const doctors = db.define("doctors",{
     }
 },{
     indexes: [
-        {
-            fields: ["country"],
-          },
         {
             fields: ["category_id","available"],
           },
@@ -156,7 +149,7 @@ const updateDoctor = async function (doctorObject,data,res){
 // Get Doctors With the categories data for show in control Panel: 
 const getDoctorsPanel = async function (res){
     try {
-        const doctors =  await db.query("SELECT  docs.doctor_id,docs.phone_number,docs.first_name,docs.last_name,docs.country,docs.available,docs.price ,cats.* FROM `doctors` docs LEFT JOIN `categories` cats ON docs.category_id = cats.category_id ORDER BY docs.doctor_id DESC",{
+        const doctors =  await db.query("SELECT docs.doctor_id,docs.phone_number,docs.first_name,docs.last_name,docs.available,docs.price ,cats.* FROM `doctors` docs LEFT JOIN `categories` cats ON docs.category_id = cats.category_id ORDER BY docs.doctor_id DESC",{
             type: Sequelize.QueryTypes.SELECT,
         });
         return doctors;

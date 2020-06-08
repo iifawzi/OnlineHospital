@@ -213,7 +213,6 @@ describe("/api/auth",async()=>{
                 "password":"testtest",
                 "first_name":"fawzi",
                 "last_name": "ahmed",
-                "country":"egypt",
                 "category_id":1,
                 "picture":"fkfjkfj",
                 "price":"200"
@@ -259,7 +258,6 @@ describe("/api/auth",async()=>{
                 "password":"testtest",
                 "first_name":"fawzi",
                 "last_name": "ahmed",
-                "country":"egypt",
                 "category_id":1,
                 "picture":"fkfjkfj",
                 "price":"200"
@@ -285,7 +283,6 @@ describe("/api/auth",async()=>{
                 "password":"testtest",
                 "first_name":"fawzi",
                 "last_name": "ahmed",
-                "country":"egypt",
                 "category_id":1,
                 "picture":"fkfjkfj",
                 "price":"200"

@@ -28,7 +28,6 @@ const isAuth = (role)=>{
           throw new ErrorHandler(401, "Not authorized");
         }
       } catch (err) {
-        console.log(err);
         err.statusCode = 401;
         handleError(err, res);
       }
