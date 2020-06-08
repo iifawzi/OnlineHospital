@@ -33,7 +33,7 @@ const getPrescription = async (req,res,next)=>{
         if (prescription){
             return respond(true,200,prescription,res);
         }else {
-            return respond(false,200,"",res);
+            return respond(false,200,{},res);
         }
     }catch(err){
         handleError(err,res);
