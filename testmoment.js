@@ -46,11 +46,11 @@ const {genToken} = require("./utils/shared/genToken");
 const token = genToken("01090243795",1,"doctor"); 
 console.log(token);
 
-let serverTime = moment().format();
-// let appEndTime = moment("2020-06-07 18:50:00").format("YYYY-MM-DDTHH:mm:ss");
-const end_time = "2020-06-07 18:55:00";
-// const compareBeforeEnd = moment(serverTime).isBefore(appEndTime);
-let currentTime = moment().utc();
-let finish_time = moment(end_time).utc();
-let remainingTime = finish_time.diff(currentTime,true);  // in milliseconds
-console.log(remainingTime);
+// let serverTime = moment().format();
+// // let appEndTime = moment("2020-06-07 18:50:00").format("YYYY-MM-DDTHH:mm:ss");
+// const end_time = "2020-06-07 18:55:00";
+// // const compareBeforeEnd = moment(serverTime).isBefore(appEndTime);
+// let currentTime = moment().utc();
+// let finish_time = moment(end_time).utc();
+// let remainingTime = finish_time.diff(currentTime,true);  // in milliseconds
+// console.log(remainingTime);

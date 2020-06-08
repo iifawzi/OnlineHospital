@@ -1,5 +1,6 @@
 const Sequelize = require("sequelize");
 const db = require("../utils/db");
+const {handleError} = require("../middleware/error");
 
 const prescriptions = db.define("prescriptions",{
     prescription_id: {
@@ -11,11 +12,11 @@ const prescriptions = db.define("prescriptions",{
         type:Sequelize.STRING,
         allowNull: false,
     },
-    title: {
-        type: Sequelize.STRING,
+    prescription: {
+        type: Sequelize.TEXT,
         allowNull: false,
     },
-    description : { 
+    diagnose : { 
         type: Sequelize.TEXT,
         allowNull: false,
     },
@@ -28,6 +29,20 @@ const prescriptions = db.define("prescriptions",{
 })
 
 
+// METHODS : 
+
+const createPrescription = async function(data, res){
+    try {
+        const prescription = await prescriptions.create(data);
+        return prescription;
+    }catch(err){
+        handleError(err,res);
+    }
+
+}
+
+
 module.exports = {
     prescriptions,
+    createPrescription
 }

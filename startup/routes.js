@@ -7,6 +7,7 @@ const categoriesRouter = require("../routes/categories");
 const userRouter = require("../routes/user");
 const slotsRouter = require("../routes/slots");
 const appointmentsRouter = require("../routes/appointments");
+const prescriptionRouter = require("../routes/prescriptions");
 const messagesRouter = require("../routes/messages");
 const bodyParser = require("body-parser");
 const cors = require("cors");
@@ -40,6 +41,7 @@ app.use( // for images uploading:
   app.use("/api/slots",slotsRouter);
   app.use("/api/appointments",appointmentsRouter);
   app.use("/api/messages",messagesRouter);
+  app.use("/api/prescriptions",prescriptionRouter);
 
 
 

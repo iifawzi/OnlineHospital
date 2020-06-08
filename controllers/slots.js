@@ -73,7 +73,6 @@ const getOpenSlots = async (req, res, next) => {
             day: day,
           };
           const slots = await getDocOpenSlots(info, res);
-          console.log(slots);
           if (slots) {
             if (slots.length != 0) {
               appointmentsForWeek.push(slots);
