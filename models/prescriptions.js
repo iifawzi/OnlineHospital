@@ -30,7 +30,7 @@ const prescriptions = db.define("prescriptions",{
 
 
 // METHODS : 
-const getPrescription = async function(room_id,res){
+const prescriptionGet = async function(room_id,res){
     try {
         const prescription = prescriptions.findOne({where: {room_id}});
         return prescription;
@@ -50,7 +50,7 @@ const createPrescription = async function(data, res){
 
 const prescriptionUpdate = async function(data,res){
     try{
-        const prescription = await getPrescription(data.room_id);
+        const prescription = await prescriptionGet(data.room_id);
         delete data.room_id;
         if (prescription){
             for (let key in data){
@@ -70,6 +70,6 @@ handleError(err,res);
 module.exports = {
     prescriptions,
     createPrescription,
-    getPrescription,
+    prescriptionGet,
     prescriptionUpdate
 }

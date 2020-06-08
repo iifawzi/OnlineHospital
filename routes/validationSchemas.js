@@ -145,6 +145,10 @@ const updatePrescription = Joi.object({
   diagnose: Joi.string().required(),
   prescription: Joi.string().required()
 });
+const getPrescription = Joi.object({
+  room_id: Joi.string().required(),
+});
+
 const schemas = {
   addUser,
   signin,
@@ -176,6 +180,7 @@ const schemas = {
   getFinishedMessages,
   addPrescription, 
   updatePrescription,
+  getPrescription
 };
 
 module.exports = schemas;
