@@ -78,6 +78,12 @@
               "$ref": "#/definitions/Error"
             }
           },
+          "404": {
+            "description": "404 (prescription is not found)",
+            "schema": {
+              "$ref": "#/definitions/Error"
+            }
+          },
           "401": {
             "description": "401 (Not Authorized)",
             "schema": {
