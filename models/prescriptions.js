@@ -1,6 +1,6 @@
 const Sequelize = require("sequelize");
 const db = require("../utils/db");
-const {handleError} = require("../middleware/error");
+const {handleError,ErrorHandler} = require("../middleware/error");
 
 const prescriptions = db.define("prescriptions",{
     prescription_id: {
@@ -30,6 +30,14 @@ const prescriptions = db.define("prescriptions",{
 
 
 // METHODS : 
+const getPrescription = async function(room_id,res){
+    try {
+        const prescription = prescriptions.findOne({where: {room_id}});
+        return prescription;
+    }catch(err){
+        handleError(err,res);
+    }
+}
 
 const createPrescription = async function(data, res){
     try {
@@ -38,11 +46,30 @@ const createPrescription = async function(data, res){
     }catch(err){
         handleError(err,res);
     }
+};
 
-}
-
+const prescriptionUpdate = async function(data,res){
+    try{
+        const prescription = await getPrescription(data.room_id);
+        delete data.room_id;
+        if (prescription){
+            for (let key in data){
+                prescription[key] = data[key];
+            }
+            await prescription.save();
+            return prescription;
+        }else {
+            throw new ErrorHandler(404,"prescription is not found");
+        }
+    }catch(err){
+handleError(err,res);
+    }
+  
+};
 
 module.exports = {
     prescriptions,
-    createPrescription
+    createPrescription,
+    getPrescription,
+    prescriptionUpdate
 }

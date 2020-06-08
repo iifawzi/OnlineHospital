@@ -43,5 +43,48 @@ describe("/api/prescriptions",async()=>{
     });
 
 
+    describe("/updatePrescription",async()=>{
+        it("Should respond 401 if not Authorized",async()=>{
+            const token = genToken("0109034748",1,"user");
+            let res = await request(server)
+            .put("/api/prescriptions/updatePrescription")
+            .set("Authorization", `Bearer ${token}`)
+            .expect(401);
+        });
+        it("Should respond with 400 if inuputs is incorrect or missing", async()=>{
+            const token = genToken("0109034748",1,"doctor");
+            let res = await request(server)
+            .put("/api/prescriptions/updatePrescription")
+            .set("Authorization", `Bearer ${token}`)
+            .send({
+                "room_id": "1591389838616", 
+              }) 
+            .expect(400);
+        })
+        it("Should respond 201 if updated successfully",async()=>{
+            const token = genToken("0109034748",1,"doctor");
+            let res = await request(server)
+            .put("/api/prescriptions/updatePrescription")
+            .set("Authorization", `Bearer ${token}`)
+            .send({
+                "room_id": "1591389838616", 
+                "diagnose": "kjdjkdjkkjdjkdkj",
+                "prescription": "kjdjkdjkdkjdkj"
+              }) 
+            .expect(200);
+        });
+        it("Should respond 404 if not found",async()=>{
+            const token = genToken("0109034748",1,"doctor");
+            let res = await request(server)
+            .put("/api/prescriptions/updatePrescription")
+            .set("Authorization", `Bearer ${token}`)
+            .send({
+                "room_id": "15913898384984984616", 
+                "diagnose": "dkkjdkjdkjdjkd",
+                "prescription": "kjdjkdjkdkjdkj"
+              }) 
+            .expect(404);
+        });
+    });
 
 });

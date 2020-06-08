@@ -1,5 +1,5 @@
 const {handleError,ErrorHandler} = require("../middleware/error");
-const {createPrescription} = require("../models/prescriptions");
+const {createPrescription,prescriptionUpdate} = require("../models/prescriptions");
 const respond = require("../middleware/respond");
 
 const addPrescription = async (req,res,next)=>{
@@ -12,10 +12,21 @@ const addPrescription = async (req,res,next)=>{
     }catch(err){
         handleError(err,res);
     }
-
 }
 
+const updatePrescription = async (req,res,next)=>{
+    try {
+        const data = req.body;
+        const prescription = await prescriptionUpdate(data,res);
+        if (prescription){
+            return respond(true,200,prescription,res);
+        }
+    }catch(err){
+        handleError(err,res);
+    }
+}
 
 module.exports = {
     addPrescription,
+    updatePrescription
 }
