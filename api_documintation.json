@@ -166,7 +166,7 @@
           }
         ],
         "responses": {
-          "200": {
+          "201": {
             "description": "201 (success)",
             "schema": {
               "$ref": "#/definitions/addPrescriptionResponse"
