@@ -75,7 +75,7 @@
           "200": {
             "description": "200 (success)",
             "schema": {
-              "$ref": "#/definitions/getPrescription"
+              "$ref": "#/definitions/getPrescriptionResponse"
             }
           },
           "400": {
