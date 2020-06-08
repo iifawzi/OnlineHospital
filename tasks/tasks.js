@@ -10,8 +10,12 @@ exports.newAppointmentTask = async (appointment_id,res)=>{ // these tasks is nee
     let fiveMinAfter = moment(appInfo.start_time).utc().add(1,"m").format("YYYY-MM-DD HH:mm:ss");
     let endTime = moment(appInfo.start_time).utc().add(appInfo.slot_time,'m').format("YYYY-MM-DD HH:mm:ss");
 
+console.log(fiveMinBefore);
+console.log(onTime);
+console.log(fiveMinAfter);
 
     const beforeFive = schedule.scheduleJob(fiveMinBefore, async function(){
+      console.log("i'm here");
      await runApp(appInfo.appointment_id,res);
      sendNotfication(appInfo.doctor_token,"دكتور، بنفكرك عندك معاد كمان ٥ دقايق");
      sendNotfication(appInfo.user_token,"عندك معاد كمان ٥ دقايق، تقدر تدخل من دلوقتي");

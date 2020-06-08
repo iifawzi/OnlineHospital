@@ -235,7 +235,6 @@ const joinDoctor = async(req,res,next)=>{
       return respond(false,200,{room_id: "",appEndTime:""},res);
     }
   }catch(err){
-    console.log(err);
     handleError(err,res);
   }
 }
