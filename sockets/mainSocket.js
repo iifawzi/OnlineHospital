@@ -62,7 +62,7 @@ socket.on("joinUserToRoom", (room_id)=>{
                     socket.emit("imageUploaded", {user:msg.sender_name,image:msg.message,role:msg.sender});
                 }
                
-            })
+            });
         }
     socket.emit("message",{user:"System", message:"Welcome to the clinic.",role:"system"})
     // if doctor is still not connected to the room: 
@@ -90,8 +90,13 @@ socket.on("joinDoctorToRoom",(room_id)=>{
     const oldMessages = messagesFromRoom(socket.currentRoom).then(messages=>{
         if (messages.length != 0){
             messages.map(msg=>{
-                socket.emit("message", {user:msg.sender_name,message:msg.message,role:msg.sender});
-            })
+                if (msg.type === 'message'){
+                    socket.emit("message", {user:msg.sender_name,message:msg.message,role:msg.sender});
+                }else if(msg.type === 'image') {
+                    socket.emit("imageUploaded", {user:msg.sender_name,image:msg.message,role:msg.sender});
+                }
+               
+            });
         }
     socket.emit("message",{user:"System", message:"Welcome doctor to the clinic.",role:"system"});  
     if (isUserInRoom(room_id) == null){
