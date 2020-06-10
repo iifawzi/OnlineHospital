@@ -41,10 +41,10 @@ var moment = require('moment'); // require
 // // const test = moment("23:00", "HH:mm").parseZone().utcOffset(120).format("HH:mm")
 // // console.log(test);
 
-const {genToken} = require("./utils/shared/genToken");
+// const {genToken} = require("./utils/shared/genToken");
 
-const token = genToken("01090243795",1,"admin"); 
-console.log(token);
+// const token = genToken("01090243795",1,"user"); 
+// console.log(token);
 
 // let serverTime = moment().format();
 // // let appEndTime = moment("2020-06-07 18:50:00").format("YYYY-MM-DDTHH:mm:ss");
@@ -54,3 +54,7 @@ console.log(token);
 // let finish_time = moment(end_time).utc();
 // let remainingTime = finish_time.diff(currentTime,true);  // in milliseconds
 // console.log(remainingTime);
+
+
+const err = new Error("hala wallah");
+console.log(err.message);
