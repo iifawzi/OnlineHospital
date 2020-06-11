@@ -16,10 +16,10 @@ const checkConference = async (req, res, next) => {
     let finish_time = moment(end_time).utc();
     let remainingTime = finish_time.diff(currentTime,'seconds');
     const room_info = {
-        'id': name,
-        'name': name,
-        'start_time': start_time,
-        'duration': remainingTime,
+        id: name+5,
+        name: name,
+        start_time: start_time,
+        duration: remainingTime,
     }
     console.log(room_info);
    return res.status(200).json(room_info);
