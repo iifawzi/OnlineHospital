@@ -356,6 +356,18 @@ const getAppointmentInfo = async function(appointment_id,res){ // for tasks and 
     }
 }
 
+const getStartTimeByRoom = async function(room_id,res){ // for jitsi (getting info by room_id)
+    try {
+        const appInfo = await db.query("SELECT CONCAT(apps.date,'T',slots.start_time,'Z') start_time FROM appointments apps LEFT JOIN slots ON apps.slot_id = slots.slot_id WHERE apps.room_id = '1591904666457'  ", {
+            replacements: [room_id],
+            type: Sequelize.QueryTypes.SELECT,
+        });
+        return appInfo[0];
+    }catch(err){
+        console.log(err,"getAppointmentInfo")
+    }
+}
+
 const getAppointmentsInfo = async function(){ // plural :D (this will be used on the jobs controller to get all upcoming / running appointments)
     try {
         const appInfo = await db.query("SELECT apps.appointment_id,apps.appointment_status,apps.user_joined,apps.doctor_joined,apps.room_id,CONCAT(apps.date,'T',slots.start_time,'Z') start_time,slots.slot_time,CONCAT(docs.first_name + ' ' + docs.last_name) doctor_name,CONCAT(users.first_name + ' ' + users.last_name) user_name ,docs.fb_token_id as 'doctor_token', users.fb_token_id as 'user_token' FROM appointments apps LEFT JOIN slots ON apps.slot_id = slots.slot_id LEFT JOIN doctors docs ON slots.doctor_id = docs.doctor_id LEFT JOIN users ON apps.user_id = users.user_id WHERE (apps.appointment_status = 'upcoming' OR apps.appointment_status = 'running') ", {
@@ -393,5 +405,6 @@ module.exports = {
     getAppointmentInfo,
     getAppointmentsInfo,
     cancelAppsByDoctor,
-    cancelAppsByUser
+    cancelAppsByUser,
+    getStartTimeByRoom
 }
