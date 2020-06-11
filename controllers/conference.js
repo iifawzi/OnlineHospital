@@ -19,7 +19,7 @@ const checkConference = async (req, res, next) => {
         id: 837387,
         name: name,
         start_time: appointment.start_time,
-        duration: 3600,
+        duration: 60,
     }
     console.log(room_info);
    return res.status(200).json(room_info);
