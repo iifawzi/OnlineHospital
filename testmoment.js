@@ -56,5 +56,5 @@ var moment = require('moment'); // require
 // console.log(remainingTime);
 
 
-const err = new Error("hala wallah");
-console.log(err.message);
+// const err = new Error("hala wallah");
+// console.log(err.message);

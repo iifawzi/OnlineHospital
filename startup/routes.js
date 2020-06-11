@@ -9,6 +9,7 @@ const slotsRouter = require("../routes/slots");
 const appointmentsRouter = require("../routes/appointments");
 const prescriptionRouter = require("../routes/prescriptions");
 const messagesRouter = require("../routes/messages");
+const conferenceRouter = require("../routes/conferences");
 const bodyParser = require("body-parser");
 const cors = require("cors");
 module.exports = (app) => {
@@ -42,6 +43,7 @@ app.use( // for images uploading:
   app.use("/api/appointments",appointmentsRouter);
   app.use("/api/messages",messagesRouter);
   app.use("/api/prescriptions",prescriptionRouter);
+  app.use("/api/conference",conferenceRouter);
 
 
 
