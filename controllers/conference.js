@@ -5,7 +5,8 @@ const {getStartTimeByRoom} = require("../models/appointments");
 
 const checkConference = async (req, res, next) => {
   try {
-    const {name,start_time,mail_owner} = req.body;
+    const {name,start_time} = req.body;
+    console.log(req.body);
     const appointment = await getStartTimeByRoom(name, res);
     const {slot_time } = appointment;
     let end_time = moment(appointment.start_time)
@@ -19,7 +20,6 @@ const checkConference = async (req, res, next) => {
         'name': name,
         'start_time': start_time,
         'duration': remainingTime,
-        'mail_owner': mail_owner,
     }
     console.log(room_info);
    return res.status(200).json(room_info);
