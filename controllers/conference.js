@@ -9,6 +9,7 @@ const checkConference = async (req, res, next) => {
       console.log(appointment_id);
       console.log(req.body);
     const appointment = await getAppointmentInfo(appointment_id, res);
+    console.log(appointment);
     const { start_time, slot_time } = appointment;
     let end_time = moment(start_time)
       .add(slot_time, "m")
