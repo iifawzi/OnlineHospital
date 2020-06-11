@@ -21,6 +21,7 @@ const checkConference = async (req, res, next) => {
         start_time: moment().format(),
         duration: remainingTime,
     }
+    console.log(room_info);
     return respond(true,200,room_info,res);
 
   } catch (err) {
