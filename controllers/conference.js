@@ -21,6 +21,7 @@ const checkConference = async (req, res, next) => {
         'duration': remainingTime,
         'mail_owner': 'user@server.com',
     }
+    console.log(room_info);
    return res.status(200).json(room_info);
   } catch (err) {
     handleError(err, res);
