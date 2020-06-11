@@ -20,7 +20,7 @@ const checkConference = async (req, res, next) => {
         id: Number(moment().format("x")),
         name: name,
         start_time: start_time,
-        duration: 60,
+        duration: 30,
     }
    return res.status(200).json(room_info);
     }else {
