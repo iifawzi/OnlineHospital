@@ -358,7 +358,7 @@ const getAppointmentInfo = async function(appointment_id,res){ // for tasks and 
 
 const getStartTimeByRoom = async function(room_id,res){ // for jitsi (getting info by room_id)
     try {
-        const appInfo = await db.query("SELECT CONCAT(apps.date,'T',slots.start_time,'Z') start_time FROM appointments apps LEFT JOIN slots ON apps.slot_id = slots.slot_id WHERE apps.room_id = '1591904666457'  ", {
+        const appInfo = await db.query("SELECT CONCAT(apps.date,'T',slots.start_time,'Z') start_time, slots.slot_time FROM appointments apps LEFT JOIN slots ON apps.slot_id = slots.slot_id WHERE apps.room_id = ?  ", {
             replacements: [room_id],
             type: Sequelize.QueryTypes.SELECT,
         });
