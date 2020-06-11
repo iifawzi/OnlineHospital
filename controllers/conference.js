@@ -13,7 +13,7 @@ const checkConference = async (req, res, next) => {
       .format("YYYY-MM-DD HH:mm:ss");
     let currentTime = moment().utc();
     let finish_time = moment(end_time).utc();
-    let remainingTime = finish_time.diff(currentTime,'seconds', true);
+    let remainingTime = finish_time.diff(currentTime,'seconds');
     const room_info = {
         'id': room_id,
         'name': room_id,
