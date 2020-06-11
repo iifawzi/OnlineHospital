@@ -16,7 +16,7 @@ const checkConference = async (req, res, next) => {
     let finish_time = moment(end_time).utc();
     let remainingTime = finish_time.diff(currentTime,'seconds');
     const room_info = {
-        id: name+5,
+        id: 364758328,
         name: name,
         start_time: start_time,
         duration: remainingTime,
