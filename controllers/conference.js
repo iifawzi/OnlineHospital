@@ -6,6 +6,8 @@ const {getAppointmentInfo} = require("../models/appointments");
 const checkConference = async (req, res, next) => {
   try {
       const appointment_id = req.body.name;
+      console.log(appointment_id);
+      console.log(req.body);
     const appointment = await getAppointmentInfo(appointment_id, res);
     const { start_time, slot_time } = appointment;
     let end_time = moment(start_time)
@@ -22,8 +24,7 @@ const checkConference = async (req, res, next) => {
         duration: remainingTime,
     }
     console.log(room_info);
-    return respond(true,200,room_info,res);
-
+   return res.status(200).json(room_info);
   } catch (err) {
     handleError(err, res);
   }
