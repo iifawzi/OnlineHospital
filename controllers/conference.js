@@ -4,7 +4,7 @@ const respond = require("../middleware/respond");
 
 const checkConference = async  (req,res,next)=>{
     try {
-        return respond(true,200,req.body,res);
+     console.log(req.body);
     }
     catch(err){
         handleError(err,res);
