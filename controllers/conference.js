@@ -15,14 +15,18 @@ const checkConference = async (req, res, next) => {
     let currentTime = moment().utc();
     let finish_time = moment(end_time).utc();
     let remainingTime = finish_time.diff(currentTime,'seconds');
-    const room_info = {
+    if (remainingTime > 0 ){
+      const room_info = {
         id: Number(moment().format("x")),
         name: name,
         start_time: start_time,
         duration: 60,
     }
-    console.log(room_info);
    return res.status(200).json(room_info);
+    }else {
+      return res.status(400).json({message: "You're not allowed to join this video call"});
+    }
+
   } catch (err) {
     handleError(err, res);
   }
