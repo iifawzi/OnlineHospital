@@ -91,10 +91,8 @@ describe("/api/prescriptions",async()=>{
 
     describe("/getPrescription",async()=>{
         it("Should respond 401 if not Authorized",async()=>{
-            const token = genToken("0109034748",1,"user");
             let res = await request(server)
             .post("/api/prescriptions/getPrescription")
-            .set("Authorization", `Bearer ${token}`)
             .expect(401);
         });
         it("Should respond with 400 if room_id is missing or incorrect", async()=>{
