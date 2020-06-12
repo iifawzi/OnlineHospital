@@ -45,6 +45,7 @@ exports.main = (io)=>{
 
 //  `Join User a room` 
 socket.on("joinUserToRoom", (room_id)=>{
+    socket.join(room_id);
     socket.currentRoom = room_id;
     if (getRoomInfo(room_id) == null){
         try {
