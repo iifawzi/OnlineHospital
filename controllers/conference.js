@@ -20,11 +20,11 @@ const checkConference = async (req, res, next) => {
         id: Number(moment().format("x")),
         name: name,
         start_time: start_time,
-        duration: 30,
+        duration: remainingTime,
     }
-   return res.status(200).json(room_info);
+    return res.status(200).json(room_info);
     }else {
-      return res.status(400).json({message: "You're not allowed to join this video call"});
+      return res.status(403).json({message: "You're not allowed to join this video call"});
     }
 
   } catch (err) {

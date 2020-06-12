@@ -22,7 +22,6 @@ exports.main = (io)=>{
             socket.role = "doctor";
             socket.name = name;
             socket.myId = doctor_id;
-            addDoctor(doctor_id,socket.id);
         })
 
       // `User joined the system`:  
@@ -46,13 +45,19 @@ exports.main = (io)=>{
 
 //  `Join User a room` 
 socket.on("joinUserToRoom", (room_id)=>{
-    console.log("user joineddddd to rooooom");
-    socket.join(room_id)
     socket.currentRoom = room_id;
     if (getRoomInfo(room_id) == null){
-        addRoom(room_id);
+        try {
+            addRoom(room_id);
+        }catch {
+            console.log("error adding room");
+        }
     }
-    addUserToRoom(room_id);
+    try {
+        addUserToRoom(room_id);
+    }catch {
+        console.log("error adding user to room");
+    }
     const oldMessages = messagesFromRoom(socket.currentRoom).then(messages=>{
         if (messages.length != 0){
             messages.map(msg=>{
@@ -84,9 +89,18 @@ socket.on("joinDoctorToRoom",(room_id)=>{
     socket.join(room_id);
     socket.currentRoom = room_id;
     if (getRoomInfo(room_id) == null){
-        addRoom(room_id);
+        try {
+            addRoom(room_id);
+        }catch {
+            console.log("error adding room");
+        }
+
     }
-    addDoctorToRoom(room_id);
+    try {
+        addDoctorToRoom(room_id);
+    }catch {
+        console.log("error adding doctor to room");
+    }
     const oldMessages = messagesFromRoom(socket.currentRoom).then(messages=>{
         if (messages.length != 0){
             messages.map(msg=>{
@@ -119,7 +133,12 @@ socket.on("sendMessage",(message)=>{
         sender:socket.role,
         sender_name: socket.name
     }
-    addNewMessage(info);
+    try {
+        addNewMessage(info);
+    }catch {
+        console.log("error adding msg to db");
+    }
+
     io.to(socket.currentRoom).emit('message', { user: socket.name, message: message, role: socket.role });
 })
 
@@ -140,7 +159,11 @@ socket.on("uploadImage",(imageName)=>{
         sender:socket.role,
         sender_name: socket.name
     }
-    addNewMessage(info);
+    try {
+        addNewMessage(info);
+    }catch {
+        console.log("error adding msg to db");
+    }
     io.to(socket.currentRoom).emit('imageUploaded', { user: socket.name, image: imageName, role: socket.role });
 });
 ////////////////////////////////////////////////////////// ? DISCONNECTING FROM THE SYSTEM //////////////////////////////////////////////////////////////////
@@ -149,23 +172,32 @@ socket.on("uploadImage",(imageName)=>{
         socket.on("disconnect",()=>{
             //  if the socket that leaved is a doctor remove its socket info from the doctors array : 
             if (socket.role === 'doctor'){
-                deleteDoctor(socket.myId);
                 if (socket.currentRoom != null){
             socket.to(socket.currentRoom).emit("message",{user:"System:",message:"Doctor left the clinic.",role:"system"});    
-                    removeDoctorFromRoom(socket.currentRoom);
-                    if (getRoomInfo(socket.currentRoom).user == undefined){
-                        deleteRoom(socket.currentRoom);
-                    }
+            try {
+                removeDoctorFromRoom(socket.currentRoom);
+                if (getRoomInfo(socket.currentRoom).user == undefined){
+                    deleteRoom(socket.currentRoom);
+                }
+            }catch {
+                console.log("error while doctor disconnecting and deleting the doctor from the room")
+            }
+               
                 }
 
                      //  if the socket that leaved is a user: 
             }else if (socket.role === 'user'){
                 if (socket.currentRoom != null){
                     socket.to(socket.currentRoom).emit("message",{user:"System:",message:"User left the clinic.",role:"system"})    
-                    removeUserFromRoom(socket.currentRoom);
-                    if (getRoomInfo(socket.currentRoom).doctor == undefined){
-                        deleteRoom(socket.currentRoom);
+                    try {
+                        removeUserFromRoom(socket.currentRoom);
+                        if (getRoomInfo(socket.currentRoom).doctor == undefined){
+                            deleteRoom(socket.currentRoom);
+                        }
+                    }catch {
+                console.log("error while user disconnecting and deleting the user from the room")
                     }
+
                 }
             }
         })
@@ -175,33 +207,9 @@ socket.on("uploadImage",(imageName)=>{
 
 ////////////////////////////////////////////////////////// ? METHODS //////////////////////////////////////////////////////////////////
 
-
-// DOCTORS METHODS:
-const doctors = [];
-
-const addDoctor = (doctor_id,socket_id)=>{
-    doctors[doctor_id] = socket_id
-}
-
-const deleteDoctor = (doctor_id)=>{
-    doctors.splice(doctor_id,1);
-}
-
-const getDoctor = (doctor_id)=>{
-    return doctors[doctor_id] || null;
-}
-
-const getDoctors = ()=>{
-    return doctors;
-}
-
 // ROOMS METHODS:
 
 const onlineRooms = {};
-
-const getRooms = ()=>{
-    return onlineRooms;
-}
 
 const getRoomInfo = (room_id)=>{
     return onlineRooms[room_id] || null;
@@ -236,6 +244,6 @@ const isUserInRoom = (room_id)=>{
 }
 
 const removeUserFromRoom = (room_id)=>{
-    delete onlineRooms[room_id].user;
+        delete onlineRooms[room_id].user;
 }
 

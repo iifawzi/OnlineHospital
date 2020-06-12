@@ -55,6 +55,24 @@ var moment = require('moment'); // require
 // let remainingTime = finish_time.diff(currentTime,true);  // in milliseconds
 // console.log(remainingTime);
 
-console.log(typeof(Number(moment().format("x"))))
-// const err = new Error("hala wallah");
-// console.log(err.message);
+// console.log(typeof(Number(moment().format("x"))))
+// // const err = new Error("hala wallah");
+// // console.log(err.message);
+const onlineRooms = {}
+const removeDoctorFromRoom = (room_id)=>{
+    if (onlineRooms[room_id]){
+        delete onlineRooms[room_id].doctor;
+    }
+}
+const addRoom = (room_id)=>{
+    onlineRooms[room_id] = {};
+};
+
+const object = {
+    socketRoom : 4398498,
+}
+// addRoom(4398498);
+removeDoctorFromRoom(4398498);
+
+
+
