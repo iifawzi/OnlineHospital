@@ -55,6 +55,16 @@ doctor_joined:{
     type:Sequelize.BOOLEAN,
     allowNull:false,
     defaultValue: false,
+},
+user_status:{
+    type:Sequelize.BOOLEAN,
+    allowNull:false,
+    defaultValue: false,
+},
+doctor_status:{
+    type:Sequelize.BOOLEAN,
+    allowNull:false,
+    defaultValue: false,
 }
 },{
     indexes: [
@@ -292,6 +302,7 @@ const setUser_joined = async function(appointment_id,res){
     try {
         const appointment = await appointments.findOne({where:{appointment_id}});
         appointment.user_joined = true;
+        appointment.user_status = true;
         await appointment.save();
        
         return appointment;
@@ -304,10 +315,42 @@ const setDoctor_joined = async function(appointment_id,res){
     try {
         const appointment = await appointments.findOne({where:{appointment_id}});
         appointment.doctor_joined = true;
+        appointment.doctor_status = true;
         await appointment.save();
         return appointment;
     }catch(err){
         handleError(err,res);
+    }
+}
+
+const setUser_status = async function(status,room_id){
+    try {
+        const appointment = await appointments.findOne({where:{room_id}});
+        appointment.user_status = status;
+        await appointment.save();
+        return true;
+    }catch(err){
+        console.log("Error while setUser_status", err);
+    }
+}
+
+const setDoctor_status = async function(status,room_id){
+    try {
+        const appointment = await appointments.findOne({where:{room_id}});
+        appointment.doctor_status = status;
+        await appointment.save();
+        return true;
+    }catch(err){
+        console.log("Error while setDoctor_status", err);
+    }
+}
+
+const get_status = async function(room_id){ // get the status of user and doctor for specific room: 
+    try {
+        const status = await appointments.findOne({where:{room_id},  attributes: ['user_status', 'doctor_status']});
+        return status;
+    }catch(err){
+        console.log("Error while finding status", err);
     }
 }
 
@@ -406,5 +449,8 @@ module.exports = {
     getAppointmentsInfo,
     cancelAppsByDoctor,
     cancelAppsByUser,
-    getStartTimeByRoom
+    getStartTimeByRoom,
+    setDoctor_status,
+    setUser_status, 
+    get_status
 }

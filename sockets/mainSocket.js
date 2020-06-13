@@ -1,5 +1,6 @@
 const moment = require('moment'); 
 const {addNewMessage,messagesFromRoom} = require("../models/messages");
+const {setUser_status,setDoctor_status,get_status} = require("../models/appointments");
 const upload = require("../middleware/upload");
 
 exports.main = (io)=>{
@@ -26,6 +27,7 @@ exports.main = (io)=>{
 
       // `User joined the system`:  
         socket.on("userJoined",(user_id,name,end_time)=>{
+            console.log(end_time);
                         // TIME SETTINGS: 
                         let currentTime = moment().utc();
                         let finish_time = moment(end_time).utc();
@@ -47,18 +49,6 @@ exports.main = (io)=>{
 socket.on("joinUserToRoom", (room_id)=>{
     socket.join(room_id);
     socket.currentRoom = room_id;
-    if (getRoomInfo(room_id) == null){
-        try {
-            addRoom(room_id);
-        }catch {
-            console.log("error adding room");
-        }
-    }
-    try {
-        addUserToRoom(room_id);
-    }catch {
-        console.log("error adding user to room");
-    }
     const oldMessages = messagesFromRoom(socket.currentRoom).then(messages=>{
         if (messages.length != 0){
             messages.map(msg=>{
@@ -67,17 +57,17 @@ socket.on("joinUserToRoom", (room_id)=>{
                 }else if(msg.type === 'image') {
                     socket.emit("imageUploaded", {user:msg.sender_name,image:msg.message,role:msg.sender});
                 }
-               
             });
         }
     socket.emit("message",{user:"System", message:"Welcome to the clinic.",role:"system"})
-    // if doctor is still not connected to the room: 
-    if (isDoctorInRoom(room_id) == null){
-    socket.emit("message",{user:"System", message:"Doctor is not available, please wait.",role:"system"});
-    }else {   // if doctor is connected to the system:
+    const getStatus = get_status(socket.currentRoom).then(status=>{
+        if (status.doctor_status === false){
+            socket.emit("message",{user:"System", message:"Doctor is not available, please wait.",role:"system"});
+        }else {  
         socket.emit("message",{user:"System", message:"Doctor Joined the clinic. ",role:"system"});
-    socket.to(room_id).emit("message",{user:"System:",message:"User Joined the clinic.",role:"system"})
-    }
+        socket.to(room_id).emit("message",{user:"System:",message:"User Joined the clinic.",role:"system"})
+        }
+    })
     }).catch(err=>{
         console.log(err);
     });
@@ -89,19 +79,6 @@ socket.on("joinUserToRoom", (room_id)=>{
 socket.on("joinDoctorToRoom",(room_id)=>{
     socket.join(room_id);
     socket.currentRoom = room_id;
-    if (getRoomInfo(room_id) == null){
-        try {
-            addRoom(room_id);
-        }catch {
-            console.log("error adding room");
-        }
-
-    }
-    try {
-        addDoctorToRoom(room_id);
-    }catch {
-        console.log("error adding doctor to room");
-    }
     const oldMessages = messagesFromRoom(socket.currentRoom).then(messages=>{
         if (messages.length != 0){
             messages.map(msg=>{
@@ -110,16 +87,17 @@ socket.on("joinDoctorToRoom",(room_id)=>{
                 }else if(msg.type === 'image') {
                     socket.emit("imageUploaded", {user:msg.sender_name,image:msg.message,role:msg.sender});
                 }
-               
             });
         };
     socket.emit("message",{user:"System", message:"Welcome doctor to the clinic.",role:"system"});  
-    if (isUserInRoom(room_id) == null){
-        socket.emit("message",{user:"System", message:"User didn't join until now, please wait.",role:"system"});
-        }else {   // if user is connected to the system:
+    const getStatus = get_status(socket.currentRoom).then(status=>{
+        if (status.user_status === false){
+            socket.emit("message",{user:"System", message:"User didn't join until now, please wait.",role:"system"});
+        }else {  
             socket.emit("message",{user:"System", message:"User Joined the clinic.",role:"system"});
-            socket.to(room_id).emit("message",{user:"System:",message:"Doctor Joined the clinic",role:"system"})    
+            socket.to(room_id).emit("message",{user:"System:",message:"Doctor Joined the clinic",role:"system"});
         }
+    })
     }).catch(err=>{
         console.log(err);
     });
@@ -171,80 +149,13 @@ socket.on("uploadImage",(imageName)=>{
 
         // When Socket disconnects from the System: 
         socket.on("disconnect",()=>{
-            //  if the socket that leaved is a doctor remove its socket info from the doctors array : 
-            if (socket.role === 'doctor'){
-                if (socket.currentRoom != null){
+            if (socket.role === 'doctor' && socket.currentRoom){
+                setDoctor_status(false,socket.currentRoom);
             socket.to(socket.currentRoom).emit("message",{user:"System:",message:"Doctor left the clinic.",role:"system"});    
-            try {
-                removeDoctorFromRoom(socket.currentRoom);
-                if (getRoomInfo(socket.currentRoom).user == undefined){
-                    deleteRoom(socket.currentRoom);
-                }
-            }catch {
-                console.log("error while doctor disconnecting and deleting the doctor from the room")
-            }
-               
-                }
-
-                     //  if the socket that leaved is a user: 
-            }else if (socket.role === 'user'){
-                if (socket.currentRoom != null){
-                    socket.to(socket.currentRoom).emit("message",{user:"System:",message:"User left the clinic.",role:"system"})    
-                    try {
-                        removeUserFromRoom(socket.currentRoom);
-                        if (getRoomInfo(socket.currentRoom).doctor == undefined){
-                            deleteRoom(socket.currentRoom);
-                        }
-                    }catch {
-                console.log("error while user disconnecting and deleting the user from the room")
-                    }
-
-                }
+            }else if (socket.role === 'user' && socket.currentRoom){
+                setUser_status(false,socket.currentRoom);
+            socket.to(socket.currentRoom).emit("message",{user:"System:",message:"User left the clinic.",role:"system"});    
             }
         })
     })
 }
-
-
-////////////////////////////////////////////////////////// ? METHODS //////////////////////////////////////////////////////////////////
-
-// ROOMS METHODS:
-
-const onlineRooms = {};
-
-const getRoomInfo = (room_id)=>{
-    return onlineRooms[room_id] || null;
-}
-
-const addRoom = (room_id)=>{
-    onlineRooms[room_id] = {};
-};
-
-const deleteRoom = (room_id)=>{
-    delete onlineRooms[room_id];
-};
-
-const addDoctorToRoom = (room_id)=>{
-    onlineRooms[room_id].doctor = true;
-}
-
-const isDoctorInRoom = (room_id)=>{
-    return onlineRooms[room_id].doctor || null;
-}
-
-const removeDoctorFromRoom = (room_id)=>{
-    delete onlineRooms[room_id].doctor;
-}
-
-const addUserToRoom = (room_id)=>{
-    onlineRooms[room_id].user = true;
-}
-
-const isUserInRoom = (room_id)=>{
-    return onlineRooms[room_id].user || null;
-}
-
-const removeUserFromRoom = (room_id)=>{
-        delete onlineRooms[room_id].user;
-}
-
