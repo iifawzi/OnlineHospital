@@ -51,9 +51,14 @@ const addNewMessage = async(info)=>{
 }
 
 
-const messagesFromRoom = async(room_id)=>{
+const messagesFromRoom = async(room_id)=>{ // to get the room's messages (this is used in sockets so i didn't include error handling)
+try {
     const oldMessages = await messages.findAll({where:{room_id}});
     return oldMessages;
+}catch(err){
+    console.log("error while getting messages from room:  ", err);
+}
+
 }
 
 
