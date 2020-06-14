@@ -46,7 +46,7 @@ const slots = db.define("slots",{
 )
 
 
-const addSlot = async (data,res)=>{
+const addSlot = async (data,res)=>{ // to add a new slot
     try {
         const slot = await slots.create(data);
         return slot;
@@ -78,6 +78,7 @@ const getDocOpenSlots = async function(info,res){ // this api will return the sl
             type: Sequelize.QueryTypes.SELECT,
         });
         // AND BINARY slots.start_time > BINARY addtime(time(now()), '00:11:00')
+        //TODO:: ADD THE MINIMUM TIME TO BE ABLE TO PRESERVE AN APPOINTMENT
         return slots;
     }catch(err){
         handleError(err,res);
