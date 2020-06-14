@@ -83,9 +83,9 @@ doctor_status:{
 }
 )
 
+// Interacting with the appointment section : 
 
-
-const addNewAppointment = async function(data,res){
+const addNewAppointment = async function(data,res){ // add new appointment (this what is used to submit an pending appointment 'before payment')
     try {
         const room_id = moment().format("x");
         data.room_id = room_id
@@ -98,7 +98,7 @@ const addNewAppointment = async function(data,res){
 }
 
 
-const addConfirmNewAppointment = async function(data,res){
+const addConfirmNewAppointment = async function(data,res){ // add confirmed appointment (this is used in control panel)
     try {
         data.appointment_status = "upcoming"
         const room_id = moment().format("x");
@@ -112,102 +112,12 @@ const addConfirmNewAppointment = async function(data,res){
 }
 
 
-const deleteAppointment = async function(appointment_id){
+const deleteAppointment = async function(appointment_id){ // to delete an appointment
     const deleted = await appointments.destroy({ where: { appointment_id } });
     return deleted;
 }
 
-const userApps = async function(user_id,res){
-    try {
-        const appointments =  await db.query("SELECT apps.date, apps.appointment_id,apps.room_id,docs.first_name,docs.last_name,cats.ar,cats.en,apps.updatedAt,apps.appointment_status,slots.start_time,slots.slot_time, slots.day FROM appointments apps INNER JOIN slots ON apps.slot_id = slots.slot_id INNER JOIN doctors docs ON slots.doctor_id = docs.doctor_id INNER JOIN categories cats ON cats.category_id = docs.category_id WHERE apps.user_id = ? ORDER BY apps.appointment_id DESC",{
-            replacements: [user_id],
-            type: Sequelize.QueryTypes.SELECT,
-        });
-        return appointments;
-    }catch(err){
-        handleError(err,res);
-    }
-}
-
-
-
-const upcomingApps = async function(user_id,res){
-    try {
-        const appointments =  await db.query("SELECT apps.appointment_id,docs.first_name,docs.last_name,apps.appointment_status,CONCAT(apps.date,'T',slots.start_time,'Z') start_time,slots.slot_time,cats.ar,cats.en, slots.day FROM appointments apps INNER JOIN slots ON apps.slot_id = slots.slot_id INNER JOIN doctors docs ON slots.doctor_id = docs.doctor_id INNER JOIN categories cats ON cats.category_id = docs.category_id WHERE apps.user_id = ? AND (apps.appointment_status = 'upcoming' OR apps.appointment_status = 'running') ORDER BY apps.appointment_id DESC",{
-            replacements: [user_id],
-            type: Sequelize.QueryTypes.SELECT,
-        });
-        return appointments;
-    }catch(err){
-        handleError(err,res);
-    }
-}
-
-
-const finishedApps = async function(user_id,res){
-    try {
-        const appointments =  await db.query("SELECT CONCAT(apps.date,'T',slots.start_time,'Z') start_time, apps.appointment_id,apps.room_id,docs.first_name,docs.last_name,apps.appointment_status,slots.day,cats.ar,cats.en FROM appointments apps INNER JOIN slots ON apps.slot_id = slots.slot_id INNER JOIN doctors docs ON slots.doctor_id = docs.doctor_id INNER JOIN categories cats ON cats.category_id = docs.category_id WHERE apps.user_id = ? AND apps.appointment_status = 'finished' ORDER BY apps.appointment_id DESC",{
-            replacements: [user_id],
-            type: Sequelize.QueryTypes.SELECT,
-        });
-        return appointments;
-    }catch(err){
-        handleError(err,res);
-    }
-}
-const doctorUpcomingApps = async function(doctor_id,res){
-    try {
-        const appointments =  await db.query("SELECT apps.appointment_id,users.first_name,users.last_name,apps.appointment_status,CONCAT(apps.date,'T',slots.start_time,'Z') start_time,slots.slot_time, slots.day FROM appointments apps INNER JOIN slots ON apps.slot_id = slots.slot_id INNER JOIN users ON users.user_id = apps.user_id INNER JOIN doctors docs ON slots.doctor_id = docs.doctor_id INNER JOIN categories cats ON cats.category_id = docs.category_id WHERE slots.doctor_id = ? AND (apps.appointment_status = 'upcoming' OR apps.appointment_status = 'running') ORDER BY apps.appointment_id DESC",{
-            replacements: [doctor_id],
-            type: Sequelize.QueryTypes.SELECT,
-        });
-        return appointments;
-    }catch(err){
-        handleError(err,res);
-    }
-}
-
-
-const doctorFinishedApps = async function(doctor_id,res){
-    try {
-        const appointments =  await db.query("SELECT CONCAT(apps.date,'T',slots.start_time,'Z') start_time, apps.appointment_id,apps.room_id,users.first_name,users.last_name,apps.appointment_status,slots.day FROM appointments apps INNER JOIN slots ON apps.slot_id = slots.slot_id INNER JOIN users ON users.user_id = apps.user_id INNER JOIN doctors docs ON slots.doctor_id = docs.doctor_id INNER JOIN categories cats ON cats.category_id = docs.category_id WHERE slots.doctor_id = ? AND apps.appointment_status = 'finished' ORDER BY apps.appointment_id DESC",{
-            replacements: [doctor_id],
-            type: Sequelize.QueryTypes.SELECT,
-        });
-        return appointments;
-    }catch(err){
-        handleError(err,res);
-    }
-}
-
-
-const docApps = async function(doctor_id,res){
-    try {
-        const appointments =  await db.query("SELECT users.first_name,users.last_name,apps.date, apps.appointment_id,apps.room_id, apps.appointment_status,apps.updatedAt,slots.start_time,slots.slot_time, slots.day FROM appointments apps INNER JOIN users ON users.user_id = apps.user_id INNER JOIN slots ON apps.slot_id = slots.slot_id INNER JOIN doctors docs ON slots.doctor_id = docs.doctor_id WHERE slots.doctor_id = ? ORDER BY apps.appointment_id DESC",{
-            replacements: [doctor_id],
-            type: Sequelize.QueryTypes.SELECT,
-        });
-        return appointments;
-    }catch(err){
-        handleError(err,res);
-    }
-}
-
-// Will return the appointmnents at specific date (for doctors appliction):
-const docAppsDate = async function(doctor_id,date,res){
-    try {
-        const appointments =  await db.query("SELECT users.first_name,users.last_name,apps.date, apps.appointment_id,apps.appointment_status,slots.start_time,slots.slot_time, slots.day, users.picture FROM appointments apps INNER JOIN users ON users.user_id = apps.user_id INNER JOIN slots ON apps.slot_id = slots.slot_id INNER JOIN doctors docs ON slots.doctor_id = docs.doctor_id WHERE slots.doctor_id = ? AND apps.date = ? AND apps.appointment_status != 'pending' ORDER BY apps.appointment_id DESC",{
-            replacements: [doctor_id,date],
-            type: Sequelize.QueryTypes.SELECT,
-        });
-        return appointments;
-    }catch(err){
-        handleError(err,res);
-    }
-}
-
-
-const cancelApp = async function(appointment_id,res){
+const cancelApp = async function(appointment_id,res){ // to cancel the appointment
     try {
         const getApp = await appointments.findOne({where:{appointment_id}});
         getApp.appointment_status = 'canceled';
@@ -219,7 +129,7 @@ handleError(err,res)
 }
 
 
-const confirmApp = async function(appointment_id,res){
+const confirmApp = async function(appointment_id,res){ // to confirm the appointment after successfull payment.
     try {
         const getApp = await appointments.findOne({where:{appointment_id}});
         getApp.appointment_status = 'upcoming';
@@ -230,7 +140,7 @@ handleError(err,res)
     }
 }
 
-const runApp = async function(appointment_id,res){
+const runApp = async function(appointment_id,res){ // if it's the time to run the appointment
     try {
         const getApp = await appointments.findOne({where:{appointment_id}});
         getApp.appointment_status = 'running';
@@ -241,7 +151,7 @@ handleError(err,res)
     }
 }
 
-const finishApp = async function(appointment_id,res){
+const finishApp = async function(appointment_id,res){ // if appointment is finished
     try {
         const getApp = await appointments.findOne({where:{appointment_id}});
         getApp.appointment_status = 'finished';
@@ -286,7 +196,95 @@ handleError(err,res)
     }
 }
 
-const getAppointment = async function(appointment_id,res){
+
+
+// Getting Appointments section: 
+
+const userApps = async function(user_id,res){ // to get the user Appointments for controlPanel use. 
+    try {
+        const appointments =  await db.query("SELECT apps.date, apps.appointment_id,apps.room_id,docs.first_name,docs.last_name,cats.ar,cats.en,apps.updatedAt,apps.appointment_status,slots.start_time,slots.slot_time, slots.day FROM appointments apps INNER JOIN slots ON apps.slot_id = slots.slot_id INNER JOIN doctors docs ON slots.doctor_id = docs.doctor_id INNER JOIN categories cats ON cats.category_id = docs.category_id WHERE apps.user_id = ? ORDER BY apps.appointment_id DESC",{
+            replacements: [user_id],
+            type: Sequelize.QueryTypes.SELECT,
+        });
+        return appointments;
+    }catch(err){
+        handleError(err,res);
+    }
+}
+
+const docApps = async function(doctor_id,res){ // to get the doctor Appointments for controlPanel use.
+    try {
+        const appointments =  await db.query("SELECT users.first_name,users.last_name,apps.date, apps.appointment_id,apps.room_id, apps.appointment_status,apps.updatedAt,slots.start_time,slots.slot_time, slots.day FROM appointments apps INNER JOIN users ON users.user_id = apps.user_id INNER JOIN slots ON apps.slot_id = slots.slot_id INNER JOIN doctors docs ON slots.doctor_id = docs.doctor_id WHERE slots.doctor_id = ? ORDER BY apps.appointment_id DESC",{
+            replacements: [doctor_id],
+            type: Sequelize.QueryTypes.SELECT,
+        });
+        return appointments;
+    }catch(err){
+        handleError(err,res);
+    }
+}
+
+const upcomingApps = async function(user_id,res){ // to get the upcoming / running appointments only (for user's application)
+    try {
+        const appointments =  await db.query("SELECT apps.appointment_id,docs.first_name,docs.last_name,apps.appointment_status,CONCAT(apps.date,'T',slots.start_time,'Z') start_time,slots.slot_time,cats.ar,cats.en, slots.day FROM appointments apps INNER JOIN slots ON apps.slot_id = slots.slot_id INNER JOIN doctors docs ON slots.doctor_id = docs.doctor_id INNER JOIN categories cats ON cats.category_id = docs.category_id WHERE apps.user_id = ? AND (apps.appointment_status = 'upcoming' OR apps.appointment_status = 'running') ORDER BY apps.appointment_id DESC",{
+            replacements: [user_id],
+            type: Sequelize.QueryTypes.SELECT,
+        });
+        return appointments;
+    }catch(err){
+        handleError(err,res);
+    }
+}
+
+const finishedApps = async function(user_id,res){   // to get the finished appointments only (for user's application)
+    try {
+        const appointments =  await db.query("SELECT CONCAT(apps.date,'T',slots.start_time,'Z') start_time, apps.appointment_id,apps.room_id,docs.first_name,docs.last_name,apps.appointment_status,slots.day,cats.ar,cats.en FROM appointments apps INNER JOIN slots ON apps.slot_id = slots.slot_id INNER JOIN doctors docs ON slots.doctor_id = docs.doctor_id INNER JOIN categories cats ON cats.category_id = docs.category_id WHERE apps.user_id = ? AND apps.appointment_status = 'finished' ORDER BY apps.appointment_id DESC",{
+            replacements: [user_id],
+            type: Sequelize.QueryTypes.SELECT,
+        });
+        return appointments;
+    }catch(err){
+        handleError(err,res);
+    }
+}
+
+const doctorUpcomingApps = async function(doctor_id,res){ // to get the upcoming doctor's appointments (for doctor's application)
+    try {
+        const appointments =  await db.query("SELECT apps.appointment_id,users.first_name,users.last_name,apps.appointment_status,CONCAT(apps.date,'T',slots.start_time,'Z') start_time,slots.slot_time, slots.day FROM appointments apps INNER JOIN slots ON apps.slot_id = slots.slot_id INNER JOIN users ON users.user_id = apps.user_id INNER JOIN doctors docs ON slots.doctor_id = docs.doctor_id INNER JOIN categories cats ON cats.category_id = docs.category_id WHERE slots.doctor_id = ? AND (apps.appointment_status = 'upcoming' OR apps.appointment_status = 'running') ORDER BY apps.appointment_id DESC",{
+            replacements: [doctor_id],
+            type: Sequelize.QueryTypes.SELECT,
+        });
+        return appointments;
+    }catch(err){
+        handleError(err,res);
+    }
+}
+
+const doctorFinishedApps = async function(doctor_id,res){ // to get the finished doctor's appointments (for doctor's application)
+    try {
+        const appointments =  await db.query("SELECT CONCAT(apps.date,'T',slots.start_time,'Z') start_time, apps.appointment_id,apps.room_id,users.first_name,users.last_name,apps.appointment_status,slots.day FROM appointments apps INNER JOIN slots ON apps.slot_id = slots.slot_id INNER JOIN users ON users.user_id = apps.user_id INNER JOIN doctors docs ON slots.doctor_id = docs.doctor_id INNER JOIN categories cats ON cats.category_id = docs.category_id WHERE slots.doctor_id = ? AND apps.appointment_status = 'finished' ORDER BY apps.appointment_id DESC",{
+            replacements: [doctor_id],
+            type: Sequelize.QueryTypes.SELECT,
+        });
+        return appointments;
+    }catch(err){
+        handleError(err,res);
+    }
+}
+
+const docAppsDate = async function(doctor_id,date,res){ // Will return the appointmnents at specific date (for doctors appliction):
+    try {
+        const appointments =  await db.query("SELECT users.first_name,users.last_name,apps.date, apps.appointment_id,apps.appointment_status,slots.start_time,slots.slot_time, slots.day, users.picture FROM appointments apps INNER JOIN users ON users.user_id = apps.user_id INNER JOIN slots ON apps.slot_id = slots.slot_id INNER JOIN doctors docs ON slots.doctor_id = docs.doctor_id WHERE slots.doctor_id = ? AND apps.date = ? AND apps.appointment_status != 'pending' ORDER BY apps.appointment_id DESC",{
+            replacements: [doctor_id,date],
+            type: Sequelize.QueryTypes.SELECT,
+        });
+        return appointments;
+    }catch(err){
+        handleError(err,res);
+    }
+}
+
+const getAppointment = async function(appointment_id,res){ // get specific appointment by appointment id
     try {
         const appointment =  await db.query("SELECT apps.date, apps.room_id, apps.appointment_id,apps.appointment_status,slots.start_time,slots.slot_time,apps.user_joined,slots.day FROM appointments apps INNER JOIN slots ON apps.slot_id = slots.slot_id WHERE apps.appointment_id = ?",{
             replacements: [appointment_id],
@@ -298,7 +296,9 @@ const getAppointment = async function(appointment_id,res){
     }
 }
 
-const setUser_joined = async function(appointment_id,res){
+// Minpulating the status of doctor / user (for chats use 'tracking')
+// user_joined and doctor_joined are used to track the main status of the appointment
+const setUser_joined = async function(appointment_id,res){ // set the user_joined value and user_status
     try {
         const appointment = await appointments.findOne({where:{appointment_id}});
         appointment.user_joined = true;
