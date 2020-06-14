@@ -70,19 +70,19 @@ const doctors = db.define("doctors",{
 })
 
 
-const checkDocPhoneExist = async function (phone_number){
+const checkDocPhoneExist = async function (phone_number){ // check if doctor exists by phone_number
 const doctor = await doctors.findOne({where:{phone_number}});
 return doctor;
 }
 
 
-const checkDocIdExist = async function (doctor_id){
+const checkDocIdExist = async function (doctor_id){ // check if doctor exists by id
     const doctor = await doctors.findOne({where:{doctor_id}});
     return doctor;
     }
 
 
-const createNewDoctor = async function (body,res){
+const createNewDoctor = async function (body,res){ // create new doctor
     try {
         const doctor =  await doctors.create(body);
         return doctor;
@@ -92,7 +92,7 @@ const createNewDoctor = async function (body,res){
 }
 
 
-const deleteDoctor = async function (phone_number,res) {
+const deleteDoctor = async function (phone_number,res) { // delete specific doctor
     try {
         const doctor = await doctors.destroy({ where: { phone_number } });
         return doctor;
@@ -114,7 +114,7 @@ const updateDoctorFirebaseToken = async function (doctorObject, new_token,res) {
   };
 
 
-const  getDoctorsData = async function  (category_id,res){
+const  getDoctorsData = async function  (category_id,res){ // get doctors data for control panel use
     try {
         const doctorsData = await doctors.findAll({attributes:{exclude: ['password','fb_token_id','priority']},
         order: [
@@ -158,7 +158,7 @@ const getDoctorsPanel = async function (res){
     }
 }
 
-const getTokenFromSlot = async function(slot_id){
+const getTokenFromSlot = async function(slot_id){ // get the firebase token_id to check before sending an notfication
     const fbToken =  await db.query("SELECT fb_token_id FROM doctors LEFT JOIN slots ON doctors.doctor_id = slots.doctor_id WHERE slot_id = ?",{
         replacements: [slot_id],
         type: Sequelize.QueryTypes.SELECT,
