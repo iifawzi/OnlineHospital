@@ -97,7 +97,6 @@ const addNewAppointment = async function(data,res){ // add new appointment (this
 
 }
 
-
 const addConfirmNewAppointment = async function(data,res){ // add confirmed appointment (this is used in control panel)
     try {
         data.appointment_status = "upcoming"
@@ -110,7 +109,6 @@ const addConfirmNewAppointment = async function(data,res){ // add confirmed appo
     }
 
 }
-
 
 const deleteAppointment = async function(appointment_id){ // to delete an appointment
     const deleted = await appointments.destroy({ where: { appointment_id } });
@@ -128,6 +126,38 @@ handleError(err,res)
     }
 }
 
+const cancelApps = async function(slot_id,res){ // cancel apps by slot_id
+    try {
+        const appointment =  await db.query("UPDATE appointments SET appointment_status = 'canceled' WHERE slot_id = ? AND appointment_status = 'upcoming'",{
+            replacements: [slot_id],
+            type: Sequelize.QueryTypes.UPDATE,
+        });
+    }catch(err){
+        handleError(err,res);
+    }
+}
+
+const cancelAppsByDoctor = async function(doctor_id,res){ // cancel apps by doctor_id
+    try {
+        const appointment =  await db.query("UPDATE appointments apps LEFT JOIN slots ON apps.slot_id = slots.slot_id  SET appointment_status = 'canceled' WHERE  apps.appointment_status = 'upcoming' AND slots.doctor_id = ? ",{
+            replacements: [doctor_id],
+            type: Sequelize.QueryTypes.UPDATE,
+        });
+    }catch(err){
+        handleError(err,res);
+    }
+}
+
+const cancelAppsByUser = async function(user_id,res){ // cancel apps by user_id
+    try {
+        const appointment =  await db.query("UPDATE appointments SET appointment_status = 'canceled' WHERE user_id = ? AND appointment_status = 'upcoming'",{
+            replacements: [user_id],
+            type: Sequelize.QueryTypes.UPDATE,
+        });
+    }catch(err){
+        handleError(err,res);
+    }
+}
 
 const confirmApp = async function(appointment_id,res){ // to confirm the appointment after successfull payment.
     try {
@@ -195,7 +225,6 @@ const missApp = async function(appointment_id,res){ // if both missed the appoin
 handleError(err,res)
     }
 }
-
 
 
 // Getting Appointments section: 
@@ -311,7 +340,7 @@ const setUser_joined = async function(appointment_id,res){ // set the user_joine
     }
 }
 
-const setDoctor_joined = async function(appointment_id,res){
+const setDoctor_joined = async function(appointment_id,res){ // set the doctor_joined value and doctor_status
     try {
         const appointment = await appointments.findOne({where:{appointment_id}});
         appointment.doctor_joined = true;
@@ -323,7 +352,7 @@ const setDoctor_joined = async function(appointment_id,res){
     }
 }
 
-const setUser_status = async function(status,room_id){
+const setUser_status = async function(status,room_id){ // to minipulate the user_status specifically 
     try {
         const appointment = await appointments.findOne({where:{room_id}});
         appointment.user_status = status;
@@ -334,7 +363,7 @@ const setUser_status = async function(status,room_id){
     }
 }
 
-const setDoctor_status = async function(status,room_id){
+const setDoctor_status = async function(status,room_id){ // to minipulate the doctor_status specifically 
     try {
         const appointment = await appointments.findOne({where:{room_id}});
         appointment.doctor_status = status;
@@ -351,39 +380,6 @@ const get_status = async function(room_id){ // get the status of user and doctor
         return status;
     }catch(err){
         console.log("Error while finding status", err);
-    }
-}
-
-const cancelApps = async function(slot_id,res){ // cancel apps by slot_id
-    try {
-        const appointment =  await db.query("UPDATE appointments SET appointment_status = 'canceled' WHERE slot_id = ? AND appointment_status = 'upcoming'",{
-            replacements: [slot_id],
-            type: Sequelize.QueryTypes.UPDATE,
-        });
-    }catch(err){
-        handleError(err,res);
-    }
-}
-
-const cancelAppsByDoctor = async function(doctor_id,res){ // cancel apps by doctor_id
-    try {
-        const appointment =  await db.query("UPDATE appointments apps LEFT JOIN slots ON apps.slot_id = slots.slot_id  SET appointment_status = 'canceled' WHERE  apps.appointment_status = 'upcoming' AND slots.doctor_id = ? ",{
-            replacements: [doctor_id],
-            type: Sequelize.QueryTypes.UPDATE,
-        });
-    }catch(err){
-        handleError(err,res);
-    }
-}
-
-const cancelAppsByUser = async function(user_id,res){ // cancel apps by user_id
-    try {
-        const appointment =  await db.query("UPDATE appointments SET appointment_status = 'canceled' WHERE user_id = ? AND appointment_status = 'upcoming'",{
-            replacements: [user_id],
-            type: Sequelize.QueryTypes.UPDATE,
-        });
-    }catch(err){
-        handleError(err,res);
     }
 }
 
