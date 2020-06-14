@@ -100,7 +100,7 @@ const getDocSlots = async(doctor_id,res)=>{ // this end point for admins: ( will
 }
 
 
-const slotUpdate = async(data,res)=>{ // this end point for admins: 
+const slotUpdate = async(data,res)=>{ // this end point for admins: to update an slot
     try {
         const slot_id = data.slot_id;
         const slot = await slots.findOne({where:{slot_id}});
