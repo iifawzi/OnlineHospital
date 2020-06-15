@@ -7,6 +7,8 @@ const {sendNotfication} = require("../utils/shared/sendNotfication");
 const respond = require("../middleware/respond");
 var moment = require('moment');
 
+
+
 const addAppointment = async (req, res, next) => {
   try {
     const user_id = req.user.id;
@@ -20,6 +22,9 @@ const addAppointment = async (req, res, next) => {
     handleError(err, res);
   }
 };
+
+
+
 
 const addConfirmedAppointment = async (req, res, next) => { // will be confirmed immediately (for control panel use)
   try {
@@ -44,6 +49,10 @@ const addConfirmedAppointment = async (req, res, next) => { // will be confirmed
     handleError(err, res);
   }
 };
+
+
+
+
 // for control panel
 const getUserApps = async (req,res,next)=>{
   try {
@@ -57,6 +66,10 @@ const getUserApps = async (req,res,next)=>{
   }
 } 
 
+
+
+
+
 // Get User's finished appointments for users app use : 
 const finishedAppointments = async (req,res,next)=>{
   try {
@@ -69,6 +82,10 @@ const finishedAppointments = async (req,res,next)=>{
     handleError(err,res);
   }
 } 
+
+
+
+
 
 // Get User's upcoming appointments for users app use : 
 const upcomingAppointments = async (req,res,next)=>{
@@ -86,6 +103,7 @@ const upcomingAppointments = async (req,res,next)=>{
 
 
 
+
 // Get Doctor's finished appointments for doctors app use : 
 const doctorFinishedAppointments = async (req,res,next)=>{
   try {
@@ -98,6 +116,9 @@ const doctorFinishedAppointments = async (req,res,next)=>{
     handleError(err,res);
   }
 } 
+
+
+
 
 // Get Doctor's upcoming appointments for doctors app use : 
 const doctorUpcomingAppointments = async (req,res,next)=>{
@@ -113,6 +134,10 @@ const doctorUpcomingAppointments = async (req,res,next)=>{
 } 
 
 
+
+
+
+
 // for conytol panel
 const getDocApps = async (req,res,next)=>{
   try {
@@ -125,6 +150,9 @@ const getDocApps = async (req,res,next)=>{
     handleError(err,res);
   }
 } 
+
+
+
 
 
 
@@ -145,6 +173,9 @@ const docAppsByDate = async (req,res,next)=>{
 
 
 
+
+
+
 const cancelAppointment = async (req,res,next)=>{
   try {
     const {appointment_id} = req.body;
@@ -160,6 +191,9 @@ const cancelAppointment = async (req,res,next)=>{
     handleError(err,res);
   }
 } 
+
+
+
 
 const confirmAppointment = async (req,res,next)=>{
   try {
@@ -179,6 +213,9 @@ const confirmAppointment = async (req,res,next)=>{
     handleError(err,res);
   }
 } 
+
+
+
 
 // TODO:: TEST THIS FUNCTION: 
 const joinUser = async(req,res,next)=>{
@@ -215,6 +252,10 @@ const joinUser = async(req,res,next)=>{
   }
 }
 
+
+
+
+
 // TODO:: TEST THIS FUNCTION: 
 const joinDoctor = async(req,res,next)=>{
   try {
@@ -238,6 +279,9 @@ const joinDoctor = async(req,res,next)=>{
     handleError(err,res);
   }
 }
+
+
+
 
 
 module.exports = {
