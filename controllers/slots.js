@@ -7,9 +7,10 @@ const {
 const {sendNotfication} = require("../utils/shared/sendNotfication");
 const { handleError, ErrorHandler } = require("../middleware/error");
 const {checkDocIdExist} = require("../models/doctors");
-
 const respond = require("../middleware/respond");
-var moment = require("moment"); // require
+var moment = require("moment");
+
+
 
 const addDocSlot = async (req, res, next) => {
   try {
@@ -29,6 +30,8 @@ const addDocSlot = async (req, res, next) => {
     handleError(err, res);
   }
 };
+
+
 
 const getDoctorDays = async (req, res, nect) => {
   // if there's an doctor_id in the body, use that id (control panel use), if not take the id from the header (doctor's application use)
@@ -52,6 +55,10 @@ const getDoctorDays = async (req, res, nect) => {
     handleError(err, res);
   }
 };
+
+
+
+
 
 const getOpenSlots = async (req, res, next) => {
   try {
@@ -88,6 +95,11 @@ const getOpenSlots = async (req, res, next) => {
   }
 };
 
+
+
+
+
+
 const updateSlot = async (req, res, next) => {
   try {
     const data = req.body;
@@ -112,6 +124,11 @@ const updateSlot = async (req, res, next) => {
     handleError(err, res);
   }
 };
+
+
+
+
+
 module.exports = {
   addDocSlot,
   getOpenSlots,
