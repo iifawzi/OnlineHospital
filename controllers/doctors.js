@@ -23,6 +23,8 @@ const getDoctor = async (req,res,next)=>{
 }
 
 
+
+
 const getDoctors = async (req,res,next)=>{
     try {
         const {category_id} = req.body;
@@ -32,6 +34,8 @@ return respond(true,200,doctors,res);
         handleError(err,res);
     }
 }
+
+
 
 
 
@@ -59,6 +63,10 @@ const updateTheDoctor = async (req, res, next) => {
         }
       }
   
+
+
+
+
       const updatedData = await updateDoctor(doctor, data,res);
       if (!updatedData) {
         throw new ErrorHandler(500, "Sorry, something wrong happened");
@@ -68,6 +76,9 @@ const updateTheDoctor = async (req, res, next) => {
       handleError(err, res);
     }
   };
+
+
+  
 module.exports = {
 getDoctor,
 getDoctors,
