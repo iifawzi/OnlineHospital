@@ -6,7 +6,6 @@ const {getAllCategories} = require("../models/categories");
 const {checkIfPhoneExist } = require("../models/users");
 const {genToken} = require("../utils/shared/genToken");
 const {cancelAppsByUser} = require("../models/appointments");
-
 const {hashPassword,compareHashed} = require("../utils/shared/bcrypt");
 const respond = require("../middleware/respond");
 const upload = require("../middleware/upload");
@@ -218,6 +217,7 @@ await cancelAppsByUser(user.user_id);
   };
   
 
+  
 const getDoctorSlots = async (req,res,next)=>{
     try {
         const {doctor_id} = req.body;
