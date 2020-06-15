@@ -2,6 +2,9 @@ const {handleError,ErrorHandler} = require("../middleware/error");
 const {createPrescription,prescriptionUpdate,prescriptionGet} = require("../models/prescriptions");
 const respond = require("../middleware/respond");
 
+
+
+
 const addPrescription = async (req,res,next)=>{
     try {
         let data = req.body;
@@ -14,6 +17,10 @@ const addPrescription = async (req,res,next)=>{
     }
 }
 
+
+
+
+
 const updatePrescription = async (req,res,next)=>{
     try {
         const data = req.body;
@@ -25,6 +32,9 @@ const updatePrescription = async (req,res,next)=>{
         handleError(err,res);
     }
 }
+
+
+
 
 const getPrescription = async (req,res,next)=>{
     try {
@@ -39,6 +49,9 @@ const getPrescription = async (req,res,next)=>{
         handleError(err,res);
     }
 }
+
+
+
 
 module.exports = {
     addPrescription,
