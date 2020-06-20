@@ -9,7 +9,7 @@ exports.newAppointmentTask = async (appointment_id,res)=>{ // these tasks is nee
     let onTime = moment(appInfo.start_time).utc().format("YYYY-MM-DD HH:mm:ss");
     let fiveMinAfter = moment(appInfo.start_time).utc().add(1,"m").format("YYYY-MM-DD HH:mm:ss");
     let endTime = moment(appInfo.start_time).utc().add(appInfo.slot_time,'m').format("YYYY-MM-DD HH:mm:ss");
-
+    // TODO:: CHECK IF THE APPOINTMENT IS CANCELLED (CANCEL DON'T SEND NOTFICATION OR OPEN THE ROOMS)
 console.log(fiveMinBefore);
 console.log(onTime);
 console.log(fiveMinAfter);
