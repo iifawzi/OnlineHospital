@@ -7,7 +7,6 @@ const {doctors} = require("../models/doctors");
 const {slots} = require("../models/slots");
 const {appointments} = require("../models/appointments");
 const {prescriptions} = require("../models/prescriptions");
-const {diagnosis} = require("../models/diagnosis");
 const {messages} = require("../models/messages");
 const {rates} = require("../models/rates");
 const systemUser = require("../utils/systemUser");
