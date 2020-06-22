@@ -11,7 +11,7 @@ app.use('/images', express.static('uploadedImages'))
 const server = http.createServer(app);
 const io = socketio(server);
 socketController.socket(io);
-const test = jobsController.upcomingTasks()(); // this will be called when the server restarts only (to re-set the scheduled tasks )
+const jobsCaller = jobsController.upcomingTasks()(); // this will be called when the server restarts only (to re-set the scheduled tasks )
 const init = server.listen(port, () => {
   console.log(`server is running at ${port}`);
 });
