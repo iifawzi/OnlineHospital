@@ -31,19 +31,19 @@ app.use( // for images uploading:
 );
   
   // Routers:
-  app.get("/api/test",(req,res,next)=>{
+  app.get("/api2/test",(req,res,next)=>{
     res.send("I'm Working,");
   })
-  app.use("/api/auth", authRouter);
-  app.use("/api/controlPanel", panelRouter);
-  app.use("/api/doctors", doctorsRouter);
-  app.use("/api/categories",categoriesRouter);
-  app.use("/api/user",userRouter);
-  app.use("/api/slots",slotsRouter);
-  app.use("/api/appointments",appointmentsRouter);
-  app.use("/api/messages",messagesRouter);
-  app.use("/api/prescriptions",prescriptionRouter);
-  app.use("/api/conference",conferenceRouter);
+  app.use("/api2/auth", authRouter);
+  app.use("/api2/controlPanel", panelRouter);
+  app.use("/api2/doctors", doctorsRouter);
+  app.use("/api2/categories",categoriesRouter);
+  app.use("/api2/user",userRouter);
+  app.use("/api2/slots",slotsRouter);
+  app.use("/api2/appointments",appointmentsRouter);
+  app.use("/api2/messages",messagesRouter);
+  app.use("/api2/prescriptions",prescriptionRouter);
+  app.use("/api2/conference",conferenceRouter);
 
 
 
