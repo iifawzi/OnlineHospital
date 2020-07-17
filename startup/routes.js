@@ -34,16 +34,16 @@ app.use( // for images uploading:
   app.get("/api2/test",(req,res,next)=>{
     res.send("I'm Working,");
   })
-  app.use("/api2/auth", authRouter);
-  app.use("/api2/controlPanel", panelRouter);
-  app.use("/api2/doctors", doctorsRouter);
-  app.use("/api2/categories",categoriesRouter);
-  app.use("/api2/user",userRouter);
-  app.use("/api2/slots",slotsRouter);
-  app.use("/api2/appointments",appointmentsRouter);
-  app.use("/api2/messages",messagesRouter);
-  app.use("/api2/prescriptions",prescriptionRouter);
-  app.use("/api2/conference",conferenceRouter);
+  app.use("/maryoma/auth", authRouter);
+  app.use("/maryoma/controlPanel", panelRouter);
+  app.use("/maryoma/doctors", doctorsRouter);
+  app.use("/maryoma/categories",categoriesRouter);
+  app.use("/maryoma/user",userRouter);
+  app.use("/maryoma/slots",slotsRouter);
+  app.use("/maryoma/appointments",appointmentsRouter);
+  app.use("/maryoma/messages",messagesRouter);
+  app.use("/maryoma/prescriptions",prescriptionRouter);
+  app.use("/maryoma/conference",conferenceRouter);
 
 
 
