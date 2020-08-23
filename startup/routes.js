@@ -31,19 +31,19 @@ app.use( // for images uploading:
 );
   
   // Routers:
-  app.get("/api2/test",(req,res,next)=>{
+  app.get("/api/test",(req,res,next)=>{
     res.send("I'm Working,");
   })
-  app.use("/maryoma/auth", authRouter);
-  app.use("/maryoma/controlPanel", panelRouter);
-  app.use("/maryoma/doctors", doctorsRouter);
-  app.use("/maryoma/categories",categoriesRouter);
-  app.use("/maryoma/user",userRouter);
-  app.use("/maryoma/slots",slotsRouter);
-  app.use("/maryoma/appointments",appointmentsRouter);
-  app.use("/maryoma/messages",messagesRouter);
-  app.use("/maryoma/prescriptions",prescriptionRouter);
-  app.use("/maryoma/conference",conferenceRouter);
+  app.use("/api/auth", authRouter);
+  app.use("/api/controlPanel", panelRouter);
+  app.use("/api/doctors", doctorsRouter);
+  app.use("/api/categories",categoriesRouter);
+  app.use("/api/user",userRouter);
+  app.use("/api/slots",slotsRouter);
+  app.use("/api/appointments",appointmentsRouter);
+  app.use("/api/messages",messagesRouter);
+  app.use("/api/prescriptions",prescriptionRouter);
+  app.use("/api/conference",conferenceRouter);
 
 
 
